@@ -81,5 +81,4 @@ Startbbs 软件的技术支持
 当您在安装、升级、日常使用当中遇到疑难，请您到以下站点获取技术支持。
 
 Startbbs官方网站：http://www.startbbs.com
-
-
+官方邮箱startbbs@126.com
