@@ -152,6 +152,26 @@
 </div>
 </div>
 
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="site_close">社区运行状态</label>
+<div class='col-sm-5'>
+<label class='radio-inline'>
+<input<?php if($this->config->item('site_close') =='on'){ ?> checked="checked"<?php } ?> id="settings_site_close_on" name="site_close" type="radio" value="on" />
+开启站点
+</label>
+<label class='radio-inline'>
+<input<?php if($this->config->item('site_close') =='off'){ ?> checked="checked"<?php } ?> id="settings_site_close_off" name="site_close" type="radio" value="off" />
+关闭站点
+</label>
+</div>
+</div>
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="settings_site_close_msg">站点关闭公告</label>
+<div class='col-sm-5'>
+<textarea class="form-control" id="settings_site_close_msg" name="site_close_msg" rows="5"><?php echo $this->config->item('site_close_msg')?>
+</textarea>
+</div>
+</div>
 <!--
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="settings_show_community_stats">社区运行状态</label>

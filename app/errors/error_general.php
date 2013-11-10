@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Error</title>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+<title><?php if($heading) echo $heading;else {?>Error<?php }?></title>
 <style type="text/css">
 
 ::selection{ background-color: #E13300; color: white; }

@@ -38,6 +38,11 @@ class SB_Controller extends Base_Controller
 	function __construct(){
 		
 		parent::__construct();
+
+		//判断关闭
+		if($this->config->item('site_close')=='off'){
+			show_error($this->config->item('site_close_msg'),500,'网站关闭');
+		}		
 		//载入前台模板
 		$this->load->set_front_theme($this->config->item('themes'));
 		//判断安装
@@ -45,7 +50,7 @@ class SB_Controller extends Base_Controller
 		if (!is_file($file)){
 			redirect(site_url('install'));
 		}
-		
+
 		$this->load->database();
 	 	//网站设定
 		$data['items']=$this->db->get('settings')->result_array();
@@ -172,12 +177,14 @@ class SB_Controller extends Base_Controller
 
 }
 
+
 class Admin_Controller extends Base_Controller 
 {
 	function __construct()
 	{
 		
 		parent::__construct();
+		
 		$this->load->database();
 		//载入后台模板
 		$this->load->set_admin_theme();

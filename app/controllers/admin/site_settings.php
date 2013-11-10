@@ -37,6 +37,8 @@ class Site_settings extends Admin_Controller
 			}
 			$config['show_captcha']=($this->input->post('show_captcha')=='on')?$config['show_captcha']='on':$config['show_captcha']='off';
 			$config['show_editor']=($this->input->post('show_editor')=='on')?$config['show_editor']='on':$config['show_editor']='off';
+			$config['site_close']=($this->input->post('site_close')=='on')?'on':'off';
+			$config['site_close_msg']=$this->input->post('site_close_msg',true);
 			$config['basic_folder']=$this->config->item('basic_folder');
 			$config['version']=$this->config->item('version');
 			$config['static']=$this->input->post('static');
@@ -46,6 +48,7 @@ class Site_settings extends Admin_Controller
 			
 			$this->config->set_item('myconfig', $config);
 			$this->config->save('myconfig',$config);
+			redirect('admin/site_settings');
 			//$this->myclass->notice('alert("网站设置更新成功");window.location.href="'.site_url('admin/site_settings').'";');
 	
 		}

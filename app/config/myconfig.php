@@ -2,9 +2,11 @@
 
 $config = array (
   'site_name' => 'StartBBS- 起点开源论坛-烧饼bbs',
-  'index_page' => 'index.php',
+  'index_page' => '',
   'show_captcha' => 'on',
-  'show_editor' => 'off',
+  'show_editor' => 'on',
+  'site_close' => 'on',
+  'site_close_msg' => '网站升级中，暂时关闭。',
   'basic_folder' => '',
   'version' => 'V1.1.2',
   'static' => 'white',
