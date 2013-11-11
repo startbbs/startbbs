@@ -27,7 +27,7 @@
 <div class='thumbnail'>
 <a href="<?php echo site_url('user/info/'.$v['follow_uid']);?>" title="<?php echo $v['username']?>">
 <?php if($v['avatar']){?>
-<img alt="<?php echo $v['username']?> large avatar" class="large_avatar" src="<?php echo $v['avatar']?>" />
+<img alt="<?php echo $v['username']?> large avatar" class="large_avatar" src="<?php echo base_url($v['avatar'])?>" />
 <?php } else{?>
 <img alt="<?php echo $v['username']?> large avatar" class="large_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>" />
 <?php }?>
