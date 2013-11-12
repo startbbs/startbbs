@@ -5,7 +5,7 @@
 <link href='http://www.startbbs.com' rel='canonical'>
 <meta content="authenticity_token" name="csrf-param" />
 <meta content="suTN1ExyGAX0WFd5f9EbmfgGT0VH6+QlmmtHwG2u16I=" name="csrf-token" />
-<script type="text/javascript" src="<?php echo base_url('static/common/js/jquery-1.9.1.min.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('static/common/js/jquery-1.10.2.min.js');?>"></script>
 <link href="<?php echo base_url('static/common/css/mystyle.css');?>" media="screen" rel="stylesheet" type="text/css" />
 <!--[if IE]>
 <link rel="stylesheet" href="<?php echo base_url('static/common/css/ie.css');?>"></link>
