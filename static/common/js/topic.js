@@ -11,7 +11,7 @@ function postdata(){                             //提交数据函数
 var comment=htmldecode($("#reply_content").val());
   $.ajax({                                                 //调用jquery的ajax方法   
     type: "POST",                                     //设置ajax方法提交数据的形式    
-    url: siteurl+"/comment/add_comment",     //把数据提交到ok.php 
+    url: siteurl+"index.php/comment/add_comment",     //把数据提交到ok.php 
     data: "comment="+comment+"&fid="+$("#fid").val()+"&is_top="+$("#is_top").val()+"&username="+$("#username").val()+"&avatar="+$("#avatar").val()+"&layer="+$("#layer").val(),    //输入框writer中的值作为提交的数据  
     dataType: 'json',  
     success: function(msg){                 //提交成功后的回调，msg变量是ok.php输出的内容。
