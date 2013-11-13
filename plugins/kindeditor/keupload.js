@@ -7,7 +7,7 @@
 						if (data.error === 0) {
 							var url = K.formatUrl(data.url, 'absolute');
 							//url=url.replace('/upload','upload'); 
-							var addString = 'http://'+sitedomain+url +'\n';
+							var addString = baseurl+url +'\n';
 							var textareaContain = $("#textContain textarea").eq(0);
 							K('#textContain textarea').val(textareaContain.val()+addString);
 							//$("#test").append(addString);
