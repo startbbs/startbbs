@@ -172,7 +172,7 @@ at
 <?php if($this->config->item('show_editor')=='off'){?>
 <div class='pull-right'>
 <a class='fileupload-btn action_label'>
-<p id='upload-tip' value="图片/附件">上传图片</p>
+<p id='upload-tip' value="图片">图片</p>
 </a>
 </div>
 <?php }?>

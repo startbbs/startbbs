@@ -75,7 +75,7 @@
 <div class='pull-right'>
 <a class='fileupload-btn action_label'>
 <!--<span id='upload-tip'>上传图片</span>-->
-<p id='upload-tip' value="图片/附件">上传图片</p>
+<p id='upload-tip' value="图片">上传图片</p>
 </a>
 </div>
 
