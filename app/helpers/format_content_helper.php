@@ -51,7 +51,7 @@ if ( ! function_exists('format_content'))
 	        }
 	    }
 
-
+$text = auto_link($text, 'url', TRUE);
 	   	//url
 	    /*if(strpos(' '.$text, 'http')){
 	        $text = ' '.$text;
