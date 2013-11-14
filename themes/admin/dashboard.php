@@ -16,7 +16,8 @@
 <div class='col-xs-12 col-sm-6 col-md-9'>
 
 <div class='row'>
-<div class='box span8'>
+	<div class="col-md-12 pull-right">
+<div class='box '>
 <div class='cell'>
 欢迎进入后台管理
 </div>
@@ -24,9 +25,11 @@
 StartBBS- 起点开源社区系统 <span class="red"><?=$this->config->item('version');?>(<?php echo check_auth()?>)</span>
 </div>
 </div>
+	</div>
 </div>
 <div class='row'>
-<div class='box col-md-6'>
+<div class="col-md-12">
+<div class='box col-md-6 pull-left'>
 <div class='cell'>
 社区运行状态
 </div>
@@ -59,7 +62,7 @@ StartBBS- 起点开源社区系统 <span class="red"><?=$this->config->item('ver
 </table>
 </div>
 </div>
-<div class='box col-md-6'>
+<div class='box col-md-6 pull-right'>
 <div class='cell'>
 系统清理
 </div>
@@ -77,9 +80,11 @@ StartBBS- 起点开源社区系统 <span class="red"><?=$this->config->item('ver
 </table>
 </div>
 </div>
+	</div>
 </div>
 <div class='row'>
-<div class='box span8'>
+	<div class="col-md-12 pull-right">
+<div class='box'>
 <div class='cell'>
 官方最新动态
 </div>
@@ -87,6 +92,7 @@ StartBBS- 起点开源社区系统 <span class="red"><?=$this->config->item('ver
 <iframe src="http://www.startbbs.com/home/latest" width="100%" height="100%" frameborder="0" scrolling="no">Startbbs使用了框架技术，但是您的浏览器不支持框架，请升级您的浏览器以便正常访问StartBBS。</iframe>
 </div>
 </div>
+	</div>
 </div>
 
 </div>
