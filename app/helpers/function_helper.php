@@ -183,22 +183,22 @@ function send_mail($username,$password,$to,$subject,$message)
 					$img_ext = array('jpg','png','gif','jpeg');
 					$file_ext=strtolower(end(explode(".",$matches['0'][$i])));
 					if(in_array($file_ext,$img_ext)){
-					$str = str_replace($matches['0'][$i],
-										$matches['1'][$i].'<img src="http'.
-										$matches['4'][$i].'://'.
-										$matches['5'][$i].
-										$matches['6'][$i].'" alt="">'.
-										$period, $str);
+						$str = str_replace($matches['0'][$i],
+											$matches['1'][$i].'<img src="http'.
+											$matches['4'][$i].'://'.
+											$matches['5'][$i].
+											$matches['6'][$i].'" alt="">'.
+											$period, $str);
 					} else {
-					$str = str_replace($matches['0'][$i],
-										$matches['1'][$i].'<a href="http'.
-										$matches['4'][$i].'://'.
-										$matches['5'][$i].
-										$matches['6'][$i].'"'.$pop.'>http'.
-										$matches['4'][$i].'://'.
-										$matches['5'][$i].
-										$matches['6'][$i].'</a>'.
-										$period, $str);
+						$str = str_replace($matches['0'][$i],
+											$matches['1'][$i].'<a href="http'.
+											$matches['4'][$i].'://'.
+											$matches['5'][$i].
+											$matches['6'][$i].'"'.$pop.'>http'.
+											$matches['4'][$i].'://'.
+											$matches['5'][$i].
+											$matches['6'][$i].'</a>'.
+											$period, $str);
 					}
 				}
 			}
