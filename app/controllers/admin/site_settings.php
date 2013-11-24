@@ -109,9 +109,19 @@ class Site_settings extends Admin_Controller
 				$this->myclass->notice('alert("自定义url更新成功");window.location.href="'.site_url('admin/site_settings').'";');
 			}
 		}
+		//存储设定
+		$this->config->load('qiniu');
+		if($_POST && $_GET['a']=='storage'){
+			$this->config->update('qiniu','storage_set', $this->input->post('storage_set'));
+			$this->config->update('qiniu','accesskey', $this->input->post('accesskey'));
+			$this->config->update('qiniu','secretkey', $this->input->post('secretkey'));
+			$this->config->update('qiniu','bucket', $this->input->post('bucket'));
+			$this->config->update('qiniu','file_domain', $this->input->post('file_domain'));
+			$this->myclass->notice('alert("存储配置更新成功");window.location.href="'.site_url('admin/site_settings').'";');
+		}
+
 		
 		$data['item'] = $this->db->get_where('settings',array('type'=>0))->result_array();
-
 		$this->load->view('site_settings', $data);
 
 	}

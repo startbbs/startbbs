@@ -44,6 +44,7 @@
 <li><a href="#tab3" data-toggle="tab">登录接口</a></li>
 <li><a href="#tab4" data-toggle="tab">邮件配置</a></li>
 <li><a href="#tab5" data-toggle="tab">自定义url</a></li>
+<li><a href="#tab6" data-toggle="tab">存储设定</a></li>
 <!--<li><a href="#tab5" data-toggle="tab">备用</a></li>-->
 </ul>
 <div class="tab-content">
@@ -459,7 +460,68 @@ Phpmail
 </div><!-inner->
 </div>
 
-<!--<div class="tab-pane" id="tab6">
+<div class="tab-pane" id="tab6">
+<div class="inner">
+<form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=storage');?>" class="form-horizontal" method="post">
+<div style="margin:0;padding:0;display:inline">
+<input name="utf8" type="hidden" value="&#x2713;" />
+<input name="_method" type="hidden" value="put" />
+<input name="authenticity_token" type="hidden" value="YNAXPQDviOJ/cf5OH/KrqdxOjGLCdka+kUCp+fa3J+A=" />
+</div>
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="qiniu_set">附件存储方式：</label>
+<div class='col-sm-5'>
+<label class='radio-inline'>
+<input<?php if($this->config->item('storage_set') =='local'){ ?> checked="checked"<?php } ?> id="settings_storage_set" name="storage_set" type="radio" value="local" />本地</label>
+<label class='radio-inline'>
+<input<?php if($this->config->item('storage_set') =='qiniu'){ ?> checked="checked"<?php } ?> id="settings_storage_set" name="storage_set" type="radio" value="qiniu" />七牛云</label>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="settings_accesskey">七牛accesskey:</label>
+<div class='col-sm-5'>
+<input class="form-control" id="settings_accesskey" name="accesskey" type="text" value="<?php echo $this->config->item('accesskey');?>" />
+<small class='help-inline'>设置 Qiniu accesskey</small>
+</div>
+</div>
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="settings_secretkey">七牛secretkey:</label>
+<div class='col-sm-5'>
+<input class="form-control" id="settings_secretkey" name="secretkey" type="text" value="<?php echo $this->config->item('secretkey');?>" />
+<small class='help-inline'> 设置 Qiniu secretkey</small>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="settings_bucket">空间名:</label>
+<div class='col-sm-5'>
+<input class="form-control" id="settings_bucket" name="bucket" type="text" value="<?php echo $this->config->item('bucket');?>" />
+<small class='help-inline'>七牛存储空间名</small>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="settings_file_domain">存储域名:</label>
+<div class='col-sm-5'>
+<input class="form-control" id="settings_file_domain" name="file_domain" type="text" value="<?php echo $this->config->item('file_domain');?>" />
+<small class='help-inline'>空间中分配或绑定的域名</small>
+</div>
+</div>
+
+<hr>
+
+<div class="form-group">
+<div class="col-sm-offset-3 col-sm-9">
+  <button type="submit" name="commit" class="btn btn-primary">保存</button>
+</div>
+</div>
+</form>
+</div><!-inner->
+</div>
+
+
+<!--<div class="tab-pane" id="tab7">
 <p>Howdy, I'm in Section 6.</p>
 </div>-->
 

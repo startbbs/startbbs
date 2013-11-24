@@ -89,5 +89,42 @@ class upload extends SB_Controller {
 //		return $images;
 //	}
 	
-	
+
+	public function qiniu()
+	{
+		//定义允许上传的文件扩展名
+		$ext_arr = array(
+			'image' => array('gif', 'jpg', 'jpeg', 'png','tiff'),
+			'media' => array('swf', 'flv', 'mp3', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
+			'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2'),
+		);
+		//获得文件扩展名
+		$info = pathinfo(@$_FILES['file']['name']);
+		$file_ext = @$info['extension'];
+		//新文件名
+		$new_file_name = date("YmdHis") . '_' . rand(1, 99999) . '.' . $file_ext;
+		if(in_array($file_ext, $ext_arr['image']))
+		$file_path='uploads/image/'.$new_file_name;
+		if(in_array($file_ext, $ext_arr['media']))
+		$file_path='uploads/media/'.$new_file_name;
+		if(in_array($file_ext, $ext_arr['file']))
+		$file_path='uploads/file/'.$new_file_name;
+		$this->config->load('qiniu');
+		$params =array(
+			'accesskey'=>$this->config->item('accesskey'),
+			'secretkey'=>$this->config->item('secretkey'),
+			'bucket'=>$this->config->item('bucket'),
+			'file_domain'=>$this->config->item('file_domain'),	
+		);
+		$this->load->library('qiniu_lib',$params);
+		$new=$this->qiniu_lib->uploadfile(@$file_path);
+		if (!empty($_FILES)) {
+			echo json_encode($new);
+		}else{
+			$data['title'] = '七牛上传图片测试';
+			$this->load->view('qiniu_v',$data);
+		}
+	}
+
+
 }

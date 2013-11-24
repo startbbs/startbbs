@@ -181,7 +181,8 @@ class Forum extends SB_controller
 					$this->myclass->notice('alert("你无权置顶贴子");history.go(-1);');
 				}
 			}
-
+			//开启storage config
+			$this->load->config('qiniu');
 			$this->load->view('view', $data);
 		}
 	}
@@ -266,6 +267,8 @@ class Forum extends SB_controller
 			}
 		}
 		$data['category'] = $this->cate_m->get_all_cates();
+		//开启storage config
+		$this->load->config('qiniu');
 		$this->load->view('add',$data);
 		
 	}

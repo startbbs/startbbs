@@ -12,11 +12,13 @@
 <script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/lang/zh_CN.js');?>"></script>
 <?php if($this->config->item('show_editor')=='on'){?>
 <script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/keset2.js');?>"></script>
-<?php } else {?>
+<?php } elseif($this->config->item('storage_set')=='local') {?>
 <link rel="stylesheet" href="<?php echo base_url('plugins/kindeditor/themes/default/default.css');?>" />
 <script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/keupload.js');?>"></script>
+<?php } else{?>
+<script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
+<script src="<?php echo base_url('static/common/js/qiniu.js')?>" type="text/javascript"></script>
 <?php }?>
-
 
 </head>
 <body id="startbbs">
@@ -169,18 +171,23 @@ at
 <input name="username" id="username" type="hidden" value="<?php echo $user['username']?>" />
 <input name="avatar" id="avatar" type="hidden" value="<?php echo base_url($user['middle_avatar'])?>" />
 
-<?php if($this->config->item('show_editor')=='off'){?>
-<div class='pull-right'>
-<a class='fileupload-btn action_label'>
-<p id='upload-tip' value="图片">图片</p>
-</a>
-</div>
-<?php }?>
-
-<div id='preview-widget'style="margin-left: 15px;">
+<!--<div id='preview-widget'style="margin-left: 15px;">
 <a href="javascript:void(0);" class="action_label cancel_preview current_label" data-ref="comment_content">编辑区</a>
 
-</div>
+</div>-->
+<ul class="nav nav-tabs" style="margin-left: 15px; margin-right: 15px;border-bottom: 0px solid #999;height:20px">
+  <li class="active"><a style="background-color: #eee;" href="#">编辑区</a></li>
+  <?php if($this->config->item('show_editor')=='off'){?>
+  <li class="pull-right">
+	<?php if($this->config->item('storage_set')=='local'){?>
+	<span id='upload-tip' class="btn btn-default" value="图片/附件">上传图片</span>
+	<?php } else {?>
+	<input id="upload_tip" type="button" value="图片/附件"  class="btn btn-default">
+<!--	<input type="button" onclick="doUpload()" value="图片/附件"  class="btn btn-default">-->
+	<?php }?>
+	  </li>
+<?php }?>
+</ul>
 <div class="form-group">
 <div class="col-md-12" id="textContain">
 <textarea class="form-control" id="reply_content" name="comment" rows="5"></textarea>

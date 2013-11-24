@@ -4,28 +4,11 @@ if ( ! function_exists('format_content'))
 {
 	function format_content($text)
 	{
-		//pic
-		//$imgurl = '/<img[^>]*src="(http://(.+)/(.+).(jpg|jpe|jpeg|gif|png))"/isU';
-//		$img_url = '/(http[s]?:\/\/?('.$options['safe_imgdomain'].').+\.(jpg|jpe|jpeg|gif|png))\w*/';
-		//$img_url="/^(http?:\/\/)(.*?)\/(.*?)\.(jpg|jpeg|gif|png)/i";
-		//$img_url = '/(http|https):\/\/([^"]+(?:jpg|gif|png|jpeg))/isU';
-		$img_url="/(http[s]?:\/\/(.+)\/(.+).(jpg|jpeg|gif|png))/isU";
-		//$img_url="/^(https?:\/\/)(.*?)\/(.*?)\.(jpg|gif|png|jpeg|jpe)/i";
 
-		$img_tag='/<img.+src=(\'|\"|)?(.*)(\1)(?:[\s].*)?>/ismUe';
-		//$img_tags=preg_match($img_tag, $text);
-		preg_match_all($img_tag, $text, $src);
-		if(count($src[2])>0){
-			foreach( $src[2] as $k=>$v)
-			{
-				$text = str_replace($src[0][$k], $v, $text);
-			}
-		
-		}
 
-		if(preg_match($img_url, $text)){
-			$text = preg_replace($img_url, '<img src="\1" alt="" />', $text);
-	   	}
+		//if(preg_match($img_url, $text)){
+		//	$text = preg_replace($img_url, '<img src="\1" alt="" />', $text);
+	   //	}
 	   	//preg_match_all($img_url, $text,$arr);
    		
    		
@@ -50,8 +33,8 @@ if ( ! function_exists('format_content'))
 	            $text = preg_replace('/http:\/\/www.tudou.com\/(programs\/view|listplay)\/([a-zA-Z0-9\=\_\-]+)(\/|.html?)?/', '<embed src="http://www.tudou.com/l/\2/" quality="high" width="600" height="420" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"></embed>', $text);
 	        }
 	    }
-
-$text = auto_link($text, 'url', TRUE);
+		$text = auto_link_pic($text, 'url', TRUE);
+//$text = auto_link($text, 'url', TRUE);
 	   	//url
 	    /*if(strpos(' '.$text, 'http')){
 	        $text = ' '.$text;
