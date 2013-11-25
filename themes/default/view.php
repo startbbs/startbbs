@@ -138,8 +138,8 @@ at
 </div>
  
  <?php if($content['comments']>10){?>
-<div class='pagination pagination-centered'>
-<ul>
+<div class='center'>
+<ul class='pagination'>
 <?php echo $pagination;?>
 <!--<span class='gray'></span>-->
 <!--<li class='next'>

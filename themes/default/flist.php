@@ -88,7 +88,7 @@
 <div class='inner'>
 <?php if($pagination){?>
 <ul class='pager'>
-<li class='center'>
+<li>
 <?php echo $pagination?>
 <!--<span class='gray'></span>-->
 </li>

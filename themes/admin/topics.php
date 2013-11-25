@@ -85,8 +85,8 @@
 <?php }?>
 </div>
 <div align='center' class='inner'>
-<div class='pagination pagination-centered pagination-small'>
-<ul>
+<div>
+<ul class='pagination'>
 <?php echo $pagination?>
 </ul>
 </div>

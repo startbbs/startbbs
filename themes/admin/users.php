@@ -71,8 +71,8 @@
 </div>
 
 <div align='center' class='inner'>
-<div class='pagination pagination-centered pagination-small'>
-<ul>
+<div>
+<ul class='pagination'>
 <?php if($act=='index') echo $pagination?>
 </ul>
 </div>
