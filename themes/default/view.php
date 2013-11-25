@@ -57,6 +57,7 @@ at
 <?php } ?>
 </small>
 </div>
+<?php if($page==1){?>
 <div class='inner'>
 <div class='content topic_content'><?php echo $content['content']?></div>
 <?php if(isset($tag_list)){?>
@@ -86,6 +87,7 @@ at
 </div>
 &nbsp;&nbsp;
 </div>
+<?php }?>
 </article>
 </div>
 
