@@ -139,7 +139,7 @@
 <div id="wrap">
 <div class="container" id="page-main">
 <div class="row">
-<div class='span2'>
+<div class='col-sm-6 col-md-4'>
 <div class='box fix_cell'>
 <div class='cell'>
 <strong class='gray'>安装步骤</strong>
@@ -163,7 +163,7 @@
 <div class='col-xs-12 col-sm-6 col-md-8'>
 
 <div class='row'>
-<div class='box span8'>
+<div class='box'>
 <div class='cell'>
 欢迎使用起点startbbs轻量社区系统
 </div>
@@ -175,7 +175,7 @@
 </div>
 <form action="<?php echo site_url('install/step');?>" class="form-horizontal" method="post" id="dbform">
 <div class='row'>
-<div class='box span8'>
+<div class='box'>
 <div class='cell'>
 数据库配置
 </div>
