@@ -14,6 +14,7 @@ class Install extends Install_Controller
 		parent::__construct();
 		$this->load->library('myclass');
 
+
 	}
 	public function index ()
 	{
@@ -21,9 +22,18 @@ class Install extends Install_Controller
 		if (file_exists($file)){
 			$this->myclass->notice('alert("系统已安装过");window.location.href="'.site_url().'";');
 		} else {
-		$this->load->view('install');
+		redirect('install/step/1');
 		}
 
+	}
+
+	public function step($step)
+	{
+		if($step==1){
+			$data['permission'] = $this->_checkFileRight();
+		}
+		$data['step']=$step;
+		$this->load->view('install',$data);
 	}
 
 	/**
@@ -49,7 +59,7 @@ class Install extends Install_Controller
 		echo json_encode($res);
 	}
 	
-	public function step(){
+	public function step_2(){
 
 		if($_POST){
 			$dbhost = $this->input->post('dbhost');
@@ -128,6 +138,69 @@ class Install extends Install_Controller
 		}
 
 		$this->load->view('install_step',$data);
+	}
+
+	/**
+	 * 检查目录权限
+	 *
+	 * @return array
+	 */
+	private function _checkFileRight() {
+	
+		$files_writeble[] = FCPATH . '/';
+		$files_writeble[] = FCPATH . 'app/config/';
+		$files_writeble[] = FCPATH . 'app/config/config.php';
+		$files_writeble[] = FCPATH . 'app/config/myconfig.php';
+		$files_writeble[] = FCPATH . 'app/config/database.php';
+		$files_writeble[] = FCPATH . 'uploads/';
+		$files_writeble[] = FCPATH . 'uploads/avatar/';
+		$files_writeble[] = FCPATH . 'uploads/files/';
+		$files_writeble[] = FCPATH . 'uploads/image/';
+		
+		$files_writeble = array_unique($files_writeble);
+		sort($files_writeble);
+		$writable = array();
+		
+		foreach ($files_writeble as $file) {
+			$key = str_replace(FCPATH, '', $file);
+			$isWritable = $this->_checkWriteAble($file) ? true : false;
+			if ($isWritable) {
+				$flag = false;
+				foreach ($writable as $k=>$v) {
+					if (0 === strpos($key, $k)) $flag = true;
+				}
+				$flag || $writable[$key] = $isWritable;
+			} else {
+				$writable[$key] = $isWritable;
+			}
+		}
+		return $writable;
+	}
+	/**
+	 * 检查目录可写
+	 *
+	 * @param string $pathfile
+	 * @return boolean
+	 */
+	private function _checkWriteAble($pathfile) {
+		if (!$pathfile) return false;
+		$isDir = in_array(substr($pathfile, -1), array('/', '\\')) ? true : false;
+		if ($isDir) {
+			if (is_dir($pathfile)) {
+				mt_srand((double) microtime() * 1000000);
+				$pathfile = $pathfile . 'stb_' . uniqid(mt_rand()) . '.tmp';
+			} elseif (@mkdir($pathfile)) {
+				return self::_checkWriteAble($pathfile);
+			} else {
+				return false;
+			}
+		}
+		@chmod($pathfile, 0777);
+		$fp = @fopen($pathfile, 'ab');
+		if ($fp === false) return false;
+		fclose($fp);
+		$isDir && @unlink($pathfile);
+		return true;
 	}
 
 

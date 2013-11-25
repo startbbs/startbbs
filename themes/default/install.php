@@ -173,99 +173,119 @@
 </div>
 </div>
 </div>
-<form action="<?php echo site_url('install/step');?>" class="form-horizontal" method="post" id="dbform">
+<?php if($step==1){?>
 <div class='row'>
 <div class='box'>
 <div class='cell'>
-数据库配置
+文件以及目录权限检测(第一步)
 </div>
 <div class='inner'>
-<div class='form-group'>
+<table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>目录</th>
+            <th>权限</th>
+          </tr>
+        </thead>
+<?php $i=0; foreach($permission as $k=>$v){?>
+<?php $i++;?>
+<tr>
+	<td><?php echo $i?></td>
+	<td><?php echo $k;?></td>
+	<td><?php if($v==1){?>可写<?php }else {?>不可写<?php }?></td>
+</tr>
+<?php }?>
+</table>
+<div class='form-actions'>
+<a href="<?php echo site_url('install/step/2/')?>" class="left btn btn-primary">下一步</a>
+</div>
+</div>
+</div>
+</div>
+<?php }?>
+<?php if($step==2){?>
+<form action="<?php echo site_url('install/step');?>" method="post" id="dbform" role="form">
+<div class='row'>
+<div class='box'>
+<div class='cell'>
+数据库配置(第二步)
+</div>
+<div class='inner row'>
+<div class="col-md-6">
+<div class='form-group '>
 <label class="control-label" for="settings_site_name">数据库主机</label>
-<div class='controls'>
-<input id="txtHost" name="dbhost" type="text" value="localhost" />
+<input id="txtHost" class="form-control" name="dbhost" type="text" value="localhost" />
 <small class='help-inline' id="infoHost">一般为localhost</small>
 </div>
-</div>
+
 <div class='form-group'>
 <label class="control-label" for="settings_site_name">数据库端口</label>
-<div class='controls'>
-<input id="txtPort" name="dbport" type="text" value="3306" />
+<input id="txtPort" class="form-control" name="dbport" type="text" value="3306" />
 <small class='help-inline' id="infoPort">一般为3306</small>
 </div>
-</div>
+
 <div class='form-group'>
 <label class="control-label" for="settings_site_name">数据库用户</label>
-<div class='controls'>
-<input id="txtUser" name="dbuser" type="text" value="" />
+<input id="txtUser"  class="form-control" name="dbuser" type="text" value="" />
 <small class='help-inline' id="infoUser">必填</small>
 </div>
-</div>
+
 <div class='form-group'>
 <label class="control-label" for="settings_site_name">数据库密码</label>
-<div class='controls'>
-<input id="txtPassword" name="dbpwd" type="text" value="" />
+<input id="txtPassword" class="form-control" name="dbpwd" type="text" value="" />
 <small class='help-inline' id="infoPassword">必填</small>
 </div>
-</div>
+
 <div class='form-group'>
 <label class="control-label" for="settings_site_name">数据库名称</label>
-<div class='controls'>
-<input id="txtName" name="dbname" type="text" value="startbbs" />
+<input id="txtName" class="form-control" name="dbname" type="text" value="startbbs" />
 <small class='help-inline' id="infoName">必填</small>
 </div>
-</div>
+
 <div class='form-group'>
 <label class="control-label" for="settings_site_name">数据表前缀</label>
-<div class='controls'>
-<input id="txtPrefix" name="dbprefix" type="text" value="sb_" />
+<input id="txtPrefix" class="form-control" name="dbprefix" type="text" value="sb_" />
 <small class='help-inline' id="infoPrefix">不建议修改</small>
 </div>
-</div>
+
 <span id="testInfo"></span>
 <div class='form-actions'>
 <a href="javascript:void(0)" id="dataTest" class="left btn btn-white btn-primary"><span>测试连接</span></a>
 <!--<input id="btnSubmit" class="btn btn-white btn-primary" name="commit" type="submit" value="下一步" />-->
 </div>
 
-
+</div>
 </div>
 </div>
 </div>
 
 <div class='row'>
-<div class='box span8'>
+<div class='box'>
 <div class='cell'>
 管理员信息配置
 </div>
-<div class='inner'>
+<div class='inner row'>
+	<div class="col-md-6">
 <div class='form-group'>
-<label class="control-label" for="settings_site_name">用户名</label>
-<div class='controls'>
-<input id="txtAdmin" name="admin" type="text" value="admin" />
+<label for="settings_site_name">用户名</label>
+<input id="txtAdmin" class="form-control" name="admin" type="text" value="admin" />
 <small class='help-inline' id="infoAdmin">只能用'0-9'、'a-z'、'A-Z'</small>
 </div>
-</div>
 <div class='form-group'>
-<label class="control-label" for="settings_site_name">密码</label>
-<div class='controls'>
-<input id="txtPwd" name="pwd" type="text" value="startbbs" />
+<label for="settings_site_name">密码</label>
+<input id="txtPwd" class="form-control" name="pwd" type="text" value="startbbs" />
 <small class='help-inline' id="infoPwd">必填</small>
 </div>
-</div>
 <div class='form-group'>
-<label class="control-label" for="settings_site_name">管理员邮箱</label>
-<div class='controls'>
-<input id="txtEmail" name="email" type="text" value="startbbs@126.com" />
+<label for="settings_site_name">管理员邮箱</label>
+<input id="txtEmail" class="form-control" name="email" type="text" value="startbbs@126.com" />
 <small class='help-inline' id="infoEmail">必填</small>
 </div>
-</div>
 <div class='form-group'>
-<label class="control-label" for="settings_site_name">安装目录</label>
-<div class='controls'>
-<input id="txtUrl" name="base_url" type="text" value="" />
+<label for="settings_site_name">安装目录</label>
+<input id="txtUrl" class="form-control" name="base_url" type="text" value="" />
 <small class='help-inline' id="infoUrl">根目录请留空,如二级目录名 bbs</small>
-</div>
 </div>
 <div class='form-actions'>
 <!--<input id="btnSubmit" class="btn btn-white btn-primary" name="commit" type="submit" value="下一步" />-->
@@ -273,10 +293,12 @@
 <span class="green">(务必记住管理员信息)</span>
 </div>
 
+	</div>
 </div>
 </div>
 </div>
 </form>
+<?php }?>
 </div>
 </div></div></div>
 <div id='footer'>
