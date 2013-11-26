@@ -121,20 +121,26 @@
 		</script>
 </head>
 <body id="startbbs">
-<div class="navbar navbar-inverse navbar-static-top navbar-fixed-top">
-<div class="navbar-inner">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 <div class="container">
-<a class="btn btn-navbar collapsed" data-target=".nav-collapse" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="/" class="brand">StartBBS</a>
-<div class="nav-collapse collapse">
-<form class="navbar-search pull-left">
-<input class="search-query" data-domain="startbbs.com" id="q" maxlength="40" name="q" placeholder="搜索话题" type="text" />
-</form>
-<ul class="nav pull-right">
-<li class=""><a href="http://www.startbbs.com">Startbbs官方</a></li>
-
-</ul>
-</div></div></div></div>
-
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="navbar-brand" href="#">Startbbs</a>
+</div>
+<div class="collapse navbar-collapse">
+  <ul class="nav navbar-nav">
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="http://www.startbbs.com">STB官方</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div><!--/.nav-collapse -->
+</div>
+</div>
 
 <div id="wrap">
 <div class="container" id="page-main">
