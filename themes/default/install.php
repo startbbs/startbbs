@@ -76,13 +76,13 @@
 				}else{
 					$("#infoUser").html("").removeClass("red");
 				}
-				var dbpwd = $("#txtPassword").val();
-				if(dbpwd==""){
-					$("#infoPassword").html("请输入数据库密码").addClass("red");
-					isok = false;
-				}else{
-					$("#infoPassword").html("").removeClass("red");
-				}
+				//var dbpwd = $("#txtPassword").val();
+				//if(dbpwd==""){
+				//	$("#infoPassword").html("请输入数据库密码").addClass("red");
+				//	isok = false;
+				//}else{
+				//	$("#infoPassword").html("").removeClass("red");
+				//}
 				var dbprefix = $("#txtPrefix").val();
 				if(dbprefix==""){
 					$("#infoPrefix").html("请输入数据库前缀").addClass("red");
@@ -174,7 +174,7 @@
 欢迎使用起点startbbs轻量社区系统
 </div>
 <div class='inner'>
-<span class="green">www.startbbs.com</span>
+<span class="green">www.startbbs.com（代安装请联系QQ858292510）</span>
 
 </div>
 </div>
