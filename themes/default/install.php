@@ -18,7 +18,7 @@
 						var dbpwd = $("#txtPassword").val();
 						var dbprefix = $("#txtPrefix").val();
 						$.ajax({
-							url:siteurl+"/install/check",
+							url:siteurl+"index.php/install/check",
 							data:{
 								dbhost:dbhost,
 								dbport:dbport,
@@ -204,14 +204,14 @@
 <?php }?>
 </table>
 <div class='form-actions'>
-<a href="<?php echo site_url('install/step/2/')?>" class="left btn btn-primary">下一步</a>
+<a href="<?php echo site_url('install/step/2')?>" class="left btn btn-primary">下一步</a>
 </div>
 </div>
 </div>
 </div>
 <?php }?>
 <?php if($step==2){?>
-<form action="<?php echo site_url('install/step');?>" method="post" id="dbform" role="form">
+<form action="<?php echo site_url('install/step/3');?>" method="post" id="dbform" role="form">
 <div class='row'>
 <div class='box'>
 <div class='cell'>
@@ -233,14 +233,14 @@
 
 <div class='form-group'>
 <label class="control-label" for="settings_site_name">数据库用户</label>
-<input id="txtUser"  class="form-control" name="dbuser" type="text" value="" />
+<input id="txtUser" class="form-control" name="dbuser" type="text" value="" />
 <small class='help-inline' id="infoUser">必填</small>
 </div>
 
 <div class='form-group'>
 <label class="control-label" for="settings_site_name">数据库密码</label>
 <input id="txtPassword" class="form-control" name="dbpwd" type="text" value="" />
-<small class='help-inline' id="infoPassword">必填</small>
+<small class='help-inline' id="infoPassword">非必填</small>
 </div>
 
 <div class='form-group'>
@@ -305,6 +305,29 @@
 </div>
 </form>
 <?php }?>
+
+
+<?php if($step==3){?>
+<div class='row'>
+<div class='box span8'>
+<div class='cell'>
+安装最后一步
+</div>
+<div class='inner'>
+<p class="green"><?php echo $msg1?></p>
+<p class="green"><?php echo $msg2?></p>
+<p class="green"><?php echo $msg3?></p>
+<p class="green"><?php echo $msg4?></p>
+<p class="red"><?php echo $msg5?></p>
+<div class='form-actions'>
+<a href="<?php echo site_url('/');?>" id="dataTest" class="left btn btn-white btn-primary"><span>进入首页</span></a>
+</div>
+
+</div>
+</div>
+</div>
+
+<?php }?>
 </div>
 </div></div></div>
 <div id='footer'>
@@ -321,7 +344,7 @@
 <small class='text-muted'>
 Powered by
 <a href="http://www.startbbs.com" class="text-muted" target="_blank">StartBBS</a>
-<?=$this->config->item('version');?>
+<?php echo $this->config->item('version');?>
 </small>
 </div>
 </div>
