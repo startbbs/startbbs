@@ -71,7 +71,7 @@ class Install extends Install_Controller
 				    		}
 				    	}
 				  	}
-					$password = md5($pwd);
+					$password = $pwd;
 				  	$ip=$this->myclass->get_ip();
 				  	$insert= "INSERT INTO ".$dbprefix."users (group_type,gid,is_active,username,password,email,regtime,ip) VALUES ('0','1','1','".$userid."','".$password."','".$email."','".time()."','".$ip."')";
 				  	mysql_query($insert);
