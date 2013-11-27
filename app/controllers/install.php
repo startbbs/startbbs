@@ -57,6 +57,8 @@ class Install extends Install_Controller
 				if (!@mysql_select_db($dbname,$conn)) {
 					if (!@mysql_query('CREATE DATABASE '.$dbname)) {
 						exit('指定的数据库('.$dbname.')系统尝试创建失败，请通过其他方式建立数据库');
+					} else {
+						@mysql_select_db($dbname,$conn);
 					}
 				}
 				//$this->load->database($dbname);

@@ -12,5 +12,5 @@ $config = array (
   'static' => 'white',
   'themes' => 'default',
   'auto_tag' => 'on',
-  'encryption_key' => 'c344abc2da80db6ce28392dfdb9b5457',
+  'encryption_key' => 'f4ba1b6cb458dd18866ab6c98c529039',
 );
