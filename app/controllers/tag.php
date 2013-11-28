@@ -22,9 +22,9 @@ class Tag extends SB_Controller
 		$data['title'] = urldecode($tag_title);
 		//分页
 		$limit = 10;
-		$config['uri_segment'] = 3;
+		$config['uri_segment'] = 4;
 		$config['use_page_numbers'] = TRUE;
-		$config['base_url'] = site_url('tag/show');
+		$config['base_url'] = site_url('tag/index/'.$data['title']);
 		$data['tag']=$this->db->select('forums')->where('tag_title',$data['title'])->get('tags')->row_array();
 		$config['total_rows'] = @$data['tag']['forums'];
 		$config['per_page'] = $limit;
