@@ -244,9 +244,10 @@
 </div>
 
 <div class='form-group'>
+<span class="pull-right"><input type="checkbox" name="creatdb"> 创建</span>
 <label class="control-label" for="settings_site_name">数据库名称</label>
 <input id="txtName" class="form-control" name="dbname" type="text" value="startbbs" />
-<small class='help-inline' id="infoName">必填</small>
+<small class='help-inline' id="infoName"></small>
 </div>
 
 <div class='form-group'>

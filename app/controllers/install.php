@@ -52,16 +52,17 @@ class Install extends Install_Controller
 				$sub_folder = '/'.$this->input->post('base_url').'/';
 				$conn = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpwd);
 				if (!$conn) {
-					exit('无法连接到数据库服务器，请检查用户名和密码是否正确');
+					die('无法连接到数据库服务器，请检查用户名和密码是否正确');
 				}
-				if (!@mysql_select_db($dbname,$conn)) {
-					if (!@mysql_query('CREATE DATABASE '.$dbname)) {
-						exit('指定的数据库('.$dbname.')系统尝试创建失败，请通过其他方式建立数据库');
-					} else {
-						@mysql_select_db($dbname,$conn);
+				if($this->input->post('creatdb')){
+					if(!@mysql_query('CREATE DATABASE IF NOT EXISTS '.$dbname)){
+						die('指定的数据库('.$dbname.')系统尝试创建失败，请通过其他方式建立数据库');
 					}
 				}
-				//$this->load->database($dbname);
+				if(!mysql_select_db($dbname,$conn)){
+					die($dbname.'数据库不存在，请创建或检查数据名.');
+
+				}
 					$sql = file_get_contents(FCPATH.'app/config/startbbs.sql');
 					$sql = str_replace("sb_",$dbprefix,$sql);
 					$explode = explode(";",$sql);
