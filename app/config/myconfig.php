@@ -8,7 +8,7 @@ $config = array (
   'site_close' => 'on',
   'site_close_msg' => '网站升级中，暂时关闭。',
   'basic_folder' => '',
-  'version' => 'V1.1.2',
+  'version' => 'V1.1.3',
   'static' => 'white',
   'themes' => 'default',
   'logo' => 'Start<span class=\'green\'>BBS</span>',
