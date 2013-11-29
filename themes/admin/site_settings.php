@@ -102,7 +102,7 @@
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="settings_logo">网站logo</label>
 <div class='col-sm-5'>
-<input class="form-control" id="settings_logo" name="logo" type="text" value="<?php echo $this->config->item('logo');?>" />
+<input class="form-control" id="settings_logo" name="logo" type="text" value="<?php echo $this->config->item('logo')?>" />
 <small class='help-inline'>可填入文字或图片地址</small>
 </div>
 </div>

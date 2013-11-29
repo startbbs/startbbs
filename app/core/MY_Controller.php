@@ -111,7 +111,6 @@ class SB_Controller extends Base_Controller
 
 /*		//load GoCart library
 		$this->load->library('Go_cart');
-
 		//load needed models
 		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model'));
 		
@@ -135,8 +134,7 @@ class SB_Controller extends Base_Controller
 		
 		//load the theme package
 		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');*/
-	}
-	
+	}	
 	/*
 	This works exactly like the regular $this->load->view()
 	The difference is it automatically pulls in a header and footer.

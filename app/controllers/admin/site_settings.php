@@ -49,7 +49,6 @@ class Site_settings extends Admin_Controller
 			} else {
 				$config['logo']=$this->input->post('logo');
 			}
-		
 			$config['auto_tag']=($this->input->post('auto_tag')=='on')?'on':'off';
 			$config['encryption_key']=$this->input->post('encryption_key');
 			
@@ -57,7 +56,6 @@ class Site_settings extends Admin_Controller
 			$this->config->save('myconfig',$config);
 			redirect('admin/site_settings');
 			//$this->myclass->notice('alert("网站设置更新成功");window.location.href="'.site_url('admin/site_settings').'";');
-	
 		}
 
 		//话题设定
