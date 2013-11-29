@@ -156,6 +156,8 @@ class Install extends Install_Controller
 		$files_writeble[] = FCPATH . 'app/config/config.php';
 		$files_writeble[] = FCPATH . 'app/config/myconfig.php';
 		$files_writeble[] = FCPATH . 'app/config/database.php';
+		$files_writeble[] = FCPATH . 'data/';
+		$files_writeble[] = FCPATH . 'data/backup/';
 		$files_writeble[] = FCPATH . 'uploads/';
 		$files_writeble[] = FCPATH . 'uploads/avatar/';
 		$files_writeble[] = FCPATH . 'uploads/files/';
