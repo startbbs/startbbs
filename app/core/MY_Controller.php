@@ -64,7 +64,8 @@ class SB_Controller extends Base_Controller
 			'site_keywords'=>$data['items'][6]['value'],
 			'site_description'=>$data['items'][7]['value'],
 			'money_title'=>$data['items'][8]['value'],
-			'per_page_num'=>$data['items'][9]['value']
+			'per_page_num'=>$data['items'][9]['value'],
+			'logo'=>$this->config->item('logo')
 		 );
 		 
 		 //取一个用户信息

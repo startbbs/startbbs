@@ -1,7 +1,7 @@
 <div class="navbar <?php if($this->config->item('static')=='default'){?>navbar-inverse<?php } else{?>navbar-default<?php }?> navbar-fixed-top">
 <div class="container">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="<?php echo site_url()?>">Start<span class="green">BBS</span></a>
+		<a class="navbar-brand" href="<?php echo site_url()?>"><?php echo $settings['logo']?></a>
 <!--<a class=".btn .btn-default navbar-btn collapsed" data-target=".navbar-collapse" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="<?php echo site_url()?>" class="brand">Start<span class="green">BBS</span></a>-->
 	</div>
 

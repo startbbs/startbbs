@@ -43,6 +43,13 @@ class Site_settings extends Admin_Controller
 			$config['version']=$this->config->item('version');
 			$config['static']=$this->input->post('static');
 			$config['themes']=$this->input->post('themes');
+			$logo = pathinfo($this->input->post('logo'));
+			if(in_array(strtolower($logo['extension']),array('gif','png','jpg','jpeg'))){
+				$config['logo']='<img src='.$this->input->post('logo').'>';
+			} else {
+				$config['logo']=$this->input->post('logo');
+			}
+		
 			$config['auto_tag']=($this->input->post('auto_tag')=='on')?'on':'off';
 			$config['encryption_key']=$this->input->post('encryption_key');
 			
