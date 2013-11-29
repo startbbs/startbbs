@@ -55,6 +55,7 @@ a.action_label{border:1px solid #CCC;border-top-left-radius:6px;border-top-right
 .topic .topic-meta .muted{padding:0 5px}
 .topic-meta .topic-bottom{color:#999}
 .topic-bottom{font-size:12px;}
+.topic:hover{background:#f6f6f6}
 
 
 td.with_separator{border-right:1px solid #ccc}
