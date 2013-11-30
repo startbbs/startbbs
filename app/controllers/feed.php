@@ -11,7 +11,7 @@ class Feed extends SB_Controller {
 	}
 	public function index ()
 	{
-		header("Content-Type:text/xml");
+		header("Content-Type: text/xml; charset=utf-8");
 		//获取列表
 		$data['list'] = $this->forum_m->get_latest_forums(30);
 		//links
@@ -20,4 +20,3 @@ class Feed extends SB_Controller {
 
 	}
 }
-?>
