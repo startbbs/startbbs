@@ -78,7 +78,7 @@ $autoload['helper'] = array('url','file','function');
 |
 */
 
-$autoload['config'] = array('myconfig','topicset','openid','mailset');
+$autoload['config'] = array('myconfig','topicset','openid','mailset','version');
 
 
 /*

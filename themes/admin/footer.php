@@ -11,8 +11,8 @@
 </div>
 <small class='text-muted'>
 Powered by
-<a href="http://www.startbbs.com" class="text-muted" target="_blank"><?=$settings['site_name']?></a>
-<?=$this->config->item('version');?>  <?=$settings['site_stats']?>-
+<a href="<?php echo $this->config->item('sys_url');?>" class="text-muted" target="_blank"><?php echo $this->config->item('sys_name');?></a>
+<?php echo $this->config->item('sys_version');?>  <?php echo $settings['site_stats']?>-
 <p>页面执行时间:  {elapsed_time}s</p>
 </small>
 </div>

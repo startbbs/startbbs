@@ -20,8 +20,8 @@
 </div>-->
 <small class='text-muted'>
 <?php echo $settings['site_name']?>  <?php echo $settings['site_stats']?>
-<p>Powered by <a href="http://www.startbbs.com" class="text-muted" target="_blank">StartBBS</a>
-<?php echo $this->config->item('version');?> 2013-2014 Some rights reserved 页面执行时间:  {elapsed_time}s</p>
+<p>Powered by <a href="<?php echo $this->config->item('sys_url');?>" class="text-muted" target="_blank"><?php echo $this->config->item('sys_name');?></a>
+<?php echo $this->config->item('sys_version');?> 2013-2014 Some rights reserved 页面执行时间:  {elapsed_time}s</p>
 </small>
 </div>
 </div>
