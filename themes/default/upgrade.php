@@ -17,12 +17,13 @@ $(document).ready(function() {
 		success: function(data){
 				var msg=data.success;
 				$("#result_1").append(data.msg_1).fadeIn(2000);
+				$("#result_2").append(data.msg_2).fadeIn(3000);
 				$("#result_v").append(data.msg_v).fadeIn(4000);
-				$("#result_del").append(data.msg_del).fadeIn(6000);
-				$("#done").append(data.msg_error).fadeIn(8000);
-				$("#done").append(data.msg_done).fadeIn(8000);
-				$("#do_upgrade").fadeOut(9000);
-				$("#home").fadeIn(10000);
+				$("#result_del").append(data.msg_del).fadeIn(5000);
+				$("#done").append(data.msg_error).fadeIn(6000);
+				$("#done").append(data.msg_done).fadeIn(7000);
+				$("#do_upgrade").fadeOut(8000);
+				$("#home").fadeIn(9000);
 		}
 	})
 });
@@ -77,6 +78,8 @@ $(document).ready(function() {
     <dl class="dl-horizontal">
     <dt>升级数据库:<?php echo $this->db->database;?></dt>
     <dd id="result_1" style="display:none" class="green"></dd>
+    <dt></dt>
+    <dd id="result_2" style="display:none" class="green"></dd>
     <dt></dt>
     <dd id="result_v" style="display:none" class="green"></dd>
     <dt></dt>
