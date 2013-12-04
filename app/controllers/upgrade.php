@@ -17,8 +17,8 @@ class Upgrade extends Other_Controller
 	}
 	public function index ()
 	{
-		$data['old_version'] = $this->config->item('version');
-		$data['new_version'] = 'V1.1.2';
+		$data['old_version'] = 'V1.1.2';
+		$data['new_version'] = 'V1.1.3';
 		if($data['new_version']==$data['old_version']){
 			$data['msg'] = '您的版本为最新版，无需升级';
 		} else{
@@ -30,13 +30,20 @@ class Upgrade extends Other_Controller
 
 	public function do_upgrade ()
 	{
-		
-		if($this->config->update('myconfig','version','V1.1.2')){
+		$del1=unlink(FCPATH.'/static/common/css/bootstrap-responsive.min.css');
+		$del2=unlink(FCPATH.'/static/common/js/jquery-1.9.1.min.js');
+		$del3=unlink(FCPATH.'/themes/default/install_step.php');
+		$del4=unlink(FCPATH.'/system/core/Startbbs.php');
+		if($del1 && $del2 && $del3 && $del4){
+			$data['msg_1'] = '删除无用文件';
+		} elseif($this->config->update('version','sys_version','V1.1.3')){
 			$data['msg_v'] = '版本号更新成功';
+		} elseif(unlink(FCPATH.'/app/controllers/upgrade.php')){
+			$data['msg_del'] = '删除升级文件';
+			$data['msg_done'] = '升级完成...';
+		} else{
+			$data['msg_error'] = '升级失败';
 		}
-		
-		$data['finish'] = '升级完成...';
-		$data['error'] = '升级失败';
 		exit(json_encode($data));		
 	}
 

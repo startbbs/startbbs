@@ -16,10 +16,13 @@ $(document).ready(function() {
 		dataType: "json",
 		success: function(data){
 				var msg=data.success;
-				$("#result_v").append(data.msg_v).fadeIn(3000);
-				$("#finish").append(data.finish).fadeIn(4000);
-				$("#do_upgrade").fadeOut(5000);
-				$("#home").fadeIn(6000);
+				$("#result_1").append(data.msg_1).fadeIn(2000);
+				$("#result_v").append(data.msg_v).fadeIn(4000);
+				$("#result_del").append(data.msg_del).fadeIn(6000);
+				$("#done").append(data.msg_error).fadeIn(8000);
+				$("#done").append(data.msg_done).fadeIn(8000);
+				$("#do_upgrade").fadeOut(9000);
+				$("#home").fadeIn(10000);
 		}
 	})
 });
@@ -37,7 +40,6 @@ $(document).ready(function() {
 </form>
 <ul class="nav pull-right">
 <li class=""><a href="http://www.startbbs.com">Startbbs官方</a></li>
-
 </ul>
 </div></div></div></div>
 
@@ -47,10 +49,10 @@ $(document).ready(function() {
 <div class="row">
 
 
-<div class='col-xs-12 col-sm-6 col-md-8'>
+<div class='col-xs-12 col-sm-12 col-md-12'>
 
 <div class='row'>
-<div class='box span10'>
+<div class='box col-md-12'>
 <div class='cell'>
 欢迎进入startbbs社区升级系统
 </div>
@@ -66,7 +68,7 @@ $(document).ready(function() {
 <?php if($new_version!=$old_version){?>
 <form action="<?php echo site_url('install/step');?>" class="form-horizontal" method="post" id="dbform">
 <div class='row'>
-<div class='box span10'>
+<div class='box col-md-12'>
 <div class='cell'>
 系统升级 <?php echo $old_version;?> - <?php echo $new_version;?>
 </div>
@@ -74,9 +76,13 @@ $(document).ready(function() {
 <div class='form-group'>
     <dl class="dl-horizontal">
     <dt>升级数据库:<?php echo $this->db->database;?></dt>
+    <dd id="result_1" style="display:none" class="green"></dd>
+    <dt></dt>
     <dd id="result_v" style="display:none" class="green"></dd>
     <dt></dt>
-    <dd id="finish" style="display:none" class="red"></dd>
+    <dd id="result_del" style="display:none" class="green"></dd>
+    <dt></dt>
+    <dd id="done" style="display:none" class="red"></dd>
     </dl>
 </div>
 <div class='form-actions'>
@@ -102,13 +108,13 @@ $(document).ready(function() {
 <li><a href="/page/support" class="dark nav">技术支持</a></li>-->
 </ul>
 <div class='copywrite'>
-<div class="fr"> <!--<a href="" target="_blank"><img src="" border="0" alt="Linode" width="120"></a>--></div>
+<div class="pull-right"> <!--<a href="" target="_blank"><img src="" border="0" alt="Linode" width="120"></a>--></div>
 <p>&copy; 2013 Startbbs Inc, Some rights reserved.</p>
 </div>
 <small class='text-muted'>
 Powered by
-<a href="http://www.startbbs.com" class="text-muted" target="_blank">StartBBS</a>
-<?=$this->config->item('version');?>
+<a href="<?php echo $this->config->item('sys_url');?>" class="text-muted" target="_blank"><?php echo $this->config->item('sys_name');?></a>
+<?php echo $this->config->item('sys_version');?>
 </small>
 </div>
 </div>
