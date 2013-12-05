@@ -481,7 +481,7 @@ Phpmail
 <label class='radio-inline'>
 <input<?php if($this->config->item('storage_set') =='local'){ ?> checked="checked"<?php } ?> id="settings_storage_set" name="storage_set" type="radio" value="local" />本地</label>
 <label class='radio-inline'>
-<input<?php if($this->config->item('storage_set') =='qiniu'){ ?> checked="checked"<?php } ?> id="settings_storage_set" name="storage_set" type="radio" value="qiniu" />七牛云</label>
+<input<?php if($this->config->item('storage_set') =='qiniu'){ ?> checked="checked"<?php } ?> id="settings_storage_set" name="storage_set" type="radio" value="qiniu" />七牛云(<a href="http://portal.qiniu.com/signup?code=3lmae10l9cl02" target=_blank>申请七牛</a>)</label>
 </div>
 </div>
 
