@@ -11,9 +11,9 @@ class upload extends SB_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->upload_path_temp = FCPATH.'uploads/files/tmp';
-		$this->upload_path = FCPATH.'uploads/files/';
-		$this->upload_path_url = base_url().'uploads/files/'.date('Ym').'/';
+		$this->upload_path_temp = FCPATH.'uploads/file/tmp';
+		$this->upload_path = FCPATH.'uploads/file/';
+		$this->upload_path_url = base_url().'uploads/file/'.date('Ym').'/';
 		$this->path = $this->upload_path.'/'.date('Ym').'/';//这里使用“年-月”格式，可根据需要改为“年-月-日”格式
 		if(!file_exists($this->path)){
 			mkdir($this->path,0777,true);
