@@ -114,7 +114,7 @@ class upload extends SB_Controller {
 			'accesskey'=>$this->config->item('accesskey'),
 			'secretkey'=>$this->config->item('secretkey'),
 			'bucket'=>$this->config->item('bucket'),
-			'file_domain'=>$this->config->item('file_domain'),	
+			'file_domain'=>$this->config->item('file_domain').'/',	
 		);
 		$this->load->library('qiniu_lib',$params);
 		$new=$this->qiniu_lib->uploadfile(@$file_path);
