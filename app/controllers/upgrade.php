@@ -39,7 +39,7 @@ class Upgrade extends Other_Controller
 			$data['msg_1'] = '删除无用文件';
 		}
 		$encryption_key= md5(uniqid());
-		if($this->config->update('myconfig','encryption_key', )){
+		if($this->config->update('myconfig','encryption_key',$encryption_key)){
 			$data['msg_2'] = '生成安全码成功';
 		}
 		if($this->config->update('version','sys_version','V1.1.3')){
