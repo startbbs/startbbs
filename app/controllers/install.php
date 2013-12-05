@@ -160,6 +160,7 @@ class Install extends Install_Controller
 		$files_writeble[] = FCPATH . 'data/backup/';
 		$files_writeble[] = FCPATH . 'uploads/';
 		$files_writeble[] = FCPATH . 'uploads/avatar/';
+		$files_writeble[] = FCPATH . 'uploads/avatar/tmp';
 		$files_writeble[] = FCPATH . 'uploads/files/';
 		$files_writeble[] = FCPATH . 'uploads/image/';
 		
