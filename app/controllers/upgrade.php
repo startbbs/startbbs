@@ -34,6 +34,7 @@ class Upgrade extends Other_Controller
 		$del2=unlink(FCPATH.'/static/common/js/jquery-1.9.1.min.js');
 		$del3=unlink(FCPATH.'/themes/default/install_step.php');
 		$del4=unlink(FCPATH.'/system/core/Startbbs.php');
+		$del5=unlink(FCPATH.'/uploads/files');
 		if($del1 && $del2 && $del3 && $del4){
 			$data['msg_1'] = '删除无用文件';
 		}
