@@ -35,7 +35,7 @@ class Upgrade extends Other_Controller
 		$del3=unlink(FCPATH.'/themes/default/install_step.php');
 		$del4=unlink(FCPATH.'/system/core/Startbbs.php');
 		$del5=unlink(FCPATH.'/uploads/files');
-		if($del1 && $del2 && $del3 && $del4){
+		if($del1 && $del2 && $del3 && $del4 && $del5){
 			$data['msg_1'] = '删除无用文件';
 		}
 		$encryption_key= md5(uniqid());
@@ -45,10 +45,10 @@ class Upgrade extends Other_Controller
 		if($this->config->update('version','sys_version','V1.1.3')){
 			$data['msg_v'] = '版本号更新成功';
 		}
-		if(unlink(FCPATH.'/app/controllers/upgrade.php')){
-			$data['msg_del'] = '删除升级文件';
+		//if(unlink(FCPATH.'/app/controllers/upgrade.php')){
+		//	$data['msg_del'] = '删除升级文件';
 			$data['msg_done'] = '升级完成...';
-		} 
+		//} 
 		$data['msg_error'] = '升级失败';
 
 		exit(json_encode($data));		

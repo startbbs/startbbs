@@ -19,8 +19,8 @@ $(document).ready(function() {
 				$("#result_1").append(data.msg_1).fadeIn(2000);
 				$("#result_2").append(data.msg_2).fadeIn(3000);
 				$("#result_v").append(data.msg_v).fadeIn(4000);
-				$("#result_del").append(data.msg_del).fadeIn(5000);
-				$("#done").append(data.msg_error).fadeIn(6000);
+				//$("#result_del").append(data.msg_del).fadeIn(5000);
+				$("#result_error").append(data.msg_error).fadeIn(6000);
 				$("#done").append(data.msg_done).fadeIn(7000);
 				$("#do_upgrade").fadeOut(8000);
 				$("#home").fadeIn(9000);
@@ -82,8 +82,10 @@ $(document).ready(function() {
     <dd id="result_2" style="display:none" class="green"></dd>
     <dt></dt>
     <dd id="result_v" style="display:none" class="green"></dd>
+    <!--<dt></dt>
+    <dd id="result_del" style="display:none" class="green"></dd>-->
     <dt></dt>
-    <dd id="result_del" style="display:none" class="green"></dd>
+    <dd id="result_error" style="display:none" class="red"></dd>
     <dt></dt>
     <dd id="done" style="display:none" class="red"></dd>
     </dl>
