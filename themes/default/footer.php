@@ -1,5 +1,6 @@
-<div id='footer'>
+<footer id='footer'>
 <div class='container' id='footer-main'>
+<div class="pull-left">
 <ul class='page-links list-inline'>
 <?php if($page_links){?>
 <?php foreach($page_links as $key=>$v){?>
@@ -14,16 +15,13 @@
 <?php }?>
 <?php }?>
 </ul>
-<div class='copywrite'>
-<!--<div class="fr"> <a href="" target="_blank"><img src="" border="0" alt="Linode" width="120"></a></div>
-<p>&copy; 2013 StartBBS Inc, Some rights reserved.</p>
-</div>-->
-<small class='text-muted'>
-<?php echo $settings['site_name']?>  <?php echo $settings['site_stats']?>
+<p><?php echo $settings['site_name']?>  <?php echo $settings['site_stats']?></p>
 <p>Powered by <a href="<?php echo $this->config->item('sys_url');?>" class="text-muted" target="_blank"><?php echo $this->config->item('sys_name');?></a>
 <?php echo $this->config->item('sys_version');?> 2013-2014 Some rights reserved 页面执行时间:  {elapsed_time}s</p>
-</small>
 </div>
+<!--<div class="pull-right">
+  <p><a href="https://me.alipay.com/startbbs" target="_blank"><img src="<?echo base_url('static/common/images/donations.jpg');?>" border="0" alt="赞助 StartBBS 开发" width="150"></a></p>
+</div>-->
 </div>
-
+</footer>
 </body></html>
