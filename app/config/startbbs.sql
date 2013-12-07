@@ -23,11 +23,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_categories`
+-- 表的结构 `stb_categories`
 --
 
-DROP TABLE IF EXISTS `sb_categories`;
-CREATE TABLE IF NOT EXISTS `sb_categories` (
+DROP TABLE IF EXISTS `stb_categories`;
+CREATE TABLE IF NOT EXISTS `stb_categories` (
   `cid` smallint(5) NOT NULL AUTO_INCREMENT,
   `pid` smallint(5) NOT NULL DEFAULT '0',
   `cname` varchar(30) DEFAULT NULL COMMENT '分类名称',
@@ -45,11 +45,11 @@ CREATE TABLE IF NOT EXISTS `sb_categories` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_comments`
+-- 表的结构 `stb_comments`
 --
 
-DROP TABLE IF EXISTS `sb_comments`;
-CREATE TABLE IF NOT EXISTS `sb_comments` (
+DROP TABLE IF EXISTS `stb_comments`;
+CREATE TABLE IF NOT EXISTS `stb_comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fid` int(11) NOT NULL DEFAULT '0',
   `uid` int(11) NOT NULL DEFAULT '0',
@@ -61,11 +61,11 @@ CREATE TABLE IF NOT EXISTS `sb_comments` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_favorites`
+-- 表的结构 `stb_favorites`
 --
 
-DROP TABLE IF EXISTS `sb_favorites`;
-CREATE TABLE IF NOT EXISTS `sb_favorites` (
+DROP TABLE IF EXISTS `stb_favorites`;
+CREATE TABLE IF NOT EXISTS `stb_favorites` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `uid` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `favorites` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -77,11 +77,11 @@ CREATE TABLE IF NOT EXISTS `sb_favorites` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_forums`
+-- 表的结构 `stb_forums`
 --
 
-DROP TABLE IF EXISTS `sb_forums`;
-CREATE TABLE IF NOT EXISTS `sb_forums` (
+DROP TABLE IF EXISTS `stb_forums`;
+CREATE TABLE IF NOT EXISTS `stb_forums` (
   `fid` int(11) NOT NULL AUTO_INCREMENT,
   `cid` smallint(5) NOT NULL DEFAULT '0',
   `uid` mediumint(8) NOT NULL DEFAULT '0',
@@ -107,11 +107,11 @@ CREATE TABLE IF NOT EXISTS `sb_forums` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_links`
+-- 表的结构 `stb_links`
 --
 
-DROP TABLE IF EXISTS `sb_links`;
-CREATE TABLE IF NOT EXISTS `sb_links` (
+DROP TABLE IF EXISTS `stb_links`;
+CREATE TABLE IF NOT EXISTS `stb_links` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `url` varchar(200) DEFAULT NULL,
@@ -121,20 +121,20 @@ CREATE TABLE IF NOT EXISTS `sb_links` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- 转存表中的数据 `sb_links`
+-- 转存表中的数据 `stb_links`
 --
 
-INSERT INTO `sb_links` (`id`, `name`, `url`, `logo`, `is_hidden`) VALUES
+INSERT INTO `stb_links` (`id`, `name`, `url`, `logo`, `is_hidden`) VALUES
 (1, 'StartBBS', 'http://www.startbbs.com', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_notifications`
+-- 表的结构 `stb_notifications`
 --
 
-DROP TABLE IF EXISTS `sb_notifications`;
-CREATE TABLE IF NOT EXISTS `sb_notifications` (
+DROP TABLE IF EXISTS `stb_notifications`;
+CREATE TABLE IF NOT EXISTS `stb_notifications` (
   `nid` int(11) NOT NULL AUTO_INCREMENT,
   `fid` int(11) DEFAULT NULL,
   `suid` int(11) DEFAULT NULL,
@@ -147,11 +147,11 @@ CREATE TABLE IF NOT EXISTS `sb_notifications` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_page`
+-- 表的结构 `stb_page`
 --
 
-DROP TABLE IF EXISTS `sb_page`;
-CREATE TABLE IF NOT EXISTS `sb_page` (
+DROP TABLE IF EXISTS `stb_page`;
+CREATE TABLE IF NOT EXISTS `stb_page` (
   `pid` tinyint(6) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `content` text,
@@ -164,11 +164,11 @@ CREATE TABLE IF NOT EXISTS `sb_page` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_settings`
+-- 表的结构 `stb_settings`
 --
 
-DROP TABLE IF EXISTS `sb_settings`;
-CREATE TABLE IF NOT EXISTS `sb_settings` (
+DROP TABLE IF EXISTS `stb_settings`;
+CREATE TABLE IF NOT EXISTS `stb_settings` (
   `id` tinyint(5) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '',
   `value` text NOT NULL,
@@ -177,10 +177,10 @@ CREATE TABLE IF NOT EXISTS `sb_settings` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
--- 转存表中的数据 `sb_settings`
+-- 转存表中的数据 `stb_settings`
 --
 
-INSERT INTO `sb_settings` (`id`, `title`, `value`, `type`) VALUES
+INSERT INTO `stb_settings` (`id`, `title`, `value`, `type`) VALUES
 (1, 'site_name', 'StartBBS- 起点开源论坛-烧饼bbs', 0),
 (2, 'welcome_tip', '欢迎访问Startbbs起点开源社区', 0),
 (3, 'short_intro', '新一代简洁社区软件', 0),
@@ -198,11 +198,11 @@ INSERT INTO `sb_settings` (`id`, `title`, `value`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_tags`
+-- 表的结构 `stb_tags`
 --
 
-DROP TABLE IF EXISTS `sb_tags`;
-CREATE TABLE IF NOT EXISTS `sb_tags` (
+DROP TABLE IF EXISTS `stb_tags`;
+CREATE TABLE IF NOT EXISTS `stb_tags` (
   `tag_id` int(10) NOT NULL AUTO_INCREMENT,
   `tag_title` varchar(30) NOT NULL,
   `forums` int(10) NOT NULL DEFAULT '0',
@@ -213,11 +213,11 @@ CREATE TABLE IF NOT EXISTS `sb_tags` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_tags_relation`
+-- 表的结构 `stb_tags_relation`
 --
 
-DROP TABLE IF EXISTS `sb_tags_relation`;
-CREATE TABLE IF NOT EXISTS `sb_tags_relation` (
+DROP TABLE IF EXISTS `stb_tags_relation`;
+CREATE TABLE IF NOT EXISTS `stb_tags_relation` (
   `tag_id` int(10) NOT NULL DEFAULT '0',
   `fid` int(10) DEFAULT NULL,
   KEY `tag_id` (`tag_id`),
@@ -227,11 +227,11 @@ CREATE TABLE IF NOT EXISTS `sb_tags_relation` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_users`
+-- 表的结构 `stb_users`
 --
 
-DROP TABLE IF EXISTS `sb_users`;
-CREATE TABLE IF NOT EXISTS `sb_users` (
+DROP TABLE IF EXISTS `stb_users`;
+CREATE TABLE IF NOT EXISTS `stb_users` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
   `password` char(32) DEFAULT NULL,
@@ -262,11 +262,11 @@ CREATE TABLE IF NOT EXISTS `sb_users` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_user_follow`
+-- 表的结构 `stb_user_follow`
 --
 
-DROP TABLE IF EXISTS `sb_user_follow`;
-CREATE TABLE IF NOT EXISTS `sb_user_follow` (
+DROP TABLE IF EXISTS `stb_user_follow`;
+CREATE TABLE IF NOT EXISTS `stb_user_follow` (
   `follow_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(10) unsigned NOT NULL DEFAULT '0',
   `follow_uid` int(10) unsigned NOT NULL DEFAULT '0',
@@ -277,11 +277,11 @@ CREATE TABLE IF NOT EXISTS `sb_user_follow` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `sb_user_groups`
+-- 表的结构 `stb_user_groups`
 --
 
-DROP TABLE IF EXISTS `sb_user_groups`;
-CREATE TABLE IF NOT EXISTS `sb_user_groups` (
+DROP TABLE IF EXISTS `stb_user_groups`;
+CREATE TABLE IF NOT EXISTS `stb_user_groups` (
   `gid` int(11) NOT NULL AUTO_INCREMENT,
   `group_type` tinyint(3) NOT NULL DEFAULT '0',
   `group_name` varchar(50) DEFAULT NULL,
@@ -290,10 +290,10 @@ CREATE TABLE IF NOT EXISTS `sb_user_groups` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- 转存表中的数据 `sb_user_groups`
+-- 转存表中的数据 `stb_user_groups`
 --
 
-INSERT INTO `sb_user_groups` (`gid`, `group_type`, `group_name`, `usernum`) VALUES
+INSERT INTO `stb_user_groups` (`gid`, `group_type`, `group_name`, `usernum`) VALUES
 (1, 0, '管理员', 1),
 (2, 1, '版主', 0),
 (3, 2, '普通会员', 0);
