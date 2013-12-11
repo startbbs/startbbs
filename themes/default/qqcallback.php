@@ -111,7 +111,7 @@ function reloadcode() {//刷新验证码函数
 </div>
 
 </div>
-<div class='col-xs-6 col-md-4' id='Rightbar'>
+<div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
 
 <div class='box'>
 <div class='box-header'>

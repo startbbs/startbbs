@@ -1,4 +1,4 @@
-<div class='col-xs-6 col-md-3'>
+<div class='col-sm-6 col-md-3'>
 <div class='box fix_cell'>
 <div class='cell'>
 <strong class='gray'>社区管理</strong>

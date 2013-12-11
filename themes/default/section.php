@@ -171,7 +171,7 @@
 </div>-->
 
 </div>
-<div class='col-xs-6 col-md-4' id='Rightbar'>
+<div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
 <?php $this->load->view('block/right_login');?>
 <?php $this->load->view('block/right_new_users');?>
 <?php $this->load->view('block/right_new_forums');?>

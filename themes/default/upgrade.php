@@ -12,7 +12,7 @@ $(document).ready(function() {
 	$("#do_upgrade").click(function(){
     $.ajax({
 		type:"GET",
-		url:"<?php echo site_url('upgrade/do_upgrade')?>",
+		url:"<?php echo site_url()?>/upgrade/do_upgrade",
 		dataType: "json",
 		success: function(data){
 				var msg=data.success;

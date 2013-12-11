@@ -5,10 +5,8 @@
 <link href='http://www.startbbs.com' rel='canonical'>
 <meta content="authenticity_token" name="csrf-param" />
 <meta content="suTN1ExyGAX0WFd5f9EbmfgGT0VH6+QlmmtHwG2u16I=" name="csrf-token" />
+<link href="<?php echo base_url('static/common/css/bootstrap.min.css');?>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url('static/common/css/mystyle.css');?>" media="screen" rel="stylesheet" type="text/css" />
-<!--[if IE]>
-<link rel="stylesheet" href="<?php echo base_url('static/common/css/ie.css');?>"></link>
-<![endif]-->
 <script type="text/javascript" src="<?php echo base_url('static/common/js/jquery-1.10.2.min.js');?>"></script>
 <script src="<?php echo base_url('static/common/js/global.js');?>" type="text/javascript"></script>
 <link href="/apple-touch-icon.png" rel="apple-touch-icon" />

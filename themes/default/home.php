@@ -8,7 +8,7 @@
 <meta name="description" content="<?php echo $settings['short_intro']?>" />
 <?php $this->load->view('header-meta');?>
 </head>
-<body id="startbbs">
+<body>
 <?php $this->load->view('header');?>
 <div id="wrap">
 <div class="container" id="page-main">
@@ -140,7 +140,7 @@ $(function() {
 
 </div>
 
-<div class='col-xs-6 col-md-4' id='Rightbar'>
+<div class='col-xs-12 col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
 <?php $this->load->view('block/right_login');?>
 <?php $this->load->view('block/right_tags');?>
 

@@ -2,7 +2,7 @@
 <meta charset='UTF-8'>
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
-<title>运行状态 - 管理后台 - <?=$settings['site_name']?></title>
+<title>运行状态 - 管理后台 - <?php echo $settings['site_name']?></title>
 <?php $this->load->view ( 'header-meta' ); ?>
 </head>
 <body id="startbbs">
@@ -16,60 +16,60 @@
 <div class='col-xs-12 col-sm-6 col-md-9'>
 
 <div class='row'>
-	<div class="col-md-12 pull-right">
-<div class='box '>
+	<div class="col-md-12">
+<div class='box'>
 <div class='cell'>
 欢迎进入后台管理
 </div>
 <div class='inner'>
-StartBBS- 起点开源社区系统 <span class="red"><?=$this->config->item('version');?>(<?php echo check_auth()?>)</span>
+StartBBS- 起点开源社区系统 <span class="red"><?php echo $this->config->item('version');?>(<?php echo check_auth()?>)</span>
 </div>
 </div>
 	</div>
 </div>
 <div class='row'>
 <div class="col-md-12">
-<div class='box col-md-6 pull-left'>
+<div class='box col-md-6'>
 <div class='cell'>
 社区运行状态
 </div>
 <div class='inner'>
 <table border='0' cellpadding='3' cellspacing='0' width='100%'>
 <tr>
-<td align='right' width='40%'>
+<td align='right'>
 <span class='gray'>注册会员总数</span>
 </td>
 <td align='left'>
-<strong><?=$total_users?></strong>
+<strong><?php echo $total_users?></strong>
 </td>
 </tr>
 <tr>
-<td align='right' width='40%'>
+<td align='right'>
 <span class='gray'>主题总数</span>
 </td>
 <td align='left'>
-<strong><?=$total_forums?></strong>
+<strong><?php echo $total_forums?></strong>
 </td>
 </tr>
 <tr>
-<td align='right' width='40%'>
+<td align='right'>
 <span class='gray'>回复总数</span>
 </td>
 <td align='left'>
-<strong><?=$total_comments?></strong>
+<strong><?php echo $total_comments?></strong>
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class='box col-md-6 pull-right'>
+<div class='box col-xs-12 col-md-6 pull-right'>
 <div class='cell'>
 系统清理
 </div>
 <div class='inner'>
 <table class='table table-bordered'>
 <tr>
-<td align='right' width='40%'>
+<td align='right'>
 <span class='gray'>可清理提醒</span>
 </td>
 <td align='left'>
@@ -83,7 +83,7 @@ StartBBS- 起点开源社区系统 <span class="red"><?=$this->config->item('ver
 	</div>
 </div>
 <div class='row'>
-	<div class="col-md-12 pull-right">
+	<div class="col-md-12">
 <div class='box'>
 <div class='cell'>
 官方最新动态

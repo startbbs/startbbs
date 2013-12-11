@@ -1,7 +1,4 @@
 @charset "utf-8";
-@import "bootstrap.min.css";
-/*@import "bootstrap-responsive.min.css";*/
-
 
 /* 统一等宽字体 */
 code, kbd, pre, samp {
@@ -26,10 +23,10 @@ small {
 .grid-gutter-width{10px}
 body{padding-top: 70px;background:#E0E0E0/* url(../images/bg.png) bottom left repeat*/;font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important}
 #wrap{/*padding-top:60px*/}
-.container {max-width: 980px; margin-left: auto; margin-right: auto; *zoom: 1;}
+.container {max-width:980px;margin-left: auto; margin-right: auto; *zoom: 1;}
 #page-main{padding-bottom:20px}
-.box{background:white;border-radius:3px;box-shadow:0px 1px 5px rgba(0,0,0,0.15);
-border-bottom:1px solid #E2E2E9;margin-bottom:20px;}
+.box{border-radius:3px;box-shadow:0px 1px 5px rgba(0,0,0,0.15);
+border-bottom:1px solid #E2E2E9;margin-bottom:20px;background-color:#fff;}
 .box{margin-left:-4px;margin-right:-4px;}/*room size*/
 .box .cell,.box .box-header{padding:10px;border-bottom:1px solid #F0F0F0}
 .box .inner{padding:10px}
@@ -56,8 +53,7 @@ a.action_label{border:1px solid #CCC;border-top-left-radius:6px;border-top-right
 .topic-meta .topic-bottom{color:#999}
 .topic-bottom{font-size:12px;}
 .topic:hover{background:#f6f6f6}
-
-
+.topic .meta{color:#999999;font-size:12px}
 td.with_separator{border-right:1px solid #ccc}
 .center{text-align:center}
 .content{font-size:14px;line-height:180%;color:#000;overflow:hidden;word-break:break-word}
@@ -71,8 +67,6 @@ img.external{max-width:570px}
 .fileupload-btn{position:relative}
 .fileupload-btn input#fileupload{position:absolute;top:0;right:0;opacity:0;font-size:23px;direction:ltr;cursor:pointer}
 
-
-.topic .meta{color:#999999;font-size:12px}
 .box-header{color:#999999}
 .bigger{font-size:16px}
 .f12{font-size:12px}
@@ -112,11 +106,11 @@ a.dark:hover{color:#385F8A;text-decoration:none}
 .profile-link{font-size:16px}
 .signature{color:#999999;margin:5px 0}
 .glass .inner{padding:10px}
-h1#topic_title{margin:0 0 10px;padding:0}
+h1 #topic_title{margin:0 0 10px;padding:0}
 h2.topic_title{font-size:16px;line-height:150%;font-weight:normal}
 h1,h2,h3,h4,h5,h6{font-weight:500;margin:0px !important;margin-bottom:10px}
-h1{font-size:24px}
-h2{font-size:20px}
+h1{font-size:20px}
+h2{font-size:18px}
 h3{font-size:16px}
 h4{font-size:12px}
 img.large_avatar,img.big_avatar {
@@ -166,31 +160,6 @@ text-shadow:0 2px #fff;margin-bottom:10px
 .user_list li {width:55px;height:55px;float:left;text-align:center;/*border:1px solid red;*/ position:relative;}  
 .user_list li img {width:48px;height:48px;float:left;/*border:1px solid #ddd;*/padding:0px;background:#f0f0f0;position:relative;-moz-border-radius: 3px;border-radius: 3px;}
 
-@media(max-width:480px){
-body{padding:10px}
-.jumbotron{padding:10px;}
-.jumbotron h1{font-size:30px}
-.reply_content img{max-width:250px; height:auto; width:expression(this.width > 250 ? "250px" : this.width);overflow: hidden;}
-}
-@media (max-width: 767px) {body{padding:0}
-#wrap{padding-left:10px;padding-right:10px}
-.navbar-fixed-top,.navbar-fixed-bottom,.navbar-static-top{margin-left:0px;margin-right:0px}
-.container{width:auto}
-}
-
-
-@media (max-width: 979px){
-body{padding-top:0}
-#wrap{padding-left:10px;padding-right:10px}
-.nav-collapse{display: inline;}
-.nav-collapse .nav {margin: 0px;padding: 0px;}
-.nav-collapse .nav li{float: left;} 
-.nav-collapse .nav li a{margin: 0px;padding: 10px 5px;} 
-
-.nav-collapse .pull-right{display: none;}
-.nav-collapse .navbar-search{display: none;}
-}
-
-}
-
-
+http://sc.chinaz.com/info/131106485529.htm
+http://www.xichuangzhu.com/work/10181#
+*/
