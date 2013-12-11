@@ -21,8 +21,7 @@
 <?php }?>
 
 </head>
-<body id="startbbs">
-<a id="top" name="top"></a>
+<body id="startbbs" name="top">
 <?php $this->load->view ('header'); ?>
 <div id="wrap"><div class="container" id="page-main"><div class="row"><div class='col-xs-12 col-sm-6 col-md-8'>
 <div class='box'>
