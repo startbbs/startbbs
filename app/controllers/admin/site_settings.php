@@ -121,7 +121,7 @@ class Site_settings extends Admin_Controller
 			$this->config->update('qiniu','accesskey', $this->input->post('accesskey'));
 			$this->config->update('qiniu','secretkey', $this->input->post('secretkey'));
 			$this->config->update('qiniu','bucket', $this->input->post('bucket'));
-			$this->config->update('qiniu','file_domain', $this->input->post('file_domain'));
+			$this->config->update('qiniu','file_domain', prep_url($this->input->post('file_domain')));
 			$this->myclass->notice('alert("存储配置更新成功");window.location.href="'.site_url('admin/site_settings').'";');
 		}
 
