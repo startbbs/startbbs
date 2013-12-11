@@ -16,6 +16,7 @@ class Install extends Install_Controller
 		$file=FCPATH.'install.lock';
 		if (file_exists($file)){
 			$this->myclass->notice('alert("系统已安装过");window.location.href="'.site_url().'";');
+			exit;
 		}
 
 	}
