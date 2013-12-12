@@ -168,7 +168,7 @@ function send_mail($username,$password,$to,$subject,$message)
 	{
 		if ($type != 'email')
 		{
-			if (preg_match_all("#(^|\s|\()((http(s?)://)|(www\.))(\w+[^\s\)\<]+)#i", $str, $matches))
+			if (preg_match_all("#(^((http(s?)://)|(www\.))(\w+[^\s\)\<]+)#i", $str, $matches))
 			{
 				$pop = ($popup == TRUE) ? " target=\"_blank\" " : "";
 
