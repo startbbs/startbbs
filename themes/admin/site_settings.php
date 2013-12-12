@@ -269,6 +269,15 @@
 </label>
 </div>
 </div>
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="settings_pagination_comments">首页列表条数</label>
+<div class='col-sm-5'>
+<div class='input-group'>
+<input class="form-control" id="settings_pagination_comments" name="home_page_num" type="text" value="<?php echo $this->config->item('home_page_num');?>" />
+<span class='input-group-addon'>/ 页</span>
+</div>
+</div>
+</div>
 
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="settings_pagination_comments">列表每页条数</label>

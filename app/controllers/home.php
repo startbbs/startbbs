@@ -17,6 +17,7 @@ class Home extends SB_Controller
 		$this->load->model('cate_m');
 		$this->load->library('myclass');
 		$this->load->model('link_m');
+		$this->home_page_num=($this->config->item('home_page_num'))?$this->config->item('home_page_num'):20;
 		
 	}
 	public function index ()
@@ -27,7 +28,7 @@ class Home extends SB_Controller
 		//echo $this->router->routes['admin'];
 		//echo var_export($this->router->routes);
 
-		$data['list'] = $this->forum_m->get_forums_list_nopage($this->config->item('per_page_num'));
+		$data['list'] = $this->forum_m->get_forums_list_nopage($this->home_page_num);
 		if(is_array($data['list']))
 		foreach($data['list'] as $k=>$v)
 		{
@@ -75,7 +76,7 @@ class Home extends SB_Controller
 	public function getmore ($page=1)
 	{
 		//分页
-		$limit = 20;
+		$limit = $this->home_page_num;
 		$config['uri_segment'] = 3;
 		$config['use_page_numbers'] = TRUE;
 		$config['base_url'] = site_url('home/getmore/'.$page);

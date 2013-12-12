@@ -69,6 +69,7 @@ class Site_settings extends Admin_Controller
 			$topicset['comment_order']=($this->input->post('comment_order')=='asc')?'asc':'desc';
 			$topicset['is_approve']=($this->input->post('is_approve')=='on')?'on':'off';
 			$topicset['per_page_num']=($this->input->post('per_page_num'))?$this->input->post('per_page_num'):'10';
+			$topicset['home_page_num']=($this->input->post('home_page_num'))?$this->input->post('home_page_num'):'20';
 			$topicset['timespan']=($this->input->post('timespan'))?$this->input->post('timespan'):'0';
 			$topicset['words_limit']=($this->input->post('words_limit'))?$this->input->post('words_limit'):'5000';
 			$this->config->set_item('topicset', $topicset);
