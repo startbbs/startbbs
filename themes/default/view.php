@@ -44,7 +44,7 @@
 By
 <a href="<?php echo site_url('user/info/'.$content['uid']);?>" class="dark startbbs profile_link" title="<?php echo $content['username']?>"><?php echo $content['username']?></a>
 at
-<?php echo $this->myclass->friendly_date($content['addtime']);?>,
+<?php echo date('Y-m-d h:i:s',$content['addtime']);?>,
 <?php echo $content['views']?>次浏览 • <?php echo $content['favorites'];?>人收藏
 <?php if($this->session->userdata('uid')){?>
 • <a href="#reply_content">回复</a> • 
