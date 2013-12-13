@@ -1186,7 +1186,7 @@ class CI_DB_driver {
 			if (isset($call['file']) && strpos($call['file'], BASEPATH.'database') === FALSE)
 			{
 				// Found it - use a relative path for safety
-				$message[] = 'Filename: '.str_replace(array(BASEPATH, APPPATH), '', $call['file']);
+					$message[] = 'Filename: '.str_replace(array(APPPATH, BASEPATH), '', $call['file']);
 				$message[] = 'Line Number: '.$call['line'];
 
 				break;
@@ -1194,6 +1194,7 @@ class CI_DB_driver {
 		}
 
 		$error =& load_class('Exceptions', 'core');
+		if(ENVIRONMENT=='development')
 		echo $error->show_error($heading, $message, 'error_db');
 		exit;
 	}
