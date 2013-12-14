@@ -168,7 +168,7 @@ function send_mail($username,$password,$to,$subject,$message)
 	{
 		if ($type != 'email')
 		{
-			if (preg_match_all("#(^((http(s?)://)|(www\.))(\w+[^\s\)\<]+)#i", $str, $matches))
+			if (preg_match_all("#(\w*://|www\.)[^\s()<>;]+\w#i", $str, $matches))
 			{
 				$pop = ($popup == TRUE) ? " target=\"_blank\" " : "";
 
@@ -223,6 +223,12 @@ function send_mail($username,$password,$to,$subject,$message)
 		}
 
 		return $str;
+	}
+
+
+	function br2nl($text)
+	{
+		return preg_replace('/<br\\s*?\/??>/i', '', $text);
 	}
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */

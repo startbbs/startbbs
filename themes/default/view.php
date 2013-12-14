@@ -19,7 +19,7 @@
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('static/common/js/qiniu.js')?>" type="text/javascript"></script>
 <?php }?>
-
+<script src="<?php echo base_url('static/common/js/topic.js')?>" type="text/javascript"></script>
 </head>
 <body id="startbbs" name="top">
 <?php $this->load->view ('header'); ?>
@@ -127,9 +127,16 @@ at
 </small>
 </div>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a>
-<span class="snow">&nbsp;&nbsp;<?php echo $v['signature']?><?php if($this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>&nbsp;&nbsp;<a class="snow" href="<?php echo site_url('comment/del/'.$content['cid'].'/'.$v['fid'].'/'.$v['id']);?>">[删除]</a></span><?php }?> 
+<span class="snow">&nbsp;&nbsp;<?php echo $v['signature']?></span>
 <div class='sep5'></div>
 <div class='content reply_content'><?php echo stripslashes($v['content'])?></div>
+<div class="pull-right">
+<?php if($this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
+<a href="<?php echo site_url('comment/del/'.$content['cid'].'/'.$v['fid'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>删除</a><?php }?>
+<?php if($this->auth->is_user($v['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
+ <a href="<?php echo site_url('comment/edit/'.$content['cid'].'/'.$v['fid'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>编辑</a>
+ <?php }?>
+</div>
 </td>
 </tr>
 </table>

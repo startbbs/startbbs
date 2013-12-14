@@ -118,5 +118,69 @@ class Comment extends SB_Controller
 
 	}
 
+
+	//编辑回复
+	public function edit($cid,$fid,$id)
+	{
+		if(empty($cid) || empty($fid) || empty($id)){
+			$this->myclass->notice('alert("缺少参数哟")');
+			redirect('forum/view/'.$fid);
+			exit;
+		}
+		if($this->auth->is_admin() || $this->auth->is_master($cid) || $this->auth->is_user($this->uid)){
+			$this->load->model('comment_m');
+			$data['comment']=$this->comment_m->get_comment_by_id ($id);
+			//无编辑器时的处理
+			if($this->config->item('show_editor')=='off'){
+				$data['comment']['content'] = filter_check($data['comment']['content']);
+				$this->load->helper('format_content');
+				$data['comment']['content'] = format_content($data['comment']['content']);
+				$data['comment']['content'] =br2nl($data['comment']['content'] );
+				
+			}
+			$data['comment']['cid']=$cid;
+			//加载form类，为调用错误函数,需view前加载
+			$this->load->helper('form');
+			if($this->input->post('commit') && $this->_validate_add_form()){
+				//数据处理
+				$this->load->library('typography');
+				$content=$this->typography->nl2br_except_pre($this->input->post('content',true),true);
+				//$content=$this->input->post('content',true);
+				$comment=array(
+					'content'=>$content,
+					'replytime'=>time()
+				);
+				if($this->db->where('id',$id)->update('comments',$comment)){
+					//更新贴子回复时间
+					$this->load->model('forum_m');
+					$this->db->set('lastreply',time(),FALSE)->where('fid',$fid)->update('forums');
+					redirect('forum/view/'.$fid);
+					exit;
+				}	
+			}
+			$data['title'] = '编辑回贴';
+			$this->load->view('comment_edit',$data);
+		} else {
+			$this->myclass->notice('alert("非本人或管理员或本版块版主不能操作");window.location.href="'.site_url('forum/view/'.$fid).'";');
+			exit;
+		}
+
+	}
+
+		function _validate_add_form(){
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('content', '内容' , 'trim|required|min_length[6]|max_length['.$this->config->item('words_limit').']');
+		$this->form_validation->set_message('required', "%s 不能为空！");
+		$this->form_validation->set_message('min_length', "%s 最小长度不少于 %s 个字符！");
+		$this->form_validation->set_message('xss_clean', "%s 非法字符！");
+		$this->form_validation->set_message('max_length', "%s 字数最大长度不多于 %s 个字符！");
+		if ($this->form_validation->run() == FALSE){
+			return FALSE;
+		}else{
+			return TRUE;
+		}
+	}
+
+
 	
 }
