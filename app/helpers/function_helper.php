@@ -197,7 +197,7 @@ function send_mail($username,$password,$to,$subject,$message)
 											$matches['1'][$i].'<img src="http'.
 											$matches['4'][$i].'://'.
 											$matches['5'][$i].
-											$matches['6'][$i].'" alt="">'.
+											$matches['6'][$i].'" class="img-responsive" alt="">'.
 											$period, $str);
 					} else {
 						$str = str_replace($matches['0'][$i],
