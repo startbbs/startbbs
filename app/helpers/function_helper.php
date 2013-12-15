@@ -61,9 +61,18 @@ function sb_substr( $string, $length, $dot = '..', $charset='utf-8' ) {
 function cleanhtml($str)
 {
 	$str = strip_tags($str);
+	$str = htmlspecialchars($str);
 	$str=preg_replace("/\s+/"," ", $str); //过滤多余回车
+	 $str = preg_replace("/ /","",$str);
+	 $str = preg_replace("/&nbsp;/","",$str);
+	 $str = preg_replace("/　/","",$str);
+	 $str = preg_replace("/\r\n/","",$str);
+	 $str = str_replace(chr(13),"",$str);
+	 $str = str_replace(chr(10),"",$str);
+	 $str = str_replace(chr(9),"",$str);
 	return $str;
 }
+
 
 function check_auth()
 {
@@ -164,11 +173,12 @@ function send_mail($username,$password,$to,$subject,$message)
 	}
 }
 
+
 	function auto_link_pic($str, $type = 'both', $popup = FALSE)
 	{
 		if ($type != 'email')
 		{
-			if (preg_match_all("#(\w*://|www\.)[^\s()<>;]+\w#i", $str, $matches))
+			if (preg_match_all("#(^|\s|\()((http(s?)://)|(www\.))(\w+[^\s\)\<]+)#i", $str, $matches))
 			{
 				$pop = ($popup == TRUE) ? " target=\"_blank\" " : "";
 

@@ -154,7 +154,7 @@ class Forum extends SB_controller
 				$data['content']['keywords'] = $content['title'];
 			}
 			//描述
-			$data['content']['description']= sb_substr(strip_tags($content['content']),200);
+			$data['content']['description']= sb_substr(cleanhtml($content['content']),200);
 
 			//自定义tag_url
 			$data['tag_url']=array_keys($this->router->routes,'tag/index/$1');
@@ -208,7 +208,7 @@ class Forum extends SB_controller
 		} else {
 			if($_POST && $this->validate_add_form()){
 				$data = array(
-					'title' => $this->input->post ('title'),
+					'title' => $this->input->post ('title',true),
 					'content' => $this->input->post ('content'),
 					'cid' => $cid,
 					'uid' => $uid,
@@ -277,7 +277,7 @@ class Forum extends SB_controller
 	private function validate_add_form(){
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('title', '标题' , 'trim|required|min_length[4]|max_length[80]|strip_tags');
+		$this->form_validation->set_rules('title', '标题' , 'trim|required|strip_tags|htmlspecialchars|min_length[4]|max_length[80]');
 		$this->form_validation->set_rules('content', '内容' , 'trim|required|min_length[6]|max_length['.$this->config->item('words_limit').']');
 		$this->form_validation->set_rules('cid', '栏目' , 'trim|required');
 		
