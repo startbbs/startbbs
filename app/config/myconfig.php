@@ -12,5 +12,5 @@ $config = array (
   'themes' => 'default',
   'logo' => 'Start<span class=\'green\'>BBS</span>',
   'auto_tag' => 'on',
-  'encryption_key' => 'a2ecea86bc8192937a8b3bf1c41ab0f7',
+  'encryption_key' => '4e3d80abf8a003ec08fdfff90e37d141',
 );

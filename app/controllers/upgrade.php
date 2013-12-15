@@ -17,41 +17,57 @@ class Upgrade extends Other_Controller
 	}
 	public function index ()
 	{
-		$data['old_version'] = 'V1.1.2';
-		$data['new_version'] = 'V1.1.3';
-		if($data['new_version']==$data['old_version']){
-			$data['msg'] = '您的版本为最新版，无需升级';
+		$data['new_version'] = 'V1.1.4';
+		$data['version_msg'] = '当前最新版本为：'.$data['new_version'].',升级前一定要备份数据！！';
+		$data['post']=$this->input->post('do_upgrade');
+		if($data['post']){
+			$data['msg_status']=1;
+			$this->_do_upgrade ();
+			$data['msg'] = '<span class="red">升级完成</a>';
+			unlink(FCPATH.'/app/controllers/upgrade.php');
+			$this->load->view('upgrade',$data);
+			exit;
 		} else{
 			$data['msg'] = '开始升级';
+			$this->load->view('upgrade',$data);
 		}
-		$data['log'] = '';
-		$this->load->view('upgrade',$data);
+		
 	}
 
-	public function do_upgrade ()
+	function _do_upgrade ()
 	{
-		$del1=unlink(FCPATH.'/static/common/css/bootstrap-responsive.min.css');
-		$del2=unlink(FCPATH.'/static/common/js/jquery-1.9.1.min.js');
-		$del3=unlink(FCPATH.'/themes/default/install_step.php');
-		$del4=unlink(FCPATH.'/system/core/Startbbs.php');
-		$del5=unlink(FCPATH.'/uploads/files');
-		if($del1 && $del2 && $del3 && $del4 && $del5){
-			$data['msg_1'] = '删除无用文件';
+		$file1=FCPATH.'static/common/css/bootstrap-responsive.min.css';
+		if(file_exists($file1))
+		$del1=unlink($file1);
+		$file2=FCPATH.'static/common/js/jquery-1.9.1.min.js';
+		if(file_exists($file2))
+		$del2=unlink($file2);
+		$file3=FCPATH.'themes/default/install_step.php';
+		if(file_exists($file3))
+		$del3=unlink($file3);
+		$file4=FCPATH.'system/core/Startbbs.php';
+		if(file_exists($file4))
+		$del4=unlink($file4);
+		$file5=FCPATH.'uploads/files';
+		if(file_exists($file5))
+		$del5=unlink($file5);
+		$file6=FCPATH.'static/common/css/ie.css';
+		if(file_exists($file6))
+		$del1=unlink($file6);
+
+		if(@$del1 || @$del2 || @$del3 || @$del4 || @$del5 || @$del6){
+			$data['msg_1']='删除无用文件';
 		}
+
 		$encryption_key= md5(uniqid());
 		if($this->config->update('myconfig','encryption_key',$encryption_key)){
-			$data['msg_2'] = '生成安全码成功';
+			$data['msg_2']='生成安全码成功';
 		}
-		if($this->config->update('version','sys_version','V1.1.3')){
-			$data['msg_v'] = '版本号更新成功';
-		}
-		//if(unlink(FCPATH.'/app/controllers/upgrade.php')){
-		//	$data['msg_del'] = '删除升级文件';
-			$data['msg_done'] = '升级完成...';
-		//} 
-		$data['msg_error'] = '升级失败';
 
-		exit(json_encode($data));		
+		//$this->session->set_flashdata('msg_error', '升级失败');
+		$data['msg_done']='升级成功';
+
+		//exit(json_encode($data));		
 	}
 
 	function deldir($dir) { 
