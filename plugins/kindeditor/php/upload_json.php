@@ -14,13 +14,13 @@ $php_url = dirname($_SERVER['PHP_SELF']) . '/';
 //得到二级目录
 $a  = parse_url($php_url);
 $b = explode('/',$a['path']);
-$c=($b[1]=='plugins')?'':'/'.$b[1];
+$c=($b[1]=='plugins')?'/':'/'.$b[1].'/';
 
 
 //文件保存目录路径
 $save_path = $_SERVER['DOCUMENT_ROOT'].$c.'uploads/';
 //文件保存目录URL
-$save_url = 'http://'.$_SERVER['HTTP_HOST'].$c.'uploads/';
+$save_url = '/uploads/';
 //定义允许上传的文件扩展名
 $ext_arr = array(
 	'image' => array('gif', 'jpg', 'jpeg', 'png'),
