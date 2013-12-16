@@ -97,7 +97,7 @@ a.dark:hover{color:#385F8A;text-decoration:none}
 .comment_header{background-color:#EDF3F5}
 
 .reply_content,.topic_content{color:#000000;font-size:14px;line-height:180%;overflow:hidden}
-.reply_content img{max-width:560px}
+img{display:block;height:auto;max-width:100%}
 
 .pagination{margin:10px 0}
 .pagination ul>li>a:hover{background-color:#F93;color:#FFF;text-decoration:none}

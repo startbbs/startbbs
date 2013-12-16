@@ -118,19 +118,15 @@ at
 <td width='10'></td>
 <td valign='top' width='auto'>
 <div class='pull-right'>
-<small class='snow' id="r<?php echo ($page-1)*10+$key+1;?>">
-#<?php echo ($page-1)*10+$key+1;?> -
-<?php echo $this->myclass->friendly_date($v['replytime'])?>
-
-<a href="#reply" onclick="replyOne('<?php echo $v['username']?>');"><img align="absmiddle" alt="Reply_button" border="0" id="mention_button" class="clickable mention_button" data-mention="<?php echo $v['username']?>" src="<?php echo base_url('static/common/images/reply_button.png');?>" /></a>
-
-</small>
+<span class='snow' id="r<?php echo ($page-1)*10+$key+1;?>">
+#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>" onclick="replyOne('<?php echo $v['username']?>');">回复</a></span>
 </div>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a>
-<span class="snow">&nbsp;&nbsp;<?php echo $v['signature']?></span>
+<span class="snow">&nbsp;&nbsp;<?php echo $this->myclass->friendly_date($v['replytime'])?></span>
 <div class='sep5'></div>
 <div class='content reply_content'><?php echo stripslashes($v['content'])?></div>
 <div class="pull-right">
+<!--<?php echo $v['signature']?>-->
 <?php if($this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
 <a href="<?php echo site_url('comment/del/'.$content['cid'].'/'.$v['fid'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>删除</a><?php }?>
 <?php if($this->auth->is_user($v['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
