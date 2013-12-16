@@ -95,9 +95,9 @@ a.dark:hover{color:#385F8A;text-decoration:none}
 
 .hover_action{display:none}
 .comment_header{background-color:#EDF3F5}
-
+.reply_content img{display:block;height:auto;max-width:100%}
+.topic_content img{display:block;height:auto;max-width:100%}
 .reply_content,.topic_content{color:#000000;font-size:14px;line-height:180%;overflow:hidden}
-img{display:block;height:auto;max-width:100%}
 
 .pagination{margin:10px 0}
 .pagination ul>li>a:hover{background-color:#F93;color:#FFF;text-decoration:none}
@@ -132,6 +132,7 @@ img.small_avatar,img.mini_avatar {
     width:24px;
     height:24px;
 }
+
 .red{
 	color:red;
 }
@@ -159,7 +160,7 @@ text-shadow:0 2px #fff;margin-bottom:10px
 .user_list {list-style:none;float:none;overflow:hidden; }  
 .user_list li {width:55px;height:55px;float:left;text-align:center;/*border:1px solid red;*/ position:relative;}  
 .user_list li img {width:48px;height:48px;float:left;/*border:1px solid #ddd;*/padding:0px;background:#f0f0f0;position:relative;-moz-border-radius: 3px;border-radius: 3px;}
-
+/*
 http://sc.chinaz.com/info/131106485529.htm
 http://www.xichuangzhu.com/work/10181#
 */
