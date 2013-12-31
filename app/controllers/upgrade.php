@@ -50,7 +50,7 @@ class Upgrade extends Other_Controller
 		$del4=unlink($file4);
 		$file5=FCPATH.'uploads/files';
 		if(file_exists($file5))
-		$del5=unlink($file5);
+		$del5=rmdir($file5);
 		$file6=FCPATH.'static/common/css/ie.css';
 		if(file_exists($file6))
 		$del1=unlink($file6);
