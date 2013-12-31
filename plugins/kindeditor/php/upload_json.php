@@ -26,8 +26,8 @@ $ext_arr = array(
 	'image' => array('gif', 'jpg', 'jpeg', 'png'),
 	'flash' => array('swf', 'flv'),
 	'media' => array('swf', 'flv', 'mp3', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
-	'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2'),
-	'mix' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2','gif', 'jpg', 'jpeg', 'png','pdf'),
+	'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'txt', 'zip', 'rar', 'gz', 'bz2'),
+	'mix' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'txt', 'zip', 'rar', 'gz', 'bz2','gif', 'jpg', 'jpeg', 'png','pdf'),
 );
 //最大文件大小
 $max_size = 1000000;

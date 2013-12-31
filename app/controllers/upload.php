@@ -96,7 +96,7 @@ class upload extends SB_Controller {
 		$ext_arr = array(
 			'image' => array('gif', 'jpg', 'jpeg', 'png','tiff'),
 			'media' => array('swf', 'flv', 'mp3', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
-			'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2'),
+			'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'txt', 'zip', 'rar', 'gz', 'bz2'),
 		);
 		//获得文件扩展名
 		$info = pathinfo(@$_FILES['file']['name']);
