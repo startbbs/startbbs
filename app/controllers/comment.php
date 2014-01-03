@@ -25,7 +25,7 @@ class Comment extends SB_Controller
 		} else {
 		//数据提交
 		$data = array(
-			'content' => $this->input->post('comment'),
+			'content' => clearxss($this->input->post('comment')),
 			'fid' => $this->input->post('fid'),
 			'uid' => $this->uid,
 			'replytime' => time()
@@ -147,7 +147,7 @@ class Comment extends SB_Controller
 				$content=$this->typography->nl2br_except_pre($this->input->post('content',true),true);
 				//$content=$this->input->post('content',true);
 				$comment=array(
-					'content'=>$content,
+					'content'=>clearxss($content),
 					'replytime'=>time()
 				);
 				if($this->db->where('id',$id)->update('comments',$comment)){
