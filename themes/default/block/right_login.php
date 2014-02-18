@@ -1,6 +1,6 @@
 <?php if($this->session->userdata('uid')){ ?>
-<div class='box'>
-<div class='cell'>
+<div class='panel panel-default'>
+<div class='panel-body'>
 <table>
 <tr>
 <td valign='top' width='100'>
@@ -43,7 +43,7 @@
 </div>
 </div>
 <?php }?>
-<div class='inner text-muted'>
+<div class='panel-footer text-muted'>
 <?php if($users['notices']){?>
 <img align="top" alt="Dot_orange" class="icon" src="<?php echo base_url('static/common/images/dot_orange.png');?>" />
 <a href="<?php echo site_url('notifications');?>"><?php echo $users['notices']?> 条未读提醒</a>
@@ -53,19 +53,14 @@
 </div>
 </div>
 <?php } else {?>
-<div class='box'>
-<div class='cell'>
-<?php echo $settings['site_name']?> — <?php echo $settings['short_intro']?>
-</div>
-<div class='inner'>
-<div class='sep5'></div>
-<div class='center'>
-<a href="<?php echo site_url('user/reg');?>" class="btn btn-default">现在注册</a>
-<div class='sep5'></div>
-<div class='sep10'></div>
-已注册用户请
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <?php echo $settings['site_name']?>
+    </div>
+    <div class="panel-body">
+        <a href="<?php echo site_url('user/reg');?>" class="btn btn-default">现在注册</a> 已注册用户请
 <a href="<?php echo site_url('user/login');?>" class="startbbs">登入</a>
-</div>
-</div>
+    </div>
 </div>
 <?php }?>

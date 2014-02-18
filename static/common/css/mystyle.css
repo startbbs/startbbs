@@ -2,7 +2,7 @@
 
 /* 统一等宽字体 */
 code, kbd, pre, samp {
-    font-family: courier new, courier, monospace;
+    font-family: 'Microsoft YaHei',courier new, courier, monospace;
 }
 pre{line-height:18px;}
 

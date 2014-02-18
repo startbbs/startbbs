@@ -144,81 +144,45 @@ $(function() {
 <?php $this->load->view('block/right_login');?>
 <?php $this->load->view('block/right_tags');?>
 
-<div class='box'>
-<div class='box-header'>
-社区运行状态
-</div>
-<div class='inner'>
-<table border='0' cellpadding='3' cellspacing='0' width='100%'>
-<?php if($total_users>0){?>
-<tr>
-<td align='right' width='70'>
-<span class='gray'>最新会员</span>
-</td>
-<td align='left'>
-<strong><?php echo $last_user['username']?></strong>
-</td>
-</tr>
-<?php }?>
-<tr>
-<td align='right' width='70'>
-<span class='gray'>注册会员</span>
-</td>
-<td align='left'>
-<strong><?php echo $total_users?></strong>
-</td>
-</tr>
-<tr>
-<td align='right' width='70'>
-<span class='gray'>今日话题</span>
-</td>
-<td align='left'>
-<strong><?php echo $today_forums;?></strong>
-</td>
-</tr>
-<tr>
-<td align='right' width='70'>
-<span class='gray'>话题总数</span>
-</td>
-<td align='left'>
-<strong><?php echo $total_forums?></strong>
-</td>
-</tr>
+ <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">社区统计</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="list-unstyled statistics">
+	        <?php if($total_users>0){?>
+            <li>最新会员：<?php echo $last_user['username']?></li>
+            <?php }?>
+            <li>注册会员： <?php echo $total_users?></li>
+            <li>今日话题： <?php echo $today_forums;?></li>
+            <li>话题总数： <?php echo $total_forums?></li>
+            <li>回复数： <?php echo $total_comments?></li>
+        </ul>
+    </div>
+</div> 
 
-<tr>
-<td align='right' width='50'>
-<span class='gray'>回复数</span>
-</td>
-<td align='left'>
-<strong><?php echo $total_comments?></strong>
-</td>
-</tr>
-</table>
-</div>
-</div>
 
 <?php $this->load->view('block/right_ad');?>
-
-<div class='box'>
-<div class='box-header'>
-友情链接
-</div>
-<div class="inner">
-<ul class="list_unstyled">
-<li style="width:0; height:0; overflow:hidden;"><a href="http://www.startbbs.com" target="_blank">StartBBS</a></li>
-<?php if($links){?>
-<?php foreach($links as $v){?>
-<?php if($v['is_hidden']==0){?>
-<li><a href="<?php echo $v['url'];?>" target="_blank"><?php echo $v['name'];?></a></li>
-<?php } else {?>
-<li>暂无链接</li>
-<?php } ?>
-<?php }?>
-<?php } else {?>
-<li>暂无链接</li>
-<?php }?>
-</ul>
-</div>
+ <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="list-unstyled statistics">
+	        <li style="width:0; height:0; overflow:hidden;"><a href="http://www.startbbs.com" target="_blank">StartBBS</a></li>
+			<?php if($links){?>
+			<?php foreach($links as $v){?>
+			<?php if($v['is_hidden']==0){?>
+            <li><a href="<?php echo $v['url'];?>" target="_blank"><?php echo $v['name'];?></a></li>
+			<?php } else {?>
+			<li>暂无链接</li>
+			<?php } ?>
+			<?php }?>
+			<?php } else {?>
+			<li>暂无链接</li>
+			<?php }?>
+        </ul>
+    </div>
 </div>
 
 
