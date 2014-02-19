@@ -2,6 +2,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">最新会员</h3>
     </div>
+    <div class="panel-body">
     <ul class="list-inline user_list">
     <?php if(isset($new_users)) foreach($new_users as $v){?>
         <li>
@@ -15,4 +16,5 @@
         </li>
 <?php }?>
     </ul>
+    </div>
 </div>
