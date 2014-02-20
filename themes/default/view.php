@@ -99,14 +99,13 @@ at
 <span id="comments">
 <?php echo $content['comments']?></span> 回复
 </div>
-<div class='fix_cell' id='saywrap'>
+<div class='fix_cell1' id='saywrap'>
 <div id="clist">
 <?php foreach ($comment as $key=>$v){?>
 <article>
 <div class='cell hoverable reply' id='comment_988'>
-<table border='0' cellpadding='0' cellspacing='0' width='100%'>
-<tr>
-<td valign='top' width='48'>
+<div class="row">
+<div class="col-md-1">
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username']?>">
 <?php if($v['avatar']) {?>
 <img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['avatar']);?>" />
@@ -114,16 +113,14 @@ at
 <img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>" />
 <?php }?>
 </a>
-</td>
-<td width='10'></td>
-<td valign='top' width='auto'>
-<div class='pull-right'>
-<span class='snow' id="r<?php echo ($page-1)*10+$key+1;?>">
-#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>" onclick="replyOne('<?php echo $v['username']?>');">回复</a></span>
 </div>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a>
+<div class="col-md-11">
+<div>
+<span class='snow pull-right' id="r<?php echo ($page-1)*10+$key+1;?>">
+#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>" onclick="replyOne('<?php echo $v['username']?>');">回复</a></span>
+<span><a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a></span>
 <span class="snow">&nbsp;&nbsp;<?php echo $this->myclass->friendly_date($v['replytime'])?></span>
-<div class='sep5'></div>
+</div>
 <div class='content reply_content'><?php echo stripslashes($v['content'])?></div>
 <div class="pull-right">
 <!--<?php echo $v['signature']?>-->
@@ -133,9 +130,9 @@ at
  <a href="<?php echo site_url('comment/edit/'.$content['cid'].'/'.$v['fid'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>编辑</a>
  <?php }?>
 </div>
-</td>
-</tr>
-</table>
+
+</div>
+</div>
 </div>
 </article>
 <?php }?>
@@ -154,6 +151,8 @@ at
 <?php }?> 
 </div>
 </div>
+
+
 </section>
 
 <a name='reply'></a>
