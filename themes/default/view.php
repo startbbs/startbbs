@@ -99,7 +99,7 @@ at
 <span id="comments">
 <?php echo $content['comments']?></span> 回复
 </div>
-<div class='fix_cell1' id='saywrap'>
+<div class='fix_cell' id='saywrap'>
 <div id="clist">
 <?php foreach ($comment as $key=>$v){?>
 <article>

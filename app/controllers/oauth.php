@@ -43,7 +43,7 @@ class Oauth extends SB_Controller {
 		} else {
 			$user = $this->db->select('uid,username,password,openid,group_type,gid')->from('users')->where('openid', $open_id)->limit(1)->get()->row_array();
 			if($user){
-				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'],'password' => $user['password'], 'group_type' => $user['group_type'], 'gid' => $user['gid']));
+				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'],'openid'=>$open_id,'password' => $user['password'], 'group_type' => $user['group_type'], 'gid' => $user['gid']));
 				redirect('/');
 			} elseif(!$this->check_username($arr['user']['username'])){
 				$userinfo = array('username'=>$arr['user']['username'],'openid'=>$open_id, 'ip'=>$this->myclass->get_ip(),'group_type'=>2,'gid'=>3, 'regtime'=>time(), 'is_active'=>1);
