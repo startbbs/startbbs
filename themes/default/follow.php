@@ -20,11 +20,11 @@
 我关注的会员
 </div>
 <div class='inner'>
-<ul class='thumbnails'>
+<ul class='thumbnails row'>
 <?php if(isset($follow_list)){?>
 <?php foreach($follow_list as $v){?>
-<li>
-<div class='thumbnail'>
+<li class="col-xs-5 col-md-2">
+<div class='thumbnail1'>
 <a href="<?php echo site_url('user/info/'.$v['follow_uid']);?>" title="<?php echo $v['username']?>">
 <?php if($v['avatar']){?>
 <img alt="<?php echo $v['username']?> large avatar" class="large_avatar" src="<?php echo base_url($v['avatar'])?>" />
