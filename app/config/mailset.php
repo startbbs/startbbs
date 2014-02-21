@@ -6,8 +6,8 @@ $config = array (
   'protocol' => 'smtp',//邮件方式
   'smtp_host' => '',//设置 SMTP 服务器的地址
   'smtp_port' => '',//设置 SMTP 服务器的端口，默认为 25
-  'smtp_user' => '',//发信人邮件地址。
-  'smtp_pass' => '',//SMTP 身份验证密码
+  'smtp_user' => 'admin',//发信人邮件地址。
+  'smtp_pass' => 'ewewrerwer',//SMTP 身份验证密码
 );
 
 /* End of file mailset.php */

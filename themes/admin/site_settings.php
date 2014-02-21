@@ -419,7 +419,7 @@ Phpmail
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="settings_smtp_pass">邮箱密码:</label>
 <div class='col-sm-5'>
-<input class="form-control" id="settings_smtp_user" name="smtp_pass" type="text" value="<?php echo $this->config->item('smtp_pass');?>" />
+<input class="form-control" id="settings_smtp_user" name="smtp_pass" type="password" value="<?php echo $this->config->item('smtp_pass');?>" />
 <small class='help-inline'>@发信人邮箱密码</small>
 </div>
 </div>
