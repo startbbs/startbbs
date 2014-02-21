@@ -64,7 +64,7 @@ $autoload['libraries'] = array('session','auth','qqclass');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','file','function');
+$autoload['helper'] = array('url','file','function','language');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Config files
@@ -94,7 +94,7 @@ $autoload['config'] = array('myconfig','topicset','openid','mailset','version');
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array('default','custom');
 
 
 /*

@@ -14,7 +14,7 @@
 
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo site_url()?>">首页</a></li>
+            <li class="active"><a href="<?php echo site_url()?>"><?php echo lang('front_home');?></a></li>
             <li><a href="<?php echo site_url('section')?>">节点</a></li>
             <li><a href="<?php echo site_url('user')?>">会员</a></li>
             <li><a href="<?php echo site_url('forum/add')?>">发表</a></li>
