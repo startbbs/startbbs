@@ -22,7 +22,6 @@ class Section extends SB_Controller
 		$data['total_forums']=$this->db->count_all('forums');
 		//获取版块列表
 		$data['catelist'] = $this->cate_m->get_all_cates();
-
 		//获取cids数据
 		if($data['catelist'])
 		foreach($data['catelist'] as $k=>$v){

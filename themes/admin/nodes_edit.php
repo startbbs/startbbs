@@ -4,6 +4,41 @@
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?php echo $title?> - 管理后台 - <?php echo $settings['site_name']?></title>
 <?php $this->load->view ( 'header-meta' ); ?>
+<script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#upload_ico").click(function(){ 
+	doUpload(); 
+	});
+});
+function doUpload() {
+        // 上传方法
+        $.upload({
+                        // 上传地址
+                        url:baseurl+"index.php/upload/upload_pic/<?php echo $cateinfo['cid']?>", 
+                        // 文件域名字
+                        fileName: 'img', 
+                        // 其他表单数据
+                        //params: {name: 'pxblog'},
+                        // 上传完成后, 返回json, text
+                        dataType: 'json',
+                        // 上传之前回调,return true表示可继续上传
+                        onSend: function() {
+                                        return true;
+                        },
+                        // 上传之后回调
+                        onComplate: function(data) {
+	                        if(data.file_url){
+	                        $('#ico').val(data.file_url);
+	                        alert(data.msg);
+                            } else {
+								alert(data.error);
+							}
+                        }
+        });
+}
+	</script>
+
 </head>
 <body id="startbbs">
 <?php $this->load->view ( 'header' ); ?>
@@ -42,6 +77,17 @@
 <label class="col-sm-3 control-label" for="keywords">分类关键字</label>
 <div class="col-sm-5">
 <input class="form-control" id="keywords" name="keywords" size="50" type="text" value="<?php echo $cateinfo['keywords']?>" /></div></div>
+<div class="form-group">
+<label class="col-sm-3 control-label" for="ico">分类ico</label>
+<div class="col-sm-4">
+<input class="form-control" id="ico" name="ico" size="50" type="text" value="<?php echo $cateinfo['ico']?>" />
+</div>
+<div>
+<input id="upload_ico" type="button" value="选择"  class="btn btn-success">
+</div>
+
+
+</div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="content">分类简介</label>
 <div class="col-sm-5">

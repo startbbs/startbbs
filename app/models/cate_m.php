@@ -25,7 +25,7 @@ class Cate_m extends SB_Model
 	}
 	public function get_all_cates ()
 	{
-		$this->db->select('cid,pid,cname,content,listnum,master');
+		$this->db->select('cid,pid,cname,ico,content,listnum,master');
 		$this->db->order_by('pid', 'desc');
 		$query=$this->db->get('categories')->result_array();
 		$flist_url=array_keys($this->router->routes,'forum/flist/$1');

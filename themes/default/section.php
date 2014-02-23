@@ -48,7 +48,11 @@
 	<tr>
 	<td class='avatar' valign='top'>
 	<a href="<?php echo site_url($v['flist_url']);?>" class="profile_link" title="<?php echo $v['cname'];?>">
+	<?php if($v['ico']){?>
+	<img alt="<?php echo $v['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['ico'])?>" />
+	<?php } else {?>
 	<img alt="<?php echo $v['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('static/common/images/section.png')?>" />
+	<?php }?>
 	</a>
 	</td>
 	<td style='padding-left: 12px' valign='top' width="50%">
@@ -106,7 +110,11 @@
 	<tr>
 	<td class='avatar' valign='top'>
 	<a href="<?php echo site_url($c['flist_url']);?>" class="profile_link" title="<?php echo $c['cname'];?>">
+	<?php if($c['ico']){?>
+	<img alt="<?php echo $c['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url($c['ico'])?>" />
+	<?php } else {?>
 	<img alt="<?php echo $c['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('static/common/images/section.png')?>" />
+	<?php }?>
 	</a>
 	</td>
 	<td style='padding-left: 12px' valign='top' width="50%">

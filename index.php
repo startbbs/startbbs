@@ -18,7 +18,7 @@ header('Content-Type: text/html; charset=utf-8');//强制输出utf8
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'production');
+	define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
  * 错误报告

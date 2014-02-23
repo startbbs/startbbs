@@ -21,6 +21,10 @@ class upload extends SB_Controller {
 	}
 	
 	function images() {
+				if(!$this->auth->is_admin())
+		{
+			die('无权访问此页');
+		}
 		//if($this->input->post('submit')) {
 		$config = array(
 			'allowed_types' => 'jpg|jpeg|gif|png',
@@ -65,6 +69,69 @@ class upload extends SB_Controller {
 		//}
 		
 	}
+
+	function upload_pic($cid='') {
+
+		if(!$this->auth->is_admin())
+		{
+			die('无权访问此页');
+		}
+		
+		//if($this->input->post('submit')) {
+			
+		$path = 'uploads/ico/';
+		$path_url=FCPATH.$path;
+		if(!file_exists($path_url)){
+			mkdir($path_url,0777,true);
+		}
+		$config = array(
+			'allowed_types' => 'jpg|jpeg|gif|png',
+			'upload_path' => $path,
+			//'encrypt_name' => false,
+			'file_name'=>$cid.'.jpg',
+			'overwrite'=>true,
+			'max_size' => 2000
+		);
+		
+		$this->load->library('upload', $config);
+		if(!$this->upload->do_upload('img')){
+			$data['error'] = $this->upload->display_errors('<p>', '</p>');
+			echo json_encode($data);
+		} else {
+			
+			$upload_data = $this->upload->data();
+			
+            $data['status'] = 'success';
+            $data['msg']  = '上传成功!';
+            //$data['file_url']  = $upload_data['file_name'];
+            $data['file_url']  = $path.$upload_data['file_name'];
+            
+			$config = array(
+				'source_image' => $upload_data['full_path'],
+				'maintain_ration' => true,
+			);
+			//图片缩放
+			$size = GetImageSize($config['source_image']);
+			if ( $size[0] >72){
+				$config['width'] = 72;
+				$ra=number_format((72/$size[0]),1);
+	  			$config['height']=round($size[1]*$ra);
+			}
+
+			$this->load->library('image_lib', $config);
+			$this->image_lib->resize();
+			//指定父页面接收上传文件名的元素id
+        	$datas['result_field'] = 'up_name';
+			exit(json_encode($data));
+			
+		}
+
+		//}
+		
+		
+	}
+
+	
 	function get_images() {
 		
 		
