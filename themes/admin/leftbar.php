@@ -26,7 +26,7 @@ Users
 <div class='cell'>
 Nodes
 &nbsp;
-<a href="<?php echo site_url('admin/nodes');?>">版块结点</a>
+<a href="<?php echo site_url('admin/nodes');?>">版块节点</a>
 </div>
 <div class='cell'>
 Topics

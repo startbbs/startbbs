@@ -20,6 +20,7 @@ ul, ol {
 small {
     font-size: 12px;
 }
+
 .grid-gutter-width{10px}
 body{padding-top: 70px;background:#E0E0E0/* url(../images/bg.png) bottom left repeat*/;font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important}
 #wrap{/*padding-top:60px*/}
@@ -108,11 +109,15 @@ a.dark:hover{color:#385F8A;text-decoration:none}
 .glass .inner{padding:10px}
 h1 #topic_title{margin:0 0 10px;padding:0}
 h2.topic_title{font-size:16px;line-height:150%;font-weight:normal}
-h1,h2,h3,h4,h5,h6{font-weight:500;margin:0px !important;margin-bottom:10px}
-h1{font-size:20px}
+h2,h3,h4,h5,h6{font-weight:500;margin:0px !important;margin-bottom:10px}
+h1{font-size:20px;word-wrap:break-word;overflow:auto;}
 h2{font-size:18px}
 h3{font-size:16px}
 h4{font-size:12px}
+div.topic-head > small {
+    color: darkgray
+}
+
 img.large_avatar,img.big_avatar {
     -moz-border-radius: 4px;
     border-radius: 4px;

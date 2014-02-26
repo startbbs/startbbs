@@ -71,7 +71,7 @@ class Forum extends SB_controller
 			$this->myclass->notice('alert("贴子不存在");window.location.href="'.site_url('/').'";');
 			exit;
 		} elseif(!$this->auth->user_permit($content['cid'])){//权限
-			$this->myclass->notice('alert("您无限访问此节点中的贴子");history.back();');
+			$this->myclass->notice('alert("您无权访问此节点中的贴子");history.back();');
 		} else {
 			//$this->output->cache(1);
 			$content = $this->forum_m->get_forum_by_fid($fid);

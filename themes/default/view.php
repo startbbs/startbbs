@@ -26,7 +26,7 @@
 <div id="wrap"><div class="container" id="page-main"><div class="row"><div class='col-xs-12 col-sm-6 col-md-8'>
 <div class='box'>
 <article>
-<div class='header'>
+<div class='header topic-head'>
 <div class='pull-right'>
 <a href="<?php echo site_url('user/info/'.$content['uid']);?>" class="profile_link" title="<?php echo $content['username']?>">
 <?php if($content['avatar']) {?>
