@@ -68,6 +68,8 @@ class Section extends SB_Controller
 		$data['new_users'] = $this->user_m->get_users(15,'new');
 		//最新贴子列表
 		$data['new_forums'] = $this->forum_m->get_latest_forums(10);
+		//action
+		$data['action'] = 'section';
 
 		$this->load->view('section',$data);
 	}

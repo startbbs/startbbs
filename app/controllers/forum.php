@@ -267,6 +267,9 @@ class Forum extends SB_controller
 			}
 		}
 		$data['category'] = $this->cate_m->get_all_cates();
+
+		//action
+		$data['action'] = 'add';
 		//开启storage config
 		$this->load->config('qiniu');
 		$this->load->view('add',$data);

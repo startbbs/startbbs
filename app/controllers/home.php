@@ -57,7 +57,8 @@ class Home extends SB_Controller
 		//links
 		$data['links']=$this->link_m->get_latest_links();
 
-		
+		//action
+		$data['action'] = 'home';
 		$this->load->view('home',$data);
 
 	}

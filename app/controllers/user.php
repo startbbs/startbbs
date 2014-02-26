@@ -22,7 +22,9 @@ class User extends SB_Controller
 	{
 		$data['title'] = '用户';
 		$data['new_users'] = $this->user_m->get_users(33,'new');
-		$data['hot_users'] = $this->user_m->get_users(33,'hot');		
+		$data['hot_users'] = $this->user_m->get_users(33,'hot');
+		//action
+		$data['action'] = 'user';		
 		$this->load->view('user',$data);
 	}
 	public function info ($uid)
