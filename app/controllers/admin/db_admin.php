@@ -60,7 +60,9 @@ class db_admin extends Admin_Controller
 			);
 			$this->load->dbutil();
 			$backup=$this->dbutil->backup($prefs);
-			$file='mysql'.time().'.sql';
+			//$file='mysql'.time().'.sql';
+			$lenth=rand(10,20);
+			$file=randkey($lenth).'.sql';
 			if(write_file(FCPATH.'data/backup/'.$file, $backup)){
 				$this->session->set_flashdata('error', '备份数据库'.$file.'成功!');
 				redirect('admin/db_admin/backup');

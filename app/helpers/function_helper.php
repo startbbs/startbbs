@@ -92,7 +92,7 @@ function check_auth()
 	return $data->product;
 }
 
-function get_domain($url=''){ 
+function get_domain($url=''){
 	$host=$url?$url:@$_SERVER[HTTP_HOST]; 
 	$host=strtolower($host); 
 	if(strpos($host,'/')!==false){ 
@@ -279,6 +279,16 @@ function send_mail($username,$password,$to,$subject,$message)
 			}
 		}
 		return $val;
+	}
+
+	function randkey($length)
+	{
+		 $pattern='1234567890abcdefghijklmnopqrstuvwxyz$#&^@!';
+		 for($i=0;$i<$length;$i++)
+		 {
+		   $key .= $pattern{mt_rand(0,35)};    //生成php随机数
+		 }
+		 return $key;
 	}
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */
