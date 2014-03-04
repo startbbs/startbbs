@@ -128,7 +128,7 @@
 <input class="form-control" id="user_group_name" name="group_name" size="50" type="text" value="" /></div></div>
 <div class="form-group">
 <div class="col-sm-offset-3 col-sm-9">
-  <button type="submit" name="commit_add" class="btn btn-primary">添加用户组</button>
+  <button type="submit" name="commit_add" value=1 class="btn btn-primary">添加用户组</button>
 </div>
 </div>
 </form>
@@ -145,7 +145,7 @@
 
 <div class="form-group">
 <div class="col-sm-offset-3 col-sm-9">
-  <button type="submit" name="commit_edit" class="btn btn-primary">更新用户组</button>
+  <button type="submit" name="commit_edit" value=1 class="btn btn-primary">更新用户组</button>
 </div>
 </div>
 </form>

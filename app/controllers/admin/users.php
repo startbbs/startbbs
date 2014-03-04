@@ -114,22 +114,31 @@ class Users extends Admin_Controller
 		$this->load->model('group_m');
 		$data['group_list'] = $this->group_m->group_list();
 		$data['group_info'] = $this->group_m->get_group_info($gid);
-		
+		$check_group = $this->group_m->check_group(@$_POST['group_name']);
 		if($act == 'add'){
 			$data['title'] = '添加用户组';
-			if(@$_POST['commit_add']){
+			if(@$_POST['group_name']){
+				if($check_group){
+					$this->myclass->notice('alert("用户组已存在");window.location.href="'.site_url('admin/users/group/add').'";');
+					exit;
+				}
 				$str = array(
 					'group_name' => $this->input->post('group_name',true),
 					'group_type' => 2
 				);
 				if($this->db->insert('user_groups', $str)){
 					$this->myclass->notice('alert("添加用户组成功");window.location.href="'.site_url('admin/users/group/index').'";');
+					exit;
 				}
 			}
 		}
 		if($act == 'edit'){
 			$data['title'] = '编辑用户组';
 			if(@$_POST['commit_edit']){
+				if($check_group){
+					$this->myclass->notice('alert("用户组已存在");window.location.href="'.site_url('admin/users/group/edit/'.$gid).'";');
+					exit;
+				}
 				$str = array(
 					'group_name' => $this->input->post('group_name',true)
 				);

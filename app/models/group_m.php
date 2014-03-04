@@ -37,4 +37,14 @@ class Group_m extends SB_Model
 		}
 	}
 
+	public function check_group($group_name)
+	{
+		$query = $this->db->get_where('user_groups',array('group_name'=>$group_name));
+		if($query->num_rows()>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 }
