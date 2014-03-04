@@ -30,7 +30,7 @@ class User_m extends SB_Model
 	function check_login($username,$password){
 		$query = $this->check_username($username);
 		$password = md5($password);
-		if($query['password']==$password){
+		if(@$query['password']==$password){
 			$this->db->where('uid', @$query['uid'])->update('users',array('lastlogin'=>time()));
 			return $query;
 		} else {

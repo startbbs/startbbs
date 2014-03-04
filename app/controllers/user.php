@@ -144,7 +144,7 @@ class User extends SB_Controller
 			$captcha = $this->input->post('captcha_code');
 			if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha) {
 				$this->myclass->notice('alert("验证码不正确!!");history.go(-1);');
-			} elseif(count($user)){
+			} elseif($user){
 				//更新session
 				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'password' =>$user['password'], 'group_type' => $user['group_type'], 'gid' => $user['gid']) );
 				//设置cookie(已去除)
