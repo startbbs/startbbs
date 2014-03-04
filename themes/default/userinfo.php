@@ -83,7 +83,7 @@
 </tr>
 </table>
 </div>
-<div class='inner'><p><?php echo $introduction?></p><!--<p>联系方式: <a href="mailto:<?php echo $email?>" class="external mail"><?php echo $email?></a></p>--></div>
+<div class='inner'><p><?php echo $introduction?></p><!--<p>联系方式: <a href="mailto:" class="external mail"></a></p>--></div>
 </div>
 <div class='box'>
 <div class='box-header'>
