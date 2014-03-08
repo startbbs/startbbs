@@ -10,7 +10,10 @@
 </td>
 <td valign='top' width='10'></td>
 <td valign='left' width='auto'>
-<div class='profile-link'><a href="<?php echo site_url('user/info/'.$user['uid']);?>" class="startbbs profile_link" title="<?php echo $user['username']?>"><?php echo $user['username']?></a>(<?php echo $group['group_name']?>)</div>
+<dl>
+  <dt class='profile-link'><a href="<?php echo site_url('user/info/'.$user['uid']);?>" class="startbbs profile_link" title="<?php echo $user['username']?>"><?php echo $user['username']?></a></dt>
+  <dd class="small text-muted">用户组：<?php echo $group['group_name']?></dd>
+</dl>
 <div class='signature'></div>
 </td>
 </tr>

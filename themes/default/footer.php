@@ -15,9 +15,12 @@
 <?php }?>
 <?php }?>
 </ul>
-<p><?php echo $settings['site_name']?>  <?php echo $settings['site_stats']?></p>
-<p>Powered by <a href="<?php echo $this->config->item('sys_url');?>" class="text-muted" target="_blank"><?php echo $this->config->item('sys_name');?></a>
-<?php echo $this->config->item('sys_version');?> 2013-2014 Some rights reserved 页面执行时间:  {elapsed_time}s</p>
+<ul class="list-unstyled">
+  <li><?php echo $settings['site_name']?>  <?php echo $settings['site_stats']?></li>
+  <li>Powered by <a href="<?php echo $this->config->item('sys_url');?>" class="text-muted" target="_blank"><?php echo $this->config->item('sys_name');?></a>
+<?php echo $this->config->item('sys_version');?> 2013-2014 Some rights reserved 页面执行时间:  {elapsed_time}s</li>
+</ul>
+
 </div>
 <!--<div class="pull-right">
   <p><a href="https://me.alipay.com/startbbs" target="_blank"><img src="<?echo base_url('static/common/images/donations.jpg');?>" border="0" alt="赞助 StartBBS 开发" width="150"></a></p>

@@ -107,10 +107,10 @@ a.dark:hover{color:#385F8A;text-decoration:none}
 .profile-link{font-size:16px}
 .signature{color:#999999;margin:5px 0}
 .glass .inner{padding:10px}
-h1 #topic_title{margin:0 0 10px;padding:0}
+#topic_title{margin:0 0 10px;padding:0}
 h2.topic_title{font-size:16px;line-height:150%;font-weight:normal}
 h2,h3,h4,h5,h6{font-weight:500;margin:0px !important;margin-bottom:10px}
-h1{font-size:20px;word-wrap:break-word;overflow:auto;}
+h1{font-size:20px;word-wrap:break-word;}
 h2{font-size:18px}
 h3{font-size:16px}
 h4{font-size:12px}
@@ -162,9 +162,12 @@ text-shadow:0 2px #fff;margin-bottom:10px
 .unit ul li a:hover {color:#000;text-decoration: underline;}
 
 
-.user_list {list-style:none;float:none;overflow:hidden; }  
-.user_list li {width:55px;height:55px;float:left;text-align:center;/*border:1px solid red;*/ position:relative;}  
+.user_list {list-style:none;float:none;overflow:hidden;}  
+.user_list li {width:55px;height:55px;float:left;text-align:left;/*border:1px solid red;*/ position:relative; }  
 .user_list li img {width:48px;height:48px;float:left;/*border:1px solid #ddd;*/padding:0px;background:#f0f0f0;position:relative;-moz-border-radius: 3px;border-radius: 3px;}
+.new_user_list {list-style:none;float:none;overflow:hidden;}  
+.new_user_list li {width:52px;height:52px;float:left;text-align:left;/*border:1px solid red;*/ position:relative; }  
+.new_user_list li img {width:48px;height:48px;float:left;/*border:1px solid #ddd;*/padding:0px;background:#f0f0f0;position:relative;-moz-border-radius: 3px;border-radius: 3px;}
 /*
 http://sc.chinaz.com/info/131106485529.htm
 http://www.xichuangzhu.com/work/10181#

@@ -2,7 +2,7 @@
 <meta charset='UTF-8'>
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
-<title><?=$title?> - <?=$settings['site_name']?></title>
+<title><?php echo $title?> - <?php echo $settings['site_name']?></title>
 <?php $this->load->view ('header-meta');?>
 </head>
 
@@ -19,9 +19,9 @@
 <div class='inner'>
 <div class='page'>
 <article>
-<h1 class='page-header'>
+<h2 class='page-header'>
 <?php echo $page['title'];?>
-</h1>
+</h2>
 <?php echo $page['content'];?>
 </article>
 </div>
