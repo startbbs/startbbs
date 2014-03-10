@@ -41,10 +41,11 @@
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">网站设定</a></li>
 <li><a href="#tab2" data-toggle="tab">话题设定</a></li>
-<li><a href="#tab3" data-toggle="tab">登录接口</a></li>
-<li><a href="#tab4" data-toggle="tab">邮件配置</a></li>
-<li><a href="#tab5" data-toggle="tab">自定义url</a></li>
-<li><a href="#tab6" data-toggle="tab">存储设定</a></li>
+<li><a href="#tab3" data-toggle="tab">用户设定</a></li>
+<li><a href="#tab4" data-toggle="tab">登录接口</a></li>
+<li><a href="#tab5" data-toggle="tab">邮件配置</a></li>
+<li><a href="#tab6" data-toggle="tab">自定义url</a></li>
+<li><a href="#tab7" data-toggle="tab">存储设定</a></li>
 <!--<li><a href="#tab5" data-toggle="tab">备用</a></li>-->
 </ul>
 <div class="tab-content">
@@ -322,6 +323,100 @@
 
 <div class="tab-pane" id="tab3">
 <div class="inner">
+<form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=userset');?>" class="form-horizontal" method="post">
+<div style="margin:0;padding:0;display:inline">
+<input name="utf8" type="hidden" value="&#x2713;" />
+<input name="_method" type="hidden" value="put" />
+<input name="authenticity_token" type="hidden" value="YNAXPQDviOJ/cf5OH/KrqdxOjGLCdka+kUCp+fa3J+A=" />
+</div>
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="credit_start">注册初始积分</label>
+<div class='col-sm-5'>
+<div class='input-group'>
+<input class="form-control" id="credit_start" name="credit_start" type="text" value="<?php echo $this->config->item('credit_start');?>" />
+<span class='input-group-addon'>/ 点</span>
+</div>
+<small class='help-inline'></small>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="credit_login">登录积分</label>
+<div class='col-sm-5'>
+<div class='input-group'>
+<input class="form-control" id="credit_login" name="credit_login" type="text" value="<?php echo $this->config->item('credit_login');?>" />
+<span class='input-group-addon'>/ 点</span>
+</div>
+<small class='help-inline'></small>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="credit_post">发贴积分</label>
+<div class='col-sm-5'>
+<div class='input-group'>
+<input class="form-control" id="credit_post" name="credit_post" type="text" value="<?php echo $this->config->item('credit_post');?>" />
+<span class='input-group-addon'>/ 点</span>
+</div>
+<small class='help-inline'></small>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="credit_reply">回复积分</label>
+<div class='col-sm-5'>
+<div class='input-group'>
+<input class="form-control" id="credit_reply" name="credit_reply" type="text" value="<?php echo $this->config->item('credit_reply');?>" />
+<span class='input-group-addon'>/ 点</span>
+</div>
+<small class='help-inline'></small>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="credit_reply_by">被回复积分</label>
+<div class='col-sm-5'>
+<div class='input-group'>
+<input class="form-control" id="credit_reply_by" name="credit_reply_by" type="text" value="<?php echo $this->config->item('credit_reply_by');?>" />
+<span class='input-group-addon'>/ 点</span>
+</div>
+<small class='help-inline'></small>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="credit_del">被删除积分</label>
+<div class='col-sm-5'>
+<div class='input-group'>
+<input class="form-control" id="credit_del" name="credit_del" type="text" value="<?php echo $this->config->item('credit_del');?>" />
+<span class='input-group-addon'>/ 点</span>
+</div>
+<small class='help-inline'></small>
+</div>
+</div>
+
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="credit_follow">被关注积分</label>
+<div class='col-sm-5'>
+<div class='input-group'>
+<input class="form-control" id="credit_follow" name="credit_follow" type="text" value="<?php echo $this->config->item('credit_follow');?>" />
+<span class='input-group-addon'>/ 点</span>
+</div>
+<small class='help-inline'></small>
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-offset-3 col-sm-9">
+  <button type="submit" name="commit" class="btn btn-primary">保存</button>
+</div>
+</div>
+
+</form>
+</div><!-inner->
+</div>
+
+<div class="tab-pane" id="tab4">
+<div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=openid');?>" class="form-horizontal" method="post">
 <div style="margin:0;padding:0;display:inline">
 <input name="utf8" type="hidden" value="&#x2713;" />
@@ -373,7 +468,7 @@
 </div><!-inner->
 </div>
 
-<div class="tab-pane" id="tab4">
+<div class="tab-pane" id="tab5">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=mailset');?>" class="form-horizontal" method="post">
 <div style="margin:0;padding:0;display:inline">
@@ -435,7 +530,7 @@ Phpmail
 </div><!-inner->
 </div>
 
-<div class="tab-pane" id="tab5">
+<div class="tab-pane" id="tab6">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=routes');?>" class="form-horizontal" method="post">
 <div class="form-group">
@@ -476,7 +571,7 @@ Phpmail
 </div><!-inner->
 </div>
 
-<div class="tab-pane" id="tab6">
+<div class="tab-pane" id="tab7">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=storage');?>" class="form-horizontal" method="post">
 <div style="margin:0;padding:0;display:inline">

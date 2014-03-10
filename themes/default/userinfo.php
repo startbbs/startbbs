@@ -54,6 +54,13 @@
 <tr>
 <td width='50%'>
 <span style='line-height: 16px;'>
+积分:<?php echo $credit?>
+</span>
+</td>
+</tr>
+<tr>
+<td width='50%'>
+<span style='line-height: 16px;'>
 签名:
 &nbsp;
 <?php echo $signature?>

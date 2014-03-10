@@ -69,7 +69,7 @@ class SB_Controller extends Base_Controller
 		 );
 		 
 		 //取一个用户信息
-		$data['user']=$this->db->select('uid,username,avatar')->where('uid',$this->session->userdata('uid'))->get('users')->row_array();
+		$data['user']=$this->db->select('uid,username,avatar,credit')->where('uid',$this->session->userdata('uid'))->get('users')->row_array();
 		//一个用户的用户组
 		$data['group'] = $this->db->select('group_name')->get_where('user_groups',array('gid'=>$this->session->userdata('gid')))->row_array();
 		$data['group']['group_name']=($data['group'])?$data['group']['group_name']:'普通会员';

@@ -76,6 +76,18 @@ class Site_settings extends Admin_Controller
 			$this->config->save('topicset',$topicset);
 			$this->myclass->notice('alert("话题设定更新成功");window.location.href="'.site_url('admin/site_settings').'";');
 		}
+		//会员设定
+		$this->config->load('userset');
+		if($_POST && $_GET['a']=='userset'){
+			$this->config->update('userset','credit_start', $this->input->post('credit_start'));
+			$this->config->update('userset','credit_login', $this->input->post('credit_login'));
+			$this->config->update('userset','credit_post', $this->input->post('credit_post'));
+			$this->config->update('userset','credit_reply', $this->input->post('credit_reply'));
+			$this->config->update('userset','credit_reply_by', $this->input->post('credit_reply_by'));
+			$this->config->update('userset','credit_del', $this->input->post('credit_del'));
+			$this->config->update('userset','credit_follow', $this->input->post('credit_follow'));
+			$this->myclass->notice('alert("userset更新成功");window.location.href="'.site_url('admin/site_settings').'";');
+		}
 		//openid设定
 		if($_POST && $_GET['a']=='openid'){
 			$qq_callback = 'oauth/qqcallback';

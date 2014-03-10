@@ -88,7 +88,7 @@ class Users extends Admin_Controller
 				'qq'=> $this->input->post('qq'),
 				'signature'=> $this->input->post('signature'),
 				'introduction'=> $this->input->post('introduction'),
-				'money'=> $this->input->post('money'),
+				'credit'=> $this->input->post('credit'),
 				'gid'=> $this->input->post('gid'),
 				'group_type'=> @$group_info['group_type']
 			);

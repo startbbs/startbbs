@@ -197,6 +197,7 @@ class Forum extends SB_controller
 		
 		$data['title'] = '发表话题';
 		$uid = $this->session->userdata('uid');
+		$this->load->model ('user_m');
 		$user = $this->user_m->get_user_by_id($uid);
 		if(!$this->auth->is_login()) {
 			redirect('user/login/');
@@ -255,12 +256,15 @@ class Forum extends SB_controller
 					$this->db->cache_delete('/default', 'index');
 					//更新发贴人的贴子数/最后发贴时间
 					$this->db->set('lastpost',time(),false)->set('forums','forums+1',false)->where('uid',$uid)->update('users');
-				//审核未开启时
-				if($this->config->item('is_approve')=='off'){
-					redirect('forum/view/'.$new_fid);	
-				} else {
-					$this->myclass->notice('alert("贴子通过审核才能在前台显示");window.location.href="'.site_url().'";');	
-				}
+					//更新会员积分
+					$this->config->load('userset');
+					$this->user_m->update_credit($uid,$this->config->item('credit_post'));
+					//审核未开启时
+					if($this->config->item('is_approve')=='off'){
+						redirect('forum/view/'.$new_fid);	
+					} else {
+						$this->myclass->notice('alert("贴子通过审核才能在前台显示");window.location.href="'.site_url().'";');	
+					}
 				exit;
 				}
 
@@ -351,12 +355,16 @@ class Forum extends SB_controller
 			$this->myclass->notice('alert("确定要删除此话题吗！");');
 			//删除贴子及它的回复
 			if($this->forum_m->del_forum($fid,$cid,$uid)){
-			$this->load->model('comment_m');
-			$this->comment_m->del_comments_by_fid($fid,$uid);
-			//更新数据库缓存
-			$this->db->cache_delete('/default', 'index');
+				$this->load->model('comment_m');
+				$this->comment_m->del_comments_by_fid($fid,$uid);
+				//更新会员积分
+				$this->config->load('userset');
+				$this->load->model ('user_m');
+				$this->user_m->update_credit($uid,$this->config->item('credit_del'));
+				//更新数据库缓存
+				$this->db->cache_delete('/default', 'index');
 
-			$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('/forum/flist/'.$cid).'";');
+				$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('/forum/flist/'.$cid).'";');
 			}
 		}else{
 			$this->myclass->notice('alert("您无权删除此贴");window.location.href="'.site_url('/forum/view/'.$fid).'";');

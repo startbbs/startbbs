@@ -55,6 +55,10 @@ class Follow extends SB_Controller
 			);
 			//插入数据
 			if($this->db->insert('user_follow',$data) && $this->db->set('follows','follows+1',FALSE)->where('uid', $uid)->update('users')){
+				//更新会员积分
+				$this->config->load('userset');
+				$this->load->model ('user_m');
+				$this->user_m->update_credit($follow_uid,$this->config->item('credit_follow'));
 				redirect('user/info/'.$follow_uid);
 			}
 		} else{

@@ -60,11 +60,13 @@ class User extends SB_Controller
 		if($_POST && $this->validate_reg_form()){
 			$password = $this->input->post('password',true);
 			$ip = $this->myclass->get_ip();
+			$this->config->load('userset');//用户积分
 			$data = array(
 				'username' => strip_tags($this->input->post('username')),
 				'password' => md5($password),				
 				'openid' => strip_tags($this->input->post('openid')),
 				'email' => $this->input->post('email',true),
+				'credit' => $this->config->item('credit_start'),
 				'ip' => $ip,
 				'group_type' => 2,
 				'gid' => 3,
@@ -154,6 +156,9 @@ class User extends SB_Controller
 				if($openid){
 					$this->user_m->update_user($user['uid'], array('openid'=>$openid));
 				}
+				//更新积分
+				$this->config->load('userset');
+				$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
 				header("location: ".$data['referer']);
 				//redirect($data['referer']);
 				exit;

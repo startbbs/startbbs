@@ -40,7 +40,7 @@
 <th align='left' class='w50'>昵称</th>
 <th align='left' class='auto'>角色</th>
 <th align='left' class='auto'>Email</th>
-<th align='right' class='auto'>银币</th>
+<th align='right' class='auto'>积分</th>
 <th>操作</th>
 </tr>
 </thead>
@@ -58,7 +58,7 @@
 </td>
 <td align='left' class='auto'><?php echo $v['email']?></td>
 <td align='right' class='auto'>
-<?php echo $v['money']?>
+<?php echo $v['credit']?>
 </td>
 <td class='center'>
 <a href="<?php echo site_url('admin/users/edit/'.$v['uid']);?>" class="btn btn-primary btn-sm">修改</a>

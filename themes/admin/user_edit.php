@@ -68,9 +68,9 @@
 <textarea class="form-control" cols="40" id="user_account_attributes_introduction" name="introduction" rows="5"><?php echo $user['introduction']?></textarea></div></div>
 <input id="user_account_attributes_id" name="uid" type="hidden" value="<?php echo $user['uid']?>" />
 <div class="form-group integer optional">
-<label class="col-sm-3 control-label" for="user_reward">银币</label>
+<label class="col-sm-3 control-label" for="user_reward">积分</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_reward" name="money" step="1" type="number" value="<?php echo $user['money']?>" />
+<input class="form-control" id="user_reward" name="credit" step="1" type="number" value="<?php echo $user['credit']?>" />
 </div></div>
 
 <div class="form-group integer optional">

@@ -111,5 +111,10 @@ class User_m extends SB_Model
 		$query = $this->db->limit(1)->get_where('users', array('username'=>$username));
 		return $query->result_array();
 	}
+	public function update_credit($uid,$credit)
+	{
+		$this->db->set('credit','credit+'.$credit,false)->where('uid',$uid)->update('users');
+		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
+	}
 
 }

@@ -91,6 +91,10 @@ class Comment extends SB_Controller
 			//更新作者的提醒数
 			$this->db->set('notices','notices+1',FALSE)->where('uid', $user['uid'])->update('users');
 		}
+		//更新会员积分
+		$this->config->load('userset');
+		$this->user_m->update_credit($this->uid,$this->config->item('credit_reply'));
+		$this->user_m->update_credit($user['uid'],$this->config->item('credit_reply_by'));
 		
 		//更新数据库缓存
 		$this->db->cache_delete('/default', 'index');
