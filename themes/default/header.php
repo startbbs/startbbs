@@ -18,18 +18,6 @@
             <li<?php if(@$action=='section'){?> class="active"<?php }?>><a href="<?php echo site_url('section')?>">节点</a></li>
             <li<?php if(@$action=='user'){?> class="active"<?php }?>><a href="<?php echo site_url('user')?>">会员</a></li>
             <li<?php if(@$action=='add'){?> class="active"<?php }?>><a href="<?php echo site_url('forum/add')?>">发表</a></li>
-            <!--<li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>-->
            </ul>
 		<form class="form-inline navbar-left" style="margin-left:10px;margin-top: 8px;" role="search" action="http://www.google.com/search" method="get" target="_blank">
 		      <div class="form-group" style="width:55%">
@@ -39,12 +27,20 @@
           <ul class="nav navbar-nav navbar-right">
  
 	        <?php if($this->session->userdata('uid')){ ?>
-			<li><a href="<?php echo site_url('user/info/'.$this->session->userdata('uid').'')?>"><?php echo $this->session->userdata('username');?></a></li>
-			<li><a href="<?php echo site_url('settings')?>">个人设置</a></li>
-			<?php if($this->auth->is_admin()){ ?>
-			<li class=""><a href="<?php echo site_url('admin/login')?>">管理后台</a></li>
-			<?php }?>
-			<li><a href="<?php echo site_url('user/logout')?>" data-method="delete" rel="nofollow">退出</a></li>
+	        <li><a href="#"><span class="badge"></span></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('username');?> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="<?php echo site_url('user/info/'.$this->session->userdata('uid').'')?>">个人主页</a></li>
+                <li><a href="<?php echo site_url('settings')?>">设置</a></li>
+                <?php if($this->auth->is_admin()){ ?>
+                <li><a href="<?php echo site_url('admin/login')?>">管理后台</a></li>
+                <?php }?>
+                <li class="divider"></li>
+                <!--<li class="dropdown-header">Nav header</li>-->
+                <li><a href="<?php echo site_url('user/logout')?>">退出</a></li>
+              </ul>
+            </li>
 			<?php }else{?>
             <li><a href="<?php echo site_url('user/reg')?>">注册</a></li>
             <li><a href="<?php echo site_url('user/login')?>">登入</a></li>
