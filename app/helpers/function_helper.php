@@ -290,5 +290,19 @@ function send_mail($username,$password,$to,$subject,$message)
 		 }
 		 return $key;
 	}
+
+	function get_url_content($url)
+	{
+		if(function_exists('file_get_contents')){
+			return file_get_contents($url);
+		} elseif(function_exists('curl_init')){
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,$url);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			return curl_exec($ch);
+		}
+	}
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */

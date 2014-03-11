@@ -24,7 +24,7 @@ class Qqclass {
 				. "client_id=" . $appid. "&redirect_uri=" . urlencode($callback)
 				. "&client_secret=" . $appkey. "&code=" . $inputs["code"];
 	
-			$response = file_get_contents($token_url);
+			$response = get_url_content($token_url);
 			if (strpos($response, "callback") !== false)
 			{
 				$lpos = strpos($response, "(");
@@ -58,7 +58,7 @@ class Qqclass {
 	{
 		$graph_url = "https://graph.qq.com/oauth2.0/me?access_token=" . $access_token;
 	
-		$str  = file_get_contents($graph_url);
+		$str = get_url_content($graph_url);
 		if (strpos($str, "callback") !== false)
 		{
 			$lpos = strpos($str, "(");
@@ -90,7 +90,7 @@ class Qqclass {
 			. "&openid=" . $open_id
 			. "&format=json";
 	
-		$info = file_get_contents($get_user_info);
+		$info = get_url_content($get_user_info);
 		$arr = json_decode($info, true);
 	
 		return $arr;
