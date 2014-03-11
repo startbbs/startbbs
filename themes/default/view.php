@@ -8,13 +8,11 @@
 <meta name="keywords" content="<?php echo $content['keywords']?>" />
 <meta name="description" content="<?php echo $content['description'];?>" />
 <?php $this->load->view ('header-meta');?>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/kindeditor-min.js');?>"></script>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/lang/zh_CN.js');?>"></script>
 <?php if($this->config->item('show_editor')=='on'){?>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/keset2.js');?>"></script>
-<?php } elseif($this->config->item('storage_set')=='local') {?>
-<link rel="stylesheet" href="<?php echo base_url('plugins/kindeditor/themes/default/default.css');?>" />
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/keupload.js');?>"></script>
+
+<?php }?>
+<?php if($this->config->item('storage_set')=='local'){?>
+
 <?php } else{?>
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('static/common/js/qiniu.js')?>" type="text/javascript"></script>
