@@ -7,13 +7,21 @@
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?php echo $title?> - <?php echo $settings['site_name']?></title>
 <?php $this->load->view('header-meta');?>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/kindeditor-min.js');?>"></script>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/lang/zh_CN.js');?>"></script>
 <?php if($this->config->item('show_editor')=='on'){?>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/keset.js');?>"></script>
-<?php } elseif($this->config->item('storage_set')=='local') {?>
-<link rel="stylesheet" href="<?php echo base_url('plugins/kindeditor/themes/default/default.css');?>" />
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/keupload.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('static/common/js/markdown/markdown.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('static/common/js/markdown/markDownEditor.js')?>"></script>
+<script type="text/javascript">
+$(function(){
+	$("#topic_content").markDownEditor({
+		previewBodyClass : 'text-content',
+		actions : ['head3', 'bold', 'italic', 'quote', 'link', 'ul', 'ol', 'split', 'picture']
+	});
+})
+
+</script>
+<?php }?>
+<?php if($this->config->item('storage_set')=='local'){?>
+
 <?php } else{?>
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('static/common/js/qiniu.js')?>" type="text/javascript"></script>

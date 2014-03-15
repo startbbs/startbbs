@@ -8,8 +8,21 @@
 <meta name="keywords" content="<?php echo $content['keywords']?>" />
 <meta name="description" content="<?php echo $content['description'];?>" />
 <?php $this->load->view ('header-meta');?>
+<script src="<?php echo base_url('static/common/js/topic.js')?>" type="text/javascript"></script>
 <?php if($this->config->item('show_editor')=='on'){?>
-
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('static/common/js/editor/jquery.editor.css')?>" />
+<script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.js')?>"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$("#reply_content").cleditor().focus();
+	$("#comment-submit").click(function(){
+		var editor = $("#reply_content").cleditor()[0];
+		editor.refresh().focus();
+		//editor.clear();
+		//editor.focus();
+	});
+ });
+</script>
 <?php }?>
 <?php if($this->config->item('storage_set')=='local'){?>
 
@@ -17,7 +30,7 @@
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('static/common/js/qiniu.js')?>" type="text/javascript"></script>
 <?php }?>
-<script src="<?php echo base_url('static/common/js/topic.js')?>" type="text/javascript"></script>
+    
 </head>
 <body id="startbbs" name="top">
 <?php $this->load->view ('header'); ?>
@@ -176,23 +189,18 @@ at
 <a href="javascript:void(0);" class="action_label cancel_preview current_label" data-ref="comment_content">编辑区</a>
 
 </div>-->
-<ul class="nav nav-tabs" style="margin-left: 15px; margin-right: 15px;border-bottom: 0px solid #999;height:20px">
-  <li class="active"><a style="background-color: #eee;" href="#">编辑区</a></li>
-  <?php if($this->config->item('show_editor')=='off'){?>
-  <li class="pull-right">
-	<?php if($this->config->item('storage_set')=='local'){?>
+
+<div class="form-group">
+<div class="col-md-12" id="textContain">
+<textarea class="form-control" id="reply_content" name="comment" rows="5"></textarea>
+<p style="margin-top:8px;">
+<span class='text-muted pull-left'>可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
+<span class="pull-right"><?php if($this->config->item('storage_set')=='local'){?>
 	<span id='upload-tip' class="btn btn-default" value="图片/附件">上传图片</span>
 	<?php } else {?>
 	<input id="upload_tip" type="button" value="图片/附件"  class="btn btn-default">
 <!--	<input type="button" onclick="doUpload()" value="图片/附件"  class="btn btn-default">-->
-	<?php }?>
-	  </li>
-<?php }?>
-</ul>
-<div class="form-group">
-<div class="col-md-12" id="textContain">
-<textarea class="form-control" id="reply_content" name="comment" rows="5"></textarea>
-<span class='text-muted' style="float:right">可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
+	<?php }?></span></p>
 </div></div>
 <div class="col-sm-9">
 <input class="btn btn-primary" data-disable-with="正在提交" type="submit" id="comment-submit" value="发送" />
@@ -218,28 +226,6 @@ at
 <?php $this->load->view('block/right_cateinfo');?>
 <?php $this->load->view('block/right_cates');?>
 <?php $this->load->view('block/right_related_forum');?>
-
-<?php if($this->auth->is_admin() && isset($_COOKIE['username'])){ ?>
-<!--<div class='box'>
-<div class='box-header'>
-话题管理
-</div>
-<div class='cell'>
-<a href="/nodes/1/topics/26/edit_title" class="btn btn-xs" data-remote="true">修改标题</a>
-<a href="/nodes/1/topics/26/edit" class="btn btn-xs">编辑全部</a>
-</div>
-<div class='cell'>
-<a href="/nodes/1/topics/26/move" class="btn btn-xs" data-remote="true">移动到新节点</a>
-</div>
-<div class='cell'>
-<a href="/topics/26/toggle_comments_closed" class="btn btn-xs" data-method="put" rel="nofollow">禁止回复</a>
-<a href="/topics/26/toggle_sticky" class="btn btn-xs" data-method="put" rel="nofollow">置顶此话题</a>
-</div>
-<div class='inner'>
-<a href="/nodes/1/topics/26" class="btn btn-xs btn-danger" data-confirm="真的要删除吗？" data-method="delete" rel="nofollow">删除此话题</a>
-</div>
-</div>-->
-<?php }?>
 
 <?php $this->load->view('block/right_ad');?>
 </div>
