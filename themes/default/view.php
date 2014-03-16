@@ -13,35 +13,7 @@
 <?php if($this->config->item('show_editor')=='on'){?>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('static/common/js/editor/jquery.editor.css')?>" />
 <script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.js')?>"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-	$("#reply_content").cleditor().focus();
-	var editor = $("#reply_content").cleditor()[0];
-	editor.updateFrame().focus()
-	$("#comment-submit").click(function(){
-		//editor.refresh().focus();
-		editor.updateFrame().focus();
-		
-		//editor.clear();
-		//editor.focus();
-	});
-    //@回复
-    //$(".clickable").click(function(){
-    //    var append_str = "@" + $(this).attr("data-mention") + " ";
-    //    $("#reply_content").cleditor().insertAtCaret(append_str);
-    //});
-	$(".clickable").click(function(){
-	//$("#mention_button").live('click',function(){
-	var uname ="@"+$(this).attr('data-mention')+" ";
-	//var currentval = $("#reply_content").val();
-	//$("#reply_content").val(currentval+' @test ');
-	//editor.updateFrame();
-   editor.execCommand('inserthtml',uname).focus();
-
-	});
-	editor.doc.execCommand("insertBrOnReturn", false, false);
- });
-</script>
+<script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.set.js')?>"></script>
 <?php }?>
 <?php if($this->config->item('storage_set')=='local'){?>
 
@@ -211,7 +183,7 @@ at
 
 <div class="form-group">
 <div class="col-md-12" id="textContain">
-<textarea class="form-control" id="reply_content" name="comment" rows="5"></textarea>
+<textarea class="form-control" id="post_content" name="comment" rows="5"></textarea>
 <p style="margin-top:8px;">
 <span class='text-muted pull-left'>可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
 <span class="pull-right"><?php if($this->config->item('storage_set')=='local'){?>

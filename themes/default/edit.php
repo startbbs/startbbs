@@ -7,13 +7,14 @@
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?php echo $title?> - <?php echo $settings['site_name']?></title>
 <?php $this->load->view('header-meta');?>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/kindeditor-min.js');?>"></script>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/lang/zh_CN.js');?>"></script>
+<script src="<?php echo base_url('static/common/js/plugins.js')?>" type="text/javascript"></script>
 <?php if($this->config->item('show_editor')=='on'){?>
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/keset.js');?>"></script>
-<?php } elseif($this->config->item('storage_set')=='local'){?>
-<link rel="stylesheet" href="<?php echo base_url('plugins/kindeditor/themes/default/default.css');?>" />
-<script charset="utf-8" src="<?php echo base_url('plugins/kindeditor/keupload.js');?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('static/common/js/editor/jquery.editor.css')?>" />
+<script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.set.js')?>"></script>
+<?php }?>
+<?php if($this->config->item('storage_set')=='local'){?>
+
 <?php } else{?>
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('static/common/js/qiniu.js')?>" type="text/javascript"></script>
@@ -63,24 +64,19 @@
 <!--<div id='preview-widget'>
 <a href="javascript:void(0);" class="action_label cancel_preview current_label" data-ref="topic_content">编辑</a>
 </div>-->
-<ul class="nav nav-tabs" style="margin-left: 15px; margin-right: 15px;border-bottom: 0px solid #999;height:20px">
-  <li class="active"><a style="background-color: #eee;" href="#">编辑区</a></li>
-  <?php if($this->config->item('show_editor')=='off'){?>
-  <li class="pull-right">
-	<?php if($this->config->item('storage_set')=='local'){?>
+<div class="form-group text optional">
+<div class="col-md-12" id="textContain">
+<textarea class="form-control" id="post_content" name="content" placeholder="话题内容" rows="10"><?php echo $item['content']?>
+</textarea>
+<span class="help-inline red"><?php echo form_error('content');?></span>
+<p style="margin-top:8px;">
+<span class='text-muted pull-left'>可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
+<span class="pull-right"><?php if($this->config->item('storage_set')=='local'){?>
 	<span id='upload-tip' class="btn btn-default" value="图片/附件">上传图片</span>
 	<?php } else {?>
 	<input id="upload_tip" type="button" value="图片/附件"  class="btn btn-default">
 <!--	<input type="button" onclick="doUpload()" value="图片/附件"  class="btn btn-default">-->
-	<?php }?>
-	  </li>
-<?php }?>
-</ul>
-<div class="form-group text optional">
-<div class="col-md-12" id="textContain">
-<textarea class="form-control" id="topic_content" name="content" placeholder="话题内容" rows="10"><?php echo $item['content']?>
-</textarea>
-<span class="help-inline red"><?php echo form_error('content');?></span>
+	<?php }?></span></p>
 </div>
 </div>
 <div class="col-sm-9">

@@ -3,17 +3,17 @@ $(document).ready(function(){        //DOM的onload事件处理函数
 	if(check_content()){
 	postdata(); 
     //button被点击时执行postdata函数
-   $("#reply_content").val('').focus();//提交清空内容
+   $("#post_content").val('').focus();//提交清空内容
 	}    
   });
     //@回复
     $(".clickable").click(function(){
         var append_str = "@" + $(this).attr("data-mention") + " ";
-         $("#reply_content").insertAtCaret(append_str);
+         $("#post_content").insertAtCaret(append_str);
     });
 });
 function postdata(){                             //提交数据函数
-var comment=$("#reply_content").val();
+var comment=$("#post_content").val();
   $.ajax({                                                 //调用jquery的ajax方法   
     type: "POST",                                     //设置ajax方法提交数据的形式    
     url: baseurl+"index.php/comment/add_comment",     //把数据提交到ok.php 
@@ -31,7 +31,7 @@ var comment=$("#reply_content").val();
 //快速回复ctrl+enter
     $(document).keypress(function(e){
         var active_id = document.activeElement.id;  
-        if((e.ctrlKey && e.which == 13 || e.which == 10) && (active_id == "topic_content" || active_id == "reply_content")) {
+        if((e.ctrlKey && e.which == 13 || e.which == 10) && (active_id == "topic_content" || active_id == "post_content")) {
             e.preventDefault();
           //  $("#new_topic").submit();
             $("input[type=submit]").click();
@@ -39,7 +39,7 @@ var comment=$("#reply_content").val();
     });
 
 function replyOne(username){
-    replyContent = $("#reply_content");
+    replyContent = $("#post_content");
 	oldContent = replyContent.val();
 	prefix = "@" + username + " ";
 	newContent = ''
@@ -55,9 +55,9 @@ function replyOne(username){
 	moveEnd(replyContent);
 }
 function check_content(){
-if($("#reply_content").val().length < 4){
+if($("#post_content").val().length < 4){
 alert("对不起，回复内容不能少于4个字符！")
-$("#reply_content").focus();
+$("#post_content").focus();
 return false;
 } else{
 	return true;

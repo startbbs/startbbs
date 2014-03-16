@@ -210,7 +210,7 @@ class Forum extends SB_controller
 			if($_POST && $this->validate_add_form()){
 				$data = array(
 					'title' => $this->input->post ('title',true),
-					'content' => xss_clean($this->input->post ('content')),
+					'content' => filter_code($this->input->post ('content')),
 					'cid' => $cid,
 					'uid' => $uid,
 					'addtime' => time(),
@@ -219,17 +219,20 @@ class Forum extends SB_controller
 					'views' => 0,
 					'ord'=>time()
 				);
+				$this->load->helper('format_content');
+				$data['content']=format_content($data['content']);
 				//开启审核时
 				if($this->config->item('is_approve')=='on'){
 					$data['is_hidden'] = 1;	
 				}
 				//无编辑器时的处理
-				if($this->config->item('show_editor')=='off'){
-					$data['content'] = filter_check($data['content']);
-					$this->load->helper('format_content');
-					$data['content'] = format_content($data['content']);
+				//if($this->config->item('show_editor')=='off'){
+				//	$data['content'] = filter_check($data['content']);
+				//	$this->load->helper('format_content');
+				//	$data['content'] = format_content($data['content']);
 					
-				}
+				//}
+				
 				//标签
 				$this->load->model('tag_m');
 				if($this->config->item('auto_tag') =='on'){
@@ -324,11 +327,15 @@ class Forum extends SB_controller
 				);
 
 				//无编辑器时的处理
-				if($this->config->item('show_editor')=='off'){
-					$str['content'] = filter_check($str['content']);
-					$this->load->helper('format_content');
-					$str['content'] = format_content($str['content']);
-				}
+				//if($this->config->item('show_editor')=='off'){
+				//	$str['content'] = filter_check($str['content']);
+				//	$this->load->helper('format_content');
+				//	$str['content'] = format_content($str['content']);
+				//}
+
+				$str['content'] = filter_code($str['content']);
+				$this->load->helper('format_content');
+				$str['content'] = format_content($str['content']);
 				if($this->forum_m->update_forum($fid,$str)){
 					$this->myclass->notice('alert("修改成功");window.location.href="'.site_url('forum/view/'.$fid).'";');
 				}

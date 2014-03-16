@@ -31,12 +31,13 @@ class Comment extends SB_Controller
 			'replytime' => time()
 		);
 		//if (!isset($data['content']{4})) exit;
+		$this->load->helper('format_content');
+		$data['content'] = format_content($data['content']);
 		//数据返回
 		$query=$this->db->select('comments')->get_where('forums', array('fid'=>$data['fid']))->row_array();
-		$this->load->helper('format_content');
 		$callback = array(
 			//'content' => stripslashes(format_content(filter_check($data['content']))),
-			'content' => format_content($data['content']),
+			'content' => $data['content'],
 			'fid' => $data['fid'],
 			'uid' => $data['uid'],
 			'replytime' => $this->myclass->friendly_date($data['replytime']),
@@ -137,13 +138,13 @@ class Comment extends SB_Controller
 			$this->load->model('comment_m');
 			$data['comment']=$this->comment_m->get_comment_by_id ($id);
 			//无编辑器时的处理
-			if($this->config->item('show_editor')=='off'){
-				$data['comment']['content'] = filter_check($data['comment']['content']);
-				$this->load->helper('format_content');
-				$data['comment']['content'] = format_content($data['comment']['content']);
-				$data['comment']['content'] =br2nl($data['comment']['content'] );
-				
-			}
+			//if($this->config->item('show_editor')=='off'){
+			//	$data['comment']['content'] = filter_check($data['comment']['content']);
+			//	$this->load->helper('format_content');
+			//	$data['comment']['content'] = format_content($data['comment']['content']);
+			//	$data['comment']['content'] =br2nl($data['comment']['content'] );
+			//}
+			$data['comment']['content'] =br2nl($data['comment']['content'] );
 			$data['comment']['cid']=$cid;
 			//加载form类，为调用错误函数,需view前加载
 			$this->load->helper('form');
@@ -153,9 +154,11 @@ class Comment extends SB_Controller
 				$content=$this->typography->nl2br_except_pre($this->input->post('content',true),true);
 				//$content=$this->input->post('content',true);
 				$comment=array(
-					'content'=>xss_clean($content),
+					'content'=>filter_code($content),
 					'replytime'=>time()
 				);
+				$this->load->helper('format_content');
+				$comment['content']=format_content($comment['content']);
 				if($this->db->where('id',$id)->update('comments',$comment)){
 					//更新贴子回复时间
 					$this->load->model('forum_m');
