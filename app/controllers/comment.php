@@ -25,16 +25,18 @@ class Comment extends SB_Controller
 		} else {
 		//数据提交
 		$data = array(
-			'content' => clearxss($this->input->post('comment')),
+			'content' => filter_code($this->input->post('comment')),
 			'fid' => $this->input->post('fid'),
 			'uid' => $this->uid,
 			'replytime' => time()
 		);
+		//if (!isset($data['content']{4})) exit;
 		//数据返回
 		$query=$this->db->select('comments')->get_where('forums', array('fid'=>$data['fid']))->row_array();
 		$this->load->helper('format_content');
 		$callback = array(
-			'content' => stripslashes(format_content(filter_check($data['content']))),
+			//'content' => stripslashes(format_content(filter_check($data['content']))),
+			'content' => format_content($data['content']),
 			'fid' => $data['fid'],
 			'uid' => $data['uid'],
 			'replytime' => $this->myclass->friendly_date($data['replytime']),
@@ -46,8 +48,8 @@ class Comment extends SB_Controller
 		echo json_encode($callback);
 		//无编辑器时的处理
 		//if($this->config->item('show_editor')=='off'){
-			$data['content'] = filter_check($data['content']);
-			$data['content'] = format_content($data['content']);
+			//$data['content'] = filter_check($data['content']);
+			//$data['content'] = format_content($data['content']);
 		//}
 		//@会员功能
 		$comment= $data['content'];
@@ -151,7 +153,7 @@ class Comment extends SB_Controller
 				$content=$this->typography->nl2br_except_pre($this->input->post('content',true),true);
 				//$content=$this->input->post('content',true);
 				$comment=array(
-					'content'=>clearxss($content),
+					'content'=>xss_clean($content),
 					'replytime'=>time()
 				);
 				if($this->db->where('id',$id)->update('comments',$comment)){

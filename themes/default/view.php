@@ -9,18 +9,37 @@
 <meta name="description" content="<?php echo $content['description'];?>" />
 <?php $this->load->view ('header-meta');?>
 <script src="<?php echo base_url('static/common/js/topic.js')?>" type="text/javascript"></script>
+<script src="<?php echo base_url('static/common/js/plugins.js')?>" type="text/javascript"></script>
 <?php if($this->config->item('show_editor')=='on'){?>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('static/common/js/editor/jquery.editor.css')?>" />
 <script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.js')?>"></script>
 <script type="text/javascript">
 $(document).ready(function () {
 	$("#reply_content").cleditor().focus();
+	var editor = $("#reply_content").cleditor()[0];
+	editor.updateFrame().focus()
 	$("#comment-submit").click(function(){
-		var editor = $("#reply_content").cleditor()[0];
-		editor.refresh().focus();
+		//editor.refresh().focus();
+		editor.updateFrame().focus();
+		
 		//editor.clear();
 		//editor.focus();
 	});
+    //@回复
+    //$(".clickable").click(function(){
+    //    var append_str = "@" + $(this).attr("data-mention") + " ";
+    //    $("#reply_content").cleditor().insertAtCaret(append_str);
+    //});
+	$(".clickable").click(function(){
+	//$("#mention_button").live('click',function(){
+	var uname ="@"+$(this).attr('data-mention')+" ";
+	//var currentval = $("#reply_content").val();
+	//$("#reply_content").val(currentval+' @test ');
+	//editor.updateFrame();
+   editor.execCommand('inserthtml',uname).focus();
+
+	});
+	editor.doc.execCommand("insertBrOnReturn", false, false);
  });
 </script>
 <?php }?>
@@ -128,7 +147,7 @@ at
 <div class="col-md-11">
 <div>
 <span class='snow pull-right' id="r<?php echo ($page-1)*10+$key+1;?>">
-#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>" onclick="replyOne('<?php echo $v['username']?>');">回复</a></span>
+#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>">回复</a></span>
 <span><a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a></span>
 <span class="snow">&nbsp;&nbsp;<?php echo $this->myclass->friendly_date($v['replytime'])?></span>
 </div>

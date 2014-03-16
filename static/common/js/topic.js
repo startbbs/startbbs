@@ -1,14 +1,19 @@
-$(document).ready(function(){        //DOM的onload事件处理函数    
+$(document).ready(function(){        //DOM的onload事件处理函数
   $("#comment-submit").click(function(){          //当按钮button被点击时的处理函数
 	if(check_content()){
 	postdata(); 
     //button被点击时执行postdata函数
-   $("#reply_content").val('');//提交清空内容
+   $("#reply_content").val('').focus();//提交清空内容
 	}    
   });
+    //@回复
+    $(".clickable").click(function(){
+        var append_str = "@" + $(this).attr("data-mention") + " ";
+         $("#reply_content").insertAtCaret(append_str);
+    });
 });
 function postdata(){                             //提交数据函数
-var comment=htmldecode($("#reply_content").val());
+var comment=$("#reply_content").val();
   $.ajax({                                                 //调用jquery的ajax方法   
     type: "POST",                                     //设置ajax方法提交数据的形式    
     url: baseurl+"index.php/comment/add_comment",     //把数据提交到ok.php 
@@ -19,7 +24,7 @@ var comment=htmldecode($("#reply_content").val());
     $('#clist').append(html);
     $('#comments').html(msg.layer);//改变回复数
       //alert("数据提交成功");                     //如果有必要，可以把msg变量的值显示到某个DIV元素中    
-    }
+}
   });
 }
 
@@ -57,25 +62,4 @@ return false;
 } else{
 	return true;
 }
-}
-
-function removeHTMLTag(str) {
-            str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
-            str = str.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
-            str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
-            str=str.replace(/ /ig,'');//去掉 
-            return str;
-    }
-
-function htmldecode(str){
-    str= str.replace(/&lt;/g, "<");
-    str= str.replace(/&gt;/g, ">");
-    str= str.replace(/&nbsp;/g, " ");
-    //str= str.replace(/'/g, "\'");
-  	str= str.replace(/&quot;/g, "\"");
-    str= str.replace(/<br>/g, "\n");
-    str= str.replace(/&raquo;/g, "");
-   	str= str.replace(/&amp;/g, "");
-    
-	return str;
 }

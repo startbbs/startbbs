@@ -210,7 +210,7 @@ class Forum extends SB_controller
 			if($_POST && $this->validate_add_form()){
 				$data = array(
 					'title' => $this->input->post ('title',true),
-					'content' => clearxss($this->input->post ('content')),
+					'content' => xss_clean($this->input->post ('content')),
 					'cid' => $cid,
 					'uid' => $uid,
 					'addtime' => time(),
@@ -318,7 +318,7 @@ class Forum extends SB_controller
 			if($_POST && $this->validate_add_form()){
 				$str = array(
 					'title' => $this->input->post('title',true),
-					'content' => clearxss($this->input->post('content')),
+					'content' => xss_clean($this->input->post('content')),
 					'cid' => $this->input->post('cid'),
 					'updatetime' => time(),
 				);
