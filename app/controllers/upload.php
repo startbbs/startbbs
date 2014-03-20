@@ -128,9 +128,71 @@ class upload extends SB_Controller {
 
 		//}
 		
-		
 	}
 
+	function upload_file() {
+
+		if(!$this->auth->is_admin())
+		{
+			die('无权访问此页');
+		}
+		
+		//if($this->input->post('submit')) {
+		$file=$this->_get_file_path(@$_FILES['file']['name']);
+		$path = @$file['file_path'];
+		$path_url=FCPATH.$path;
+		if(!file_exists($path_url)){
+			mkdir($path_url,0777,true);
+		}
+		$config = array(
+			'allowed_types' => 'gif|jpg|jpeg|png|tiff|swf|flv|mp3|wav|wma|wmv|mid|avi|mpg|asf|rm|rmvb|doc|docx|xls|xlsx|ppt|txt|zip|rar|gz|bz2',
+			'upload_path' => $path,
+			//'encrypt_name' => false,
+			'file_name'=>@$file['new_file_name'],
+			'overwrite'=>true,
+			'max_size' => 2000
+		);
+		
+		$this->load->library('upload', $config);
+		if(!$this->upload->do_upload('file')){
+			$data['error'] = $this->upload->display_errors('<p>', '</p>');
+			echo json_encode($data);
+		} else {
+			
+			$upload_data = $this->upload->data();
+			
+            $data['status'] = 'success';
+            $data['msg']  = '上传成功!';
+            //$data['file_url']  = $upload_data['file_name'];
+            $data['file_url']  = $path.$upload_data['file_name'];
+           
+			$config = array(
+				'source_image' => $upload_data['full_path'],
+				'maintain_ration' => true,
+			);
+			//图片缩放
+			if(in_array(@$file['file_ext'], array('gif','jpg','jpeg','png','tiff'))){
+				$size = GetImageSize($config['source_image']);
+				if ( $size[0] >600){
+					$config['width'] = 600;
+					$ra=number_format((600/$size[0]),1);
+		  			$config['height']=round($size[1]*$ra);
+				}
+
+				$this->load->library('image_lib', $config);
+				$this->image_lib->resize();
+			}
+
+			//指定父页面接收上传文件名的元素id
+        	$datas['result_field'] = 'up_name';
+			exit(json_encode($data));
+			
+		}
+
+		//}
+		
+		
+	}
 	
 	function get_images() {
 		
@@ -159,23 +221,6 @@ class upload extends SB_Controller {
 
 	public function qiniu()
 	{
-		//定义允许上传的文件扩展名
-		$ext_arr = array(
-			'image' => array('gif', 'jpg', 'jpeg', 'png','tiff'),
-			'media' => array('swf', 'flv', 'mp3', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
-			'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'txt', 'zip', 'rar', 'gz', 'bz2'),
-		);
-		//获得文件扩展名
-		$info = pathinfo(@$_FILES['file']['name']);
-		$file_ext = @$info['extension'];
-		//新文件名
-		$new_file_name = date("YmdHis") . '_' . rand(1, 99999) . '.' . $file_ext;
-		if(in_array($file_ext, $ext_arr['image']))
-		$file_path='uploads/image/'.$new_file_name;
-		if(in_array($file_ext, $ext_arr['media']))
-		$file_path='uploads/media/'.$new_file_name;
-		if(in_array($file_ext, $ext_arr['file']))
-		$file_path='uploads/file/'.$new_file_name;
 		$this->config->load('qiniu');
 		$params =array(
 			'accesskey'=>$this->config->item('accesskey'),
@@ -184,13 +229,40 @@ class upload extends SB_Controller {
 			'file_domain'=>$this->config->item('file_domain').'/',	
 		);
 		$this->load->library('qiniu_lib',$params);
-		$new=$this->qiniu_lib->uploadfile(@$file_path);
+		$file=$this->_get_file_path(@$_FILES['file']['name']);
+		$new=$this->qiniu_lib->uploadfile(@$file['file_path_url']);
 		if (!empty($_FILES)) {
 			echo json_encode($new);
 		}else{
 			$data['title'] = '七牛上传图片测试';
 			$this->load->view('qiniu_v',$data);
 		}
+	}
+
+	function _get_file_path($file){
+		//定义允许上传的文件扩展名
+		$ext_arr = array(
+			'image' => array('gif', 'jpg', 'jpeg', 'png','tiff'),
+			'media' => array('swf', 'flv', 'mp3', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
+			'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'txt', 'zip', 'rar', 'gz', 'bz2'),
+		);
+		//获得文件扩展名
+		$info = pathinfo($file);
+		$data['file_ext'] = (@$info['extension'])?@$info['extension']:'';
+		//新文件名
+		$data['new_file_name'] = date("YmdHis") . '_' . rand(1, 99999) . '.' . $data['file_ext'];
+		$data['file_path']='';
+		if(in_array($data['file_ext'], $ext_arr['image'])){
+			$data['file_path']='uploads/image/'.date("Ym").'/';
+		}
+		if(in_array($data['file_ext'], $ext_arr['media'])){
+			$data['file_path']='uploads/media/'.date("Ym").'/';
+		}
+		if(in_array($data['file_ext'], $ext_arr['file'])){
+			$data['file_path']='uploads/file/'.date("Ym").'/';	
+		}
+		$data['file_path_url']=$data['file_path'].$data['new_file_name'];
+		return $data;
 	}
 
 

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$("#upload_tip").click(function(){ 
+	$("#upload_file").click(function(){ 
 	doUpload(); 
 	});
 });

@@ -15,10 +15,10 @@
 <script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.set.js')?>"></script>
 <?php }?>
-<?php if($this->config->item('storage_set')=='local'){?>
-
-<?php } else{?>
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
+<?php if($this->config->item('storage_set')=='local'){?>
+<script src="<?php echo base_url('static/common/js/local.file.js')?>" type="text/javascript"></script>
+<?php } else{?>
 <script src="<?php echo base_url('static/common/js/qiniu.js')?>" type="text/javascript"></script>
 <?php }?>
     
@@ -186,12 +186,8 @@ at
 <textarea class="form-control" id="post_content" name="comment" rows="5"></textarea>
 <p style="margin-top:8px;">
 <span class='text-muted pull-left'>可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
-<span class="pull-right"><?php if($this->config->item('storage_set')=='local'){?>
-	<span id='upload-tip' class="btn btn-default" value="图片/附件">上传图片</span>
-	<?php } else {?>
-	<input id="upload_tip" type="button" value="图片/附件"  class="btn btn-default">
-<!--	<input type="button" onclick="doUpload()" value="图片/附件"  class="btn btn-default">-->
-	<?php }?></span></p>
+<input id="upload_file" type="button" value="图片/附件" name="file" class="btn btn-default pull-right">
+</p>
 </div></div>
 <div class="col-sm-9">
 <input class="btn btn-primary" data-disable-with="正在提交" type="submit" id="comment-submit" value="发送" />
