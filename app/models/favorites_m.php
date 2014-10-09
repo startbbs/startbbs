@@ -18,22 +18,22 @@ class Favorites_m extends SB_Model
 	}
 	
 	/*收藏列表带分页*/
-	public function get_favorites_list ($page, $limit, $fids)
+	public function get_favorites_list ($page, $limit, $topic_ids)
 	{
 
 		$sql = "SELECT a.*,b.username, b.avatar, c.username as rname
-		FROM {$this->db->dbprefix}forums a 
+		FROM {$this->db->dbprefix}topics a 
         LEFT JOIN {$this->db->dbprefix}users b ON b.uid=a.uid
         LEFT JOIN {$this->db->dbprefix}users c ON c.uid=a.ruid
-        WHERE a.fid in(".$fids.") 
-		ORDER BY FIELD(`fid`,".$fids.")";
+        WHERE a.topic_id in(".$topic_ids.") 
+		ORDER BY FIELD(`topic_id`,".$topic_ids.")";
 		$query = $this->db->query($sql);
 
-		//$this->db->select('forums.*,b.username, b.avatar, c.username as rname');
-		//$this->db->from('forums');
-		//$this->db->join('users b','b.uid = forums.uid','left');
-		//$this->db->join('users c','c.uid = forums.ruid','left');
-		//$this->db->where_in('fid',$fids);
+		//$this->db->select('topics.*,b.username, b.avatar, c.username as rname');
+		//$this->db->from('topics');
+		//$this->db->join('users b','b.uid = topics.uid','left');
+		//$this->db->join('users c','c.uid = topics.ruid','left');
+		//$this->db->where_in('topic_id',$topic_ids);
 		//$this->db->limit($limit,$page);
 		//$query = $this->db->get();
 		if($query->num_rows() > 0){
@@ -42,13 +42,13 @@ class Favorites_m extends SB_Model
     }
 
 	/**/
-	public function get_latest_forums ($limit)
+	public function get_latest_topics ($limit)
 	{
-		$this->db->select('forums.*,b.username, b.avatar, c.username as rname, d.cname');
-		$this->db->from('forums');
-		$this->db->join('users b','b.uid = forums.uid','left');
-		$this->db->join('users c','c.uid = forums.ruid','left');
-		$this->db->join('categories d','d.cid = forums.cid','left');
+		$this->db->select('topics.*,b.username, b.avatar, c.username as rname, d.cname');
+		$this->db->from('topics');
+		$this->db->join('users b','b.uid = topics.uid','left');
+		$this->db->join('users c','c.uid = topics.ruid','left');
+		$this->db->join('categories d','d.cid = topics.cid','left');
 		$this->db->order_by('updatetime','desc');
 		$this->db->limit($limit);
 		$query = $this->db->get();
@@ -57,37 +57,37 @@ class Favorites_m extends SB_Model
 		}
     }
 
-    public function get_forum_by_fid ($fid)
+    public function get_topic_by_topic_id ($topic_id)
     {
-		$this->db->select('forums.*,users.username, users.avatar');
-		$this->db->join('users', 'users.uid = forums.uid');
-    	$query = $this->db->where('fid',$fid)->get('forums');
+		$this->db->select('topics.*,users.username, users.avatar');
+		$this->db->join('users', 'users.uid = topics.uid');
+    	$query = $this->db->where('topic_id',$topic_id)->get('topics');
     	return $query->row_array();
     }
 
     public function add($data)
     {
-    	$this->db->insert('sb_forums',$data);
+    	$this->db->insert('sb_topics',$data);
     	return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
     }
-	public function get_forums_by_uid($uid,$num)
+	public function get_topics_by_uid($uid,$num)
 	{
-		$this->db->select('forums.*, b.username as rname,c.cname');
-		$this->db->from('forums');
-		$this->db->where('forums.uid',$uid);
-		$this->db->join('users b', 'b.uid= forums.ruid','left');
-		$this->db->join('categories c','c.cid = forums.cid','left');
+		$this->db->select('topics.*, b.username as rname,c.cname');
+		$this->db->from('topics');
+		$this->db->where('topics.uid',$uid);
+		$this->db->join('users b', 'b.uid= topics.ruid','left');
+		$this->db->join('categories c','c.cid = topics.cid','left');
 		$this->db->limit($num);
 		$this->db->order_by('addtime','desc');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
-	public function get_all_forums($page, $limit)
+	public function get_all_topics($page, $limit)
 	{
-		$this->db->select('forums.*, c.cname, c.cid, u.username');
-		$this->db->from('forums');
-		$this->db->join('categories c','c.cid = forums.cid');
-		$this->db->join('users u', 'u.uid = forums.uid');
+		$this->db->select('topics.*, c.cname, c.cid, u.username');
+		$this->db->from('topics');
+		$this->db->join('categories c','c.cid = topics.cid');
+		$this->db->join('users u', 'u.uid = topics.uid');
 		$this->db->order_by('addtime','desc');
 		$this->db->limit($limit,$page);
 		$query = $this->db->get();
@@ -96,33 +96,33 @@ class Favorites_m extends SB_Model
 		}
 	}
 
-	function del_forum($fid,$cid,$uid)
+	function del_topic($topic_id,$cid,$uid)
 	{
-		$this->db->where('fid', $fid)->delete('forums');
+		$this->db->where('topic_id', $topic_id)->delete('topics');
 		//查询相关数据
 		$listnum = $this->db->select('listnum')->get_where('categories', array('cid'=>$cid))->row_array();
-		$forums = $this->db->select('forums')->get_where('users', array('uid'=>$uid))->row_array();
+		$topics = $this->db->select('topics')->get_where('users', array('uid'=>$uid))->row_array();
 		//更新分类中的贴子数
 		$this->db->where('cid',$cid)->update('categories',array('listnum'=>$listnum['listnum']-1));
 		//更新用户中的贴子数
-		$this->db->where('uid',$uid)->update('users',array('forums'=>$forums['forums']-1));
+		$this->db->where('uid',$uid)->update('users',array('topics'=>$topics['topics']-1));
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 
 
-	function update_forum($fid, $data){
-		$this->db->where('fid',$fid);
-  		$this->db->update('forums', $data); 
+	function update_topic($topic_id, $data){
+		$this->db->where('topic_id',$topic_id);
+  		$this->db->update('topics', $data); 
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
     
     
-/*    	public function get_forums_list ($page, $per_page = 1, $cid)
+/*    	public function get_topics_list ($page, $per_page = 1, $cid)
 	{
-		$this->db->select('forums.*,users.username');
-		$this->db->from('sb_forums');
-		$this->db->join('sb_users','users.uid = forums.uid','left');
-		$this->db->join('sb_users','users.uid = forums.ruid','left');
+		$this->db->select('topics.*,users.username');
+		$this->db->from('sb_topics');
+		$this->db->join('sb_users','users.uid = topics.uid','left');
+		$this->db->join('sb_users','users.uid = topics.ruid','left');
 		$this->db->where('cid',$cid);
 		$this->db->limit($per_page,$page);
 		$query = $this->db->get();

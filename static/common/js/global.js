@@ -7,7 +7,7 @@ $(function(){
     $("#myform").submit(function(){
 		//var submitData = $(this).serialize();
 		var comment = $('#reply_content').val();
-		var fid = $("#fid").val();
+		var topic_id = $("#topic_id").val();
 		var is_top = $("#is_top").val();
 		if(comment==""){
 			$("#msg").show().html("你总得说点什么吧.").fadeOut(2000);
@@ -18,7 +18,7 @@ $(function(){
 		   type: "POST",
 		   url: siteurl+"/comment/add_comment",
 		   //data: submitData
-		   data:"comment="+comment+"&fid="+fid+"&is_top="+is_top,
+		   data:"comment="+comment+"&topic_id="+topic_id+"&is_top="+is_top,
 		   dataType: "html",
 		   success: function(msg){
 			  if(parseInt(msg)!=0){

@@ -34,23 +34,23 @@ class Notifications extends SB_Controller
 
 	}
 
-	public function del($fid)
+	public function del($topic_id)
 	{
 		$uid = $this->session->userdata('uid');
 		$user_fav = $this->db->get_where('favorites',array('uid'=>$uid))->row_array();
         $ids_arr = explode(",", $user_fav['content']);
-        if(in_array($fid, $ids_arr)){
+        if(in_array($topic_id, $ids_arr)){
             foreach($ids_arr as $k=>$v){
-                if($v == $fid){
+                if($v == $topic_id){
                     unset($ids_arr[$k]);
                     break;
                 }
             }
-            $forums = count($ids_arr);
+            $topics = count($ids_arr);
             $content = implode(',', $ids_arr);
             $data['content'] = $content;
-            $data['favorites'] = $forums;
-            if($this->db->where('uid', $uid)->update('favorites', $data) && $this->db->set('favorites','favorites-1',FALSE)->where('fid', $fid)->update('forums')){
+            $data['favorites'] = $topics;
+            if($this->db->where('uid', $uid)->update('favorites', $data) && $this->db->set('favorites','favorites-1',FALSE)->where('topic_id', $topic_id)->update('topics')){
 				redirect($this->input->server('HTTP_REFERER'));	            
             }
             

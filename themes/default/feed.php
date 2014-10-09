@@ -15,10 +15,10 @@
 		<item>
 			<title><![CDATA[<?php echo $v['title']?>]]></title>
 			<author>www.startbbs.com</author>
-			<link><?php echo site_url('forum/view/'.$v['fid']);?></link>
+			<link><?php echo site_url('topic/view/'.$v['topic_id']);?></link>
 			<description><![CDATA[<?php echo mb_substr(strip_tags(@$v['content']), 0, 150, 'utf-8');?>]]></description>
 			<pubDate><?php echo date(DATE_RSS,$v['updatetime']);?></pubDate>
-			<guid><?php echo site_url('forum/view/'.$v['fid']);?></guid>
+			<guid><?php echo site_url('topic/view/'.$v['topic_id']);?></guid>
 		</item>
 		<?php } ?>
 	</channel>

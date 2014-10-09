@@ -7,7 +7,7 @@ class Topics extends Admin_Controller
 		parent::__construct();
 		$this->load->library('myclass');
 		$this->load->model('cate_m');
-		$this->load->model('forum_m');
+		$this->load->model('topic_m');
 		$this->load->model('comment_m');
 
 	}
@@ -20,7 +20,7 @@ class Topics extends Admin_Controller
 		$config['uri_segment'] = 4;
 		$config['use_page_numbers'] = TRUE;
 		$config['base_url'] = site_url('admin/topics/index/');
-		$config['total_rows'] = $this->db->count_all('forums');
+		$config['total_rows'] = $this->db->count_all('topics');
 		$config['per_page'] = $limit;
 		$config['prev_link'] = '&larr;';
 		$config['prev_tag_open'] = '<li class=\'prev\'>';
@@ -46,24 +46,24 @@ class Topics extends Admin_Controller
 		$start = ($page-1)*$limit;
 		$data['pagination'] = $this->pagination->create_links();
 
-		$data['topics'] = $this->forum_m->get_all_forums($start, $limit);
+		$data['topics'] = $this->topic_m->get_all_topics($start, $limit);
 
 		$this->load->view('topics', $data);
 		
 	}
-	public function del($fid,$cid,$uid)
+	public function del($topic_id,$cid,$uid)
 	{
 		$data['title'] = '删除贴子';
 		$this->myclass->notice('alert("确定要删除此话题吗！");');
 		//删除贴子及它的回复
-		if($this->forum_m->del_forum($fid,$cid,$uid)){
-		$this->comment_m->del_comments_by_fid($fid,$uid);
+		if($this->topic_m->del_topic($topic_id,$cid,$uid)){
+		$this->comment_m->del_comments_by_topic_id($topic_id,$uid);
 		$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('admin/topics').'";');
 		}
 
 	}
 
-	public function edit($fid)
+	public function edit($topic_id)
 	{
 		$data['title'] = '修改话题';
 		if($_POST){
@@ -83,31 +83,31 @@ class Topics extends Admin_Controller
 		$data['cateinfo']=$this->cate_m->get_category_by_cid($cid);
 		$this->load->view('nodes_edit', $data);
 	}
-	public function set_top($fid,$is_top)
+	public function set_top($topic_id,$is_top)
 	{
-		if($this->forum_m->set_top($fid,$is_top)){
+		if($this->topic_m->set_top($topic_id,$is_top)){
 			redirect('admin/topics/');
 		}
 	}
 
 	public function batch_process()
 	{
-		$fids = array_slice($this->input->post(), 0, -1);
+		$topic_ids = array_slice($this->input->post(), 0, -1);
 		if($this->input->post('batch_del')){
-			if($this->db->where_in('fid',$fids)->delete('forums')){
+			if($this->db->where_in('topic_id',$topic_ids)->delete('topics')){
 				$this->myclass->notice('alert("批量删除贴子成功！");window.location.href="'.site_url('admin/topics').'";');
 			}
 		}
 		if($this->input->post('batch_approve')){
-			if($this->db->where_in('fid',$fids)->update('forums', array('is_hidden'=>0))){
+			if($this->db->where_in('topic_id',$topic_ids)->update('topics', array('is_hidden'=>0))){
 				$this->myclass->notice('alert("批量审核贴子成功！");window.location.href="'.site_url('admin/topics').'";');
 			}
 		}
 	}
 
-	public function approve($fid)
+	public function approve($topic_id)
 	{
-		if($this->db->where('fid',$fid)->update('forums', array('is_hidden'=>0))){
+		if($this->db->where('topic_id',$topic_id)->update('topics', array('is_hidden'=>0))){
 			$this->myclass->notice('alert("审核贴子成功！");window.location.href="'.site_url('admin/topics').'";');
 		} else {
 			return false;

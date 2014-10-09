@@ -28,7 +28,7 @@ class Cate_m extends SB_Model
 		$this->db->select('cid,pid,cname,ico,content,listnum,master');
 		$this->db->order_by('pid', 'desc');
 		$query=$this->db->get('categories')->result_array();
-		$flist_url=array_keys($this->router->routes,'forum/flist/$1');
+		$flist_url=array_keys($this->router->routes,'topic/flist/$1');
 		if(!empty($query)){
 			foreach($query as $k=>$v){
 				$flist_url['flist_url']=str_replace('(:num)', $v['cid'], $flist_url[0]);

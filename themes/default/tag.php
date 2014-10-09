@@ -16,7 +16,7 @@
 <div class='col-xs-12 col-sm-6 col-md-8'>
 
 <div class='box fix_cell'>
-<div class='cell'><a href="<?php echo site_url()?>" class="startbbs"><?php echo $settings['site_name']?></a> <span class="chevron">&nbsp;›&nbsp;</span>标签: #<?php echo $title;?> (<?php echo $tag['forums'];?>)</div>
+<div class='cell'><a href="<?php echo site_url()?>" class="startbbs"><?php echo $settings['site_name']?></a> <span class="chevron">&nbsp;›&nbsp;</span>标签: #<?php echo $title;?> (<?php echo $tag['topics'];?>)</div>
 <?php if(isset($tag_list)){?>
 <?php foreach($tag_list as $v){?>
 <div class='admin cell topic'>
@@ -35,7 +35,7 @@
 <a href="<?php echo site_url($v['view_url']);?>" class="startbbs topic"><?php echo sb_substr($v['title'],30);?></a>
 </h2>
 <div class='topic-meta'>
-<!--<a href="<?php echo site_url('forum/flist/'.$v['cid']);?>" class="node"><?=$category['cname'];?></a>-->
+<!--<a href="<?php echo site_url('topic/flist/'.$v['cid']);?>" class="node"><?=$category['cname'];?></a>-->
 <span class='text-muted'>•</span>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 <span class='text-muted'>•</span>

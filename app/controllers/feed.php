@@ -5,7 +5,7 @@ class Feed extends SB_Controller {
   function __construct ()
 	{
 		parent::__construct();
-		$this->load->model('forum_m');
+		$this->load->model('topic_m');
 		$this->load->model('cate_m');
 		$this->load->library('myclass');
 	}
@@ -13,7 +13,7 @@ class Feed extends SB_Controller {
 	{
 		header("Content-Type: text/xml; charset=utf-8");
 		//获取列表
-		$data['list'] = $this->forum_m->get_latest_forums(30);
+		$data['list'] = $this->topic_m->get_latest_topics(30);
 		//links
 
 		$this->load->view('feed',$data);

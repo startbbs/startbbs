@@ -51,11 +51,11 @@ CREATE TABLE IF NOT EXISTS `stb_categories` (
 DROP TABLE IF EXISTS `stb_comments`;
 CREATE TABLE IF NOT EXISTS `stb_comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fid` int(11) NOT NULL DEFAULT '0',
+  `topic_id` int(11) NOT NULL DEFAULT '0',
   `uid` int(11) NOT NULL DEFAULT '0',
   `content` text,
   `replytime` char(10) DEFAULT NULL,
-  PRIMARY KEY (`id`,`fid`,`uid`)
+  PRIMARY KEY (`id`,`topic_id`,`uid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -77,12 +77,12 @@ CREATE TABLE IF NOT EXISTS `stb_favorites` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `stb_forums`
+-- 表的结构 `stb_topics`
 --
 
-DROP TABLE IF EXISTS `stb_forums`;
-CREATE TABLE IF NOT EXISTS `stb_forums` (
-  `fid` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `stb_topics`;
+CREATE TABLE IF NOT EXISTS `stb_topics` (
+  `topic_id` int(11) NOT NULL AUTO_INCREMENT,
   `cid` smallint(5) NOT NULL DEFAULT '0',
   `uid` mediumint(8) NOT NULL DEFAULT '0',
   `ruid` mediumint(8) DEFAULT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `stb_forums` (
   `is_top` tinyint(1) NOT NULL DEFAULT '0',
   `is_hidden` tinyint(1) NOT NULL DEFAULT '0',
   `ord` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`fid`,`cid`,`uid`),
+  PRIMARY KEY (`topic_id`,`cid`,`uid`),
   KEY `updatetime` (`updatetime`),
   KEY `ord` (`ord`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -136,7 +136,7 @@ INSERT INTO `stb_links` (`id`, `name`, `url`, `logo`, `is_hidden`) VALUES
 DROP TABLE IF EXISTS `stb_notifications`;
 CREATE TABLE IF NOT EXISTS `stb_notifications` (
   `nid` int(11) NOT NULL AUTO_INCREMENT,
-  `fid` int(11) DEFAULT NULL,
+  `topic_id` int(11) DEFAULT NULL,
   `suid` int(11) DEFAULT NULL,
   `nuid` int(11) NOT NULL DEFAULT '0',
   `ntype` tinyint(1) DEFAULT NULL,
@@ -205,7 +205,7 @@ DROP TABLE IF EXISTS `stb_tags`;
 CREATE TABLE IF NOT EXISTS `stb_tags` (
   `tag_id` int(10) NOT NULL AUTO_INCREMENT,
   `tag_title` varchar(30) NOT NULL,
-  `forums` int(10) NOT NULL DEFAULT '0',
+  `topics` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`tag_id`),
   UNIQUE KEY `tag_title` (`tag_title`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -219,9 +219,9 @@ CREATE TABLE IF NOT EXISTS `stb_tags` (
 DROP TABLE IF EXISTS `stb_tags_relation`;
 CREATE TABLE IF NOT EXISTS `stb_tags_relation` (
   `tag_id` int(10) NOT NULL DEFAULT '0',
-  `fid` int(10) DEFAULT NULL,
+  `topic_id` int(10) DEFAULT NULL,
   KEY `tag_id` (`tag_id`),
-  KEY `fid` (`fid`)
+  KEY `topic_id` (`topic_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -242,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `money` int(11) DEFAULT '0',
   `credit` int(11) NOT NULL DEFAULT '100',
   `signature` text,
-  `forums` int(11) DEFAULT '0',
+  `topics` int(11) DEFAULT '0',
   `replies` int(11) DEFAULT '0',
   `notices` smallint(5) DEFAULT '0',
   `follows` int(11) NOT NULL DEFAULT '0',

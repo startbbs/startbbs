@@ -32,9 +32,9 @@ class Follow extends SB_Controller
 			}
 		}
 		//获取关注用户的贴子
-		$this->load->model('forum_m');
+		$this->load->model('topic_m');
 		if(@$ids){
-			$data['follow_user_forums'] = $this->forum_m->get_forums_by_uids(@$ids,15);
+			$data['follow_user_topics'] = $this->topic_m->get_topics_by_uids(@$ids,15);
 		}
 		$data['title'] = '我关注的用户';
 		$this->load->view('follow',$data);

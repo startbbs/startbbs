@@ -38,7 +38,7 @@
 <?php }?>
 </a>
 </div>
-<p><a href="<?php echo site_url();?>">首页</a> <span class="text-muted">/</span> <a href="<?php echo site_url('forum/flist/'.$cate['cid']);?>"><?php echo $cate['cname'];?></a></p>
+<p><a href="<?php echo site_url();?>">首页</a> <span class="text-muted">/</span> <a href="<?php echo site_url('topic/flist/'.$cate['cid']);?>"><?php echo $cate['cname'];?></a></p>
 <h1 id='topic_title'>
 <?php echo $content['title']?>
 </h1>
@@ -51,9 +51,9 @@ at
 <?php if($this->session->userdata('uid')){?>
 • <a href="#reply_content">回复</a> • 
 <?php if($in_favorites){?>
-<a href="<?php echo site_url('favorites/del/'.$content['fid']);?>" title="取消收藏">取消收藏</a>
+<a href="<?php echo site_url('favorites/del/'.$content['topic_id']);?>" title="取消收藏">取消收藏</a>
 <?php } else {?>
-<a href="<?php echo site_url('favorites/add/'.$content['fid']);?>" title="点击收藏">收藏</a>
+<a href="<?php echo site_url('favorites/add/'.$content['topic_id']);?>" title="点击收藏">收藏</a>
 <?php } ?>
 <?php } ?>
 </small>
@@ -71,11 +71,11 @@ at
 </div>
 <div class='inner'>
 <?php if($this->auth->is_user($content['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
-<a href="<?php echo site_url('forum/edit/'.$content['fid']);?>" class="btn btn-default btn-sm unbookmark" data-method="edit" rel="nofollow">编辑此贴</a>
-<a href="<?php echo site_url('forum/del/'.$content['fid'].'/'.$content['cid'].'/'.$content['uid']);?>" class="btn btn-sm btn-danger" data-method="edit" rel="nofollow">删除</a>
+<a href="<?php echo site_url('topic/edit/'.$content['topic_id']);?>" class="btn btn-default btn-sm unbookmark" data-method="edit" rel="nofollow">编辑此贴</a>
+<a href="<?php echo site_url('topic/del/'.$content['topic_id'].'/'.$content['cid'].'/'.$content['uid']);?>" class="btn btn-sm btn-danger" data-method="edit" rel="nofollow">删除</a>
 <?php }?>
 <?php if($this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
-<a href="<?php echo site_url('forum/view/'.$content['fid'].'?act=set_top');?>" class="btn btn-default btn-sm unbookmark" data-method="edit" rel="nofollow">
+<a href="<?php echo site_url('topic/view/'.$content['topic_id'].'?act=set_top');?>" class="btn btn-default btn-sm unbookmark" data-method="edit" rel="nofollow">
 <?php if($content['is_top']==0){?>
 置顶此贴
 <?php } else {?>
@@ -127,9 +127,9 @@ at
 <div class="pull-right">
 <!--<?php echo $v['signature']?>-->
 <?php if($this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
-<a href="<?php echo site_url('comment/del/'.$content['cid'].'/'.$v['fid'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>删除</a><?php }?>
+<a href="<?php echo site_url('comment/del/'.$content['cid'].'/'.$v['topic_id'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>删除</a><?php }?>
 <?php if($this->auth->is_user($v['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
- <a href="<?php echo site_url('comment/edit/'.$content['cid'].'/'.$v['fid'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>编辑</a>
+ <a href="<?php echo site_url('comment/edit/'.$content['cid'].'/'.$v['topic_id'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>编辑</a>
  <?php }?>
 </div>
 
@@ -171,7 +171,7 @@ at
 <!--<form id="myform" action="<?php echo site_url('comment/add_comment');?>" method="post" name="add_new">-->
 <input name="utf8" type="hidden" value="&#x2713;" />
 <input name="authenticity_token" type="hidden" value="b9p2+DhdHWTAHdRMrexpe7XxI2HxTaX7MaUKEaQiUsY=" />
-<input name="fid" id="fid" type="hidden" value="<?php echo $content['fid']?>" />
+<input name="topic_id" id="topic_id" type="hidden" value="<?php echo $content['topic_id']?>" />
 <input name="is_top" id="is_top" type="hidden" value="<?php echo $content['is_top']?>" />
 <input name="username" id="username" type="hidden" value="<?php echo $user['username']?>" />
 <input name="avatar" id="avatar" type="hidden" value="<?php echo base_url($user['middle_avatar'])?>" />
@@ -212,7 +212,7 @@ at
 <?php $this->load->view('block/right_login');?>
 <?php $this->load->view('block/right_cateinfo');?>
 <?php $this->load->view('block/right_cates');?>
-<?php $this->load->view('block/right_related_forum');?>
+<?php $this->load->view('block/right_related_topic');?>
 
 <?php $this->load->view('block/right_ad');?>
 </div>

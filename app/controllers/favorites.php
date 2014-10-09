@@ -53,18 +53,18 @@ class Favorites extends SB_Controller
 	    }else{
 	        $id_arr = array(@$user_fav['content']);
 	    }
-		$fids = implode(',', $id_arr);
+		$topic_ids = implode(',', $id_arr);
 
 		$this->load->model('favorites_m');
 		if(@$user_fav['content']){
-			$data['fav_list'] = $this->favorites_m->get_favorites_list($start, $limit, $fids);
+			$data['fav_list'] = $this->favorites_m->get_favorites_list($start, $limit, $topic_ids);
 		}
 
 
 		$data['title'] = '贴子收藏';
 		$this->load->view('favorites',$data);
 	}
-	public function add($fid)
+	public function add($topic_id)
 	{
 		//获取收藏数据
 		$uid = $this->session->userdata('uid');
@@ -75,28 +75,28 @@ class Favorites extends SB_Controller
 		if(@$user_fav['uid']){
 			if($user_fav['content']){
 				$ids_arr = explode(",", @$user_fav['content']);
-				if(!in_array($fid, $ids_arr)){
-					array_unshift($ids_arr, $fid);
-					//$forums = count($ids_arr);
+				if(!in_array($topic_id, $ids_arr)){
+					array_unshift($ids_arr, $topic_id);
+					//$topics = count($ids_arr);
 					$content = implode(',', $ids_arr);
-					if($this->db->where('uid', $uid)->update('favorites',array('content'=>$content)) && $this->db->where('uid', $uid)->set('favorites','favorites+1',FALSE)->update('favorites') && $this->db->where('fid', $fid)->set('favorites','favorites+1',FALSE)->update('forums')){
-						redirect('forum/view/'.$fid);
+					if($this->db->where('uid', $uid)->update('favorites',array('content'=>$content)) && $this->db->where('uid', $uid)->set('favorites','favorites+1',FALSE)->update('favorites') && $this->db->where('topic_id', $topic_id)->set('favorites','favorites+1',FALSE)->update('topics')){
+						redirect('topic/view/'.$topic_id);
 					}
 				}
 				unset($ids_arr);
 			} else {
-				$data['content'] = $fid;
+				$data['content'] = $topic_id;
 				$data['favorites'] =1;
-				if($this->db->where('uid', $uid)->update('favorites',$data) && $this->db->where('fid', $fid)->set('favorites','favorites+1',FALSE)->update('forums')){
-					redirect('forum/view/'.$fid);
+				if($this->db->where('uid', $uid)->update('favorites',$data) && $this->db->where('topic_id', $topic_id)->set('favorites','favorites+1',FALSE)->update('topics')){
+					redirect('topic/view/'.$topic_id);
 				}
 			}
 		} else{
-			$data['content'] = $fid;
+			$data['content'] = $topic_id;
             $data['favorites'] = 1;
             $data['uid'] = $uid;
-            if($this->db->insert('favorites', $data) && $this->db->set('favorites','favorites+1',FALSE)->where('fid', $fid)->update('forums')){
-				redirect('forum/view/'.$fid);
+            if($this->db->insert('favorites', $data) && $this->db->set('favorites','favorites+1',FALSE)->where('topic_id', $topic_id)->update('topics')){
+				redirect('topic/view/'.$topic_id);
             }
             
 		}
@@ -104,21 +104,21 @@ class Favorites extends SB_Controller
 		$this->load->view('favorites',$data);
 	}
 
-	public function del($fid)
+	public function del($topic_id)
 	{
 		$uid = $this->session->userdata('uid');
 		$user_fav = $this->db->get_where('favorites',array('uid'=>$uid))->row_array();
         $ids_arr = explode(",", $user_fav['content']);
-        if(in_array($fid, $ids_arr)){
+        if(in_array($topic_id, $ids_arr)){
             foreach($ids_arr as $k=>$v){
-                if($v == $fid){
+                if($v == $topic_id){
                     unset($ids_arr[$k]);
                     break;
                 }
             }
-            //$forums = count($ids_arr);
+            //$topics = count($ids_arr);
             $content = implode(',', $ids_arr);
-            if($this->db->where('uid', $uid)->update('favorites',array('content'=>$content)) && $this->db->where('uid', $uid)->set('favorites','favorites-1',FALSE)->update('favorites') && $this->db->set('favorites','favorites-1',FALSE)->where('fid', $fid)->update('forums')){
+            if($this->db->where('uid', $uid)->update('favorites',array('content'=>$content)) && $this->db->where('uid', $uid)->set('favorites','favorites-1',FALSE)->update('favorites') && $this->db->set('favorites','favorites-1',FALSE)->where('topic_id', $topic_id)->update('topics')){
 				redirect($this->input->server('HTTP_REFERER'));	            
             }
             

@@ -34,8 +34,8 @@ class User extends SB_Controller
 		$this->load->model('upload_m');
 		$data['big_avatar']=$this->upload_m->get_avatar_url($uid, 'big');
 		//此用户发贴
-		$this->load->model('forum_m');
-		$data['user_posts'] = $this->forum_m->get_forums_by_uid($uid,5);
+		$this->load->model('topic_m');
+		$data['user_posts'] = $this->topic_m->get_topics_by_uid($uid,5);
 		//此用户回贴
 		$this->load->model('comment_m');
 		$data['user_comments'] = $this->comment_m->get_comments_by_uid($uid,5);

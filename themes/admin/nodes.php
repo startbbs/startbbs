@@ -51,7 +51,7 @@
 <a href="<?php echo site_url('/admin/nodes/move/'.$s['cid']);?>" class="btn btn-primary btn-sm" data-remote="true">移动</a>
 <a href="<?php echo site_url('/admin/nodes/del/'.$s['cid']);?>" class="btn btn-sm btn-danger" data-confirm="真的要删除吗?" data-method="delete" data-remote="true" rel="nofollow">删除</a>
 </div>
-├─&nbsp;<a href="<?php echo site_url('forum/flist/'.$s['cid']);?>"><?php echo $s['cname'];?></a>
+├─&nbsp;<a href="<?php echo site_url('topic/flist/'.$s['cid']);?>"><?php echo $s['cname'];?></a>
 </div>
 <?php } ?>
 <?php } ?>

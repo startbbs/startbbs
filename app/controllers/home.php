@@ -13,7 +13,7 @@ class Home extends SB_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('forum_m');
+		$this->load->model('topic_m');
 		$this->load->model('cate_m');
 		$this->load->library('myclass');
 		$this->load->model('link_m');
@@ -23,16 +23,16 @@ class Home extends SB_Controller
 	public function index ()
 	{
 		//获取列表
-		$data['view_url']=array_keys($this->router->routes,'forum/view/$1');
-		$data['flist_url']=array_keys($this->router->routes,'forum/flist/$1');
+		$data['view_url']=array_keys($this->router->routes,'topic/view/$1');
+		$data['flist_url']=array_keys($this->router->routes,'topic/flist/$1');
 		//echo $this->router->routes['admin'];
 		//echo var_export($this->router->routes);
 
-		$data['list'] = $this->forum_m->get_forums_list_nopage($this->home_page_num);
+		$data['list'] = $this->topic_m->get_topics_list_nopage($this->home_page_num);
 		if(is_array($data['list']))
 		foreach($data['list'] as $k=>$v)
 		{
-			$data['list'][$k]['view_url']=str_replace('(:num)',$v['fid'],$data['view_url'][0]);
+			$data['list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$data['view_url'][0]);
 			$data['list'][$k]['flist_url']=str_replace('(:num)', $v['cid'], $data['flist_url'][0]);
 		}
 		//echo var_export($data['list']);
@@ -43,8 +43,8 @@ class Home extends SB_Controller
 		//echo var_dump($data['catelist']);
 
 		$this->db->cache_on();
-		$data['total_forums']=$this->db->count_all('forums');
-		$data['today_forums']=$this->forum_m->today_forums_count(0);
+		$data['total_topics']=$this->db->count_all('topics');
+		$data['today_topics']=$this->topic_m->today_topics_count(0);
 		$data['total_comments']=$this->db->count_all('comments');
 		$this->db->cache_off();
 		$data['total_users']=$this->db->count_all('users');
@@ -64,7 +64,7 @@ class Home extends SB_Controller
 	}
 	public function latest()
 	{
-		$data['list'] = $this->forum_m->get_forums_list_nopage(5);
+		$data['list'] = $this->topic_m->get_topics_list_nopage(5);
 		$this->load->view('latest',$data);
 	}
 	public function search()
@@ -81,7 +81,7 @@ class Home extends SB_Controller
 		$config['uri_segment'] = 3;
 		$config['use_page_numbers'] = TRUE;
 		$config['base_url'] = site_url('home/getmore/'.$page);
-		$config['total_rows'] = $this->forum_m->count_forums(0);
+		$config['total_rows'] = $this->topic_m->count_topics(0);
 		$config['per_page'] = $limit;
 		$config['first_link'] ='首页';
 		$config['last_link'] ='尾页';
@@ -94,15 +94,15 @@ class Home extends SB_Controller
 		$data['pagination'] = $this->pagination->create_links();
 
 		//获取列表
-		$data['list'] = $this->forum_m->get_forums_list($start, $limit, 0);
+		$data['list'] = $this->topic_m->get_topics_list($start, $limit, 0);
 
 		//自定义url
-		$data['view_url']=array_keys($this->router->routes,'forum/view/$1');
-		$data['flist_url']=array_keys($this->router->routes,'forum/flist/$1');
+		$data['view_url']=array_keys($this->router->routes,'topic/view/$1');
+		$data['flist_url']=array_keys($this->router->routes,'topic/flist/$1');
 		if(is_array($data['list'])){
 			foreach($data['list'] as $k=>$v)
 			{
-				$data['list'][$k]['view_url']=str_replace('(:num)',$v['fid'],$data['view_url'][0]);
+				$data['list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$data['view_url'][0]);
 				$data['list'][$k]['flist_url']=str_replace('(:num)', $v['cid'], $data['flist_url'][0]);
 			}
 		}

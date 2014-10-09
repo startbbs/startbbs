@@ -154,8 +154,8 @@ $(function() {
             <li>最新会员：<?php echo $last_user['username']?></li>
             <?php }?>
             <li>注册会员： <?php echo $total_users?></li>
-            <li>今日话题： <?php echo $today_forums;?></li>
-            <li>话题总数： <?php echo $total_forums?></li>
+            <li>今日话题： <?php echo $today_topics;?></li>
+            <li>话题总数： <?php echo $total_topics?></li>
             <li>回复数： <?php echo $total_comments?></li>
         </ul>
     </div>

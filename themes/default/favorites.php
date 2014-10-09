@@ -32,10 +32,10 @@
 <div class='badge badge-info'>1</div>
 </div>
 <h2 class='topic_title'>
-<a href="<?php echo site_url('forum/view/'.$v['fid']);?>" class="startbbs topic"><?php echo $v['title']?></a>
+<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title']?></a>
 </h2>
 <div class='topic-meta'>
-<!--<a href="<?php echo site_url('forum/flist/'.$v['cid']);?>" class="node"><?php echo $category['cname'];?></a>-->
+<!--<a href="<?php echo site_url('topic/flist/'.$v['cid']);?>" class="node"><?php echo $category['cname'];?></a>-->
 <span class='text-muted'>•</span>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 <span class='text-muted'>•</span>
@@ -44,7 +44,7 @@
 最后回复来自
 <a href="<?php echo site_url('user/info/'.$v['ruid']);?>" class="startbbs profile_link" title="<?php echo $v['rname'];?>"><?php echo $v['rname'];?></a>
 <span class='text-muted'>•</span>
-<a href="<?php echo site_url('favorites/del/'.$v['fid']);?>" title="取消收藏">取消收藏 X</a>
+<a href="<?php echo site_url('favorites/del/'.$v['topic_id']);?>" title="取消收藏">取消收藏 X</a>
 </div>
 </div>
 </div>

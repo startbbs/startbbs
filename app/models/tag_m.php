@@ -68,7 +68,7 @@ class Tag_m extends SB_Model
 	}
 
 	//入库Tag
-	public function insert_tag($data,$fid)
+	public function insert_tag($data,$topic_id)
 	{
 		if(!empty($data)){
 			$arr = explode(',',$data);
@@ -77,16 +77,16 @@ class Tag_m extends SB_Model
 					$info=$this->db->where('tag_title',$v)->get('tags')->row_array();
 					if(empty($info)){
 						$this->db->set('tag_title',trim($v));
-						$this->db->set('forums','forums+1',false);
+						$this->db->set('topics','topics+1',false);
 						$this->db->insert('tags');
 						$tid = $this->db->insert_id();
-						$this->db->insert('tags_relation', array('tag_id'=>$tid, 'fid'=>$fid));
+						$this->db->insert('tags_relation', array('tag_id'=>$tid, 'topic_id'=>$topic_id));
 						
 					} else{
-						$info_relation= $this->db->get_where('tags_relation', array('tag_id'=>$info['tag_id'], 'fid'=>$fid))->row_array();
+						$info_relation= $this->db->get_where('tags_relation', array('tag_id'=>$info['tag_id'], 'topic_id'=>$topic_id))->row_array();
 						if(empty($info_relation)){
-							$this->db->insert('tags_relation', array('tag_id'=>$info['tag_id'], 'fid'=>$fid));
-							$this->db->set('forums', 'forums+1', false)->where('tag_id', $info['tag_id'])->update('tags');
+							$this->db->insert('tags_relation', array('tag_id'=>$info['tag_id'], 'topic_id'=>$topic_id));
+							$this->db->set('topics', 'topics+1', false)->where('tag_id', $info['tag_id'])->update('tags');
 						}
 					}
 				}
@@ -95,7 +95,7 @@ class Tag_m extends SB_Model
 		}
 	} 
 	//X条相关贴子
-	public function get_related_forums_by_tag($tags,$limit) 
+	public function get_related_topics_by_tag($tags,$limit) 
 	{
 		$get_tag_ids = $this->db->select('tag_id')->where_in('tag_title',$tags)->get('tags')->result_array();
 		foreach($get_tag_ids as $k => $v){
@@ -103,9 +103,9 @@ class Tag_m extends SB_Model
 		}
 		$tag_ids = implode(',',$tag_ids);		
 		if($tag_ids){
-			$this->db->select('a.fid, a.title')
-			->from('forums a')
-			->join('tags_relation b','a.fid=b.fid')
+			$this->db->select('a.topic_id, a.title')
+			->from('topics a')
+			->join('tags_relation b','a.topic_id=b.topic_id')
 			->join('tags c','b.tag_id=c.tag_id')
 			->where_in('c.tag_id',$tag_ids)
 			->limit($limit);
@@ -116,14 +116,14 @@ class Tag_m extends SB_Model
 		}
 	}
 	//tag贴子列表
-	public function get_tag_forums_list($page,$limit,$tag_title)
+	public function get_tag_topics_list($page,$limit,$tag_title)
 	{
 		$tag = $this->db->select('tag_id')->where('tag_title',$tag_title)->get('tags')->row_array();
 		if($tag){
-			$this->db->select('a.fid, a.title, a.comments, a.updatetime, b.uid, b.username, b.avatar')
-			->from('forums a')
+			$this->db->select('a.topic_id, a.title, a.comments, a.updatetime, b.uid, b.username, b.avatar')
+			->from('topics a')
 			->join('users b','a.uid=b.uid')
-			->join('tags_relation c','a.fid=c.fid')
+			->join('tags_relation c','a.topic_id=c.topic_id')
 			->join('tags d','c.tag_id=d.tag_id')
 			->where('d.tag_id',$tag['tag_id'])
 			->limit($limit,$page);

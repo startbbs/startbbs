@@ -1,19 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 #doc
-#	classname:	Forum
+#	classname:	topic
 #	scope:		PUBLIC
 #	StartBBS起点轻量开源社区系统
 #	author :doudou QQ:858292510 startbbs@126.com
 #	Copyright (c) 2013 http://www.startbbs.com All rights reserved.
 #/doc
 
-class Forum extends SB_controller
+class topic extends SB_controller
 {
 
 	function __construct ()
 	{
 		parent::__construct();
-		$this->load->model('forum_m');
+		$this->load->model('topic_m');
 		$this->load->model('cate_m');
 		$this->load->library('myclass');
 	}
@@ -27,8 +27,8 @@ class Forum extends SB_controller
 			$limit = 10;
 			$config['uri_segment'] = 4;
 			$config['use_page_numbers'] = TRUE;
-			$config['base_url'] = site_url('forum/flist/'.$cid);
-			$config['total_rows'] = $this->forum_m->count_forums($cid);
+			$config['base_url'] = site_url('topic/flist/'.$cid);
+			$config['total_rows'] = $this->topic_m->count_topics($cid);
 			$config['per_page'] = $limit;
 			$config['first_link'] ='首页';
 			$config['last_link'] ='尾页';
@@ -41,15 +41,15 @@ class Forum extends SB_controller
 			$data['pagination'] = $this->pagination->create_links();
 
 			//获取列表
-			$data['list'] = $this->forum_m->get_forums_list($start, $limit, $cid);
+			$data['list'] = $this->topic_m->get_topics_list($start, $limit, $cid);
 
 			//自定义url
-			$data['view_url']=array_keys($this->router->routes,'forum/view/$1');
-			$data['flist_url']=array_keys($this->router->routes,'forum/flist/$1');
+			$data['view_url']=array_keys($this->router->routes,'topic/view/$1');
+			$data['flist_url']=array_keys($this->router->routes,'topic/flist/$1');
 			if(is_array($data['list'])){
 				foreach($data['list'] as $k=>$v)
 				{
-					$data['list'][$k]['view_url']=str_replace('(:num)',$v['fid'],$data['view_url'][0]);
+					$data['list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$data['view_url'][0]);
 					$data['list'][$k]['flist_url']=str_replace('(:num)', $v['cid'], $data['flist_url'][0]);
 				}
 			}
@@ -63,10 +63,10 @@ class Forum extends SB_controller
 
 	}
 
-	public function view ($fid=1,$page=1)
+	public function view ($topic_id=1,$page=1)
 	{
 		
-		$content = $this->forum_m->get_forum_by_fid($fid);
+		$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 		if(!$content){
 			$this->myclass->notice('alert("贴子不存在");window.location.href="'.site_url('/').'";');
 			exit;
@@ -74,7 +74,7 @@ class Forum extends SB_controller
 			$this->myclass->notice('alert("您无权访问此节点中的贴子");history.back();');
 		} else {
 			//$this->output->cache(1);
-			$content = $this->forum_m->get_forum_by_fid($fid);
+			$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 			//取出处理
 			$content['content']=stripslashes($content['content']);
 			$content['content']=str_replace('&lt;pre&gt;','<pre>',$content['content']);
@@ -89,13 +89,13 @@ class Forum extends SB_controller
 			
 
 			//更新浏览数
-			$this->db->where('fid',$content['fid'])->update('forums',array('views'=>$content['views']+1));
+			$this->db->where('topic_id',$content['topic_id'])->update('topics',array('views'=>$content['views']+1));
 			
 			//评论分页
 			$limit = 10;
 			$config['uri_segment'] = 4;
 			$config['use_page_numbers'] = TRUE;
-			$config['base_url'] = site_url('forum/view/'.$fid);
+			$config['base_url'] = site_url('topic/view/'.$topic_id);
 			$config['total_rows'] = @$content['comments'];
 			$config['per_page'] = $limit;
 			$config['prev_link'] = '&larr;';
@@ -123,16 +123,16 @@ class Forum extends SB_controller
 			$data['pagination'] = $this->pagination->create_links();
 			//获取评论
 			$this->load->model ( 'comment_m' );
-			$data['comment']= $this->comment_m->get_comment ($start,$limit,$fid,$this->config->item('comment_order'));
+			$data['comment']= $this->comment_m->get_comment ($start,$limit,$topic_id,$this->config->item('comment_order'));
 
 			//获取当前分类
 			$data['cate']=$this->db->get_where('categories',array('cid'=>$content['cid']))->row_array();
 
 			//上下主题
-			$data['content']['previous'] = $this->forum_m->get_near_id($fid,$data['cate']['cid'],0);
-			$data['content']['next'] = $this->forum_m->get_near_id($fid,$data['cate']['cid'],1);
-			$data['content']['previous']=$data['content']['previous']['fid'];
-			$data['content']['next']=$data['content']['next']['fid'];
+			$data['content']['previous'] = $this->topic_m->get_near_id($topic_id,$data['cate']['cid'],0);
+			$data['content']['next'] = $this->topic_m->get_near_id($topic_id,$data['cate']['cid'],1);
+			$data['content']['previous']=$data['content']['previous']['topic_id'];
+			$data['content']['next']=$data['content']['next']['topic_id'];
 			
 			// 判断是不是已被收藏
 			$data['in_favorites'] = '';
@@ -141,7 +141,7 @@ class Forum extends SB_controller
 				$user_fav = $this->db->get_where('favorites',array('uid'=>$uid))->row_array();
 			
 				if($user_fav && $user_fav['content']){
-					if(strpos(' ,'.$user_fav['content'].',', ','.$fid.',') ){
+					if(strpos(' ,'.$user_fav['content'].',', ','.$topic_id.',') ){
 						$data['in_favorites'] = '1';
 					}
 				}
@@ -169,14 +169,14 @@ class Forum extends SB_controller
 			//相关贴子
 			if(isset($data['tags'])){
 				$this->load->model('tag_m');
-				$data['related_forum_list'] = $this->tag_m->get_related_forums_by_tag($data['tags'],10);
+				$data['related_topic_list'] = $this->tag_m->get_related_topics_by_tag($data['tags'],10);
 				
 			}
 			//set top
 			if(@$_GET['act']=='set_top'){
 				if($this->auth->is_admin() || $this->auth->is_master($content['cid'])){
-					$this->forum_m->set_top($content['fid'],$content['is_top']);
-					redirect('forum/view/'.$content['fid']);	
+					$this->topic_m->set_top($content['topic_id'],$content['is_top']);
+					redirect('topic/view/'.$content['topic_id']);	
 				} else {
 					$this->myclass->notice('alert("你无权置顶贴子");history.go(-1);');
 				}
@@ -243,12 +243,12 @@ class Forum extends SB_controller
 				}
 				
 				
-				if($this->forum_m->add($data)){
+				if($this->topic_m->add($data)){
 					//最新贴子id
-					$new_fid = $this->db->insert_id();
+					$new_topic_id = $this->db->insert_id();
 					
 					//入tag表
-					$this->tag_m->insert_tag($data['keywords'], $new_fid);
+					$this->tag_m->insert_tag($data['keywords'], $new_topic_id);
 					
 					//更新贴子数
 					$cid = $this->input->post ('cid');
@@ -258,13 +258,13 @@ class Forum extends SB_controller
 					//更新数据库缓存
 					$this->db->cache_delete('/default', 'index');
 					//更新发贴人的贴子数/最后发贴时间
-					$this->db->set('lastpost',time(),false)->set('forums','forums+1',false)->where('uid',$uid)->update('users');
+					$this->db->set('lastpost',time(),false)->set('topics','topics+1',false)->where('uid',$uid)->update('users');
 					//更新会员积分
 					$this->config->load('userset');
 					$this->user_m->update_credit($uid,$this->config->item('credit_post'));
 					//审核未开启时
 					if($this->config->item('is_approve')=='off'){
-						redirect('forum/view/'.$new_fid);	
+						redirect('topic/view/'.$new_topic_id);	
 					} else {
 						$this->myclass->notice('alert("贴子通过审核才能在前台显示");window.location.href="'.site_url().'";');	
 					}
@@ -301,12 +301,12 @@ class Forum extends SB_controller
 			return TRUE;
 		}
 	}
-	public function edit($fid)
+	public function edit($topic_id)
 	{
 		//加载form类，为调用错误函数,需view前加载
 		$this->load->helper('form');
 		$data['title'] = '编辑话题';
-		$data['item'] = $this->forum_m->get_forum_by_fid($fid);
+		$data['item'] = $this->topic_m->get_topic_by_topic_id($topic_id);
 
 		//权限修改判断
 		if(!$this->auth->is_login()) {
@@ -336,8 +336,8 @@ class Forum extends SB_controller
 				$str['content'] = filter_code($str['content']);
 				$this->load->helper('format_content');
 				$str['content'] = format_content($str['content']);
-				if($this->forum_m->update_forum($fid,$str)){
-					$this->myclass->notice('alert("修改成功");window.location.href="'.site_url('forum/view/'.$fid).'";');
+				if($this->topic_m->update_topic($topic_id,$str)){
+					$this->myclass->notice('alert("修改成功");window.location.href="'.site_url('topic/view/'.$topic_id).'";');
 				}
 			}
 		} else {
@@ -354,16 +354,16 @@ class Forum extends SB_controller
 		$data['item']['content'] = ($this->input->post ('content'))?$this->input->post ('content'):$data['item']['content'];
 		$this->load->view('edit', $data);
 	}
-	public function del($fid,$cid,$uid)
+	public function del($topic_id,$cid,$uid)
 	{
 		$data['title'] = '删除贴子';
 		//权限修改判断
 		if($this->auth->is_admin() || $this->auth->is_master($cid)){
 			$this->myclass->notice('alert("确定要删除此话题吗！");');
 			//删除贴子及它的回复
-			if($this->forum_m->del_forum($fid,$cid,$uid)){
+			if($this->topic_m->del_topic($topic_id,$cid,$uid)){
 				$this->load->model('comment_m');
-				$this->comment_m->del_comments_by_fid($fid,$uid);
+				$this->comment_m->del_comments_by_topic_id($topic_id,$uid);
 				//更新会员积分
 				$this->config->load('userset');
 				$this->load->model ('user_m');
@@ -371,10 +371,10 @@ class Forum extends SB_controller
 				//更新数据库缓存
 				$this->db->cache_delete('/default', 'index');
 
-				$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('/forum/flist/'.$cid).'";');
+				$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('/topic/flist/'.$cid).'";');
 			}
 		}else{
-			$this->myclass->notice('alert("您无权删除此贴");window.location.href="'.site_url('/forum/view/'.$fid).'";');
+			$this->myclass->notice('alert("您无权删除此贴");window.location.href="'.site_url('/topic/view/'.$topic_id).'";');
 			exit;
 			}
 		}

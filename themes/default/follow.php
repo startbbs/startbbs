@@ -48,8 +48,8 @@
 <div class='box-header'>
 关注会员的话题
 </div>
-<?php if(isset($follow_user_forums)){?>
-<?php foreach($follow_user_forums as $v){?>
+<?php if(isset($follow_user_topics)){?>
+<?php foreach($follow_user_topics as $v){?>
 <div class='admin cell topic'>
 <div class='avatar pull-left'>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username'];?>">
@@ -65,7 +65,7 @@
 <div class='badge badge-info'><?php echo $v['comments'];?></div>
 </div>
 <h2 class='topic_title'>
-<a href="<?php echo site_url('forum/view/'.$v['fid']);?>" class="startbbs topic"><?php echo $v['title'];?></a>
+<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title'];?></a>
 </h2>
 <div class='topic-meta'>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>

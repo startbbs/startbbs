@@ -26,7 +26,7 @@ class Comment extends SB_Controller
 		//数据提交
 		$data = array(
 			'content' => filter_code($this->input->post('comment')),
-			'fid' => $this->input->post('fid'),
+			'topic_id' => $this->input->post('topic_id'),
 			'uid' => $this->uid,
 			'replytime' => time()
 		);
@@ -34,11 +34,11 @@ class Comment extends SB_Controller
 		$this->load->helper('format_content');
 		$data['content'] = format_content($data['content']);
 		//数据返回
-		$query=$this->db->select('comments')->get_where('forums', array('fid'=>$data['fid']))->row_array();
+		$query=$this->db->select('comments')->get_where('topics', array('topic_id'=>$data['topic_id']))->row_array();
 		$callback = array(
 			//'content' => stripslashes(format_content(filter_check($data['content']))),
 			'content' => $data['content'],
-			'fid' => $data['fid'],
+			'topic_id' => $data['topic_id'],
 			'uid' => $data['uid'],
 			'replytime' => $this->myclass->friendly_date($data['replytime']),
 			'username' => $this->input->post('username'),
@@ -67,7 +67,7 @@ class Comment extends SB_Controller
 					if($this->uid!=$res['uid']){
 						//@提醒someone
 						$this->load->model('notifications_m');
-						$this->notifications_m->notice_insert($data['fid'],$this->uid,$res['uid'],1);
+						$this->notifications_m->notice_insert($data['topic_id'],$this->uid,$res['uid'],1);
 						//更新接收人的提醒数
 						$this->db->set('notices','notices+1',FALSE)->where('uid', $res['uid'])->update('users');
 					}
@@ -80,17 +80,17 @@ class Comment extends SB_Controller
 		$this->load->model('comment_m');
 		$this->comment_m->add_comment($data);
 		//更新回复数,最后回复用户,最后回复时间,更新时间,ord时间
-		$this->load->model('forum_m');
-		$this->forum_m->set_top($this->input->post('fid'),$this->input->post('is_top'),1);//已更新时间
-		$this->db->set('ruid',$this->session->userdata('uid'),FALSE)->set('comments','comments+1',FALSE)->set('lastreply',time(),FALSE)->where('fid',$this->input->post('fid'))->update('forums');
+		$this->load->model('topic_m');
+		$this->topic_m->set_top($this->input->post('topic_id'),$this->input->post('is_top'),1);//已更新时间
+		$this->db->set('ruid',$this->session->userdata('uid'),FALSE)->set('comments','comments+1',FALSE)->set('lastreply',time(),FALSE)->where('topic_id',$this->input->post('topic_id'))->update('topics');
 		//更新用户的回复数
 		$this->db->set('replies','replies+1',FALSE)->where('uid',$this->uid)->update('users');
 
 		//回复提醒作者
-		$user = $this->db->select('uid')->where('fid',$data['fid'])->get('forums')->row_array();
+		$user = $this->db->select('uid')->where('topic_id',$data['topic_id'])->get('topics')->row_array();
 		if($this->uid!=$user['uid']){
 			$this->load->model('notifications_m');
-			$this->notifications_m->notice_insert($data['fid'],$this->uid,$user['uid'],0);
+			$this->notifications_m->notice_insert($data['topic_id'],$this->uid,$user['uid'],0);
 			//更新作者的提醒数
 			$this->db->set('notices','notices+1',FALSE)->where('uid', $user['uid'])->update('users');
 		}
@@ -108,30 +108,30 @@ class Comment extends SB_Controller
 	}
 	
 	//删除回复
-	public function del($cid,$fid,$id)
+	public function del($cid,$topic_id,$id)
 	{
 		if($this->auth->is_admin() || $this->auth->is_master($cid)){
 			if($this->db->where('id',$id)->delete('comments')){
 				//更新贴子回复数
-				$this->db->set('comments','comments-1',FALSE)->where('fid',$fid)->update('forums');
+				$this->db->set('comments','comments-1',FALSE)->where('topic_id',$topic_id)->update('topics');
 				//更新用户的回复数
 				$this->db->set('replies','replies-1',FALSE)->where('uid',$this->uid)->update('users');
 				
-				redirect('forum/view/'.$fid);
+				redirect('topic/view/'.$topic_id);
 			}
 		} else {
-			$this->myclass->notice('alert("非管理员或非本版块版主不能操作");window.location.href="'.site_url('forum/view/'.$fid).'";');
+			$this->myclass->notice('alert("非管理员或非本版块版主不能操作");window.location.href="'.site_url('topic/view/'.$topic_id).'";');
 		}
 
 	}
 
 
 	//编辑回复
-	public function edit($cid,$fid,$id)
+	public function edit($cid,$topic_id,$id)
 	{
-		if(empty($cid) || empty($fid) || empty($id)){
+		if(empty($cid) || empty($topic_id) || empty($id)){
 			$this->myclass->notice('alert("缺少参数哟")');
-			redirect('forum/view/'.$fid);
+			redirect('topic/view/'.$topic_id);
 			exit;
 		}
 		if($this->auth->is_admin() || $this->auth->is_master($cid) || $this->auth->is_user($this->uid)){
@@ -161,16 +161,16 @@ class Comment extends SB_Controller
 				$comment['content']=format_content($comment['content']);
 				if($this->db->where('id',$id)->update('comments',$comment)){
 					//更新贴子回复时间
-					$this->load->model('forum_m');
-					$this->db->set('lastreply',time(),FALSE)->where('fid',$fid)->update('forums');
-					redirect('forum/view/'.$fid);
+					$this->load->model('topic_m');
+					$this->db->set('lastreply',time(),FALSE)->where('topic_id',$topic_id)->update('topics');
+					redirect('topic/view/'.$topic_id);
 					exit;
 				}	
 			}
 			$data['title'] = '编辑回贴';
 			$this->load->view('comment_edit',$data);
 		} else {
-			$this->myclass->notice('alert("非本人或管理员或本版块版主不能操作");window.location.href="'.site_url('forum/view/'.$fid).'";');
+			$this->myclass->notice('alert("非本人或管理员或本版块版主不能操作");window.location.href="'.site_url('topic/view/'.$topic_id).'";');
 			exit;
 		}
 

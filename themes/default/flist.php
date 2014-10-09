@@ -38,7 +38,7 @@
 <div class='box-header'>
 <span>最新话题 (<span>版主:<?php echo $category['master'];?></span>)</span>
 <span class='pull-right'>
-<a href="<?php echo site_url('/forum/add/'.$category['cid']);?>" class="btn btn-success btn-sm">快速发表</a>
+<a href="<?php echo site_url('/topic/add/'.$category['cid']);?>" class="btn btn-success btn-sm">快速发表</a>
 </span>
 </div>
 <?php if($list){?>

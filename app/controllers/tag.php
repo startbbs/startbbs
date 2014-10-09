@@ -25,8 +25,8 @@ class Tag extends SB_Controller
 		$config['uri_segment'] = 4;
 		$config['use_page_numbers'] = TRUE;
 		$config['base_url'] = site_url('tag/index/'.$data['title']);
-		$data['tag']=$this->db->select('forums')->where('tag_title',$data['title'])->get('tags')->row_array();
-		$config['total_rows'] = @$data['tag']['forums'];
+		$data['tag']=$this->db->select('topics')->where('tag_title',$data['title'])->get('tags')->row_array();
+		$config['total_rows'] = @$data['tag']['topics'];
 		$config['per_page'] = $limit;
 		$config['first_link'] ='首页';
 		$config['last_link'] ='尾页';
@@ -41,12 +41,12 @@ class Tag extends SB_Controller
 		$start = ($page-1)*$limit;
 		$data['pagination'] = $this->pagination->create_links();
 
-		$data['tag_list'] = $this->tag_m->get_tag_forums_list($start, $limit, $data['title']);
+		$data['tag_list'] = $this->tag_m->get_tag_topics_list($start, $limit, $data['title']);
 		if($data['tag_list']){
-			$view_url=array_keys($this->router->routes,'forum/view/$1');
+			$view_url=array_keys($this->router->routes,'topic/view/$1');
 			foreach($data['tag_list'] as $k=>$v)
 			{
-				$data['tag_list'][$k]['view_url']=str_replace('(:num)',$v['fid'],$view_url[0]);
+				$data['tag_list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$view_url[0]);
 			}
 			
 			$this->load->view('tag',$data);

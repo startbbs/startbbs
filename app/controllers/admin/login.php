@@ -11,7 +11,7 @@ class Login extends Admin_Controller
 	{
 		$data['title'] = '管理后台';
 		//统计
-		$data['total_forums']=$this->db->count_all('forums');
+		$data['total_topics']=$this->db->count_all('topics');
 		$data['total_comments']=$this->db->count_all('comments');
 		$data['total_users']=$this->db->count_all('users');
 		

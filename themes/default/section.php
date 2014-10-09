@@ -22,7 +22,7 @@
 话题总数
 <div class='badge badge-info'>
 &nbsp;
-<?php echo $total_forums;?>
+<?php echo $total_topics;?>
 &nbsp;
 </div>
 </div>
@@ -69,16 +69,16 @@
 	</td>
 	<td style='padding-left: 12px;text-align:right;' valign='top' width="15%">
 	<div class='sep3'></div>
-	<?php foreach($today_forums[$v['cid']] as $t){?>
+	<?php foreach($today_topics[$v['cid']] as $t){?>
 	<div><?php echo @$t?>/今日</div>
 	<?php }?>
 	<div><?php echo $v['listnum'];?>/话题</div>
 	</td>
 	<td style='padding-left: 12px' valign='top' width="25%">
 	<div class='sep3'></div>
-	<?php if(@$new_forum[$v['cid']]){?>
-	<?php foreach(@$new_forum[$v['cid']] as $f){?>
-	<div><a href="<?php echo site_url('forum/view/'.$f['fid']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
+	<?php if(@$new_topic[$v['cid']]){?>
+	<?php foreach(@$new_topic[$v['cid']] as $f){?>
+	<div><a href="<?php echo site_url('topic/view/'.$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
 	<div>by <a href="<?php echo site_url('user/info/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
 	<div><?php echo $this->myclass->friendly_date($f['updatetime']);?></div>
 	<?php }?>
@@ -131,16 +131,16 @@
 	</td>
 	<td style='padding-left: 12px;text-align:right;' valign='top' width="15%">
 	<div class='sep3'></div>
-	<?php foreach($today_forums[$c['cid']] as $t){?>
+	<?php foreach($today_topics[$c['cid']] as $t){?>
 	<div><?php echo @$t?>/今日</div>
 	<?php }?>
 	<div><?php echo $c['listnum'];?>/话题</div>
 	</td>
 	<td style='padding-left: 12px' valign='top' width="25%">
 	<div class='sep3'></div>
-	<?php if(@$new_forum[$c['cid']]){?>
-	<?php foreach(@$new_forum[$c['cid']] as $f){?>
-	<div><a href="<?php echo site_url('forum/view/'.$f['fid']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
+	<?php if(@$new_topic[$c['cid']]){?>
+	<?php foreach(@$new_topic[$c['cid']] as $f){?>
+	<div><a href="<?php echo site_url('topic/view/'.$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
 	<div>by <a href="<?php echo site_url('user/info/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
 	<div><?php echo $this->myclass->friendly_date($f['updatetime']);?></div>
 	<?php }?>
@@ -182,7 +182,7 @@
 <div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
 <?php $this->load->view('block/right_login');?>
 <?php $this->load->view('block/right_new_users');?>
-<?php $this->load->view('block/right_new_forums');?>
+<?php $this->load->view('block/right_new_topics');?>
 <?php $this->load->view('block/right_ad');?>
 
 </div>

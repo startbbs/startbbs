@@ -103,10 +103,10 @@
 <tr>
 <td valign='middle' width='auto'>
 <span class='bigger'>
-<a href="<?php echo site_url('forum/view/'.$v['fid']);?>" class="startbbs topic"><?php echo $v['title']?></a>
+<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title']?></a>
 </span>
 <div class='topic-meta'>
-<a href="<?php echo site_url('forum/flist/'.$v['cid']);?>" class="node"><?php echo $v['cname']?></a>
+<a href="<?php echo site_url('topic/flist/'.$v['cid']);?>" class="node"><?php echo $v['cname']?></a>
 &nbsp;&nbsp;•&nbsp;&nbsp;
 <?php echo $this->myclass->friendly_date($v['addtime'])?>
 &nbsp;&nbsp;•&nbsp;&nbsp;
@@ -141,7 +141,7 @@
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a>
 <?php echo $this->myclass->friendly_date($v['addtime'])?>
 <span class='chevron'>›</span>
-<a href="<?php echo site_url('forum/view/'.$v['fid']);?>" class="startbbs"><?php echo $v['title']?></a>
+<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>" class="startbbs"><?php echo $v['title']?></a>
 </div>
 <div class='inner'>
 <div class='reply_content'>

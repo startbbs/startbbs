@@ -38,11 +38,11 @@
 <strong><a href="<?php echo site_url('user/info/'.$v['suid']);?>" class="startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a></strong>
 <?php if($v['ntype']==0){?>
 回复了你的贴子
-<a href="<?php echo site_url('forum/view/'.$v['fid']);?>" class="startbbs"><?php echo $v['title'];?>...</a>
+<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>" class="startbbs"><?php echo $v['title'];?>...</a>
 <?php }?>
 <?php if($v['ntype']==1){?>
 在回复
-<a href="<?php echo site_url('forum/view/'.$v['fid']);?>" class="startbbs"><?php echo $v['title'];?>...</a>
+<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>" class="startbbs"><?php echo $v['title'];?>...</a>
 时提到了@你
 <?php }?>
 </span>

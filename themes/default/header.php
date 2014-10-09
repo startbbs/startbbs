@@ -17,7 +17,7 @@
             <li<?php if(@$action=='home'){?> class="active"<?php }?>><a href="<?php echo site_url()?>"><?php echo lang('front_home');?></a></li>
             <li<?php if(@$action=='section'){?> class="active"<?php }?>><a href="<?php echo site_url('section')?>">节点</a></li>
             <li<?php if(@$action=='user'){?> class="active"<?php }?>><a href="<?php echo site_url('user')?>">会员</a></li>
-            <li<?php if(@$action=='add'){?> class="active"<?php }?>><a href="<?php echo site_url('forum/add')?>">发表</a></li>
+            <li<?php if(@$action=='add'){?> class="active"<?php }?>><a href="<?php echo site_url('topic/add')?>">发表</a></li>
            </ul>
 		<form class="form-inline navbar-left" style="margin-left:10px;margin-top: 8px;" role="search" action="http://www.google.com/search" method="get" target="_blank">
 		      <div class="form-group" style="width:55%">

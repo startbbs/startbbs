@@ -48,7 +48,7 @@ StartBBS- 起点开源社区系统 <span class="red"><?php echo $this->config->i
 <span class='gray'>主题总数</span>
 </td>
 <td align='left'>
-<strong><?php echo $total_forums?></strong>
+<strong><?php echo $total_topics?></strong>
 </td>
 </tr>
 <tr>
