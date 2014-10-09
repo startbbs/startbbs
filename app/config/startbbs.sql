@@ -240,6 +240,7 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `avatar` varchar(100) DEFAULT NULL,
   `homepage` varchar(50) DEFAULT NULL,
   `money` int(11) DEFAULT '100',
+  `credit` tinyint(1) NOT NULL DEFAULT '0',  
   `signature` text,
   `forums` int(11) DEFAULT '0',
   `replies` int(11) DEFAULT '0',
