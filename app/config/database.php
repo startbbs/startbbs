@@ -1,11 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 $active_group = 'default';
 $active_record = TRUE;
-$db['default']['hostname'] = 'localhost';
+$db['default']['hostname'] = '10.4.12.46';
 $db['default']['port'] = '3306';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '123456';
-$db['default']['database'] = 'startbbs';
+$db['default']['username'] = 'ugEiQRLHZ6tMX';
+$db['default']['password'] = 'phdgEGhYl1ZsK';
+$db['default']['database'] = 'd3aaef2fe2b2f4ca3bd548e5ad99be9ab';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'stb_';
 $db['default']['pconnect'] = TRUE;
