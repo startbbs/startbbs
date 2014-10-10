@@ -100,9 +100,9 @@ class Auth
         return ($this->is_login() && $group_type!='' && $group_type==0)? TRUE : FALSE;
 	}
 
-	public function is_master($cid)
+	public function is_master($node_id)
 	{
-		$query = $this->_CI->db->select('master')->get_where('categories', array('cid'=>$cid))->row_array();
+		$query = $this->_CI->db->select('master')->get_where('nodes', array('node_id'=>$node_id))->row_array();
 		$data = explode(',',@$query['master']);
 		//return var_dump($data);
 		$username=$this->_CI->session->userdata('username');
@@ -122,9 +122,9 @@ class Auth
 		//return ($this->is_login() && $uid==$this->_CI->session->userdata('uid')) ? TRUE : FALSE;
 	}
 
-	public function user_permit($cid)
+	public function user_permit($node_id)
 	{
-		$query = $this->_CI->db->select('permit')->get_where('categories', array('cid'=>$cid))->row_array();
+		$query = $this->_CI->db->select('permit')->get_where('nodes', array('node_id'=>$node_id))->row_array();
 		if(@$query['permit']){
 			$data = explode(',',$query['permit']);
 			$gid=$this->_CI->session->userdata('gid');

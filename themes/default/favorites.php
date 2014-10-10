@@ -32,10 +32,10 @@
 <div class='badge badge-info'>1</div>
 </div>
 <h2 class='topic_title'>
-<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title']?></a>
+<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title']?></a>
 </h2>
 <div class='topic-meta'>
-<!--<a href="<?php echo site_url('topic/flist/'.$v['cid']);?>" class="node"><?php echo $category['cname'];?></a>-->
+<!--<a href="<?php echo site_url('node/show/'.$v['node_id']);?>" class="node"><?php echo $category['cname'];?></a>-->
 <span class='text-muted'>•</span>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 <span class='text-muted'>•</span>

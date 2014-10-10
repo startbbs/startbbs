@@ -34,7 +34,7 @@
 <div style="margin:0;padding:0;display:inline">
 <input name="utf8" type="hidden" value="&#x2713;" />
 <input name="uid" type="hidden" value="1" />
-<input name="cid" type="hidden" value="1" />
+<input name="node_id" type="hidden" value="1" />
 </div>
 <a name='new_topic'></a>
 <div class="form-group string required">
@@ -46,20 +46,20 @@
 
 <div class="form-group optional" style="width:300px; margin-left: 15px; margin-top: 10px;">
 <label for="category">版块</label>
-<select name="cid" id="cid" class="form-control">
-<?php if(set_value('cid')){?>
-<option selected="selected" value="<?php echo set_value('cid'); ?>"><?php echo $cate['cname']?>(已选)</option>
+<select name="node_id" id="node_id" class="form-control">
+<?php if(set_value('node_id')){?>
+<option selected="selected" value="<?php echo set_value('node_id'); ?>"><?php echo $cate['cname']?>(已选)</option>
 <?php } else {?>
-<option selected="selected" value="<?php echo $cate['cid'];?>"><?php echo $cate['cname'];?>(已选)</option>
+<option selected="selected" value="<?php echo $cate['node_id'];?>"><?php echo $cate['cname'];?>(已选)</option>
 <?php } ?>
 <?php if($cates[0]) foreach($cates[0] as $c) {?>
 <optgroup label="&nbsp;&nbsp;<?php echo $c['cname']?>">
-<?php if($cates[$c['cid']]) foreach($cates[$c['cid']] as $sc){?>
-<option value="<?php echo $sc['cid']?>"><?php echo $sc['cname']?></option>
+<?php if($cates[$c['node_id']]) foreach($cates[$c['node_id']] as $sc){?>
+<option value="<?php echo $sc['node_id']?>"><?php echo $sc['cname']?></option>
 <?php } ?>
 <?php } ?>
 </select>
-<span class="help-inline red"><?php echo form_error('cid');?></span>
+<span class="help-inline red"><?php echo form_error('node_id');?></span>
 </div>
 <!--<div id='preview-widget'>
 <a href="javascript:void(0);" class="action_label cancel_preview current_label" data-ref="topic_content">编辑</a>

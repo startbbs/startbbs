@@ -34,7 +34,7 @@
 <select name="pid" id="pid" class="form-control">
 <option selected="selected" value="0">根目录</option>
 <?php foreach($cates as $v){?>
-<option value="<?php echo $v['cid']?>"><?php echo $v['cname']?></option>
+<option value="<?php echo $v['node_id']?>"><?php echo $v['cname']?></option>
 <?php } ?>
 </select>
 </div></div>

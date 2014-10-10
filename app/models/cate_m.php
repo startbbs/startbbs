@@ -17,22 +17,22 @@ class Cate_m extends SB_Model
 
 	}
 	/**/
-	public function get_category_by_cid($cid)
+	public function get_category_by_node_id($node_id)
 	{
-		$this->db->where('cid',$cid);
-		$query = $this->db->get('categories');
+		$this->db->where('node_id',$node_id);
+		$query = $this->db->get('nodes');
 		return $query->row_array();
 	}
 	public function get_all_cates ()
 	{
-		$this->db->select('cid,pid,cname,ico,content,listnum,master');
+		$this->db->select('node_id,pid,cname,ico,content,listnum,master');
 		$this->db->order_by('pid', 'desc');
-		$query=$this->db->get('categories')->result_array();
-		$flist_url=array_keys($this->router->routes,'topic/flist/$1');
+		$query=$this->db->get('nodes')->result_array();
+		$node_show_url=array_keys($this->router->routes,'node/show/$1');
 		if(!empty($query)){
 			foreach($query as $k=>$v){
-				$flist_url['flist_url']=str_replace('(:num)', $v['cid'], $flist_url[0]);
-				$new=array_merge($v, $flist_url);
+				$node_show_url['node_show_url']=str_replace('(:num)', $v['node_id'], $node_show_url[0]);
+				$new=array_merge($v, $node_show_url);
 				$cates[$v['pid']][] = $new;
 				
 			}
@@ -42,27 +42,27 @@ class Cate_m extends SB_Model
 	
 	public function get_cates_by_pid($pid)
 	{
-		$this->db->select('cid,pid,cname,listnum');
-		$query = $this->db->where('pid',$pid)->get('categories');
+		$this->db->select('node_id,pid,cname,listnum');
+		$query = $this->db->where('pid',$pid)->get('nodes');
 		return $query->result_array();
 	}
-	public function del_cate($cid)
+	public function del_cate($node_id)
 	{
-		$this->db->where('cid',$cid)->delete('categories');
-		$this->db->where('pid',$cid)->delete('categories');
+		$this->db->where('node_id',$node_id)->delete('nodes');
+		$this->db->where('pid',$node_id)->delete('nodes');
 		
 	}
 	public function add_cate($data)
 	{
-		$this->db->insert('categories',$data);
+		$this->db->insert('nodes',$data);
 	}
-	public function move_cate($cid,$pid)
+	public function move_cate($node_id,$pid)
 	{
-		$this->db->where('cid', $cid)->update('categories', array('pid'=>$pid));
+		$this->db->where('node_id', $node_id)->update('nodes', array('pid'=>$pid));
 	}
-	public function update_cate($cid,$data)
+	public function update_cate($node_id,$data)
 	{
-		$this->db->where('cid',$cid)->update('categories', $data);
+		$this->db->where('node_id',$node_id)->update('nodes', $data);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 

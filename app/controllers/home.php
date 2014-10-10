@@ -23,8 +23,8 @@ class Home extends SB_Controller
 	public function index ()
 	{
 		//获取列表
-		$data['view_url']=array_keys($this->router->routes,'topic/view/$1');
-		$data['flist_url']=array_keys($this->router->routes,'topic/flist/$1');
+		$data['view_url']=array_keys($this->router->routes,'topic/show/$1');
+		$data['node_show_url']=array_keys($this->router->routes,'node/show/$1');
 		//echo $this->router->routes['admin'];
 		//echo var_export($this->router->routes);
 
@@ -33,7 +33,7 @@ class Home extends SB_Controller
 		foreach($data['list'] as $k=>$v)
 		{
 			$data['list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$data['view_url'][0]);
-			$data['list'][$k]['flist_url']=str_replace('(:num)', $v['cid'], $data['flist_url'][0]);
+			$data['list'][$k]['node_show_url']=str_replace('(:num)', $v['node_id'], $data['node_show_url'][0]);
 		}
 		//echo var_export($data['list']);
 		//echo var_export($data['list']['view_url']);
@@ -97,17 +97,17 @@ class Home extends SB_Controller
 		$data['list'] = $this->topic_m->get_topics_list($start, $limit, 0);
 
 		//自定义url
-		$data['view_url']=array_keys($this->router->routes,'topic/view/$1');
-		$data['flist_url']=array_keys($this->router->routes,'topic/flist/$1');
+		$data['view_url']=array_keys($this->router->routes,'topic/show/$1');
+		$data['node_show_url']=array_keys($this->router->routes,'node/show/$1');
 		if(is_array($data['list'])){
 			foreach($data['list'] as $k=>$v)
 			{
 				$data['list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$data['view_url'][0]);
-				$data['list'][$k]['flist_url']=str_replace('(:num)', $v['cid'], $data['flist_url'][0]);
+				$data['list'][$k]['node_show_url']=str_replace('(:num)', $v['node_id'], $data['node_show_url'][0]);
 			}
 		}
 		
-		//$data['category'] = $this->cate_m->get_category_by_cid($cid);
+		//$data['category'] = $this->cate_m->get_category_by_node_id($node_id);
 		$this->load->view('getmore', $data);
 	}
 

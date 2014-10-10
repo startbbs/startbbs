@@ -80,7 +80,7 @@ class Favorites extends SB_Controller
 					//$topics = count($ids_arr);
 					$content = implode(',', $ids_arr);
 					if($this->db->where('uid', $uid)->update('favorites',array('content'=>$content)) && $this->db->where('uid', $uid)->set('favorites','favorites+1',FALSE)->update('favorites') && $this->db->where('topic_id', $topic_id)->set('favorites','favorites+1',FALSE)->update('topics')){
-						redirect('topic/view/'.$topic_id);
+						redirect('topic/show/'.$topic_id);
 					}
 				}
 				unset($ids_arr);
@@ -88,7 +88,7 @@ class Favorites extends SB_Controller
 				$data['content'] = $topic_id;
 				$data['favorites'] =1;
 				if($this->db->where('uid', $uid)->update('favorites',$data) && $this->db->where('topic_id', $topic_id)->set('favorites','favorites+1',FALSE)->update('topics')){
-					redirect('topic/view/'.$topic_id);
+					redirect('topic/show/'.$topic_id);
 				}
 			}
 		} else{
@@ -96,7 +96,7 @@ class Favorites extends SB_Controller
             $data['favorites'] = 1;
             $data['uid'] = $uid;
             if($this->db->insert('favorites', $data) && $this->db->set('favorites','favorites+1',FALSE)->where('topic_id', $topic_id)->update('topics')){
-				redirect('topic/view/'.$topic_id);
+				redirect('topic/show/'.$topic_id);
             }
             
 		}

@@ -17,11 +17,11 @@ class Nodes extends Admin_Controller
 		$this->load->view('nodes', $data);
 		
 	}
-	public function del($cid)
+	public function del($node_id)
 	{
 		$data['title'] = '删除分类';
 		$this->myclass->notice('alert("确定再删除吗！");');
-		$this->cate_m->del_cate($cid);
+		$this->cate_m->del_cate($node_id);
 		$this->myclass->notice('alert("删除分类成功！");window.location.href="'.site_url('admin/nodes').'";');		
 
 	}
@@ -61,26 +61,26 @@ class Nodes extends Admin_Controller
 		$this->load->view('nodes_add', $data);
 	}
 
-	public function move($cid)
+	public function move($node_id)
 	{
 		$data['title'] = '移动分类';
 		if($_POST){
 			$pid = $this->input->post('pid');
-			$this->cate_m->move_cate($cid,$pid);
+			$this->cate_m->move_cate($node_id,$pid);
 			$this->myclass->notice('alert("移动分类成功");window.location.href="'.site_url('admin/nodes').'";');
 		}
 		$pid=0;
-		$data['cid']=$this->uri->segment(4);
+		$data['node_id']=$this->uri->segment(4);
 		$data['cates']=$this->cate_m->get_cates_by_pid($pid);
 		$this->load->view('nodes_move', $data);
 	}
 
-	public function edit($cid)
+	public function edit($node_id)
 	{
 		$data['title'] = '修改分类';
 		if($_POST){
 			$str = $this->data_post($_POST);//引用
-			if($this->cate_m->update_cate($cid, $str)){
+			if($this->cate_m->update_cate($node_id, $str)){
 				$this->myclass->notice('alert("修改分类成功");window.location.href="'.site_url('admin/nodes').'";');
 			} else
 			{
@@ -91,14 +91,14 @@ class Nodes extends Admin_Controller
 
 		$pid=0;
 		$data['cates']=$this->cate_m->get_cates_by_pid($pid);
-		$data['cateinfo']=$this->cate_m->get_category_by_cid($cid);
-		$data['pcateinfo']=$this->cate_m->get_category_by_cid($data['cateinfo']['pid']);
+		$data['cateinfo']=$this->cate_m->get_category_by_node_id($node_id);
+		$data['pcateinfo']=$this->cate_m->get_category_by_node_id($data['cateinfo']['pid']);
 		if($data['cateinfo']['pid']==0){
-			$data['pcateinfo']['cid']='0';
+			$data['pcateinfo']['node_id']='0';
 			$data['pcateinfo']['cname']='根目录';
 		}
 
-		//$data['cates']=$this->cate_m->get_cates_by_pid($cid);
+		//$data['cates']=$this->cate_m->get_cates_by_pid($node_id);
 		$this->load->model('group_m');
 		$data['group_list'] = $this->group_m->group_list();
 		$data['permit_selected']=explode(',',$data['cateinfo']['permit']);

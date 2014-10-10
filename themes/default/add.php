@@ -36,7 +36,7 @@
 <div style="margin:0;padding:0;display:inline">
 <input name="utf8" type="hidden" value="&#x2713;" />
 <input name="uid" type="hidden" value="1" />
-<input name="cid" type="hidden" value="1" />
+<input name="node_id" type="hidden" value="1" />
 </div>
 <a name='new_topic'></a>
 <div class="form-group">
@@ -48,24 +48,24 @@
 
 <div class="form-group" style="width:300px; margin-left: 15px; margin-top: 10px;">
 <label for="category">版块</label>
-<select name="cid" id="cid" class="form-control">
-<?php if($cate['cid']){?>
-<option selected="selected" value="<?php echo $cate['cid']; ?>"><?php echo $cate['cname']?></option>
-<?php } elseif(set_value('cid')){?>
-<option selected="selected" value="<?php echo set_value('cid'); ?>"><?php echo $cate['cname']?></option>
+<select name="node_id" id="node_id" class="form-control">
+<?php if($cate['node_id']){?>
+<option selected="selected" value="<?php echo $cate['node_id']; ?>"><?php echo $cate['cname']?></option>
+<?php } elseif(set_value('node_id')){?>
+<option selected="selected" value="<?php echo set_value('node_id'); ?>"><?php echo $cate['cname']?></option>
 <?php } else {?>
 <option selected="selected" value="">请选择分类</option>
 <?php } ?>
 <?php if($category[0]) foreach($category[0] as $v) {?>
-<?php if($category[$v['cid']]){?>
+<?php if($category[$v['node_id']]){?>
 <optgroup label="&nbsp;&nbsp;<?php echo $v['cname']?>">
-<?php foreach($category[$v['cid']] as $c){?>
-<option value="<?php echo $c['cid']?>">
+<?php foreach($category[$v['node_id']] as $c){?>
+<option value="<?php echo $c['node_id']?>">
 <?php echo $c['cname']?>
 </option>
 <?php } ?>
 <?php } else {?>
-<option value="<?php echo $v['cid']?>">
+<option value="<?php echo $v['node_id']?>">
 <?php echo $v['cname']?>
 </option>
 <?php } ?>
@@ -73,7 +73,7 @@
 <?php } ?>
 </select>
 
-<span class="help-inline red"><?php echo form_error('cid');?></span>
+<span class="help-inline red"><?php echo form_error('node_id');?></span>
 </div>
 <!--<div id='preview-widget' style="margin-left: 15px;">
 <a href="javascript:void(0);" class="action_label cancel_preview current_label" data-ref="topic_content">编辑区</a>

@@ -537,13 +537,13 @@ Phpmail
 <label class="col-sm-3 control-label" for="settings_default_controller">默认首页模块:</label>
 <div class="col-sm-5">
 <input class="form-control" id="settings_default_controller" name="default_controller" type="text" value="<?php echo $this->router->routes['default_controller'];?>" />
-<small class="help-inline">比如home,section,或任何一个页面</small>
+<small class="help-inline">比如home,node,或任何一个页面</small>
 </div>
 </div>
 <div class="form-group">
-<label class="col-sm-3 control-label" for="settings_flist_url">列表页url:</label>
+<label class="col-sm-3 control-label" for="settings_node_show_url">列表页url:</label>
 <div class="col-sm-5">
-<input class="form-control" id="settings_flist_url" name="flist_url" type="text" value="<?php echo $routes[6];?>" />
+<input class="form-control" id="settings_node_show_url" name="node_show_url" type="text" value="<?php echo $routes[6];?>" />
 <small class="help-inline">贴子列表页地址</small>
 </div>
 </div>

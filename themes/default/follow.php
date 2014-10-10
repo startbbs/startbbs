@@ -65,7 +65,7 @@
 <div class='badge badge-info'><?php echo $v['comments'];?></div>
 </div>
 <h2 class='topic_title'>
-<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title'];?></a>
+<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title'];?></a>
 </h2>
 <div class='topic-meta'>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>

@@ -119,8 +119,8 @@ class Site_settings extends Admin_Controller
 			$routes .="\$route['add.html']='topic/add';\n";
 			$routes .="\$route['qq_login'] = 'oauth/qqlogin';\n";
 			$routes .="\$route['qq_callback'] = 'oauth/qqcallback';\n";
-			$routes .="\$route['".$this->input->post('flist_url')."'] = 'topic/flist/$1';\n";
-			$routes .="\$route['".$this->input->post('view_url')."'] = 'topic/view/$1';\n";
+			$routes .="\$route['".$this->input->post('node_show_url')."'] = 'node/show/$1';\n";
+			$routes .="\$route['".$this->input->post('view_url')."'] = 'topic/show/$1';\n";
 			$routes .="\$route['".$this->input->post('tag_url')."'] = 'tag/index/$1';\n";
 			
 			if(write_file(APPPATH.'config/routes.php', $routes)){

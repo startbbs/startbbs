@@ -38,7 +38,7 @@
 <div class='box-header'>
 <span>最新话题 (<span>版主:<?php echo $category['master'];?></span>)</span>
 <span class='pull-right'>
-<a href="<?php echo site_url('/topic/add/'.$category['cid']);?>" class="btn btn-success btn-sm">快速发表</a>
+<a href="<?php echo site_url('/topic/add/'.$category['node_id']);?>" class="btn btn-success btn-sm">快速发表</a>
 </span>
 </div>
 <?php if($list){?>
@@ -65,7 +65,7 @@
 <?php if( $v['is_top'] == '1' ) echo '<span class="label label-info">置顶</span>'; ?>
 </h2>
 <div class='topic-meta'>
-<a href="<?php echo site_url($v['flist_url']);?>" class="node"><?php echo $category['cname'];?></a>
+<a href="<?php echo site_url($v['node_show_url']);?>" class="node"><?php echo $category['cname'];?></a>
 &nbsp;&nbsp;•&nbsp;&nbsp;
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 &nbsp;&nbsp;•&nbsp;&nbsp;

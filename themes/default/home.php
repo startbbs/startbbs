@@ -50,7 +50,7 @@
 <?php if( $v['is_top'] == '1' ) echo '<span class="badge badge-info">置顶</span>'; ?>
 </h2>
 <div class='topic-meta'>
-<a href="<?php echo site_url($v['flist_url']);?>" class="node"><?php echo $v['cname']?></a>
+<a href="<?php echo site_url($v['node_show_url']);?>" class="node"><?php echo $v['cname']?></a>
 <span class='text-muted'>•</span>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a>
 <span class='text-muted'>•</span>
@@ -116,18 +116,18 @@ $(function() {
 <?php if($catelist[0]){?>
 	<div class="inner">
 	<?php foreach ($catelist[0] as $v){?>
-	<?php if(@$catelist[$v['cid']]){?>
+	<?php if(@$catelist[$v['node_id']]){?>
 
 	<ul class="list-inline">
 		<li class="test-muted"><?php echo $v['cname']?></li>
-		<?php foreach(@$catelist[$v['cid']] as $c){?>
-  		<li class="btn btn-default"><a href="<?php echo site_url($c['flist_url']);?>" class="startbbs"><?php echo $c['cname']?></a></li>
+		<?php foreach(@$catelist[$v['node_id']] as $c){?>
+  		<li class="btn btn-default"><a href="<?php echo site_url($c['node_show_url']);?>" class="startbbs"><?php echo $c['cname']?></a></li>
   		<?php }?>
 	</ul>
 	<?php } else {?>
 	<ul class="list-inline">
-		<?php foreach((array)@$catelist[$v['cid']] as $c){?>
-  		<li class="tags"><a href="<?php echo site_url($v['flist_url']);?>" class="startbbs btn btn-default"><?php echo $v['cname']?></a></li>
+		<?php foreach((array)@$catelist[$v['node_id']] as $c){?>
+  		<li class="tags"><a href="<?php echo site_url($v['node_show_url']);?>" class="startbbs btn btn-default"><?php echo $v['cname']?></a></li>
   		<?php }?>
 	</ul>
 	<?php }?>

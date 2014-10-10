@@ -51,12 +51,12 @@ class Topics extends Admin_Controller
 		$this->load->view('topics', $data);
 		
 	}
-	public function del($topic_id,$cid,$uid)
+	public function del($topic_id,$node_id,$uid)
 	{
 		$data['title'] = '删除贴子';
 		$this->myclass->notice('alert("确定要删除此话题吗！");');
 		//删除贴子及它的回复
-		if($this->topic_m->del_topic($topic_id,$cid,$uid)){
+		if($this->topic_m->del_topic($topic_id,$node_id,$uid)){
 		$this->comment_m->del_comments_by_topic_id($topic_id,$uid);
 		$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('admin/topics').'";');
 		}
@@ -73,14 +73,14 @@ class Topics extends Admin_Controller
 				'content'=>$this->input->post('content'),
 				'keywords'=>$this->input->post('keywords')
 			);
-			if($this->cate_m->update_cate($cid, $str)){
+			if($this->cate_m->update_cate($node_id, $str)){
 				$this->myclass->notice('alert("修改分类成功");window.location.href="'.site_url('admin/nodes').'";');
 			}
 
 		}
 		$pid=0;
 		$data['cates']=$this->cate_m->get_cates_by_pid($pid);
-		$data['cateinfo']=$this->cate_m->get_category_by_cid($cid);
+		$data['cateinfo']=$this->cate_m->get_category_by_node_id($node_id);
 		$this->load->view('nodes_edit', $data);
 	}
 	public function set_top($topic_id,$is_top)

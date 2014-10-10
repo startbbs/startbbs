@@ -35,7 +35,7 @@
 <a href="<?php echo site_url($v['view_url']);?>" class="startbbs topic"><?php echo sb_substr($v['title'],30);?></a>
 </h2>
 <div class='topic-meta'>
-<!--<a href="<?php echo site_url('topic/flist/'.$v['cid']);?>" class="node"><?=$category['cname'];?></a>-->
+<!--<a href="<?php echo site_url('node/show/'.$v['node_id']);?>" class="node"><?=$category['cname'];?></a>-->
 <span class='text-muted'>•</span>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 <span class='text-muted'>•</span>

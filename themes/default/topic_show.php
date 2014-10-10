@@ -38,7 +38,7 @@
 <?php }?>
 </a>
 </div>
-<p><a href="<?php echo site_url();?>">首页</a> <span class="text-muted">/</span> <a href="<?php echo site_url('topic/flist/'.$cate['cid']);?>"><?php echo $cate['cname'];?></a></p>
+<p><a href="<?php echo site_url();?>">首页</a> <span class="text-muted">/</span> <a href="<?php echo site_url('node/show/'.$cate['node_id']);?>"><?php echo $cate['cname'];?></a></p>
 <h1 id='topic_title'>
 <?php echo $content['title']?>
 </h1>
@@ -70,12 +70,12 @@ at
 <?php }?>
 </div>
 <div class='inner'>
-<?php if($this->auth->is_user($content['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
+<?php if($this->auth->is_user($content['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
 <a href="<?php echo site_url('topic/edit/'.$content['topic_id']);?>" class="btn btn-default btn-sm unbookmark" data-method="edit" rel="nofollow">编辑此贴</a>
-<a href="<?php echo site_url('topic/del/'.$content['topic_id'].'/'.$content['cid'].'/'.$content['uid']);?>" class="btn btn-sm btn-danger" data-method="edit" rel="nofollow">删除</a>
+<a href="<?php echo site_url('topic/del/'.$content['topic_id'].'/'.$content['node_id'].'/'.$content['uid']);?>" class="btn btn-sm btn-danger" data-method="edit" rel="nofollow">删除</a>
 <?php }?>
-<?php if($this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
-<a href="<?php echo site_url('topic/view/'.$content['topic_id'].'?act=set_top');?>" class="btn btn-default btn-sm unbookmark" data-method="edit" rel="nofollow">
+<?php if($this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
+<a href="<?php echo site_url('topic/show/'.$content['topic_id'].'?act=set_top');?>" class="btn btn-default btn-sm unbookmark" data-method="edit" rel="nofollow">
 <?php if($content['is_top']==0){?>
 置顶此贴
 <?php } else {?>
@@ -126,10 +126,10 @@ at
 <div class='content reply_content'><?php echo stripslashes($v['content'])?></div>
 <div class="pull-right">
 <!--<?php echo $v['signature']?>-->
-<?php if($this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
-<a href="<?php echo site_url('comment/del/'.$content['cid'].'/'.$v['topic_id'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>删除</a><?php }?>
-<?php if($this->auth->is_user($v['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['cid'])){?>
- <a href="<?php echo site_url('comment/edit/'.$content['cid'].'/'.$v['topic_id'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>编辑</a>
+<?php if($this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
+<a href="<?php echo site_url('comment/del/'.$content['node_id'].'/'.$v['topic_id'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>删除</a><?php }?>
+<?php if($this->auth->is_user($v['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
+ <a href="<?php echo site_url('comment/edit/'.$content['node_id'].'/'.$v['topic_id'].'/'.$v['id']);?>" class="danger snow"><span class="glyphicon glyphicon-remove-sign"></span>编辑</a>
  <?php }?>
 </div>
 

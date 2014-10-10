@@ -17,60 +17,15 @@ class topic extends SB_controller
 		$this->load->model('cate_m');
 		$this->load->library('myclass');
 	}
-	public function flist ($cid, $page=1)
-	{
-		//权限
-		if(!$this->auth->user_permit($cid)){
-			$this->myclass->notice('alert("您无限访问此节点");window.location.href="'.site_url('/').'";');
-		} else {
-			//分页
-			$limit = 10;
-			$config['uri_segment'] = 4;
-			$config['use_page_numbers'] = TRUE;
-			$config['base_url'] = site_url('topic/flist/'.$cid);
-			$config['total_rows'] = $this->topic_m->count_topics($cid);
-			$config['per_page'] = $limit;
-			$config['first_link'] ='首页';
-			$config['last_link'] ='尾页';
-			$config['num_links'] = 10;
-			
-			$this->load->library('pagination');
-			$this->pagination->initialize($config);
-			
-			$start = ($page-1)*$limit;
-			$data['pagination'] = $this->pagination->create_links();
 
-			//获取列表
-			$data['list'] = $this->topic_m->get_topics_list($start, $limit, $cid);
-
-			//自定义url
-			$data['view_url']=array_keys($this->router->routes,'topic/view/$1');
-			$data['flist_url']=array_keys($this->router->routes,'topic/flist/$1');
-			if(is_array($data['list'])){
-				foreach($data['list'] as $k=>$v)
-				{
-					$data['list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$data['view_url'][0]);
-					$data['list'][$k]['flist_url']=str_replace('(:num)', $v['cid'], $data['flist_url'][0]);
-				}
-			}
-			
-			$data['category'] = $this->cate_m->get_category_by_cid($cid);
-			$data['title'] = strip_tags($data['category']['cname']);
-			
-
-			$this->load->view('flist', $data);
-		}
-
-	}
-
-	public function view ($topic_id=1,$page=1)
+	public function show ($topic_id=1,$page=1)
 	{
 		
 		$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 		if(!$content){
 			$this->myclass->notice('alert("贴子不存在");window.location.href="'.site_url('/').'";');
 			exit;
-		} elseif(!$this->auth->user_permit($content['cid'])){//权限
+		} elseif(!$this->auth->user_permit($content['node_id'])){//权限
 			$this->myclass->notice('alert("您无权访问此节点中的贴子");history.back();');
 		} else {
 			//$this->output->cache(1);
@@ -95,7 +50,7 @@ class topic extends SB_controller
 			$limit = 10;
 			$config['uri_segment'] = 4;
 			$config['use_page_numbers'] = TRUE;
-			$config['base_url'] = site_url('topic/view/'.$topic_id);
+			$config['base_url'] = site_url('topic/show/'.$topic_id);
 			$config['total_rows'] = @$content['comments'];
 			$config['per_page'] = $limit;
 			$config['prev_link'] = '&larr;';
@@ -126,11 +81,11 @@ class topic extends SB_controller
 			$data['comment']= $this->comment_m->get_comment ($start,$limit,$topic_id,$this->config->item('comment_order'));
 
 			//获取当前分类
-			$data['cate']=$this->db->get_where('categories',array('cid'=>$content['cid']))->row_array();
+			$data['cate']=$this->db->get_where('nodes',array('node_id'=>$content['node_id']))->row_array();
 
 			//上下主题
-			$data['content']['previous'] = $this->topic_m->get_near_id($topic_id,$data['cate']['cid'],0);
-			$data['content']['next'] = $this->topic_m->get_near_id($topic_id,$data['cate']['cid'],1);
+			$data['content']['previous'] = $this->topic_m->get_near_id($topic_id,$data['cate']['node_id'],0);
+			$data['content']['next'] = $this->topic_m->get_near_id($topic_id,$data['cate']['node_id'],1);
 			$data['content']['previous']=$data['content']['previous']['topic_id'];
 			$data['content']['next']=$data['content']['next']['topic_id'];
 			
@@ -174,16 +129,16 @@ class topic extends SB_controller
 			}
 			//set top
 			if(@$_GET['act']=='set_top'){
-				if($this->auth->is_admin() || $this->auth->is_master($content['cid'])){
+				if($this->auth->is_admin() || $this->auth->is_master($content['node_id'])){
 					$this->topic_m->set_top($content['topic_id'],$content['is_top']);
-					redirect('topic/view/'.$content['topic_id']);	
+					redirect('topic/show/'.$content['topic_id']);	
 				} else {
 					$this->myclass->notice('alert("你无权置顶贴子");history.go(-1);');
 				}
 			}
 			//开启storage config
 			$this->load->config('qiniu');
-			$this->load->view('view', $data);
+			$this->load->view('topic_show', $data);
 		}
 	}
 
@@ -192,8 +147,8 @@ class topic extends SB_controller
 		//加载form类，为调用错误函数,需view前加载
 		$this->load->helper('form');
 		//获取已选择过的分类名称
-		$cid=($this->input->post ('cid'))?$this->input->post ('cid'):$this->uri->segment(3);
-		$data['cate']=$this->db->get_where('categories',array('cid'=>$cid))->row_array();
+		$node_id=($this->input->post ('node_id'))?$this->input->post ('node_id'):$this->uri->segment(3);
+		$data['cate']=$this->db->get_where('nodes',array('node_id'=>$node_id))->row_array();
 		
 		$data['title'] = '发表话题';
 		$uid = $this->session->userdata('uid');
@@ -201,7 +156,7 @@ class topic extends SB_controller
 		$user = $this->user_m->get_user_by_id($uid);
 		if(!$this->auth->is_login()) {
 			redirect('user/login/');
-		} elseif(!$this->auth->user_permit($cid)) {//权限
+		} elseif(!$this->auth->user_permit($node_id)) {//权限
 			$this->session->set_flashdata('error', '您无权在此节点发表话题!请重新选择节点');
 		} elseif(time()-$user['lastpost']<$this->config->item('timespan')){
 			$this->session->set_flashdata('error', '发帖最小间隔时间是'.$this->config->item('timespan').'秒!');
@@ -211,7 +166,7 @@ class topic extends SB_controller
 				$data = array(
 					'title' => $this->input->post ('title',true),
 					'content' => filter_code($this->input->post ('content')),
-					'cid' => $cid,
+					'node_id' => $node_id,
 					'uid' => $uid,
 					'addtime' => time(),
 					'updatetime' => time(),
@@ -251,9 +206,9 @@ class topic extends SB_controller
 					$this->tag_m->insert_tag($data['keywords'], $new_topic_id);
 					
 					//更新贴子数
-					$cid = $this->input->post ('cid');
-					$category = $this->cate_m->get_category_by_cid($cid);
-					$this->db->where('cid',$cid)->update('categories',array('listnum'=>$category['listnum']+1));
+					$node_id = $this->input->post ('node_id');
+					$category = $this->cate_m->get_category_by_node_id($node_id);
+					$this->db->where('node_id',$node_id)->update('nodes',array('listnum'=>$category['listnum']+1));
 
 					//更新数据库缓存
 					$this->db->cache_delete('/default', 'index');
@@ -264,7 +219,7 @@ class topic extends SB_controller
 					$this->user_m->update_credit($uid,$this->config->item('credit_post'));
 					//审核未开启时
 					if($this->config->item('is_approve')=='off'){
-						redirect('topic/view/'.$new_topic_id);	
+						redirect('topic/show/'.$new_topic_id);	
 					} else {
 						$this->myclass->notice('alert("贴子通过审核才能在前台显示");window.location.href="'.site_url().'";');	
 					}
@@ -289,7 +244,7 @@ class topic extends SB_controller
 
 		$this->form_validation->set_rules('title', '标题' , 'trim|required|strip_tags|htmlspecialchars|min_length[4]|max_length[80]');
 		$this->form_validation->set_rules('content', '内容' , 'trim|required|min_length[6]|max_length['.$this->config->item('words_limit').']');
-		$this->form_validation->set_rules('cid', '栏目' , 'trim|required');
+		$this->form_validation->set_rules('node_id', '栏目' , 'trim|required');
 		
 		$this->form_validation->set_message('required', "%s 不能为空！");
 		$this->form_validation->set_message('min_length', "%s 最小长度不少于 %s 个字符！");
@@ -311,7 +266,7 @@ class topic extends SB_controller
 		//权限修改判断
 		if(!$this->auth->is_login()) {
 			$this->myclass->notice('alert("请登录后再编辑");window.location.href="'.site_url('user/login').'";');
-		} elseif($this->auth->is_user($data['item']['uid']) || $this->auth->is_admin() || $this->auth->is_master($data['item']['cid'])){
+		} elseif($this->auth->is_user($data['item']['uid']) || $this->auth->is_admin() || $this->auth->is_master($data['item']['node_id'])){
 			//对内容进行br转换
 			$this->load->helper('br2nl');
 			$data['item']['content']=br2nl($data['item']['content']);
@@ -322,7 +277,7 @@ class topic extends SB_controller
 				$str = array(
 					'title' => $this->input->post('title',true),
 					'content' => xss_clean($this->input->post('content')),
-					'cid' => $this->input->post('cid'),
+					'node_id' => $this->input->post('node_id'),
 					'updatetime' => time(),
 				);
 
@@ -337,7 +292,7 @@ class topic extends SB_controller
 				$this->load->helper('format_content');
 				$str['content'] = format_content($str['content']);
 				if($this->topic_m->update_topic($topic_id,$str)){
-					$this->myclass->notice('alert("修改成功");window.location.href="'.site_url('topic/view/'.$topic_id).'";');
+					$this->myclass->notice('alert("修改成功");window.location.href="'.site_url('topic/show/'.$topic_id).'";');
 				}
 			}
 		} else {
@@ -346,22 +301,22 @@ class topic extends SB_controller
 		//获取所有分类
 		$data['cates'] = $this->cate_m->get_all_cates();
 		//获取当前分类(包括已选择)
-		$cid = ($this->input->post ('cid'))?$this->input->post ('cid'):$data['item']['cid'];
-		$data['cate']=$this->db->get_where('categories',array('cid'=>$cid))->row_array();
+		$node_id = ($this->input->post ('node_id'))?$this->input->post ('node_id'):$data['item']['node_id'];
+		$data['cate']=$this->db->get_where('nodes',array('node_id'=>$node_id))->row_array();
 		//标题编辑(包括已输入)
 		$data['item']['title'] = ($this->input->post ('title'))?$this->input->post ('title'):$data['item']['title'];
 		//内容编辑(包括已输入)
 		$data['item']['content'] = ($this->input->post ('content'))?$this->input->post ('content'):$data['item']['content'];
 		$this->load->view('edit', $data);
 	}
-	public function del($topic_id,$cid,$uid)
+	public function del($topic_id,$node_id,$uid)
 	{
 		$data['title'] = '删除贴子';
 		//权限修改判断
-		if($this->auth->is_admin() || $this->auth->is_master($cid)){
+		if($this->auth->is_admin() || $this->auth->is_master($node_id)){
 			$this->myclass->notice('alert("确定要删除此话题吗！");');
 			//删除贴子及它的回复
-			if($this->topic_m->del_topic($topic_id,$cid,$uid)){
+			if($this->topic_m->del_topic($topic_id,$node_id,$uid)){
 				$this->load->model('comment_m');
 				$this->comment_m->del_comments_by_topic_id($topic_id,$uid);
 				//更新会员积分
@@ -371,10 +326,10 @@ class topic extends SB_controller
 				//更新数据库缓存
 				$this->db->cache_delete('/default', 'index');
 
-				$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('/topic/flist/'.$cid).'";');
+				$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('/node/show/'.$node_id).'";');
 			}
 		}else{
-			$this->myclass->notice('alert("您无权删除此贴");window.location.href="'.site_url('/topic/view/'.$topic_id).'";');
+			$this->myclass->notice('alert("您无权删除此贴");window.location.href="'.site_url('/topic/show/'.$topic_id).'";');
 			exit;
 			}
 		}

@@ -47,18 +47,18 @@
 	<table border='0' cellpadding='0' cellspacing='0' width='100%'>
 	<tr>
 	<td class='avatar' valign='top'>
-	<a href="<?php echo site_url($v['flist_url']);?>" class="profile_link" title="<?php echo $v['cname'];?>">
+	<a href="<?php echo site_url($v['node_show_url']);?>" class="profile_link" title="<?php echo $v['cname'];?>">
 	<?php if($v['ico']){?>
 	<img alt="<?php echo $v['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['ico'])?>" />
 	<?php } else {?>
-	<img alt="<?php echo $v['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('static/common/images/section.png')?>" />
+	<img alt="<?php echo $v['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('static/common/images/node.png')?>" />
 	<?php }?>
 	</a>
 	</td>
 	<td style='padding-left: 12px' valign='top' width="50%">
 	<div class='sep3'></div>
 	<h2 class='topic_title'>
-	<a href="<?php echo site_url($v['flist_url']);?>" class="startbbs topic"><?php echo $v['cname'];?></a>
+	<a href="<?php echo site_url($v['node_show_url']);?>" class="startbbs topic"><?php echo $v['cname'];?></a>
 	</h2>
 	<div class='topic-meta'>
 	<?php echo $v['content'];?>
@@ -69,16 +69,16 @@
 	</td>
 	<td style='padding-left: 12px;text-align:right;' valign='top' width="15%">
 	<div class='sep3'></div>
-	<?php foreach($today_topics[$v['cid']] as $t){?>
+	<?php foreach($today_topics[$v['node_id']] as $t){?>
 	<div><?php echo @$t?>/今日</div>
 	<?php }?>
 	<div><?php echo $v['listnum'];?>/话题</div>
 	</td>
 	<td style='padding-left: 12px' valign='top' width="25%">
 	<div class='sep3'></div>
-	<?php if(@$new_topic[$v['cid']]){?>
-	<?php foreach(@$new_topic[$v['cid']] as $f){?>
-	<div><a href="<?php echo site_url('topic/view/'.$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
+	<?php if(@$new_topic[$v['node_id']]){?>
+	<?php foreach(@$new_topic[$v['node_id']] as $f){?>
+	<div><a href="<?php echo site_url('topic/show/'.$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
 	<div>by <a href="<?php echo site_url('user/info/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
 	<div><?php echo $this->myclass->friendly_date($f['updatetime']);?></div>
 	<?php }?>
@@ -103,24 +103,24 @@
 	</div>
 	</div>
 
-	<?php if(isset($catelist[$v['cid']])){?>
-	<?php foreach ($catelist[$v['cid']] as $k=>$c) {?>
+	<?php if(isset($catelist[$v['node_id']])){?>
+	<?php foreach ($catelist[$v['node_id']] as $k=>$c) {?>
 	<div class='admin cell topic'>
 	<table border='0' cellpadding='0' cellspacing='0' width='100%'>
 	<tr>
 	<td class='avatar' valign='top'>
-	<a href="<?php echo site_url($c['flist_url']);?>" class="profile_link" title="<?php echo $c['cname'];?>">
+	<a href="<?php echo site_url($c['node_show_url']);?>" class="profile_link" title="<?php echo $c['cname'];?>">
 	<?php if($c['ico']){?>
 	<img alt="<?php echo $c['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url($c['ico'])?>" />
 	<?php } else {?>
-	<img alt="<?php echo $c['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('static/common/images/section.png')?>" />
+	<img alt="<?php echo $c['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('static/common/images/node.png')?>" />
 	<?php }?>
 	</a>
 	</td>
 	<td style='padding-left: 12px' valign='top' width="50%">
 	<div class='sep3'></div>
 	<h2 class='topic_title'>
-	<a href="<?php echo site_url($c['flist_url']);?>" class="startbbs topic"><?php echo $c['cname'];?></a>
+	<a href="<?php echo site_url($c['node_show_url']);?>" class="startbbs topic"><?php echo $c['cname'];?></a>
 	</h2>
 	<div class='topic-meta'>
 	<?php echo $c['content'];?>
@@ -131,16 +131,16 @@
 	</td>
 	<td style='padding-left: 12px;text-align:right;' valign='top' width="15%">
 	<div class='sep3'></div>
-	<?php foreach($today_topics[$c['cid']] as $t){?>
+	<?php foreach($today_topics[$c['node_id']] as $t){?>
 	<div><?php echo @$t?>/今日</div>
 	<?php }?>
 	<div><?php echo $c['listnum'];?>/话题</div>
 	</td>
 	<td style='padding-left: 12px' valign='top' width="25%">
 	<div class='sep3'></div>
-	<?php if(@$new_topic[$c['cid']]){?>
-	<?php foreach(@$new_topic[$c['cid']] as $f){?>
-	<div><a href="<?php echo site_url('topic/view/'.$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
+	<?php if(@$new_topic[$c['node_id']]){?>
+	<?php foreach(@$new_topic[$c['node_id']] as $f){?>
+	<div><a href="<?php echo site_url('topic/show/'.$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
 	<div>by <a href="<?php echo site_url('user/info/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
 	<div><?php echo $this->myclass->friendly_date($f['updatetime']);?></div>
 	<?php }?>

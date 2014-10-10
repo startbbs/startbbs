@@ -21,7 +21,7 @@
 <a href="http://www.startbbs.com/user/info/<?php echo $v['uid']?>" class="startbbs profile_link" title="admin" target=_blank><?php echo $v['username']?></a>
 创建的话题
 <span class='chevron'>>></span>
-<a href="http://www.startbbs.com/topic/view/<?php echo $v['topic_id']?>" class="startbbs" target=_blank><?php echo $v['title']?></a>
+<a href="http://www.startbbs.com/topic/show/<?php echo $v['topic_id']?>" class="startbbs" target=_blank><?php echo $v['title']?></a>
 </div>
 <?}?>
  </body>

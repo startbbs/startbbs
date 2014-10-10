@@ -18,7 +18,7 @@
 <?php if( $v['is_top'] == '1' ) echo '<span class="label label-info">置顶</span>'; ?>
 </h2>
 <div class='topic-meta'>
-<a href="<?php echo site_url($v['flist_url']);?>" class="node"><?php echo $v['cname']?></a>
+<a href="<?php echo site_url($v['node_show_url']);?>" class="node"><?php echo $v['cname']?></a>
 <span class='text-muted'>•</span>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a>
 <span class='text-muted'>•</span>

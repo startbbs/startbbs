@@ -108,33 +108,33 @@ class Comment extends SB_Controller
 	}
 	
 	//删除回复
-	public function del($cid,$topic_id,$id)
+	public function del($node_id,$topic_id,$id)
 	{
-		if($this->auth->is_admin() || $this->auth->is_master($cid)){
+		if($this->auth->is_admin() || $this->auth->is_master($node_id)){
 			if($this->db->where('id',$id)->delete('comments')){
 				//更新贴子回复数
 				$this->db->set('comments','comments-1',FALSE)->where('topic_id',$topic_id)->update('topics');
 				//更新用户的回复数
 				$this->db->set('replies','replies-1',FALSE)->where('uid',$this->uid)->update('users');
 				
-				redirect('topic/view/'.$topic_id);
+				redirect('topic/show/'.$topic_id);
 			}
 		} else {
-			$this->myclass->notice('alert("非管理员或非本版块版主不能操作");window.location.href="'.site_url('topic/view/'.$topic_id).'";');
+			$this->myclass->notice('alert("非管理员或非本版块版主不能操作");window.location.href="'.site_url('topic/show/'.$topic_id).'";');
 		}
 
 	}
 
 
 	//编辑回复
-	public function edit($cid,$topic_id,$id)
+	public function edit($node_id,$topic_id,$id)
 	{
-		if(empty($cid) || empty($topic_id) || empty($id)){
+		if(empty($node_id) || empty($topic_id) || empty($id)){
 			$this->myclass->notice('alert("缺少参数哟")');
-			redirect('topic/view/'.$topic_id);
+			redirect('topic/show/'.$topic_id);
 			exit;
 		}
-		if($this->auth->is_admin() || $this->auth->is_master($cid) || $this->auth->is_user($this->uid)){
+		if($this->auth->is_admin() || $this->auth->is_master($node_id) || $this->auth->is_user($this->uid)){
 			$this->load->model('comment_m');
 			$data['comment']=$this->comment_m->get_comment_by_id ($id);
 			//无编辑器时的处理
@@ -145,7 +145,7 @@ class Comment extends SB_Controller
 			//	$data['comment']['content'] =br2nl($data['comment']['content'] );
 			//}
 			$data['comment']['content'] =br2nl($data['comment']['content'] );
-			$data['comment']['cid']=$cid;
+			$data['comment']['node_id']=$node_id;
 			//加载form类，为调用错误函数,需view前加载
 			$this->load->helper('form');
 			if($this->input->post('commit') && $this->_validate_add_form()){
@@ -163,14 +163,14 @@ class Comment extends SB_Controller
 					//更新贴子回复时间
 					$this->load->model('topic_m');
 					$this->db->set('lastreply',time(),FALSE)->where('topic_id',$topic_id)->update('topics');
-					redirect('topic/view/'.$topic_id);
+					redirect('topic/show/'.$topic_id);
 					exit;
 				}	
 			}
 			$data['title'] = '编辑回贴';
 			$this->load->view('comment_edit',$data);
 		} else {
-			$this->myclass->notice('alert("非本人或管理员或本版块版主不能操作");window.location.href="'.site_url('topic/view/'.$topic_id).'";');
+			$this->myclass->notice('alert("非本人或管理员或本版块版主不能操作");window.location.href="'.site_url('topic/show/'.$topic_id).'";');
 			exit;
 		}
 

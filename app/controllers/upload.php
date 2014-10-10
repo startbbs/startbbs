@@ -70,7 +70,7 @@ class upload extends SB_Controller {
 		
 	}
 
-	function upload_pic($cid='') {
+	function upload_pic($node_id='') {
 
 		if(!$this->auth->is_admin())
 		{
@@ -88,7 +88,7 @@ class upload extends SB_Controller {
 			'allowed_types' => 'jpg|jpeg|gif|png',
 			'upload_path' => $path,
 			//'encrypt_name' => false,
-			'file_name'=>$cid.'.jpg',
+			'file_name'=>$node_id.'.jpg',
 			'overwrite'=>true,
 			'max_size' => 2000
 		);

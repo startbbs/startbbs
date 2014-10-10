@@ -48,7 +48,7 @@ class Favorites_m extends SB_Model
 		$this->db->from('topics');
 		$this->db->join('users b','b.uid = topics.uid','left');
 		$this->db->join('users c','c.uid = topics.ruid','left');
-		$this->db->join('categories d','d.cid = topics.cid','left');
+		$this->db->join('nodes d','d.node_id = topics.node_id','left');
 		$this->db->order_by('updatetime','desc');
 		$this->db->limit($limit);
 		$query = $this->db->get();
@@ -76,7 +76,7 @@ class Favorites_m extends SB_Model
 		$this->db->from('topics');
 		$this->db->where('topics.uid',$uid);
 		$this->db->join('users b', 'b.uid= topics.ruid','left');
-		$this->db->join('categories c','c.cid = topics.cid','left');
+		$this->db->join('nodes c','c.node_id = topics.node_id','left');
 		$this->db->limit($num);
 		$this->db->order_by('addtime','desc');
 		$query = $this->db->get();
@@ -84,9 +84,9 @@ class Favorites_m extends SB_Model
 	}
 	public function get_all_topics($page, $limit)
 	{
-		$this->db->select('topics.*, c.cname, c.cid, u.username');
+		$this->db->select('topics.*, c.cname, c.node_id, u.username');
 		$this->db->from('topics');
-		$this->db->join('categories c','c.cid = topics.cid');
+		$this->db->join('nodes c','c.node_id = topics.node_id');
 		$this->db->join('users u', 'u.uid = topics.uid');
 		$this->db->order_by('addtime','desc');
 		$this->db->limit($limit,$page);
@@ -96,14 +96,14 @@ class Favorites_m extends SB_Model
 		}
 	}
 
-	function del_topic($topic_id,$cid,$uid)
+	function del_topic($topic_id,$node_id,$uid)
 	{
 		$this->db->where('topic_id', $topic_id)->delete('topics');
 		//查询相关数据
-		$listnum = $this->db->select('listnum')->get_where('categories', array('cid'=>$cid))->row_array();
+		$listnum = $this->db->select('listnum')->get_where('nodes', array('node_id'=>$node_id))->row_array();
 		$topics = $this->db->select('topics')->get_where('users', array('uid'=>$uid))->row_array();
 		//更新分类中的贴子数
-		$this->db->where('cid',$cid)->update('categories',array('listnum'=>$listnum['listnum']-1));
+		$this->db->where('node_id',$node_id)->update('nodes',array('listnum'=>$listnum['listnum']-1));
 		//更新用户中的贴子数
 		$this->db->where('uid',$uid)->update('users',array('topics'=>$topics['topics']-1));
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
@@ -117,13 +117,13 @@ class Favorites_m extends SB_Model
 	}
     
     
-/*    	public function get_topics_list ($page, $per_page = 1, $cid)
+/*    	public function get_topics_list ($page, $per_page = 1, $node_id)
 	{
 		$this->db->select('topics.*,users.username');
 		$this->db->from('sb_topics');
 		$this->db->join('sb_users','users.uid = topics.uid','left');
 		$this->db->join('sb_users','users.uid = topics.ruid','left');
-		$this->db->where('cid',$cid);
+		$this->db->where('node_id',$node_id);
 		$this->db->limit($per_page,$page);
 		$query = $this->db->get();
 		if($query->num_rows() > 0){

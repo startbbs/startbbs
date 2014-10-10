@@ -23,12 +23,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 表的结构 `stb_categories`
+-- 表的结构 `stb_nodes`
 --
 
-DROP TABLE IF EXISTS `stb_categories`;
-CREATE TABLE IF NOT EXISTS `stb_categories` (
-  `cid` smallint(5) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `stb_nodes`;
+CREATE TABLE IF NOT EXISTS `stb_nodes` (
+  `node_id` smallint(5) NOT NULL AUTO_INCREMENT,
   `pid` smallint(5) NOT NULL DEFAULT '0',
   `cname` varchar(30) DEFAULT NULL COMMENT '分类名称',
   `content` varchar(255) DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `stb_categories` (
   `listnum` mediumint(8) unsigned DEFAULT '0',
   `clevel` varchar(25) DEFAULT NULL,
   `cord` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`cid`,`pid`)
+  PRIMARY KEY (`node_id`,`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `stb_favorites` (
 DROP TABLE IF EXISTS `stb_topics`;
 CREATE TABLE IF NOT EXISTS `stb_topics` (
   `topic_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cid` smallint(5) NOT NULL DEFAULT '0',
+  `node_id` smallint(5) NOT NULL DEFAULT '0',
   `uid` mediumint(8) NOT NULL DEFAULT '0',
   `ruid` mediumint(8) DEFAULT NULL,
   `title` varchar(128) DEFAULT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `stb_topics` (
   `is_top` tinyint(1) NOT NULL DEFAULT '0',
   `is_hidden` tinyint(1) NOT NULL DEFAULT '0',
   `ord` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`topic_id`,`cid`,`uid`),
+  PRIMARY KEY (`topic_id`,`node_id`,`uid`),
   KEY `updatetime` (`updatetime`),
   KEY `ord` (`ord`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

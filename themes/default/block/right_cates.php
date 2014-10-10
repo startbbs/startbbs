@@ -7,8 +7,8 @@
     	<?php foreach ($catelist[0] as $v){?>
     	<p><span class="text-muted"><?php echo $v['cname']; ?></span></p>
         <p>
-        <?php if(isset($catelist[$v['cid']])) foreach($catelist[$v['cid']] as $c){?>
-		<a href="<?php echo site_url($c['flist_url']);?>"><?php echo $c['cname']?></a>&nbsp;
+        <?php if(isset($catelist[$v['node_id']])) foreach($catelist[$v['node_id']] as $c){?>
+		<a href="<?php echo site_url($c['node_show_url']);?>"><?php echo $c['cname']?></a>&nbsp;
 		<?php }?>
 		</p>
 		<?php }?>

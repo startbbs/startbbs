@@ -43,7 +43,7 @@ class Tag extends SB_Controller
 
 		$data['tag_list'] = $this->tag_m->get_tag_topics_list($start, $limit, $data['title']);
 		if($data['tag_list']){
-			$view_url=array_keys($this->router->routes,'topic/view/$1');
+			$view_url=array_keys($this->router->routes,'topic/show/$1');
 			foreach($data['tag_list'] as $k=>$v)
 			{
 				$data['tag_list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$view_url[0]);

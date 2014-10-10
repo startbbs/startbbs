@@ -45,10 +45,10 @@
 </strong>
 </td>
 <td class='auto'>
-<a href="<?php echo site_url('topic/flist/'.$v['cid']);?>"><?php echo sb_substr($v['cname'],10)?></a>
+<a href="<?php echo site_url('node/show/'.$v['node_id']);?>"><?php echo sb_substr($v['cname'],10)?></a>
 </td>
 <td class='auto'>
-<a href="<?php echo site_url('topic/view/'.$v['topic_id']);?>"><?php echo sb_substr($v['title'],10)?></a>
+<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>"><?php echo sb_substr($v['title'],10)?></a>
 </td>
 <td class='auto'>
 <a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="rabel profile_link" title="admin"><?php echo $v['username']?></a>
@@ -61,7 +61,7 @@
 </td>
 <td class='w100'>
 <a href="<?php echo site_url('topic/edit/'.$v['topic_id']);?>" class="btn btn-primary btn-sm">编辑</a>
-<a href="<?php echo site_url('admin/topics/del/'.$v['topic_id'].'/'.$v['cid'].'/'.$v['uid']);?>" class="btn btn-sm btn-danger" data-confirm="真的要删除吗？" data-method="delete" rel="nofollow">删除</a>
+<a href="<?php echo site_url('admin/topics/del/'.$v['topic_id'].'/'.$v['node_id'].'/'.$v['uid']);?>" class="btn btn-sm btn-danger" data-confirm="真的要删除吗？" data-method="delete" rel="nofollow">删除</a>
 <?php if($v['is_top']==0){?>
 <a href="<?php echo site_url('admin/topics/set_top/'.$v['topic_id']).'/'.$v['is_top'];?>" class="btn btn-primary btn-sm">置顶</a>
 <?php } else {?>

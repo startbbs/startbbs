@@ -28,11 +28,11 @@
 修改回复
 </div>
 <div class='inner row'>
-<form accept-charset="UTF-8" action="<?php echo site_url('comment/edit/'.$comment['cid'].'/'.$comment['topic_id'].'/'.$comment['id'])?>" id="new_topic" method="post" novalidate="novalidate" name="add_new">
+<form accept-charset="UTF-8" action="<?php echo site_url('comment/edit/'.$comment['node_id'].'/'.$comment['topic_id'].'/'.$comment['id'])?>" id="new_topic" method="post" novalidate="novalidate" name="add_new">
 <div style="margin:0;padding:0;display:inline">
 <input name="utf8" type="hidden" value="&#x2713;" />
 <input name="uid" type="hidden" value="1" />
-<input name="cid" type="hidden" value="1" />
+<input name="node_id" type="hidden" value="1" />
 </div>
 <div class="form-group">
 <div class="col-md-12" id="textContain">

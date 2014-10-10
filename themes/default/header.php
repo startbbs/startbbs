@@ -15,7 +15,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li<?php if(@$action=='home'){?> class="active"<?php }?>><a href="<?php echo site_url()?>"><?php echo lang('front_home');?></a></li>
-            <li<?php if(@$action=='section'){?> class="active"<?php }?>><a href="<?php echo site_url('section')?>">节点</a></li>
+            <li<?php if(@$action=='node'){?> class="active"<?php }?>><a href="<?php echo site_url('node')?>">节点</a></li>
             <li<?php if(@$action=='user'){?> class="active"<?php }?>><a href="<?php echo site_url('user')?>">会员</a></li>
             <li<?php if(@$action=='add'){?> class="active"<?php }?>><a href="<?php echo site_url('topic/add')?>">发表</a></li>
            </ul>

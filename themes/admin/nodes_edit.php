@@ -15,7 +15,7 @@ function doUpload() {
         // 上传方法
         $.upload({
                         // 上传地址
-                        url:baseurl+"index.php/upload/upload_pic/<?php echo $cateinfo['cid']?>", 
+                        url:baseurl+"index.php/upload/upload_pic/<?php echo $cateinfo['node_id']?>", 
                         // 文件域名字
                         fileName: 'img', 
                         // 其他表单数据
@@ -57,7 +57,7 @@ function doUpload() {
 <a href="<?php echo site_url();?>" class="startbbs1">StartBBS</a> <span class="chevron">&nbsp;›&nbsp;</span> <a href="<?php echo site_url('admin/login');?>">管理后台</a> <span class="chevron">&nbsp;›&nbsp;</span> 编辑分类
 </div>
 <div class='cell'>
-<form accept-charset="UTF-8" action="<?php echo site_url('admin/nodes/edit/'.$cateinfo['cid']);?>" class="simple_form form-horizontal" id="edit_user_1" method="post" novalidate="novalidate">
+<form accept-charset="UTF-8" action="<?php echo site_url('admin/nodes/edit/'.$cateinfo['node_id']);?>" class="simple_form form-horizontal" id="edit_user_1" method="post" novalidate="novalidate">
 <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="iM/k39XK4U+GmgVT7Ps8Ko3OhPrcTBqUSu4yKYPgAjk=" /></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="cname">分类名称</label>
@@ -67,9 +67,9 @@ function doUpload() {
 <label class="col-sm-3 control-label" for="user_email">父目录</label>
 <div class="col-sm-5">
 <select name="pid" id="pid" class="form-control">
-<option selected="selected" value="<?php echo $pcateinfo['cid']?>"><?php echo $pcateinfo['cname']?>(已选)</option>
+<option selected="selected" value="<?php echo $pcateinfo['node_id']?>"><?php echo $pcateinfo['cname']?>(已选)</option>
 <?php foreach($cates as $v){?>
-<option value="<?php echo $v['cid']?>"><?php echo $v['cname']?></option>
+<option value="<?php echo $v['node_id']?>"><?php echo $v['cname']?></option>
 <?php } ?>
 </select>
 </div></div>

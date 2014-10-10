@@ -24,9 +24,9 @@ class Base_Controller extends CI_Controller
 class SB_Controller extends Base_Controller
 {
 	
-	//we collect the categories automatically with each load rather than for each function
+	//we collect the nodes automatically with each load rather than for each function
 	//this just cuts the codebase down a bit
-	var $categories	= '';
+	var $nodes	= '';
 	
 	//load all the pages into this variable so we can call it from all the methods
 	var $pages = '';
@@ -118,7 +118,7 @@ class SB_Controller extends Base_Controller
 		$this->load->helper(array('form_helper', 'formatting_helper'));
 		
 		//fill in our variables
-		$this->categories	= $this->Category_model->get_categories_tierd(0);
+		$this->nodes	= $this->Category_model->get_nodes_tierd(0);
 		$this->pages		= $this->Page_model->get_pages();
 		
 		// check if giftcards are enabled
