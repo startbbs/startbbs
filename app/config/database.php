@@ -1,11 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 $active_group = 'default';
 $active_record = TRUE;
-$db['default']['hostname'] = 'localhost';
+$db['default']['hostname'] = 'MOPAAS_MYSQL14569_HOSTNAME';
 $db['default']['port'] = '3306';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '123456';
-$db['default']['database'] = 'startbbs';
+$db['default']['username'] = 'MOPAAS_MYSQL14569_USERNAME';
+$db['default']['password'] = 'MOPAAS_MYSQL14569_PASSWORD';
+$db['default']['database'] = 'MOPAAS_MYSQL14569_NAME';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'stb_';
 $db['default']['pconnect'] = TRUE;
