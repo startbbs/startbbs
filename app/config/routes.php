@@ -8,4 +8,4 @@ $route['qq_login'] = 'oauth/qqlogin';
 $route['qq_callback'] = 'oauth/qqcallback';
 $route['node/show/(:num)'] = 'node/show/$1';
 $route['topic/show/(:num)'] = 'topic/show/$1';
-$route['tag/index/(:any)'] = 'tag/index/$1';
+$route['tag/show/(:any)'] = 'tag/show/$1';

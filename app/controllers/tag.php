@@ -16,7 +16,7 @@ class Tag extends SB_Controller
 		$this->load->model('tag_m');
 	}
 
-	public function index($tag_title,$page=1)
+	public function show($tag_title,$page=1)
 	{
 
 		$data['title'] = urldecode($tag_title);
@@ -24,7 +24,7 @@ class Tag extends SB_Controller
 		$limit = 10;
 		$config['uri_segment'] = 4;
 		$config['use_page_numbers'] = TRUE;
-		$config['base_url'] = site_url('tag/index/'.$data['title']);
+		$config['base_url'] = site_url('tag/show/'.$data['title']);
 		$data['tag']=$this->db->select('topics')->where('tag_title',$data['title'])->get('tags')->row_array();
 		$config['total_rows'] = @$data['tag']['topics'];
 		$config['per_page'] = $limit;
@@ -49,7 +49,7 @@ class Tag extends SB_Controller
 				$data['tag_list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$view_url[0]);
 			}
 			
-			$this->load->view('tag',$data);
+			$this->load->view('tag_show',$data);
 		} else {
 			$this->myclass->notice('alert("标签不存在");window.location.href="'.site_url('/').'";');
 		}

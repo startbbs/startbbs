@@ -112,7 +112,7 @@ class topic extends SB_controller
 			$data['content']['description']= sb_substr(cleanhtml($content['content']),200);
 
 			//自定义tag_url
-			$data['tag_url']=array_keys($this->router->routes,'tag/index/$1');
+			$data['tag_url']=array_keys($this->router->routes,'tag/show/$1');
 
 			if(is_array(@$data['tags'])){
 				foreach($data['tags'] as $k=>$v){
