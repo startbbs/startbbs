@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session','auth','qqclass');
+$autoload['libraries'] = array('session','auth');
 
 
 /*
@@ -78,7 +78,7 @@ $autoload['helper'] = array('url','file','function','language');
 |
 */
 
-$autoload['config'] = array('myconfig','topicset','openid','mailset','version');
+$autoload['config'] = array('myconfig','topicset','mailset','version');
 
 
 /*

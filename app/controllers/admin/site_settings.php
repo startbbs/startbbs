@@ -88,14 +88,6 @@ class Site_settings extends Admin_Controller
 			$this->config->update('userset','credit_follow', $this->input->post('credit_follow'));
 			$this->myclass->notice('alert("userset更新成功");window.location.href="'.site_url('admin/site_settings').'";');
 		}
-		//openid设定
-		if($_POST && $_GET['a']=='openid'){
-			$qq_callback = 'oauth/qqcallback';
-			$this->config->update('openid','qq_appid', $this->input->post('qq_appid'));
-			$this->config->update('openid','qq_appkey', $this->input->post('qq_appkey'));
-			$this->config->update('openid','qq_callback', $qq_callback);
-			$this->myclass->notice('alert("openid更新成功");window.location.href="'.site_url('admin/site_settings').'";');
-		}
 
 		//mailset设定
 		if($_POST && $_GET['a']=='mailset'){

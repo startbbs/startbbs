@@ -417,59 +417,6 @@
 
 <div class="tab-pane" id="tab4">
 <div class="inner">
-<form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=openid');?>" class="form-horizontal" method="post">
-<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" />
-<input name="_method" type="hidden" value="put" />
-<input name="authenticity_token" type="hidden" value="YNAXPQDviOJ/cf5OH/KrqdxOjGLCdka+kUCp+fa3J+A=" />
-</div>
-<div class='form-group'>
-<label class="col-sm-3 control-label" for="settings_qq_appid">QQ appid</label>
-<div class='col-sm-5'>
-<input class="form-control" id="settings_site_name" name="qq_appid" type="text" value="<?php echo $this->config->item('qq_appid');?>" />
-<small class='help-inline'>申请到的appid</small>
-</div>
-</div>
-<div class='form-group'>
-<label class="col-sm-3 control-label" for="settings_welcome_tip">QQ appkey</label>
-<div class='col-sm-5'>
-<input class="form-control" id="settings_qq_appkey" name="qq_appkey" type="text" value="<?php echo $this->config->item('qq_appkey');?>" />
-<small class='help-inline'>申请到的appkey</small>
-</div>
-</div>
-<!--<div class='form-group'>
-<label class="col-sm-3 control-label" for="settings_ga_id">Google Analytics ID</label>
-<div class='col-sm-5'>
-<input class="form-control" id="settings_ga_id" name="settings[ga_id]" type="text" value="" />
-<small class='help-inline'>例如: UA-12345678-01</small>
-</div>
-</div>-->
-<hr>
-<!--<div class='form-group'>
-<label class="col-sm-3 control-label" for="is_rewrite">开启伪静态</label>
-<div class='col-sm-5'>
-<label class='radio-inline'>
-<input<?php if($item['10']['value'] =='on'){ ?> checked="checked"<?php } ?> id="settings_is_rewrite_on" name="is_rewrite" type="radio" value="on" />
-开启
-</label>
-<label class='radio-inline'>
-<input<?php if($item['10']['value'] =='off'){ ?> checked="checked"<?php } ?> id="settings_is_rewrite_off" name="is_rewrite" type="radio" value="off" />
-关闭
-</label>
-</div>
-</div>-->
-
-<div class="form-group">
-<div class="col-sm-offset-3 col-sm-9">
-  <button type="submit" name="commit" class="btn btn-primary">保存</button>
-</div>
-</div>
-</form>
-</div><!-inner->
-</div>
-
-<div class="tab-pane" id="tab5">
-<div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=mailset');?>" class="form-horizontal" method="post">
 <div style="margin:0;padding:0;display:inline">
 <input name="utf8" type="hidden" value="&#x2713;" />
@@ -530,7 +477,7 @@ Phpmail
 </div><!-inner->
 </div>
 
-<div class="tab-pane" id="tab6">
+<div class="tab-pane" id="tab5">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=routes');?>" class="form-horizontal" method="post">
 <div class="form-group">
@@ -571,7 +518,7 @@ Phpmail
 </div><!-inner->
 </div>
 
-<div class="tab-pane" id="tab7">
+<div class="tab-pane" id="tab6">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=storage');?>" class="form-horizontal" method="post">
 <div style="margin:0;padding:0;display:inline">

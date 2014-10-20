@@ -151,13 +151,7 @@ class User extends SB_Controller
 			} elseif($user){
 				//更新session
 				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'password' =>$user['password'], 'group_type' => $user['group_type'], 'gid' => $user['gid']) );
-				//设置cookie(已去除)
 
-	            //更新openidQQ
-				$openid = strip_tags($this->input->post('openid'));
-				if($openid){
-					$this->user_m->update_user($user['uid'], array('openid'=>$openid));
-				}
 				//更新积分
 				$this->config->load('userset');
 				$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
