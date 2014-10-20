@@ -199,7 +199,7 @@ at
 <div style="text-align: center;">
 <p><?php echo $settings['welcome_tip']?></p>
 <p><a class="btn btn-default" href="<?php echo site_url('user/login');?>">登录发表</a></p>
-<p><a href="<?php echo site_url('user/reg');?>">还没有账号？去注册</a></p>
+<p><a href="<?php echo site_url('user/register');?>">还没有账号？去注册</a></p>
 </div>
  <?php }?>
 </div>

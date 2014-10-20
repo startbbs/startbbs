@@ -18,7 +18,7 @@
 <a href="<?php echo site_url()?>" class="startbbs"><?php echo $settings['site_name']?></a> <span class="chevron">&nbsp;›&nbsp;</span> 注册
 </div>
 <div class='inner'>
-<form accept-charset="UTF-8" action="<?php echo site_url('user/reg');?>" class="form-horizontal" id="new_user" method="post" novalidate="novalidate">
+<form accept-charset="UTF-8" action="<?php echo site_url('user/register');?>" class="form-horizontal" id="new_user" method="post" novalidate="novalidate">
 <div style="margin:0;padding:0;display:inline">
 <input name="utf8" type="hidden" value="&#x2713;" />
 <input name="authenticity_token" type="hidden" value="zHmHYEJbz9hP+SpTe153DJH8BobrJSJ63cDjsuZayGs=" /></div>

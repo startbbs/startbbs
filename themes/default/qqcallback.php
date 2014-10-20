@@ -16,7 +16,7 @@
 </div>
 <div class='cell' style="text-align: center;"><input type="radio" name="radio" id="radio_1" checked onClick="$('#form1').show(); $('#form2').hide();" /><span for="radio_1">继续完善资料</span>　　<input type="radio" name="radio" id="radio_2" onClick="$('#form1').hide(); $('#form2').show();" /><span for="radio_2">绑定现有用户</span></div>
 <div class='inner' id="form1">
-<form accept-charset="UTF-8" action="<?php echo site_url('user/reg');?>" class="simple_form form-horizontal" id="new_user" method="post" novalidate="novalidate">
+<form accept-charset="UTF-8" action="<?php echo site_url('user/register');?>" class="simple_form form-horizontal" id="new_user" method="post" novalidate="novalidate">
 <div style="margin:0;padding:0;display:inline">
 <input name="utf8" type="hidden" value="&#x2713;" />
 <input name="openid" type="hidden" value="<?php echo $user['openid']?>" /></div>

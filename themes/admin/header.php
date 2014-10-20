@@ -31,7 +31,7 @@
 			<?php }?>
 			<li><a href="<?php echo site_url('user/logout')?>" data-method="delete" rel="nofollow">退出</a></li>
 			<?php }else{?>
-            <li><a href="<?php echo site_url('user/reg')?>">注册</a></li>
+            <li><a href="<?php echo site_url('user/register')?>">注册</a></li>
             <li><a href="<?php echo site_url('user/login')?>">登入</a></li>
             <?php }?>
           </ul>

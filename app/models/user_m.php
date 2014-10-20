@@ -16,10 +16,10 @@ class User_m extends SB_Model
 		parent::__construct();
 	}
 
-	function reg($data){
+	function register($data){
 		return $this->db->insert('users',$data);
 	}
-	function check_reg($email){
+	function check_register($email){
 		$query = $this->db->get_where('users',array('email'=>$email));
         return $query->row_array();
 	}

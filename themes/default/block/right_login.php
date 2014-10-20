@@ -63,7 +63,7 @@
         <?php echo $settings['site_name']?>
     </div>
     <div class="panel-body">
-        <a href="<?php echo site_url('user/reg');?>" class="btn btn-default">现在注册</a> 已注册用户请
+        <a href="<?php echo site_url('user/register');?>" class="btn btn-default">现在注册</a> 已注册用户请
 <a href="<?php echo site_url('user/login');?>" class="startbbs">登入</a>
     </div>
 </div>
