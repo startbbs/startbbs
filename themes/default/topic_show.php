@@ -10,11 +10,6 @@
 <?php $this->load->view ('header-meta');?>
 <script src="<?php echo base_url('static/common/js/topic.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('static/common/js/plugins.js')?>" type="text/javascript"></script>
-<?php if($this->config->item('show_editor')=='on'){?>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('static/common/js/editor/jquery.editor.css')?>" />
-<script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('static/common/js/editor/jquery.editor.set.js')?>"></script>
-<?php }?>
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
 <?php if($this->config->item('storage_set')=='local'){?>
 <script src="<?php echo base_url('static/common/js/local.file.js')?>" type="text/javascript"></script>

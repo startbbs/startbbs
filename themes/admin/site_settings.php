@@ -133,19 +133,6 @@
 </label>
 </div>
 </div>
-<div class='form-group'>
-<label class="col-sm-3 control-label" for="is_rewrite">启用编辑器</label>
-<div class='col-sm-5'>
-<label class='radio-inline'>
-<input<?php if($item['11']['value'] =='on'){ ?> checked="checked"<?php } ?> id="settings_show_editor_on" name="show_editor" type="radio" value="on" />
-开启
-</label>
-<label class='radio-inline'>
-<input<?php if($item['11']['value'] =='off'){ ?> checked="checked"<?php } ?> id="settings_show_editor_off" name="show_editor" type="radio" value="off" />
-关闭
-</label>
-</div>
-</div>
 
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="auto_tag">标签开关</label>

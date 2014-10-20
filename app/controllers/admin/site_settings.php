@@ -24,7 +24,6 @@ class Site_settings extends Admin_Controller
 				array('value'=>$this->input->post('site_description'),'id'=>8),
 				array('value'=>$this->input->post('reward_title'),'id'=>9),
 				array('value'=>$this->input->post('is_rewrite'),'id'=>11),
-				array('value'=>$this->input->post('show_editor'),'id'=>12),
 			);
 			$this->db->update_batch('settings', $str, 'id');
 			
@@ -36,7 +35,6 @@ class Site_settings extends Admin_Controller
 				$config['index_page']='index.php';
 			}
 			$config['show_captcha']=($this->input->post('show_captcha')=='on')?$config['show_captcha']='on':$config['show_captcha']='off';
-			$config['show_editor']=($this->input->post('show_editor')=='on')?$config['show_editor']='on':$config['show_editor']='off';
 			$config['site_close']=($this->input->post('site_close')=='on')?'on':'off';
 			$config['site_close_msg']=$this->input->post('site_close_msg',true);
 			$config['basic_folder']=$this->config->item('basic_folder');
