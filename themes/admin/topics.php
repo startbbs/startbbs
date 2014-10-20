@@ -51,7 +51,7 @@
 <a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>"><?php echo sb_substr($v['title'],10)?></a>
 </td>
 <td class='auto'>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="rabel profile_link" title="admin"><?php echo $v['username']?></a>
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="rabel profile_link" title="admin"><?php echo $v['username']?></a>
 </td>
 <td align='right' class='auto'>
 <?php echo $v['comments']?>

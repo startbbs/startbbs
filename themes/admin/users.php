@@ -50,7 +50,7 @@
 <td align='right'><?php echo $v['uid']?></td>
 <td align='left' class='auto'>
 <strong>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="black startbbs profile_link" title="admin"><?php echo $v['username']?></a>
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="black startbbs profile_link" title="admin"><?php echo $v['username']?></a>
 </strong>
 </td>
 <td align='left' class='w50'>

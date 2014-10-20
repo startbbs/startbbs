@@ -29,7 +29,7 @@
 <ul class='user_list'>
 <?php if($new_users) foreach($new_users as $v){?>
 <li>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
 <?php if($v['avatar']){?>
 <img src="<?php echo base_url($v['avatar']);?>" alt="<?php echo $v['username'];?>">
 <?php } else{?>
@@ -55,7 +55,7 @@
 <ul class='inline user_list'>
 <?php if($hot_users) foreach($hot_users as $v){?>
 <li>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
 <?php if($v['avatar']){?>
 <img src="<?php echo base_url($v['avatar']);?>" alt="<?php echo $v['username'];?>">
 <?php } else{?>

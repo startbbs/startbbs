@@ -4,14 +4,14 @@
 <table>
 <tr>
 <td valign='top' width='100'>
-<a href="<?php echo site_url('user/info/'.$user['uid']);?>" class="profile_link" title="<?php echo $user['username']?>">
+<a href="<?php echo site_url('user/profile/'.$user['uid']);?>" class="profile_link" title="<?php echo $user['username']?>">
 <img alt="<?php echo $user['username']?> large avatar" class="large_avatar" src="<?php echo base_url($user['big_avatar'])?>" />
 </a>
 </td>
 <td valign='top' width='10'></td>
 <td valign='left' width='auto'>
 <dl>
-  <dt class='profile-link'><a href="<?php echo site_url('user/info/'.$user['uid']);?>" class="startbbs profile_link" title="<?php echo $user['username']?>"><?php echo $user['username']?></a></dt>
+  <dt class='profile-link'><a href="<?php echo site_url('user/profile/'.$user['uid']);?>" class="startbbs profile_link" title="<?php echo $user['username']?>"><?php echo $user['username']?></a></dt>
   <dd class="small text-muted">用户组：<?php echo $group['group_name']?></dd>
   <dd class="small text-muted">积分：<?php echo $user['credit']?></dd>
 </dl>

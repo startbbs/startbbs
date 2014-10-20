@@ -79,7 +79,7 @@
 	<?php if(@$new_topic[$v['node_id']]){?>
 	<?php foreach(@$new_topic[$v['node_id']] as $f){?>
 	<div><a href="<?php echo site_url('topic/show/'.$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
-	<div>by <a href="<?php echo site_url('user/info/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
+	<div>by <a href="<?php echo site_url('user/profile/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
 	<div><?php echo $this->myclass->friendly_date($f['updatetime']);?></div>
 	<?php }?>
 	<?php } else{?>
@@ -141,7 +141,7 @@
 	<?php if(@$new_topic[$c['node_id']]){?>
 	<?php foreach(@$new_topic[$c['node_id']] as $f){?>
 	<div><a href="<?php echo site_url('topic/show/'.$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
-	<div>by <a href="<?php echo site_url('user/info/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
+	<div>by <a href="<?php echo site_url('user/profile/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
 	<div><?php echo $this->myclass->friendly_date($f['updatetime']);?></div>
 	<?php }?>
 	<?php } else{?>

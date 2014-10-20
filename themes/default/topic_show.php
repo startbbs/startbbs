@@ -30,7 +30,7 @@
 <article>
 <div class='header topic-head'>
 <div class='pull-right'>
-<a href="<?php echo site_url('user/info/'.$content['uid']);?>" class="profile_link" title="<?php echo $content['username']?>">
+<a href="<?php echo site_url('user/profile/'.$content['uid']);?>" class="profile_link" title="<?php echo $content['username']?>">
 <?php if($content['avatar']) {?>
 <img alt="<?php echo $content['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($content['avatar']);?>" />
 <?php } else {?>
@@ -44,7 +44,7 @@
 </h1>
 <small class='topic-meta'>
 By
-<a href="<?php echo site_url('user/info/'.$content['uid']);?>" class="dark startbbs profile_link" title="<?php echo $content['username']?>"><?php echo $content['username']?></a>
+<a href="<?php echo site_url('user/profile/'.$content['uid']);?>" class="dark startbbs profile_link" title="<?php echo $content['username']?>"><?php echo $content['username']?></a>
 at
 <?php echo date('Y-m-d h:i:s',$content['addtime']);?>,
 <?php echo $content['views']?>次浏览 • <?php echo $content['favorites'];?>人收藏
@@ -108,7 +108,7 @@ at
 <div class='cell hoverable reply' id='comment_988'>
 <div class="row">
 <div class="col-md-1">
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username']?>">
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username']?>">
 <?php if($v['avatar']) {?>
 <img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['avatar']);?>" />
 <?php } else {?>
@@ -120,7 +120,7 @@ at
 <div>
 <span class='snow pull-right' id="r<?php echo ($page-1)*10+$key+1;?>">
 #<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>">回复</a></span>
-<span><a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a></span>
+<span><a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a></span>
 <span class="snow">&nbsp;&nbsp;<?php echo $this->myclass->friendly_date($v['replytime'])?></span>
 </div>
 <div class='content reply_content'><?php echo stripslashes($v['content'])?></div>

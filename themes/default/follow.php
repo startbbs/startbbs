@@ -25,7 +25,7 @@
 <?php foreach($follow_list as $v){?>
 <li class="col-xs-5 col-md-2">
 <div class='thumbnail1'>
-<a href="<?php echo site_url('user/info/'.$v['follow_uid']);?>" title="<?php echo $v['username']?>">
+<a href="<?php echo site_url('user/profile/'.$v['follow_uid']);?>" title="<?php echo $v['username']?>">
 <?php if($v['avatar']){?>
 <img alt="<?php echo $v['username']?> large avatar" class="large_avatar" src="<?php echo base_url($v['avatar'])?>" />
 <?php } else{?>
@@ -52,7 +52,7 @@
 <?php foreach($follow_user_topics as $v){?>
 <div class='admin cell topic'>
 <div class='avatar pull-left'>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username'];?>">
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username'];?>">
 <?php if($v['avatar']) {?>
 <img alt="<?php echo $v['username'];?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['avatar']);?>" />
 <?php } else {?>
@@ -68,12 +68,12 @@
 <a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title'];?></a>
 </h2>
 <div class='topic-meta'>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 <span class='text-muted'>•</span>
 <?php echo $this->myclass->friendly_date($v['updatetime']);?>
 <span class='text-muted'>•</span>
 最后回复来自
-<a href="<?php echo site_url('user/info/'.$v['ruid']);?>" class="startbbs profile_link" title="doudou"><?php echo $v['rname'];?></a>
+<a href="<?php echo site_url('user/profile/'.$v['ruid']);?>" class="startbbs profile_link" title="doudou"><?php echo $v['rname'];?></a>
 </div>
 </div>
 </div>

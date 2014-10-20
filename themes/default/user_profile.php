@@ -111,7 +111,7 @@
 <?php echo $this->myclass->friendly_date($v['addtime'])?>
 &nbsp;&nbsp;•&nbsp;&nbsp;
 最后回复来自
-<a href="<?php echo site_url('user/info/'.$v['ruid']);?>" class="startbbs profile_link" title="marschris"><?php echo $v['rname']?></a>
+<a href="<?php echo site_url('user/profile/'.$v['ruid']);?>" class="startbbs profile_link" title="marschris"><?php echo $v['rname']?></a>
 </div>
 </td>
 <td align='right' valign='middle' width='40'>
@@ -138,7 +138,7 @@
 <?php echo $this->myclass->friendly_date($v['replytime'])?>
 </div>
 回复了
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a>
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="startbbs profile_link" title="<?php echo $v['username']?>"><?php echo $v['username']?></a>
 <?php echo $this->myclass->friendly_date($v['addtime'])?>
 <span class='chevron'>›</span>
 <a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>" class="startbbs"><?php echo $v['title']?></a>

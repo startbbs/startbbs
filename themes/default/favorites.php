@@ -37,12 +37,12 @@
 <div class='topic-meta'>
 <!--<a href="<?php echo site_url('node/show/'.$v['node_id']);?>" class="node"><?php echo $category['cname'];?></a>-->
 <span class='text-muted'>•</span>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 <span class='text-muted'>•</span>
 <?php echo $this->myclass->friendly_date($v['addtime']);?>
 <span class='text-muted'>•</span>
 最后回复来自
-<a href="<?php echo site_url('user/info/'.$v['ruid']);?>" class="startbbs profile_link" title="<?php echo $v['rname'];?>"><?php echo $v['rname'];?></a>
+<a href="<?php echo site_url('user/profile/'.$v['ruid']);?>" class="startbbs profile_link" title="<?php echo $v['rname'];?>"><?php echo $v['rname'];?></a>
 <span class='text-muted'>•</span>
 <a href="<?php echo site_url('favorites/del/'.$v['topic_id']);?>" title="取消收藏">取消收藏 X</a>
 </div>

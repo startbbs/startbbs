@@ -63,7 +63,7 @@ class Comment extends SB_Controller
 				$res =$this->user_m->get_user_msg('',$u) ;
 				if ($res['uid']) {
 					$search [] = '@'.$u;
-					$replace [] = '<a target="_blank" href="'.site_url('user/info/'.$res['uid']).'" >@' . $u . '</a>';
+					$replace [] = '<a target="_blank" href="'.site_url('user/profile/'.$res['uid']).'" >@' . $u . '</a>';
 					if($this->uid!=$res['uid']){
 						//@提醒someone
 						$this->load->model('notifications_m');

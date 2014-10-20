@@ -24,7 +24,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
 	        <?php if($this->session->userdata('uid')){ ?>
-			<li><a href="<?php echo site_url('user/info/'.$this->session->userdata('uid').'')?>"><?php echo $this->session->userdata('username');?></a></li>
+			<li><a href="<?php echo site_url('user/profile/'.$this->session->userdata('uid').'')?>"><?php echo $this->session->userdata('username');?></a></li>
 			<li><a href="<?php echo site_url('settings')?>">个人设置</a></li>
 			<?php if($this->auth->is_admin()){ ?>
 			<li class=""><a href="<?php echo site_url('admin/login')?>">管理后台</a></li>

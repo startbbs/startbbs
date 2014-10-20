@@ -25,7 +25,7 @@
 <table width='100%'>
 <tr>
 <td align='left' valign='top' width='32'>
-<a href="<?php echo site_url('user/info/'.$v['suid']);?>" class="profile_link" title="<?php echo $v['username'];?>">
+<a href="<?php echo site_url('user/profile/'.$v['suid']);?>" class="profile_link" title="<?php echo $v['username'];?>">
 <?php if($v['avatar']) {?>
 <img alt="<?php echo $v['username'];?> mini avatar" class="mini_avatar" src="<?php echo base_url($v['avatar']);?>" />
 <?php } else {?>
@@ -35,7 +35,7 @@
 </td>
 <td valign='top'>
 <span class='gray'>
-<strong><a href="<?php echo site_url('user/info/'.$v['suid']);?>" class="startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a></strong>
+<strong><a href="<?php echo site_url('user/profile/'.$v['suid']);?>" class="startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a></strong>
 <?php if($v['ntype']==0){?>
 回复了你的贴子
 <a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>" class="startbbs"><?php echo $v['title'];?>...</a>

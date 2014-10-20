@@ -47,7 +47,7 @@
 <table border='0' cellpadding='0' cellspacing='0' width='100%'>
 <tr>
 <td class='avatar' valign='top'>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username'];?>">
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username'];?>">
 <?php if($v['avatar']) {?>
 <img alt="<?php echo $v['username'];?> medium avatar" class="medium_avatar" src="<?php echo base_url();?><?php echo $v['avatar'];?>" />
 <?php } else {?>
@@ -67,12 +67,12 @@
 <div class='topic-meta'>
 <a href="<?php echo site_url($v['node_show_url']);?>" class="node"><?php echo $category['cname'];?></a>
 &nbsp;&nbsp;•&nbsp;&nbsp;
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 &nbsp;&nbsp;•&nbsp;&nbsp;
 <?php echo $this->myclass->friendly_date($v['addtime']);?>
 &nbsp;&nbsp;•&nbsp;&nbsp;
 最后回复来自
-<a href="<?php echo site_url('user/info/'.$v['ruid']);?>" class="startbbs profile_link" title="agred"><?php echo $v['rname'];?></a>
+<a href="<?php echo site_url('user/profile/'.$v['ruid']);?>" class="startbbs profile_link" title="agred"><?php echo $v['rname'];?></a>
 </div>
 </td>
 </tr>

@@ -27,7 +27,7 @@ class User extends SB_Controller
 		$data['action'] = 'user';		
 		$this->load->view('user',$data);
 	}
-	public function info ($uid)
+	public function profile ($uid)
 	{
 		$data = $this->user_m->get_user_by_id($uid);
 		//用户大头像
@@ -43,7 +43,7 @@ class User extends SB_Controller
 		$this->load->model('follow_m');
 		$data['is_followed'] = $this->follow_m->follow_user_check($this->session->userdata('uid'), $uid);
 
-		$this->load->view('userinfo', $data);
+		$this->load->view('user_profile', $data);
 		
 	}
 	public function reg ()

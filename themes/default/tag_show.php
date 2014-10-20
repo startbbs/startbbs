@@ -37,7 +37,7 @@
 <div class='topic-meta'>
 <!--<a href="<?php echo site_url('node/show/'.$v['node_id']);?>" class="node"><?=$category['cname'];?></a>-->
 <span class='text-muted'>•</span>
-<a href="<?php echo site_url('user/info/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
+<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 <span class='text-muted'>•</span>
 <?php echo $this->myclass->friendly_date($v['updatetime']);?>
 <span class='text-muted'>•</span>
