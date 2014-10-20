@@ -347,5 +347,21 @@ function xss_clean1($data)
 			return curl_exec($ch);
 		}
 	}
+
+/*生成盐salt*/
+
+function get_salt($length=-6){
+	return substr(uniqid(rand()), $length);
+}
+
+/*生成密码*/
+
+function password_dohash($password,$salt)
+{
+	$salt=$salt?$salt:get_salt();
+	return md5(md5($password).$salt);
+}
+
+
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */

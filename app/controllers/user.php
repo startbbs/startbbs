@@ -59,11 +59,13 @@ class User extends SB_Controller
 		}
 		if($_POST && $this->validate_register_form()){
 			$password = $this->input->post('password',true);
+			$salt =get_salt();
 			$ip = $this->myclass->get_ip();
 			$this->config->load('userset');//用户积分
 			$data = array(
 				'username' => strip_tags($this->input->post('username')),
-				'password' => md5($password),				
+				'password' => password_dohash($password,$salt),
+				'salt' => $salt,
 				'openid' => strip_tags($this->input->post('openid')),
 				'email' => $this->input->post('email',true),
 				'credit' => $this->config->item('credit_start'),

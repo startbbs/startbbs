@@ -235,6 +235,7 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
   `password` char(32) DEFAULT NULL,
+  `salt` char(6) DEFAULT NULL COMMENT '混淆码',
   `openid` char(32) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
   `avatar` varchar(100) DEFAULT NULL,
@@ -254,7 +255,6 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `gid` tinyint(3) NOT NULL DEFAULT '3',
   `ip` char(15) DEFAULT NULL,
   `location` varchar(128) DEFAULT NULL,
-  `token` varchar(40) DEFAULT NULL,
   `introduction` text,
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`uid`,`group_type`)

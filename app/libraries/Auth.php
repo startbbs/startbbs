@@ -76,7 +76,7 @@ class Auth
 		}
 		if(!count($query->row())){
 				$user['lastlogin'] = time();
-				$user['token'] = sha1(time().rand());
+				//$user['token'] = sha1(time().rand());
 				$this->_CI->user_m->update_user($uid,$user);
 				return false;
 		}else{
