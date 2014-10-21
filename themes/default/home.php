@@ -23,10 +23,7 @@
 <span class="snow"><?php echo $settings['site_keywords']?></span></span>
 </div>
 <div class='bigger welcome'><?php echo $settings['welcome_tip']?></div>
-<?php if(!$this->session->userdata('uid')){?>
-<div class='sep10'></div>
-<div class="jumbotron"><h1><?php echo $settings['site_name']?></h1><p><?php echo $settings['short_intro']?></p></div>
-<?php }?>
+
 </div>
 <span id="infolist">
 <?php if($list){?>
