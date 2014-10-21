@@ -84,8 +84,6 @@ class User extends SB_Controller
 				$this->myclass->notice('alert("用户名已存在!!");history.back();');
 				} elseif($this->input->post('password_c')!=$password){
 					$this->myclass->notice('alert("密码输入不一致!!");history.back();');
-				} elseif($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha) {
-					$this->myclass->notice('alert("验证码不正确!!");history.back();');
 				} else {
 					if($this->user_m->register($data)){
 						$uid = $this->db->insert_id();
@@ -103,8 +101,18 @@ class User extends SB_Controller
 	
 	public function username_check($username)
 	{  
-		if(!preg_match('/^(?!_|\s\')(?!.*?_$)[A-Za-z0-9_\x{4e00}-\x{9fa5}\s\']+$/u', $username)){
+		if(!preg_match('/^(?!_|\s\')(?!.*?_$)[A-Za-z0-9_\x80-\xff\s\']+$/', $username)){
 			$this->form_validation->set_message('username_check', '%s 只能含有汉字、数字、字母、下划线（不能开头或结尾)');
+  			return false;
+		} else{
+			return true;
+		}
+	}
+
+	public function check_captcha($captcha)
+	{
+		if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha){
+			$this->form_validation->set_message('check_captcha', '%s 不正确!!');
   			return false;
 		} else{
 			return true;
@@ -115,9 +123,10 @@ class User extends SB_Controller
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('email', 'Email' , 'trim|required|min_length[3]|max_length[50]|valid_email');
-		$this->form_validation->set_rules('username', '昵称' , 'trim|required|min_length[2]|max_length[20]|callback_username_check|xss_clean');
+		$this->form_validation->set_rules('username', '昵称' , 'trim|required|min_length[3]|max_length[15]|callback_username_check|xss_clean');
 		$this->form_validation->set_rules('password', '用户密码' , 'trim|required|min_length[6]|max_length[40]|matches[password_c]');
 		$this->form_validation->set_rules('password_c', '密码验证' , 'trim|required|min_length[6]|max_length[40]');
+		$this->form_validation->set_rules('captcha_code', '验证码' , 'trim|required|callback_check_captcha');
 		$this->form_validation->set_message('required', "%s 不能为空！");
 		$this->form_validation->set_message('min_length', "%s 最小长度不少于 %s 个字符或汉字！");
 		$this->form_validation->set_message('max_length', "%s 最大长度不多于 %s 个字符或汉字！");
