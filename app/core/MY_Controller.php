@@ -108,6 +108,8 @@ class SB_Controller extends Base_Controller
 		
 		//全局输出
 		$this->load->vars($data);
+		//调试页面
+		//$this->output->enable_profiler(TRUE);
 
 /*		//load GoCart library
 		$this->load->library('Go_cart');
@@ -134,6 +136,7 @@ class SB_Controller extends Base_Controller
 		
 		//load the theme package
 		$this->load->add_package_path(APPPATH.'themes/'.$this->config->item('theme').'/');*/
+
 	}	
 	/*
 	This works exactly like the regular $this->load->view()

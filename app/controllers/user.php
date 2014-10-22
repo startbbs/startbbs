@@ -101,7 +101,7 @@ class User extends SB_Controller
 	
 	public function username_check($username)
 	{  
-		if(!preg_match('/^(?!_|\s\')(?!.*?_$)[A-Za-z0-9_\x80-\xff\s\']+$/', $username)){
+		if(!preg_match('/^(?!_)(?!.*?_$)[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u', $username)){
 			$this->form_validation->set_message('username_check', '%s 只能含有汉字、数字、字母、下划线（不能开头或结尾)');
   			return false;
 		} else{
