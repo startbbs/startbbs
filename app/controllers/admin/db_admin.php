@@ -77,6 +77,7 @@ class db_admin extends Admin_Controller
 		$data['title'] = '数据库还原';
 		$data['act']=$this->uri->segment(3);
 		$data['sqlfiles'] = get_dir_file_info(FCPATH.'data/backup', $top_level_only = TRUE);
+		//echo var_dump($data['sqlfiles']);
 		if($_POST){
 			$sqlfiles=array_slice($this->input->post(), 0, -1);
 			//echo var_export($sqlfiles);
