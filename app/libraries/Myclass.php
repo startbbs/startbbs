@@ -155,7 +155,8 @@ function  friendly_date( $from ){
 			}
 		}
 		return $mark;
-	} 
+	}
+
 
 	function get_ip() {
 		$url = 'http://iframe.ip138.com/ic.asp';

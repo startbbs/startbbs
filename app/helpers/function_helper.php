@@ -367,5 +367,16 @@ function show_message($message='', $url='', $status = 2, $heading='提示信息'
     include APPPATH.'errors/show_message.php';
     exit;
 }
+
+////获得本地真实IP
+function get_onlineip() {
+    $ip_json = @file_get_contents("http://ip.taobao.com/service/getIpInfo.php?ip=myip");
+    $ip_arr=json_decode(stripslashes($ip_json),1);
+    if($ip_arr['code']==0)
+    {
+        return $ip_arr['data']['ip'];
+    }
+     
+}
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */
