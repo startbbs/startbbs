@@ -59,16 +59,14 @@ class User extends SB_Controller
 		if($_POST && $this->validate_register_form()){
 			$password = $this->input->post('password',true);
 			$salt =get_salt();
-			$ip = get_onlineip();
 			$this->config->load('userset');//用户积分
 			$data = array(
 				'username' => strip_tags($this->input->post('username')),
 				'password' => password_dohash($password,$salt),
 				'salt' => $salt,
-				'openid' => strip_tags($this->input->post('openid')),
 				'email' => $this->input->post('email',true),
 				'credit' => $this->config->item('credit_start'),
-				'ip' => $ip,
+				'ip' => get_onlineip(),
 				'group_type' => 2,
 				'gid' => 3,
 				'regtime' => time(),
@@ -77,21 +75,19 @@ class User extends SB_Controller
 			$check_register = $this->user_m->check_register($data['email']);
 			$check_username = $this->user_m->check_username($data['username']);
 			$captcha = $this->input->post('captcha_code');
+			if(!empty($check_username)){
+				show_message('用户名已存在!!');
+			}
 			if(!empty($check_register)){
 				show_message('邮箱已注册，请换一个邮箱！');
-			} elseif(!empty($check_username)){
-				show_message('用户名已存在!!');
-				} elseif($this->input->post('password_c')!=$password){
-					show_message('密码输入不一致!!');
-				} else {
-					if($this->user_m->register($data)){
-						$uid = $this->db->insert_id();
-						$this->session->set_userdata(array ('uid' => $uid, 'username' => $data['username'], 'password' =>$data['password'], 'group_type' => $data['group_type'], 'gid' => $data['gid']) );
-						//去除session
-						$this->session->unset_userdata('yzm');
-					}
-					redirect();
-				}
+			}
+			if($this->user_m->register($data)){
+				$uid = $this->db->insert_id();
+				$this->session->set_userdata(array ('uid' => $uid, 'username' => $data['username'], 'password' =>$data['password'], 'group_type' => $data['group_type'], 'gid' => $data['gid']) );
+				//去除验证码session
+				$this->session->unset_userdata('yzm');
+				redirect();
+			}
 
 		} else{
 			$this->load->view('register',$data);
