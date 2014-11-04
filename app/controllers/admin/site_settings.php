@@ -72,7 +72,7 @@ class Site_settings extends Admin_Controller
 			$topicset['words_limit']=($this->input->post('words_limit'))?$this->input->post('words_limit'):'5000';
 			$this->config->set_item('topicset', $topicset);
 			$this->config->save('topicset',$topicset);
-			$this->myclass->notice('alert("话题设定更新成功");window.location.href="'.site_url('admin/site_settings').'";');
+			show_message('话题设定更新成功',site_url('admin/site_settings'),1);
 		}
 		//会员设定
 		$this->config->load('userset');
@@ -84,7 +84,7 @@ class Site_settings extends Admin_Controller
 			$this->config->update('userset','credit_reply_by', $this->input->post('credit_reply_by'));
 			$this->config->update('userset','credit_del', $this->input->post('credit_del'));
 			$this->config->update('userset','credit_follow', $this->input->post('credit_follow'));
-			$this->myclass->notice('alert("userset更新成功");window.location.href="'.site_url('admin/site_settings').'";');
+			show_message('userset更新成功',site_url('admin/site_settings'),1);
 		}
 
 		//mailset设定
@@ -94,8 +94,7 @@ class Site_settings extends Admin_Controller
 			$this->config->update('mailset','smtp_port', $this->input->post('smtp_port'));
 			$this->config->update('mailset','smtp_user', $this->input->post('smtp_user'));
 			$this->config->update('mailset','smtp_pass', $this->input->post('smtp_pass'));
-			
-			$this->myclass->notice('alert("邮件配置更新成功");window.location.href="'.site_url('admin/site_settings').'";');
+			show_message('邮件配置更新成功',site_url('admin/site_settings'),1);
 		}
 
 		//routes
@@ -114,7 +113,7 @@ class Site_settings extends Admin_Controller
 			$routes .="\$route['".$this->input->post('tag_url')."'] = 'tag/show/$1';\n";
 			
 			if(write_file(APPPATH.'config/routes.php', $routes)){
-				$this->myclass->notice('alert("自定义url更新成功");window.location.href="'.site_url('admin/site_settings').'";');
+				show_message('自定义url更新成功',site_url('admin/site_settings'),1);
 			}
 		}
 		//存储设定
@@ -125,7 +124,7 @@ class Site_settings extends Admin_Controller
 			$this->config->update('qiniu','secretkey', $this->input->post('secretkey'));
 			$this->config->update('qiniu','bucket', $this->input->post('bucket'));
 			$this->config->update('qiniu','file_domain', prep_url($this->input->post('file_domain')));
-			$this->myclass->notice('alert("存储配置更新成功");window.location.href="'.site_url('admin/site_settings').'";');
+			show_message('存储配置更新成功',site_url('admin/site_settings'),1);
 		}
 
 		

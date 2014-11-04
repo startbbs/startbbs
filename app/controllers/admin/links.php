@@ -52,10 +52,9 @@ class Links extends Admin_Controller
 	public function del($id)
 	{
 		$data['title'] = '删除链接';
-		$this->myclass->notice('alert("确定要删除此链接吗！");');
 		//删除链接
 		if($this->link_m->del_link($id)){
-		$this->myclass->notice('alert("删除链接成功！");window.location.href="'.site_url('admin/links').'";');
+			show_message('删除链接成功！',site_url('admin/links'),1);
 		}
 
 	}
@@ -70,7 +69,7 @@ class Links extends Admin_Controller
 				'is_hidden'=>$this->input->post('is_hidden')
 			);
 			if($this->link_m->update_link($id, $str)){
-				$this->myclass->notice('alert("修改链接成功");window.location.href="'.site_url('admin/links').'";');
+				show_message('修改链接成功！',site_url('admin/links'),1);
 			}
 
 		}
@@ -87,7 +86,7 @@ class Links extends Admin_Controller
 				'is_hidden'=>$this->input->post('is_hidden')
 			);
 			if($this->link_m->add_link($str)){
-			$this->myclass->notice('alert("添加链接成功！");window.location.href="'.site_url('admin/links').'";');
+				show_message('增加链接成功！',site_url('admin/links'),1);
 			}
 
 		}

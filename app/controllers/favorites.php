@@ -15,7 +15,7 @@ class Favorites extends SB_Controller
 		$this->load->library('myclass');
 		$uid = $this->session->userdata('uid');
 		if(!$this->auth->is_user($uid)){
-			$this->myclass->notice('alert("请登录后再查看");window.location.href="'.site_url('user/login').'";');
+			show_message('请登录后再查看',site_url('user/login'))
 			exit;
 		}
 	}

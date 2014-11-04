@@ -23,10 +23,9 @@ class topic extends SB_controller
 		
 		$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 		if(!$content){
-			$this->myclass->notice('alert("贴子不存在");window.location.href="'.site_url('/').'";');
-			exit;
+			show_message('贴子不存在',site_url('/'));
 		} elseif(!$this->auth->user_permit($content['node_id'])){//权限
-			$this->myclass->notice('alert("您无权访问此节点中的贴子");history.back();');
+			show_message('您无权访问此节点中的贴子');
 		} else {
 			//$this->output->cache(1);
 			$content = $this->topic_m->get_topic_by_topic_id($topic_id);
@@ -133,7 +132,7 @@ class topic extends SB_controller
 					$this->topic_m->set_top($content['topic_id'],$content['is_top']);
 					redirect('topic/show/'.$content['topic_id']);	
 				} else {
-					$this->myclass->notice('alert("你无权置顶贴子");history.go(-1);');
+					show_message('你无权置顶贴子');
 				}
 			}
 			//开启storage config
@@ -221,7 +220,7 @@ class topic extends SB_controller
 					if($this->config->item('is_approve')=='off'){
 						redirect('topic/show/'.$new_topic_id);	
 					} else {
-						$this->myclass->notice('alert("贴子通过审核才能在前台显示");window.location.href="'.site_url().'";');	
+						show_message('贴子通过审核才能在前台显示',site_url());	
 					}
 				exit;
 				}
@@ -265,7 +264,7 @@ class topic extends SB_controller
 
 		//权限修改判断
 		if(!$this->auth->is_login()) {
-			$this->myclass->notice('alert("请登录后再编辑");window.location.href="'.site_url('user/login').'";');
+			show_message('请登录后再编辑',site_url('user/login'));
 		} elseif($this->auth->is_user($data['item']['uid']) || $this->auth->is_admin() || $this->auth->is_master($data['item']['node_id'])){
 			//对内容进行br转换
 			$this->load->helper('br2nl');
@@ -292,11 +291,11 @@ class topic extends SB_controller
 				$this->load->helper('format_content');
 				$str['content'] = format_content($str['content']);
 				if($this->topic_m->update_topic($topic_id,$str)){
-					$this->myclass->notice('alert("修改成功");window.location.href="'.site_url('topic/show/'.$topic_id).'";');
+					show_message('修改成功',site_url('topic/show/'.$topic_id),1);
 				}
 			}
 		} else {
-			$this->myclass->notice('alert("你无权修改此贴子");history.go(-1);');
+			show_message('你无权修改此贴子');		
 		}
 		//获取所有分类
 		$data['cates'] = $this->cate_m->get_all_cates();
@@ -314,7 +313,7 @@ class topic extends SB_controller
 		$data['title'] = '删除贴子';
 		//权限修改判断
 		if($this->auth->is_admin() || $this->auth->is_master($node_id)){
-			$this->myclass->notice('alert("确定要删除此话题吗！");');
+			//$this->myclass->notice('alert("确定要删除此话题吗！");');
 			//删除贴子及它的回复
 			if($this->topic_m->del_topic($topic_id,$node_id,$uid)){
 				$this->load->model('comment_m');
@@ -325,12 +324,10 @@ class topic extends SB_controller
 				$this->user_m->update_credit($uid,$this->config->item('credit_del'));
 				//更新数据库缓存
 				$this->db->cache_delete('/default', 'index');
-
-				$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('/node/show/'.$node_id).'";');
+				show_message('删除贴子成功！',site_url('/node/show/'.$node_id));
 			}
 		}else{
-			$this->myclass->notice('alert("您无权删除此贴");window.location.href="'.site_url('/topic/show/'.$topic_id).'";');
-			exit;
+			show_message('您无权删除此贴',site_url('/topic/show/'.$topic_id));
 			}
 		}
 

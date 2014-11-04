@@ -21,7 +21,7 @@ class Comment extends SB_Controller
 	public function add_comment ()
 	{
 		if(empty($this->uid)) {
-			$this->myclass->notice('alert("请登录后再发表");window.location.href="'.site_url('user/login/').'";');
+			show_message('请登录后再发表',site_url('user/login/'));
 		} else {
 		//数据提交
 		$data = array(
@@ -120,7 +120,7 @@ class Comment extends SB_Controller
 				redirect('topic/show/'.$topic_id);
 			}
 		} else {
-			$this->myclass->notice('alert("非管理员或非本版块版主不能操作");window.location.href="'.site_url('topic/show/'.$topic_id).'";');
+			show_message('非管理员或非本版块版主不能操作',site_url('topic/show/'.$topic_id));
 		}
 
 	}
@@ -130,9 +130,7 @@ class Comment extends SB_Controller
 	public function edit($node_id,$topic_id,$id)
 	{
 		if(empty($node_id) || empty($topic_id) || empty($id)){
-			$this->myclass->notice('alert("缺少参数哟")');
-			redirect('topic/show/'.$topic_id);
-			exit;
+			show_message('缺少参数哟',site_url('topic/show/'.$topic_id));
 		}
 		if($this->auth->is_admin() || $this->auth->is_master($node_id) || $this->auth->is_user($this->uid)){
 			$this->load->model('comment_m');
@@ -170,8 +168,7 @@ class Comment extends SB_Controller
 			$data['title'] = '编辑回贴';
 			$this->load->view('comment_edit',$data);
 		} else {
-			$this->myclass->notice('alert("非本人或管理员或本版块版主不能操作");window.location.href="'.site_url('topic/show/'.$topic_id).'";');
-			exit;
+			show_message('非本人或管理员或本版块版主不能操作',site_url('topic/show/'.$topic_id));
 		}
 
 	}

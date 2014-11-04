@@ -54,8 +54,7 @@ class User extends SB_Controller
 		
 		$data['title'] = '注册新用户';
 		if ($this->auth->is_login()) {
-			$this->myclass->notice('alert("已登录，请退出再注册");window.location.href="'.site_url().'";');
-			exit;
+			show_message('已登录，请退出再注册');
 		}
 		if($_POST && $this->validate_register_form()){
 			$password = $this->input->post('password',true);
@@ -79,11 +78,11 @@ class User extends SB_Controller
 			$check_username = $this->user_m->check_username($data['username']);
 			$captcha = $this->input->post('captcha_code');
 			if(!empty($check_register)){
-				$this->myclass->notice('alert("邮箱已注册，请换一个邮箱！");history.back();');
+				show_message('邮箱已注册，请换一个邮箱！');
 			} elseif(!empty($check_username)){
-				$this->myclass->notice('alert("用户名已存在!!");history.back();');
+				show_message('用户名已存在!!');
 				} elseif($this->input->post('password_c')!=$password){
-					$this->myclass->notice('alert("密码输入不一致!!");history.back();');
+					show_message('密码输入不一致!!');
 				} else {
 					if($this->user_m->register($data)){
 						$uid = $this->db->insert_id();
@@ -148,7 +147,6 @@ class User extends SB_Controller
 		$data['referer']=$data['referer']?$data['referer']: $this->input->server('HTTP_REFERER');
 		if($this->auth->is_login()){
 			redirect();
-			//$this->myclass->notice('alert("此用户已登录");window.location.href="/";');
 		}
 		if($_POST){
 			$username = $this->input->post('username',true);
@@ -156,7 +154,7 @@ class User extends SB_Controller
 			$user = $this->user_m->check_login($username, $password);
 			$captcha = $this->input->post('captcha_code');
 			if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha) {
-				$this->myclass->notice('alert("验证码不正确!!");history.go(-1);');
+				show_message('验证码不正确');
 			} elseif($user){
 				//更新session
 				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'password' =>$user['password'], 'group_type' => $user['group_type'], 'gid' => $user['gid']) );
@@ -169,7 +167,7 @@ class User extends SB_Controller
 				exit;
 				
 			} else {
-				$this->myclass->notice('alert("用户名或密码错误!!");history.back();');
+				show_message('用户名或密错误!');
 			}
 		} else {
 			$this->load->view('login',$data);
@@ -213,7 +211,7 @@ class User extends SB_Controller
 				$this->load->view('msg',$data);
 				//echo $this->email->print_debugger();
 			} else {
-				$this->myclass->notice('alert("用户名或邮箱错误!!");history.back();');
+				show_message('用户名或邮箱错误!!');
 			}
 		} else{
 			$data['title'] = '找回密码';
@@ -239,7 +237,7 @@ class User extends SB_Controller
 				}
 			}
 		} else{
-			$this->myclass->notice('alert("非法重置!!");history.back();');
+			show_message('非法重置！！');
 		}
 		$data['title'] = '设置新密码';
 		$data['p'] = $_GET['p'];

@@ -34,9 +34,6 @@
 
 <?php $this->load->view('block/right_ad');?>
 
-
-
-
 </div>
 </div></div></div>
 <?php $this->load->view ('footer'); ?>

@@ -212,13 +212,11 @@ class Admin_Controller extends Base_Controller
 		$this->load->library('myclass');
 		if(!$this->auth->is_login())
 		{
-			$this->myclass->notice('alert("管理员未登录或非管理员");window.location.href="'.site_url('user/login').'";');
-			exit;
+			show_message('管理员未登录或非管理员',site_url('user/login'));
 		}
 		if(!$this->auth->is_admin())
 		{
-			$this->myclass->notice('alert("无权访问此页");window.location.href="/";');
-			exit;
+			show_message('无权访问此页',site_url());
 		}
 	}
 }

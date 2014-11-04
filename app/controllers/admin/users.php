@@ -5,7 +5,6 @@ class Users extends Admin_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('myclass');
 	}
 
 	public function index ($page=1)
@@ -64,8 +63,7 @@ class Users extends Admin_Controller
 				array('value'=>$this->input->post('per_page_num'),'id'=>10)
 			);
 			$this->db->update_batch('settings', $str, 'id');
-			$this->myclass->notice('alert("网站设置更新成功");window.location.href="'.site_url('admin/site_settings').'";');
-			
+			show_message('网站设置更新成功',site_url('admin/site_settings'),1);			
 		}
 		$data['item'] = $this->db->get_where('settings',array('group_type'=>0))->result_array();		
 		$this->load->view('users', $data);
@@ -94,7 +92,7 @@ class Users extends Admin_Controller
 			);
 			$str['password'] = $this->input->post('password')!=''?md5($this->input->post('password')):$data['user']['password'];
 			if($this->user_m->update_user($uid, $str)){
-				$this->myclass->notice('alert("修改用户成功");window.location.href="'.site_url('admin/users/index').'";');
+				show_message('修改用户成功',site_url('admin/users/index'),1);
 			}
 
 		}
@@ -119,16 +117,14 @@ class Users extends Admin_Controller
 			$data['title'] = '添加用户组';
 			if(@$_POST['group_name']){
 				if($check_group){
-					$this->myclass->notice('alert("用户组已存在");window.location.href="'.site_url('admin/users/group/add').'";');
-					exit;
+					show_message('用户组已存在',site_url('admin/users/group/add'));
 				}
 				$str = array(
 					'group_name' => $this->input->post('group_name',true),
 					'group_type' => 2
 				);
 				if($this->db->insert('user_groups', $str)){
-					$this->myclass->notice('alert("添加用户组成功");window.location.href="'.site_url('admin/users/group/index').'";');
-					exit;
+					show_message('添加用户组成功',site_url('admin/users/group/index'),1);
 				}
 			}
 		}
@@ -136,24 +132,23 @@ class Users extends Admin_Controller
 			$data['title'] = '编辑用户组';
 			if(@$_POST['commit_edit']){
 				if($check_group){
-					$this->myclass->notice('alert("用户组已存在");window.location.href="'.site_url('admin/users/group/edit/'.$gid).'";');
-					exit;
+					show_message('用户组已存在',site_url('admin/users/group/edit/'.$gid));
 				}
 				$str = array(
 					'group_name' => $this->input->post('group_name',true)
 				);
 				if($this->db->where('gid',$gid)->update('user_groups', $str)){
-					$this->myclass->notice('alert("修改用户组成功");window.location.href="'.site_url('admin/users/group/index').'";');
+					show_message('修改用户组成功',site_url('admin/users/group/index'),1);
 				}
 			}
 		}
 		if($act == 'del'){
 			if(@$data['group_info']['group_type']>1){
 				if($this->db->where('gid',$gid)->delete('user_groups')){
-					$this->myclass->notice('alert("删除用户组成功");window.location.href="'.site_url('admin/users/group/index').'";');
+					show_message('删除用户组成功',site_url('admin/users/group/index'),1);
 				}
 			} else {
-				$this->myclass->notice('alert("无法删除系统用户组");window.location.href="'.site_url('admin/users/group/index').'";');
+				show_message('无法删除系统用户组',site_url('admin/users/group/index'));
 			}
 		}
 		$this->load->view('users', $data);
@@ -164,9 +159,9 @@ class Users extends Admin_Controller
 	{	
 		$uid=$this->uri->segment(4);
 		if(empty($uid)){
-			$this->myclass->notice('alert("uid不能为空");window.location.href="'.site_url('admin/users/index').'";');
+			show_message('uid不能为空',site_url('admin/users/index'));
 		} elseif($this->db->delete('users',array('uid'=>$uid))){
-			$this->myclass->notice('alert("删除用户成功");window.location.href="'.site_url('admin/users/index').'";');
+			show_message('删除用户成功',site_url('admin/users/index'),1);
 		}
 	}
 

@@ -361,7 +361,11 @@ function password_dohash($password,$salt)
 	$salt=$salt?$salt:get_salt();
 	return md5(md5($password).$salt);
 }
-
-
+/*返回信息*/
+function show_message($message='', $url='', $status = 2, $heading='提示信息', $time = 1800)
+{
+    include APPPATH.'errors/show_message.php';
+    exit;
+}
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */

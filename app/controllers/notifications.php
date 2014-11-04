@@ -16,8 +16,7 @@ class Notifications extends SB_Controller
 		$this->load->model('notifications_m');
 		$uid = $this->session->userdata('uid');
 		if(!$this->auth->is_user($uid)){
-			$this->myclass->notice('alert("非法用户uid");window.location.href="'.site_url('/').'";');
-			exit;
+			show_message('非法用户uid',site_url());
 		}
 	}
 

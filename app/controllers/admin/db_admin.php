@@ -5,8 +5,6 @@ class db_admin extends Admin_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('myclass');
-
 
 	}
 

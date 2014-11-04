@@ -20,9 +20,9 @@ class Nodes extends Admin_Controller
 	public function del($node_id)
 	{
 		$data['title'] = '删除分类';
-		$this->myclass->notice('alert("确定再删除吗！");');
+		//$this->myclass->notice('alert("确定再删除吗！");');
 		$this->cate_m->del_cate($node_id);
-		$this->myclass->notice('alert("删除分类成功！");window.location.href="'.site_url('admin/nodes').'";');		
+		show_message('删除分类成功！',site_url('admin/nodes'),1);	
 
 	}
 	private function data_post($arr)
@@ -52,7 +52,7 @@ class Nodes extends Admin_Controller
 		if($_POST){
 			$str=$this->data_post($_POST);//引用
 			$this->cate_m->add_cate($str);
-			$this->myclass->notice('alert("添加分类成功");window.location.href="'.site_url('admin/nodes').'";');
+			show_message('添加分类成功',site_url('admin/nodes'),1);
 		}
 		$pid=0;
 		$data['cates']=$this->cate_m->get_cates_by_pid($pid);
@@ -67,7 +67,7 @@ class Nodes extends Admin_Controller
 		if($_POST){
 			$pid = $this->input->post('pid');
 			$this->cate_m->move_cate($node_id,$pid);
-			$this->myclass->notice('alert("移动分类成功");window.location.href="'.site_url('admin/nodes').'";');
+			show_message('移动分类成功',site_url('admin/nodes'),1);
 		}
 		$pid=0;
 		$data['node_id']=$this->uri->segment(4);
@@ -81,10 +81,10 @@ class Nodes extends Admin_Controller
 		if($_POST){
 			$str = $this->data_post($_POST);//引用
 			if($this->cate_m->update_cate($node_id, $str)){
-				$this->myclass->notice('alert("修改分类成功");window.location.href="'.site_url('admin/nodes').'";');
+				show_message('修改分类成功',site_url('admin/nodes'),1);
 			} else
 			{
-				$this->myclass->notice('alert("分类未做修改");window.location.href="'.site_url('admin/nodes').'";');
+				show_message('分类未做修改',site_url('admin/nodes'));
 			}
 
 		}

@@ -5,7 +5,6 @@ class Page extends Admin_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('myclass');
 		$this->load->model('page_m');
 
 	}
@@ -52,10 +51,10 @@ class Page extends Admin_Controller
 	public function del($pid)
 	{
 		$data['title'] = '删除页面';
-		$this->myclass->notice('alert("确定要删除此页面吗！");');
+		//$this->myclass->notice('alert("确定要删除此页面吗！");');
 		//删除链接
 		if($this->page_m->del_page($pid)){
-		$this->myclass->notice('alert("删除页面成功！");window.location.href="'.site_url('admin/page').'";');
+			show_message('删除页面成功！',site_url('admin/page'),1);
 		}
 
 	}
@@ -72,7 +71,7 @@ class Page extends Admin_Controller
 				'add_time'=>time()
 			);
 			if($this->page_m->update_page($pid, $str)){
-				$this->myclass->notice('alert("修改页面成功");window.location.href="'.site_url('admin/page').'";');
+				show_message('修改页面成功！',site_url('admin/page'),1);
 			}
 
 		}
@@ -93,7 +92,7 @@ class Page extends Admin_Controller
 				'add_time'=>time()
 			);
 			if($this->page_m->add_page($str)){
-			$this->myclass->notice('alert("添加页面成功！");window.location.href="'.site_url('admin/page').'";');
+				show_message('添加页面成功！',site_url('admin/page'),1);
 			}
 
 		}

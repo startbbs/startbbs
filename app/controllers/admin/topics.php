@@ -5,7 +5,6 @@ class Topics extends Admin_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('myclass');
 		$this->load->model('cate_m');
 		$this->load->model('topic_m');
 		$this->load->model('comment_m');
@@ -54,11 +53,11 @@ class Topics extends Admin_Controller
 	public function del($topic_id,$node_id,$uid)
 	{
 		$data['title'] = '删除贴子';
-		$this->myclass->notice('alert("确定要删除此话题吗！");');
+		//$this->myclass->notice('alert("确定要删除此话题吗！");');
 		//删除贴子及它的回复
 		if($this->topic_m->del_topic($topic_id,$node_id,$uid)){
 		$this->comment_m->del_comments_by_topic_id($topic_id,$uid);
-		$this->myclass->notice('alert("删除贴子成功！");window.location.href="'.site_url('admin/topics').'";');
+		show_message('删除贴子成功！',site_url('admin/topics'),1);
 		}
 
 	}
@@ -74,7 +73,7 @@ class Topics extends Admin_Controller
 				'keywords'=>$this->input->post('keywords')
 			);
 			if($this->cate_m->update_cate($node_id, $str)){
-				$this->myclass->notice('alert("修改分类成功");window.location.href="'.site_url('admin/nodes').'";');
+				show_message('修改分类成功！',site_url('admin/nodes'),1);
 			}
 
 		}
@@ -95,12 +94,12 @@ class Topics extends Admin_Controller
 		$topic_ids = array_slice($this->input->post(), 0, -1);
 		if($this->input->post('batch_del')){
 			if($this->db->where_in('topic_id',$topic_ids)->delete('topics')){
-				$this->myclass->notice('alert("批量删除贴子成功！");window.location.href="'.site_url('admin/topics').'";');
+				show_message('批量删除贴子成功！',site_url('admin/topics'),1);
 			}
 		}
 		if($this->input->post('batch_approve')){
 			if($this->db->where_in('topic_id',$topic_ids)->update('topics', array('is_hidden'=>0))){
-				$this->myclass->notice('alert("批量审核贴子成功！");window.location.href="'.site_url('admin/topics').'";');
+				show_message('批量审核贴子成功！',site_url('admin/topics'),1);
 			}
 		}
 	}
@@ -108,7 +107,7 @@ class Topics extends Admin_Controller
 	public function approve($topic_id)
 	{
 		if($this->db->where('topic_id',$topic_id)->update('topics', array('is_hidden'=>0))){
-			$this->myclass->notice('alert("审核贴子成功！");window.location.href="'.site_url('admin/topics').'";');
+			show_message('审核贴子成功！',site_url('admin/topics'),1);
 		} else {
 			return false;
 		}

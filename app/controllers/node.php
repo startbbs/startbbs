@@ -79,7 +79,7 @@ class Node extends SB_Controller
 	{
 		//权限
 		if(!$this->auth->user_permit($node_id)){
-			$this->myclass->notice('alert("您无限访问此节点");window.location.href="'.site_url('/').'";');
+			show_message('您无限访问此节点',site_url());
 		} else {
 			//分页
 			$limit = 10;

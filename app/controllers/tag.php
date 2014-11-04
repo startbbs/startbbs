@@ -51,7 +51,7 @@ class Tag extends SB_Controller
 			
 			$this->load->view('tag_show',$data);
 		} else {
-			$this->myclass->notice('alert("标签不存在");window.location.href="'.site_url('/').'";');
+			show_message('标签不存在',site_url());
 		}
 
 	}
