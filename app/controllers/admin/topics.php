@@ -8,6 +8,11 @@ class Topics extends Admin_Controller
 		$this->load->model('cate_m');
 		$this->load->model('topic_m');
 		$this->load->model('comment_m');
+		/** 检查登陆 */
+		if(!$this->auth->is_admin())
+		{
+			show_message('非管理员或未登录',site_url('admin/login/do_login'));
+		}
 
 	}
 

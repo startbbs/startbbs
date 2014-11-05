@@ -7,6 +7,11 @@ class Nodes extends Admin_Controller
 		parent::__construct();
 		$this->load->library('myclass');
 		$this->load->model('cate_m');
+		/** 检查登陆 */
+		if(!$this->auth->is_admin())
+		{
+			show_message('非管理员或未登录',site_url('admin/login/do_login'));
+		}
 	}
 
 	public function index ()

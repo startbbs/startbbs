@@ -180,7 +180,6 @@ class User extends SB_Controller
 		$this->load->helper('cookie');
 		delete_cookie('uid');
 		delete_cookie('username');
-		delete_cookie('password');
 		delete_cookie('group_type');
 		delete_cookie('gid');
 		delete_cookie('openid');

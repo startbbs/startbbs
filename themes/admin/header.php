@@ -7,7 +7,7 @@
 
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo site_url()?>" target=_blank>前台首页</a></li>
+            <li><a href="<?php echo site_url()?>" target=_blank>前台首页</a></li>
 
             <!--<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -29,10 +29,10 @@
 			<?php if($this->auth->is_admin()){ ?>
 			<li class=""><a href="<?php echo site_url('admin/login')?>">管理后台</a></li>
 			<?php }?>
-			<li><a href="<?php echo site_url('user/logout')?>" data-method="delete" rel="nofollow">退出</a></li>
+			<li><a href="<?php echo site_url('admin/login/logout')?>" data-method="delete" rel="nofollow">退出</a></li>
 			<?php }else{?>
             <li><a href="<?php echo site_url('user/register')?>">注册</a></li>
-            <li><a href="<?php echo site_url('user/login')?>">登入</a></li>
+            <li><a href="<?php echo site_url('admin/login/do_login')?>">登入</a></li>
             <?php }?>
           </ul>
         </div><!--/.nav-collapse -->

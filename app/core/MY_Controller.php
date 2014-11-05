@@ -205,19 +205,6 @@ class Admin_Controller extends Base_Controller
 			'per_page_num'=>$data['items'][9]['value']
 		 );
 		$this->load->vars($data);
-		/** 加载验证库 */
-		$this->load->library('auth');
-		/** 检查登陆 */	
-		$group_type = $this->session->userdata('group_type');
-		$this->load->library('myclass');
-		if(!$this->auth->is_login())
-		{
-			show_message('管理员未登录或非管理员',site_url('user/login'));
-		}
-		if(!$this->auth->is_admin())
-		{
-			show_message('无权访问此页',site_url());
-		}
 	}
 }
 

@@ -5,6 +5,11 @@ class Users extends Admin_Controller
 	function __construct()
 	{
 		parent::__construct();
+		/** 检查登陆 */
+		if(!$this->auth->is_admin())
+		{
+			show_message('非管理员或未登录',site_url('admin/login/do_login'));
+		}
 	}
 
 	public function index ($page=1)
