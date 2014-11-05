@@ -67,21 +67,11 @@ class Auth
 
 	public function is_login(){
 		$uid=$this->_CI->session->userdata('uid');
-		$password=$this->_CI->session->userdata('password');
-		$openid=$this->_CI->session->userdata('openid');
-		if(empty($password)){
-			$query=$this->_CI->db->get_where('users',array('uid'=>$uid,'openid'=>$openid));
-		} else{
-			$query=$this->_CI->db->get_where('users',array('uid'=>$uid,'password'=>$password));
-		}
-		if(!count($query->row())){
-				$user['lastlogin'] = time();
-				//$user['token'] = sha1(time().rand());
-				$this->_CI->user_m->update_user($uid,$user);
-				return false;
+		if(!$uid){
+			//$user['token'] = sha1(time().rand());
+			return false;
 		}else{
 			return true;
-			
 		}
 	}
 	

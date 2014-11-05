@@ -14,7 +14,6 @@ class User extends SB_Controller
 	{
 		parent::__construct();
 		$this->load->model ('user_m');
-		$this->load->library('myclass');
 
 	}
 
@@ -83,7 +82,7 @@ class User extends SB_Controller
 			}
 			if($this->user_m->register($data)){
 				$uid = $this->db->insert_id();
-				$this->session->set_userdata(array ('uid' => $uid, 'username' => $data['username'], 'password' =>$data['password'], 'group_type' => $data['group_type'], 'gid' => $data['gid']) );
+				$this->session->set_userdata(array ('uid' => $uid, 'username' => $data['username'], 'group_type' => $data['group_type'], 'gid' => $data['gid']) );
 				//去除验证码session
 				$this->session->unset_userdata('yzm');
 				redirect();
@@ -151,13 +150,16 @@ class User extends SB_Controller
 			$captcha = $this->input->post('captcha_code');
 			if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha) {
 				show_message('验证码不正确');
-			} elseif($user){
+			}
+			if($user){
 				//更新session
-				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'password' =>$user['password'], 'group_type' => $user['group_type'], 'gid' => $user['gid']) );
+				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid']));
 
 				//更新积分
 				$this->config->load('userset');
 				$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
+				//更新最后登录时间
+				$this->user_m->update_user($user['uid'],array('lastlogin'=>time()));
 				header("location: ".$data['referer']);
 				//redirect($data['referer']);
 				exit;
@@ -182,9 +184,7 @@ class User extends SB_Controller
 		delete_cookie('group_type');
 		delete_cookie('gid');
 		delete_cookie('openid');
-		
-		Header("Location: ".site_url('user/login'));
-		exit;
+		redirect('user/login');
 	}
 
 
@@ -228,7 +228,7 @@ class User extends SB_Controller
 			if($_POST){
 				$password = $this->input->post('password');
 				if($this->user_m->update_user(@$data['uid'], array('password'=>$password))){
-					$this->session->set_userdata(array ('uid' => $data['uid'], 'username' => $array['0'],'password' => $password, 'group_type' => $data['group_type'], 'gid' => $data['gid']));
+					$this->session->set_userdata(array ('uid' => $data['uid'], 'username' => $array['0'], 'group_type' => $data['group_type'], 'gid' => $data['gid']));
 					redirect('/');
 				}
 			}
