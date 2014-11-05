@@ -454,6 +454,17 @@ Phpmail
 </div>
 </div>
 
+<div class='form-group'>
+<label class="col-sm-3 control-label" for="protocol">发送注册邮件：</label>
+<div class='col-sm-5'>
+<label class='radio-inline'>
+<input<?php if($this->config->item('mail_reg') =='on'){ ?> checked="checked"<?php } ?> id="settings_mail_reg" name="mail_reg" type="radio" value="on" />开启</label>
+<label class='radio-inline'>
+<input<?php if($this->config->item('mail_reg') =='off'){ ?> checked="checked"<?php } ?> id="settings_mail_reg" name="mail_reg" type="radio" value="off" />关闭</label>
+</div>
+</div>
+
+
 <hr>
 
 <div class="form-group">

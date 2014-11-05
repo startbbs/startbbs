@@ -50,7 +50,7 @@ class User extends SB_Controller
 
 		//加载form类，为调用错误函数,需view前加载
 		$this->load->helper('form');
-		
+
 		$data['title'] = '注册新用户';
 		if ($this->auth->is_login()) {
 			show_message('已登录，请退出再注册');
@@ -86,9 +86,14 @@ class User extends SB_Controller
 				//去除验证码session
 				$this->session->unset_userdata('yzm');
 				//发送注册邮件
-				send_mail($data['email'],'成功注册StartBBS','谢谢你的注册，欢迎！');
-				echo $this->email->print_debugger();
-				//redirect();
+				if($this->config->item('mail_reg')=='on'){
+					$subject='欢迎加入'.$this->config->item('site_name');
+					$message='欢迎来到 '.$this->config->item('site_name').' 论坛<br/>请妥善保管这封信件。您的帐户信息如下所示：<br/>----------------------------<br/>用户名：'.$data['username'].'<br/>论坛链接: '.site_url().'<br/>----------------------------<br/><br/>感谢您的注册！<br/><br/>-- <br/>'.$this->config->item('site_name');
+					send_mail($data['email'],$subject,$message);
+					//echo $this->email->print_debugger();
+				}
+
+				redirect();
 			}
 
 		} else{

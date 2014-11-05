@@ -99,6 +99,7 @@ class Site_settings extends Admin_Controller
 			$this->config->update('mailset','smtp_port', $this->input->post('smtp_port'));
 			$this->config->update('mailset','smtp_user', $this->input->post('smtp_user'));
 			$this->config->update('mailset','smtp_pass', $this->input->post('smtp_pass'));
+			$this->config->update('mailset','mail_reg', $this->input->post('mail_reg'));
 			show_message('邮件配置更新成功',site_url('admin/site_settings'),1);
 		}
 
