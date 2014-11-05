@@ -85,7 +85,10 @@ class User extends SB_Controller
 				$this->session->set_userdata(array ('uid' => $uid, 'username' => $data['username'], 'group_type' => $data['group_type'], 'gid' => $data['gid']) );
 				//去除验证码session
 				$this->session->unset_userdata('yzm');
-				redirect();
+				//发送注册邮件
+				send_mail($data['email'],'成功注册StartBBS','谢谢你的注册，欢迎！');
+				echo $this->email->print_debugger();
+				//redirect();
 			}
 
 		} else{
@@ -197,7 +200,7 @@ class User extends SB_Controller
 				$string = base64_encode($username.".".$x);
 				$subject ='重置密码';
 				$message = '尊敬的用户'.$username.':<br/>你使用了本站提供的密码找回功能，如果你确认此密码找回功能是你启用的，请点击下面的链接，按流程进行密码重设。<br/><a href="'.site_url("user/resetpwd?p=").$string.'">'.site_url('user/reset_pwd?p=').$string.'</a><br/>如果不能打开链接，请复制链接到浏览器中。<br/>如果本次密码重设请求不是由你发起，你可以安全地忽略本邮件。';
-			if(send_mail($username,@$data['password'],$this->input->post('email'),$subject,$message)){
+			if(send_mail($this->input->post('email'),$subject,$message)){
 				$data['msg'] = '密码重置链接已经发到您邮箱:'.$data['email'].',请注意查收！';
 				}else{
 					$data['msg'] = '没有发送成功';

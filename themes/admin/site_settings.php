@@ -42,10 +42,9 @@
 <li class="active"><a href="#tab1" data-toggle="tab">网站设定</a></li>
 <li><a href="#tab2" data-toggle="tab">话题设定</a></li>
 <li><a href="#tab3" data-toggle="tab">用户设定</a></li>
-<li><a href="#tab4" data-toggle="tab">登录接口</a></li>
-<li><a href="#tab5" data-toggle="tab">邮件配置</a></li>
-<li><a href="#tab6" data-toggle="tab">自定义url</a></li>
-<li><a href="#tab7" data-toggle="tab">存储设定</a></li>
+<li><a href="#tab4" data-toggle="tab">邮件配置</a></li>
+<li><a href="#tab5" data-toggle="tab">自定义url</a></li>
+<li><a href="#tab6" data-toggle="tab">存储设定</a></li>
 <!--<li><a href="#tab5" data-toggle="tab">备用</a></li>-->
 </ul>
 <div class="tab-content">
@@ -414,7 +413,9 @@
 <label class="col-sm-3 control-label" for="protocol">邮件发送方式：</label>
 <div class='col-sm-5'>
 <label class='radio-inline'>
-<input<?php if($this->config->item('protocol') =='smtp'){ ?> checked="checked"<?php } ?> id="settings_protocol" name="protocol" type="radio" value="smtp" />Smtp</label>
+<input<?php if($this->config->item('protocol') =='smtp'){ ?> checked="checked"<?php } ?> id="settings_protocol" name="protocol" type="radio" value="smtp" />Smtp方式</label>
+<label class='radio-inline'>
+<input<?php if($this->config->item('protocol') =='mail'){ ?> checked="checked"<?php } ?> id="settings_protocol" name="protocol" type="radio" value="mail" />Mail方式</label>
 <!--<label class='radio-inline'>
 <input<?php if($item['10']['value'] =='off'){ ?> checked="checked"<?php } ?> id="settings_is_rewrite_off" name="is_rewrite" type="radio" value="off" />
 Phpmail

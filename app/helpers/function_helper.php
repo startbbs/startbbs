@@ -170,7 +170,7 @@ function get_domain($url=''){
 	
 //$str=stripslashes($str);
 		
-function send_mail($username,$password,$to,$subject,$message)
+function send_mail($to,$subject,$message)
 {
 	$ci	= &get_instance();
 	$config['protocol']=$ci->config->item('protocol');
