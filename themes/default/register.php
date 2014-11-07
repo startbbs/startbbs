@@ -42,16 +42,17 @@
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_password_confirmation">密码确认</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_password_confirmation" name="password_c" size="50" type="password" value="<?php echo set_value('password_c'); ?>" /><span class="help-inline red"><?php echo form_error('password_c');?></span>
+<input class="form-control" id="user_password_confirmation" name="password_confirm" size="50" type="password" value="<?php echo set_value('password_confirm'); ?>" /><span class="help-inline red"><?php echo form_error('password_confirm');?></span>
 </div></div>
 <?php if($this->config->item('show_captcha')=='on'){?>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="captcha_code">验证码</label>
 <div class="col-sm-3">
 <input class="form-control" id="captcha_code" name="captcha_code" size="50" type="text" value="<?php echo set_value('captcha_code'); ?>" />
+<span class="help-inline red"><?php echo form_error('captcha_code');?></span>
 </div>
 <div class="col-sm-3">
-<span class="help-inline red"> <a href="javascript:reloadcode();" title="更换一张验证码图片"><img src="<?php echo site_url('captcha_code');?>" name="checkCodeImg" id="checkCodeImg" border="0" /></a> <a href="javascript:reloadcode();">换一张</a><?php echo form_error('captcha_code');?></span>
+<a href="javascript:reloadcode();" title="更换一张验证码图片"><img src="<?php echo site_url('captcha_code');?>" name="checkCodeImg" id="checkCodeImg" border="0" /></a> <a href="javascript:reloadcode();">换一张</a>
 </div>
 </div>
 <script language="javascript">

@@ -23,18 +23,20 @@
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_nickname">用户名</label>
 <div class="col-sm-5">
-<input autofocus="autofocus" class="form-control" id="user_nickname" name="username" size="50" type="text" />
+<input autofocus="autofocus" class="form-control" id="user_nickname" name="username" size="50" type="text" value="<?php echo set_value('username'); ?>"/><span class="help-inline red"><?php echo form_error('username');?></span>
 </div></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_password">密码</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_password" name="password" size="50" type="password" />
+<input class="form-control" id="user_password" name="password" size="50" type="password" value="<?php echo set_value('password'); ?>"/>
+<span class="help-inline red"><?php echo form_error('password');?></span>
 </div></div>
 <?php if($this->config->item('show_captcha')=='on'){?>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="captcha_code">验证码</label>
 <div class="col-sm-4">
-<input class="form-control" id="captcha_code" name="captcha_code" size="50" type="text" value="" />
+<input class="form-control" id="captcha_code" name="captcha_code" size="50" type="text"  value="<?php echo set_value('captcha_code'); ?>"/>
+<span class="help-inline red"><?php echo form_error('captcha_code');?></span>
 </div>
 <div class="col-sm-3">
 <a href="javascript:reloadcode();" title="更换一张验证码图片"><img src="<?php echo site_url('captcha_code');?>" name="checkCodeImg" id="checkCodeImg" border="0" /></a> <a href="javascript:reloadcode();">换一张</a>

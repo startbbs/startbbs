@@ -14,6 +14,7 @@ class User extends SB_Controller
 	{
 		parent::__construct();
 		$this->load->model ('user_m');
+		$this->load->library('form_validation');
 
 	}
 
@@ -55,7 +56,7 @@ class User extends SB_Controller
 		if ($this->auth->is_login()) {
 			show_message('已登录，请退出再注册');
 		}
-		if($_POST && $this->validate_register_form()){
+		if($_POST && $this->form_validation->run() === TRUE){
 			$password = $this->input->post('password',true);
 			$salt =get_salt();
 			$this->config->load('userset');//用户积分
@@ -71,15 +72,6 @@ class User extends SB_Controller
 				'regtime' => time(),
 				'is_active' => 1
 			);
-			$check_register = $this->user_m->check_register($data['email']);
-			$check_username = $this->user_m->check_username($data['username']);
-			$captcha = $this->input->post('captcha_code');
-			if(!empty($check_username)){
-				show_message('用户名已存在!!');
-			}
-			if(!empty($check_register)){
-				show_message('邮箱已注册，请换一个邮箱！');
-			}
 			if($this->user_m->register($data)){
 				$uid = $this->db->insert_id();
 				$this->session->set_userdata(array ('uid' => $uid, 'username' => $data['username'], 'group_type' => $data['group_type'], 'gid' => $data['gid']) );
@@ -101,44 +93,21 @@ class User extends SB_Controller
 		}
 	}
 	
-	public function username_check($username)
+	public function _check_username($username)
 	{  
 		if(!preg_match('/^(?!_)(?!.*?_$)[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u', $username)){
-			$this->form_validation->set_message('username_check', '%s 只能含有汉字、数字、字母、下划线（不能开头或结尾)');
   			return false;
 		} else{
 			return true;
 		}
 	}
 
-	public function check_captcha($captcha)
+	public function _check_captcha($captcha)
 	{
-		if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha){
-			$this->form_validation->set_message('check_captcha', '%s 不正确!!');
+		if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=strtolower($captcha)){
   			return false;
 		} else{
 			return true;
-		}
-	}
-	
-	private function validate_register_form(){
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('email', 'Email' , 'trim|required|min_length[3]|max_length[50]|valid_email');
-		$this->form_validation->set_rules('username', '昵称' , 'trim|required|min_length[3]|max_length[15]|callback_username_check|xss_clean');
-		$this->form_validation->set_rules('password', '用户密码' , 'trim|required|min_length[6]|max_length[40]|matches[password_c]');
-		$this->form_validation->set_rules('password_c', '密码验证' , 'trim|required|min_length[6]|max_length[40]');
-		$this->form_validation->set_rules('captcha_code', '验证码' , 'trim|required|callback_check_captcha');
-		$this->form_validation->set_message('required', "%s 不能为空！");
-		$this->form_validation->set_message('min_length', "%s 最小长度不少于 %s 个字符或汉字！");
-		$this->form_validation->set_message('max_length', "%s 最大长度不多于 %s 个字符或汉字！");
-		$this->form_validation->set_message('matches', "两次密码不一致");
-		$this->form_validation->set_message('valid_email', "邮箱格式不对");
-		$this->form_validation->set_message('alpha_dash', "邮箱格式不对");
-		if ($this->form_validation->run() == FALSE){
-			return FALSE;
-		}else{
-			return TRUE;
 		}
 	}
 	
@@ -151,14 +120,10 @@ class User extends SB_Controller
 		if($this->auth->is_login()){
 			redirect();
 		}
-		if($_POST){
+		if($_POST && $this->form_validation->run() === TRUE){
 			$username = $this->input->post('username',true);
 			$password = $this->input->post('password',true);
 			$user = $this->user_m->check_login($username, $password);
-			$captcha = $this->input->post('captcha_code');
-			if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha) {
-				show_message('验证码不正确');
-			}
 			if($user){
 				//更新session
 				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid']));
