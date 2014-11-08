@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-
+$CI =& get_instance();
 $config = array(
 	'user/register' => array(
 		array(
@@ -48,6 +48,42 @@ $config = array(
         )
 		
 	),
+
+    'topic/add' => array(
+        array(
+            'field' => 'title',
+            'label' => '标题',
+            'rules' => 'trim|required|htmlspecialchars|xss_clean|min_length[4]|max_length[60]'
+        ),
+        array(
+            'field' => 'content',
+            'label' => '内容',
+            'rules' => 'trim|required|htmlspecialchars|min_length[8]|max_length['.$CI->config->item('words_limit').']|xss_clean'
+        ),
+        array(
+            'field' => 'node_id',
+            'label' => '栏目',
+            'rules' => 'trim|required'
+        )
+    ),
+
+    'topic/edit' => array(
+        array(
+            'field' => 'title',
+            'label' => '标题',
+            'rules' => 'trim|required|htmlspecialchars|xss_clean|min_length[4]|max_length[60]'
+        ),
+        array(
+            'field' => 'content',
+            'label' => '内容',
+            'rules' => 'trim|required|htmlspecialchars|min_length[8]|max_length['.$CI->config->item('words_limit').']|xss_clean'
+        ),
+        array(
+            'field' => 'node_id',
+            'label' => '栏目',
+            'rules' => 'trim|required'
+        )
+    ),
 
     'auth/register' => array(
         array(

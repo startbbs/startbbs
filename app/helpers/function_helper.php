@@ -128,48 +128,48 @@ function get_domain($url=''){
 		$data = str_replace('</p><br />','</p>',$data);
 		return $data = strip_tags($data,"<p> <font> <img> <b> <strong> <br> <pre> <br /> <span>");
 	}*/
-	//无编辑器的过滤
-	function filter_check ($str)
-	{
-		
-		$pattern="/<pre[^>]*>(.*?)<\/pre>/si";
-		preg_match_all($pattern, $str, $matches);
-		$str=htmlspecialchars_decode($str);
-		$str=stripslashes($str);
-		if($matches[1]){
-			foreach($matches[1] as $v){
-				$replace[]= addslashes(htmlspecialchars(trim($v)));
-			}
-			$str = str_replace($matches[1], $replace, $str);
-		} else{
-			$str=strip_tags($str,"<img> <pre> <a> <font> <span> <em>");
+//无编辑器的过滤
+function filter_check ($str)
+{
+	
+	$pattern="/<pre[^>]*>(.*?)<\/pre>/si";
+	preg_match_all($pattern, $str, $matches);
+	$str=htmlspecialchars_decode($str);
+	$str=stripslashes($str);
+	if($matches[1]){
+		foreach($matches[1] as $v){
+			$replace[]= addslashes(htmlspecialchars(trim($v)));
 		}
-		$str = nl2br($str);
-		
-		return $str;
+		$str = str_replace($matches[1], $replace, $str);
+	} else{
+		$str=strip_tags($str,"<img> <pre> <a> <font> <span> <em>");
 	}
+	$str = nl2br($str);
+	
+	return $str;
+}
 
-	//过滤
-	function filter_code($str)
-	{
-		$str=htmlspecialchars_decode($str);
-		$pattern="/<pre[^>]*>(.*?)<\/pre>/si";
-		preg_match_all($pattern, $str, $matches);
-		if($matches[1]){
-			foreach($matches[1] as $v){
-				$replace= trim(htmlentities($v));
-				$str = str_replace($v, $replace, $str);
-			}
-			$str =strip_tags($str,"<img> <pre> <a> <font> <span> <em> <p> <b>");
-		}else{
-			$str =strip_tags($str,"<img> <pre> <a> <font> <span> <em> <p> <b>");
-			$str = trim(nl2br($str));
+//过滤
+function filter_code($str)
+{
+	$str=htmlspecialchars_decode($str);
+	$pattern="/<pre[^>]*>(.*?)<\/pre>/si";
+	preg_match_all($pattern, $str, $matches);
+	if($matches[1]){
+		foreach($matches[1] as $v){
+			$replace= trim(htmlentities($v));
+			$str = str_replace($v, $replace, $str);
 		}
-		return $str;
+		$str =strip_tags($str,"<img> <pre> <a> <font> <span> <em> <p> <b>");
+	}else{
+		$str =strip_tags($str,"<img> <pre> <a> <font> <span> <em> <p> <b>");
+		$str = trim(nl2br($str));
 	}
+	return $str;
+}
 	
 //$str=stripslashes($str);
-		
+/*发送邮件*/
 function send_mail($to,$subject,$message)
 {
 	$ci	= &get_instance();
@@ -334,19 +334,19 @@ function xss_clean1($data)
 		 return $key;
 	}
 
-	function get_url_content($url)
-	{
-		if(function_exists('file_get_contents')){
-			return file_get_contents($url);
-		} elseif(function_exists('curl_init')){
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL,$url);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			return curl_exec($ch);
-		}
+function get_url_content($url)
+{
+	if(function_exists('file_get_contents')){
+		return file_get_contents($url);
+	} elseif(function_exists('curl_init')){
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL,$url);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		return curl_exec($ch);
 	}
+}
 
 /*生成盐salt*/
 
@@ -378,5 +378,38 @@ function get_onlineip() {
     }
      
 }
+/*补全代码*/
+function closetags($html) { 
+	// 不需要补全的标签 
+	$arr_single_tags = array('meta', 'img', 'br', 'link', 'area'); 
+	// 匹配开始标签 
+	preg_match_all('#<([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result); 
+	$openedtags = $result[1]; 
+	// 匹配关闭标签 
+	preg_match_all('#</([a-z]+)>#iU', $html, $result); 
+	$closedtags = $result[1]; 
+	// 计算关闭开启标签数量，如果相同就返回html数据 
+	$len_opened = count($openedtags); 
+	if (count($closedtags) == $len_opened) { 
+		return $html; 
+	} 
+	// 把排序数组，将最后一个开启的标签放在最前面 
+	$openedtags = array_reverse($openedtags); 
+	// 遍历开启标签数组 
+	for ($i = 0; $i < $len_opened; $i++) { 
+		// 如果需要补全的标签 
+		if (!in_array($openedtags[$i], $arr_single_tags)) { 
+		// 如果这个标签不在关闭的标签中 
+			if (!in_array($openedtags[$i], $closedtags)) { 
+			// 直接补全闭合标签 
+				$html .= '</' . $openedtags[$i] . '>'; 
+			} else { 
+				unset($closedtags[array_search($openedtags[$i], $closedtags)]); 
+			} 
+		} 
+	} 
+	return $html; 
+}
+
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */

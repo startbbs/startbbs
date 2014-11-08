@@ -37,7 +37,7 @@
 <div class="form-group">
 <div class="col-md-6">
 <label for="topic_title">标题</label>
-<input class="form-control" id="topic_title" name="title" type="text" value="<?php echo set_value('title'); ?>" /></div>
+<input class="form-control" id="topic_title" name="title" type="text" value="<?php echo htmlspecialchars_decode(set_value('title')); ?>" /></div>
 <span class="help-inline red"><?php echo form_error('title');?></span>
 </div>
 

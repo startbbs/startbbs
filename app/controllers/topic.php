@@ -16,6 +16,7 @@ class topic extends SB_controller
 		$this->load->model('topic_m');
 		$this->load->model('cate_m');
 		$this->load->library('myclass');
+		$this->load->library('form_validation');
 	}
 
 	public function show ($topic_id=1,$page=1)
@@ -161,9 +162,9 @@ class topic extends SB_controller
 			$this->session->set_flashdata('error', '发帖最小间隔时间是'.$this->config->item('timespan').'秒!');
 			//exit;
 		} else {
-			if($_POST && $this->validate_add_form()){
+			if($_POST && $this->form_validation->run() === TRUE){
 				$data = array(
-					'title' => $this->input->post ('title',true),
+					'title' => $this->input->post ('title'),
 					'content' => filter_code($this->input->post ('content')),
 					'node_id' => $node_id,
 					'uid' => $uid,
@@ -237,24 +238,6 @@ class topic extends SB_controller
 		
 	}
 
-	
-	private function validate_add_form(){
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('title', '标题' , 'trim|required|strip_tags|htmlspecialchars|min_length[4]|max_length[80]');
-		$this->form_validation->set_rules('content', '内容' , 'trim|required|min_length[6]|max_length['.$this->config->item('words_limit').']');
-		$this->form_validation->set_rules('node_id', '栏目' , 'trim|required');
-		
-		$this->form_validation->set_message('required', "%s 不能为空！");
-		$this->form_validation->set_message('min_length', "%s 最小长度不少于 %s 个字符！");
-		$this->form_validation->set_message('xss_clean', "%s 非法字符！");
-		$this->form_validation->set_message('max_length', "%s 字数最大长度不多于 %s 个字符！");
-		if ($this->form_validation->run() == FALSE){
-			return FALSE;
-		}else{
-			return TRUE;
-		}
-	}
 	public function edit($topic_id)
 	{
 		//加载form类，为调用错误函数,需view前加载
@@ -272,7 +255,7 @@ class topic extends SB_controller
 			//反转义
 			$data['item']['content']=stripslashes($data['item']['content']);
 
-			if($_POST && $this->validate_add_form()){
+			if($_POST && $this->form_validation->run() === TRUE){
 				$str = array(
 					'title' => $this->input->post('title',true),
 					'content' => xss_clean($this->input->post('content')),
