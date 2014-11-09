@@ -111,7 +111,10 @@ class Auth
 		}
 		//return ($this->is_login() && $uid==$this->_CI->session->userdata('uid')) ? TRUE : FALSE;
 	}
-
+	public function permit_edit()
+	{
+		
+	}
 	public function user_permit($node_id)
 	{
 		$query = $this->_CI->db->select('permit')->get_where('nodes', array('node_id'=>$node_id))->row_array();

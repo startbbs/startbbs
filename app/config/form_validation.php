@@ -67,24 +67,6 @@ $config = array(
         )
     ),
 
-    'topic/edit' => array(
-        array(
-            'field' => 'title',
-            'label' => '标题',
-            'rules' => 'trim|required|htmlspecialchars|xss_clean|min_length[4]|max_length[60]'
-        ),
-        array(
-            'field' => 'content',
-            'label' => '内容',
-            'rules' => 'trim|required|htmlspecialchars|min_length[8]|max_length['.$CI->config->item('words_limit').']|xss_clean'
-        ),
-        array(
-            'field' => 'node_id',
-            'label' => '栏目',
-            'rules' => 'trim|required'
-        )
-    ),
-
     'auth/register' => array(
         array(
             'field' => 'email',

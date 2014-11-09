@@ -156,77 +156,79 @@ class topic extends SB_controller
 		$user = $this->user_m->get_user_by_id($uid);
 		if(!$this->auth->is_login()) {
 			redirect('user/login/');
-		} elseif(!$this->auth->user_permit($node_id)) {//权限
+		}
+		if(!$this->auth->user_permit($node_id)) {//权限
 			$this->session->set_flashdata('error', '您无权在此节点发表话题!请重新选择节点');
-		} elseif(time()-$user['lastpost']<$this->config->item('timespan')){
+			exit;
+		}
+		if(time()-$user['lastpost']<$this->config->item('timespan')){
 			$this->session->set_flashdata('error', '发帖最小间隔时间是'.$this->config->item('timespan').'秒!');
-			//exit;
-		} else {
-			if($_POST && $this->form_validation->run() === TRUE){
-				$data = array(
-					'title' => $this->input->post ('title'),
-					'content' => filter_code($this->input->post ('content')),
-					'node_id' => $node_id,
-					'uid' => $uid,
-					'addtime' => time(),
-					'updatetime' => time(),
-					'lastreply' => time(),
-					'views' => 0,
-					'ord'=>time()
-				);
-				$this->load->helper('format_content');
-				$data['content']=format_content($data['content']);
-				//开启审核时
-				if($this->config->item('is_approve')=='on'){
-					$data['is_hidden'] = 1;	
-				}
-				//无编辑器时的处理
-				//if($this->config->item('show_editor')=='off'){
-				//	$data['content'] = filter_check($data['content']);
-				//	$this->load->helper('format_content');
-				//	$data['content'] = format_content($data['content']);
-					
-				//}
-				
-				//标签
-				$this->load->model('tag_m');
-				if($this->config->item('auto_tag') =='on'){
-					//自动获取关键词tag
-					$data['keywords'] = $this->tag_m->get_tag_auto(strip_tags($data['title']), strip_tags($data['content']));
-				} else{
-					$data['keywords'] = $this->input->post ('keywords', true);
-				}
-				
-				
-				if($this->topic_m->add($data)){
-					//最新贴子id
-					$new_topic_id = $this->db->insert_id();
-					
-					//入tag表
-					$this->tag_m->insert_tag($data['keywords'], $new_topic_id);
-					
-					//更新贴子数
-					$node_id = $this->input->post ('node_id');
-					$category = $this->cate_m->get_category_by_node_id($node_id);
-					$this->db->where('node_id',$node_id)->update('nodes',array('listnum'=>$category['listnum']+1));
-
-					//更新数据库缓存
-					$this->db->cache_delete('/default', 'index');
-					//更新发贴人的贴子数/最后发贴时间
-					$this->db->set('lastpost',time(),false)->set('topics','topics+1',false)->where('uid',$uid)->update('users');
-					//更新会员积分
-					$this->config->load('userset');
-					$this->user_m->update_credit($uid,$this->config->item('credit_post'));
-					//审核未开启时
-					if($this->config->item('is_approve')=='off'){
-						redirect('topic/show/'.$new_topic_id);	
-					} else {
-						show_message('贴子通过审核才能在前台显示',site_url());	
-					}
-				exit;
-				}
-
+			exit;
+		}
+		if($_POST && $this->form_validation->run() === TRUE){
+			$data = array(
+				'title' => $this->input->post ('title'),
+				'content' => filter_code($this->input->post ('content')),
+				'node_id' => $node_id,
+				'uid' => $uid,
+				'addtime' => time(),
+				'updatetime' => time(),
+				'lastreply' => time(),
+				'views' => 0,
+				'ord'=>time()
+			);
+			$this->load->helper('format_content');
+			$data['content']=format_content($data['content']);
+			//开启审核时
+			if($this->config->item('is_approve')=='on'){
+				$data['is_hidden'] = 1;	
 			}
+			//无编辑器时的处理
+			//if($this->config->item('show_editor')=='off'){
+			//	$data['content'] = filter_check($data['content']);
+			//	$this->load->helper('format_content');
+			//	$data['content'] = format_content($data['content']);
+				
+			//}
+			
+			//标签
+			$this->load->model('tag_m');
+			if($this->config->item('auto_tag') =='on'){
+				//自动获取关键词tag
+				$data['keywords'] = $this->tag_m->get_tag_auto(strip_tags($data['title']), strip_tags($data['content']));
+			} else{
+				$data['keywords'] = $this->input->post ('keywords', true);
+			}
+			
+			
+			if($this->topic_m->add($data)){
+				//最新贴子id
+				$new_topic_id = $this->db->insert_id();
+				
+				//入tag表
+				$this->tag_m->insert_tag($data['keywords'], $new_topic_id);
+				
+				//更新贴子数
+				$node_id = $this->input->post ('node_id');
+				$category = $this->cate_m->get_category_by_node_id($node_id);
+				$this->db->where('node_id',$node_id)->update('nodes',array('listnum'=>$category['listnum']+1));
+
+				//更新数据库缓存
+				$this->db->cache_delete('/default', 'index');
+				//更新发贴人的贴子数/最后发贴时间
+				$this->db->set('lastpost',time(),false)->set('topics','topics+1',false)->where('uid',$uid)->update('users');
+				//更新会员积分
+				$this->config->load('userset');
+				$this->user_m->update_credit($uid,$this->config->item('credit_post'));
+				//审核未开启时
+				if($this->config->item('is_approve')=='off'){
+					redirect('topic/show/'.$new_topic_id);	
+				} else {
+					show_message('贴子通过审核才能在前台显示',site_url());	
+				}
+			exit;
+			}
+
 		}
 		$data['category'] = $this->cate_m->get_all_cates();
 
@@ -248,27 +250,30 @@ class topic extends SB_controller
 		//权限修改判断
 		if(!$this->auth->is_login()) {
 			show_message('请登录后再编辑',site_url('user/login'));
-		} elseif($this->auth->is_user($data['item']['uid']) || $this->auth->is_admin() || $this->auth->is_master($data['item']['node_id'])){
+		}
+		if($this->auth->is_user($data['item']['uid']) || $this->auth->is_admin() || $this->auth->is_master($data['item']['node_id'])){
 			//对内容进行br转换
 			$this->load->helper('br2nl');
 			$data['item']['content']=br2nl($data['item']['content']);
 			//反转义
-			$data['item']['content']=stripslashes($data['item']['content']);
+			$data['item']['content']=stripslashes($data['item']['content']);		
+			//获取所有分类
+			$data['cates'] = $this->cate_m->get_all_cates();
+			//获取当前分类(包括已选择)
+			$node_id = ($this->input->post ('node_id'))?$this->input->post ('node_id'):$data['item']['node_id'];
+			$data['cate']=$this->db->get_where('nodes',array('node_id'=>$node_id))->row_array();
+			//标题编辑(包括已输入)
+			$data['item']['title'] = ($this->input->post ('title'))?$this->input->post ('title'):$data['item']['title'];
+			//内容编辑(包括已输入)
+			$data['item']['content'] = ($this->input->post ('content'))?$this->input->post ('content'):$data['item']['content'];
 
-			if($_POST && $this->form_validation->run() === TRUE){
+			if($this->form_validation->run('topic/add') === TRUE){
 				$str = array(
-					'title' => $this->input->post('title',true),
+					'title' => $this->input->post('title'),
 					'content' => xss_clean($this->input->post('content')),
 					'node_id' => $this->input->post('node_id'),
 					'updatetime' => time(),
 				);
-
-				//无编辑器时的处理
-				//if($this->config->item('show_editor')=='off'){
-				//	$str['content'] = filter_check($str['content']);
-				//	$this->load->helper('format_content');
-				//	$str['content'] = format_content($str['content']);
-				//}
 
 				$str['content'] = filter_code($str['content']);
 				$this->load->helper('format_content');
@@ -277,19 +282,10 @@ class topic extends SB_controller
 					show_message('修改成功',site_url('topic/show/'.$topic_id),1);
 				}
 			}
-		} else {
-			show_message('你无权修改此贴子');		
+			$this->load->view('edit', $data);
+		}else{
+			show_message('你无权修改此贴子');
 		}
-		//获取所有分类
-		$data['cates'] = $this->cate_m->get_all_cates();
-		//获取当前分类(包括已选择)
-		$node_id = ($this->input->post ('node_id'))?$this->input->post ('node_id'):$data['item']['node_id'];
-		$data['cate']=$this->db->get_where('nodes',array('node_id'=>$node_id))->row_array();
-		//标题编辑(包括已输入)
-		$data['item']['title'] = ($this->input->post ('title'))?$this->input->post ('title'):$data['item']['title'];
-		//内容编辑(包括已输入)
-		$data['item']['content'] = ($this->input->post ('content'))?$this->input->post ('content'):$data['item']['content'];
-		$this->load->view('edit', $data);
 	}
 	public function del($topic_id,$node_id,$uid)
 	{
