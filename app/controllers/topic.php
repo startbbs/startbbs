@@ -282,6 +282,8 @@ class topic extends SB_controller
 					show_message('修改成功',site_url('topic/show/'.$topic_id),1);
 				}
 			}
+			//开启storage config
+			$this->load->config('qiniu');
 			$this->load->view('edit', $data);
 		}else{
 			show_message('你无权修改此贴子');

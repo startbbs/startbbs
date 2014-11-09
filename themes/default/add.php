@@ -8,10 +8,10 @@
 <title><?php echo $title?> - <?php echo $settings['site_name']?></title>
 <?php $this->load->view('header-meta');?>
 <script src="<?php echo base_url('static/common/js/plugins.js')?>" type="text/javascript"></script>
-<?php if($this->config->item('storage_set')=='local'){?>
-
-<?php } else{?>
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
+<?php if($this->config->item('storage_set')=='local'){?>
+<script src="<?php echo base_url('static/common/js/local.file.js')?>" type="text/javascript"></script>
+<?php } else{?>
 <script src="<?php echo base_url('static/common/js/qiniu.js')?>" type="text/javascript"></script>
 <?php }?>
 </head>
@@ -44,7 +44,7 @@
 <div class="form-group" style="width:300px; margin-left: 15px; margin-top: 10px;">
 <label for="category">版块</label>
 <select name="node_id" id="node_id" class="form-control">
-<?php if($cate['node_id']){?>
+<?php if(isset($cate['node_id'])){?>
 <option selected="selected" value="<?php echo $cate['node_id']; ?>"><?php echo $cate['cname']?></option>
 <?php } elseif(set_value('node_id')){?>
 <option selected="selected" value="<?php echo set_value('node_id'); ?>"><?php echo $cate['cname']?></option>
@@ -81,10 +81,9 @@
 <p style="margin-top:8px;">
 <span class='text-muted pull-left'>可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
 <span class="pull-right"><?php if($this->config->item('storage_set')=='local'){?>
-	<span id='upload-tip' class="btn btn-default" value="图片/附件">上传图片</span>
+<input id="upload_file" type="button" value="图片/附件" name="file" class="btn btn-default pull-right">
 	<?php } else {?>
 	<input id="upload_tip" type="button" value="图片/附件"  class="btn btn-default">
-<!--	<input type="button" onclick="doUpload()" value="图片/附件"  class="btn btn-default">-->
 	<?php }?></span></p>
 </div>
 </div>
