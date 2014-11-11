@@ -287,6 +287,7 @@ class topic extends SB_controller
 		$data['title'] = '删除贴子';
 		//权限修改判断
 		if($this->auth->is_admin() || $this->auth->is_master($node_id)){
+
 			//$this->myclass->notice('alert("确定要删除此话题吗！");');
 			//删除贴子及它的回复
 			if($this->topic_m->del_topic($topic_id,$node_id,$uid)){

@@ -11,6 +11,10 @@ $(document).ready(function(){        //DOM的onload事件处理函数
         var append_str = "@" + $(this).attr("data-mention") + " ";
          $("#post_content").insertAtCaret(append_str);
     });
+    //@回复定位
+    $(".reply").click(function(){
+         $("#post_content").insertAtCaret('');
+    });
 });
 function postdata(){                             //提交数据函数
 var comment=$("#post_content").val();
