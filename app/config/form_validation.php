@@ -58,12 +58,17 @@ $config = array(
         array(
             'field' => 'content',
             'label' => '内容',
-            'rules' => 'trim|required|htmlspecialchars|min_length[8]|max_length['.$CI->config->item('words_limit').']|xss_clean'
+            'rules' => 'trim|required|htmlspecialchars|min_length[8]|max_length['.$CI->config->item('words_limit').']|xss_clean|nl2br_except_pre'
         ),
         array(
             'field' => 'node_id',
             'label' => '栏目',
             'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'keywords',
+            'label' => '关键字',
+            'rules' => 'trim|strip_tags'
         )
     ),
 

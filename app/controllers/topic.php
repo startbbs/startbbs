@@ -168,7 +168,7 @@ class topic extends SB_controller
 		if($_POST && $this->form_validation->run() === TRUE){
 			$data = array(
 				'title' => $this->input->post ('title'),
-				'content' => filter_code($this->input->post ('content')),
+				'content' => $this->input->post ('content'),
 				'node_id' => $node_id,
 				'uid' => $uid,
 				'addtime' => time(),
@@ -183,13 +183,6 @@ class topic extends SB_controller
 			if($this->config->item('is_approve')=='on'){
 				$data['is_hidden'] = 1;	
 			}
-			//无编辑器时的处理
-			//if($this->config->item('show_editor')=='off'){
-			//	$data['content'] = filter_check($data['content']);
-			//	$this->load->helper('format_content');
-			//	$data['content'] = format_content($data['content']);
-				
-			//}
 			
 			//标签
 			$this->load->model('tag_m');
@@ -226,7 +219,6 @@ class topic extends SB_controller
 				} else {
 					show_message('贴子通过审核才能在前台显示',site_url());	
 				}
-			exit;
 			}
 
 		}
@@ -256,7 +248,9 @@ class topic extends SB_controller
 			$this->load->helper('br2nl');
 			$data['item']['content']=br2nl($data['item']['content']);
 			//反转义
-			$data['item']['content']=stripslashes($data['item']['content']);		
+			$data['item']['content']=stripslashes($data['item']['content']);
+			//反format
+			$data['item']['content'] = decode_format($data['item']['content']);	
 			//获取所有分类
 			$data['cates'] = $this->cate_m->get_all_cates();
 			//获取当前分类(包括已选择)
@@ -270,12 +264,11 @@ class topic extends SB_controller
 			if($this->form_validation->run('topic/add') === TRUE){
 				$str = array(
 					'title' => $this->input->post('title'),
-					'content' => xss_clean($this->input->post('content')),
+					'content' => $this->input->post('content'),
 					'node_id' => $this->input->post('node_id'),
 					'updatetime' => time(),
 				);
 
-				$str['content'] = filter_code($str['content']);
 				$this->load->helper('format_content');
 				$str['content'] = format_content($str['content']);
 				if($this->topic_m->update_topic($topic_id,$str)){

@@ -411,5 +411,18 @@ function closetags($html) {
 	return $html; 
 }
 
+function strip_url_tags($str)
+{
+	$str=preg_replace("/<a[^>]*href=[^>]*>|<\/[^a]*a[^>]*>/i","\\2",$str);
+	return $str;
+}
+function decode_format($content)
+{
+	$STB= &get_instance();
+	$STB->load->helper('security');
+	$content=strip_url_tags(strip_image_tags($content));
+	return $content;
+}
+
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */
