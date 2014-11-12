@@ -423,6 +423,43 @@ function decode_format($content)
 	$content=strip_url_tags(strip_image_tags($content));
 	return $content;
 }
+function get_tree_array(&$data, $parentId=0)
+{
+    $category = array();
+    foreach ($data as $key=>$value)
+    {
+        if ($value['pid'] == $parentId)
+        {
+            unset($data[$key]);
+            $value['child'] = category($data, $value['id']);
+            $category[] = $value;
+        }
+    }
+    return $category;
+}
+function get_tree(&$data, $parentId=0)
+{
+	global $str;
+    $str .= '<ul>';
+    foreach ($data as $key=>$value)
+    {
+        if ($value['pid'] == $parentId)
+        {
+            unset($data[$key]);
+            $str.="<li>|--<a href='/'>".$value['name'].'</a></li>';
+            get_tree($data, $value['id']);
+        }
+    }
+    $str .= '</ul>';
+    return $str;
+}
+
+function url($type='',$num='',$any='')
+{
+	$STB = &get_instance();
+	return $STB->router->url($type,$num,$any);
+}
+
 
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */

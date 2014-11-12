@@ -6,7 +6,7 @@
 	    <?php if($taglist){?>
         <ul class="list-unstyled">
 	        <?php foreach($taglist as $v){?>
-            <span class="tags"><a href="<?php echo site_url('tag/show/'.$v['tag_title']);?>"><?php echo $v['tag_title'];?></a></span>
+            <span class="tags"><a href="<?php echo url('tag_show','',$v['tag_title']);?>"><?php echo $v['tag_title'];?></a></span>
 			<?php }?>
         </ul>
         <?php }?>

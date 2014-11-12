@@ -43,12 +43,6 @@ class Tag extends SB_Controller
 
 		$data['tag_list'] = $this->tag_m->get_tag_topics_list($start, $limit, $data['title']);
 		if($data['tag_list']){
-			$view_url=array_keys($this->router->routes,'topic/show/$1');
-			foreach($data['tag_list'] as $k=>$v)
-			{
-				$data['tag_list'][$k]['view_url']=str_replace('(:num)',$v['topic_id'],$view_url[0]);
-			}
-			
 			$this->load->view('tag_show',$data);
 		} else {
 			show_message('标签不存在',site_url());

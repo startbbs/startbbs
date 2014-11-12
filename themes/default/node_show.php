@@ -57,15 +57,15 @@
 </td>
 <td style='padding-left: 12px' valign='top'>
 <div class='pull-right'>
-<div class='badge badge-info'><a href="<?php echo site_url($v['view_url'].'#reply');?>"><?php echo $v['comments']?></a></div>
+<div class='badge badge-info'><a href="<?php echo url('topic_show',$v['topic_id']).'#reply';?>"><?php echo $v['comments']?></a></div>
 </div>
 <div class='sep3'></div>
 <h2 class='topic_title'>
-<a href="<?php echo site_url($v['view_url']);?>" class="startbbs topic"><?php echo sb_substr($v['title'],30);?></a>
+<a href="<?php echo url('topic_show',$v['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($v['title'],30);?></a>
 <?php if( $v['is_top'] == '1' ) echo '<span class="label label-info">置顶</span>'; ?>
 </h2>
 <div class='topic-meta'>
-<a href="<?php echo site_url($v['node_show_url']);?>" class="node"><?php echo $category['cname'];?></a>
+<a href="<?php echo url('node_show',$v['node_id']);?>" class="node"><?php echo $category['cname'];?></a>
 &nbsp;&nbsp;•&nbsp;&nbsp;
 <a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
 &nbsp;&nbsp;•&nbsp;&nbsp;

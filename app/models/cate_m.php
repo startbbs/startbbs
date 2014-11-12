@@ -28,12 +28,9 @@ class Cate_m extends SB_Model
 		$this->db->select('node_id,pid,cname,ico,content,listnum,master');
 		$this->db->order_by('pid', 'desc');
 		$query=$this->db->get('nodes')->result_array();
-		$node_show_url=array_keys($this->router->routes,'node/show/$1');
 		if(!empty($query)){
 			foreach($query as $k=>$v){
-				$node_show_url['node_show_url']=str_replace('(:num)', $v['node_id'], $node_show_url[0]);
-				$new=array_merge($v, $node_show_url);
-				$cates[$v['pid']][] = $new;
+				$cates[$v['pid']][] = $v;
 				
 			}
 		}

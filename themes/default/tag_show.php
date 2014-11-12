@@ -32,7 +32,7 @@
 <div class='badge badge-info'><?php echo $v['comments']?></div>
 </div>
 <h2 class='topic_title'>
-<a href="<?php echo site_url($v['view_url']);?>" class="startbbs topic"><?php echo sb_substr($v['title'],30);?></a>
+<a href="<?php echo url('topic_show',$v['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($v['title'],30);?></a>
 </h2>
 <div class='topic-meta'>
 <!--<a href="<?php echo site_url('node/show/'.$v['node_id']);?>" class="node"><?=$category['cname'];?></a>-->
