@@ -18,7 +18,7 @@
 						var dbpwd = $("#txtPassword").val();
 						var dbprefix = $("#txtPrefix").val();
 						$.ajax({
-							url:siteurl+"index.php/install/check",
+							url:siteurl+"/install/check",
 							data:{
 								dbhost:dbhost,
 								dbport:dbport,
