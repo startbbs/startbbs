@@ -57,7 +57,7 @@ function replyOne(username){
 	}
 	replyContent.focus();
 	replyContent.val(newContent);
-	moveEnd(replyContent);
+	//moveEnd(replyContent);
 }
 function check_content(){
 if($("#post_content").val().length < 4){
