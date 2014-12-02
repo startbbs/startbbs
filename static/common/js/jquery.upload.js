@@ -1,4 +1,4 @@
-﻿/**
+/**
  * jQuery upload v1.2
  * http://www.ponxu.com
  *

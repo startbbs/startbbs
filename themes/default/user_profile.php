@@ -28,11 +28,12 @@
 <td align='left' valign='top' width='auto'>
 <div class='pull-right'>
 <div class='sep3'></div>
+<button class="btn btn-default" data-toggle="modal" data-target="#message">私信</button>
 <?php if($this->session->userdata('uid')){?>
 <?php if(!$is_followed){?>
-<a href="<?php echo site_url('follow/add/'.$uid);?>" class="btn btn-info btn-sm" data-method="post" rel="nofollow">加入特别关注</a>
+<a href="<?php echo site_url('follow/add/'.$uid);?>" class="btn btn-info" data-method="post" rel="nofollow">关注</a>
 <?php }else{?>
-<a href="<?php echo site_url('follow/cancel/'.$uid);?>" class="btn btn-sm btn-warning" data-method="post" rel="nofollow">取消特别关注</a>
+<a href="<?php echo site_url('follow/cancel/'.$uid);?>" class="btn btn-warning" data-method="post" rel="nofollow">取消关注</a>
 <?php }?>
 <?php }?>
 </div>
@@ -150,8 +151,44 @@
 </div>
 <div class='sep5'></div>
 <?php } ?>
-
 </div>
+
+<div class="modal fade" id="message">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+        <h4 class="modal-title">发信给</h4>
+      </div>
+      <div class="modal-body">
+	      <form id="send-message" class="form-horizontal">
+		<div class="form-group">
+			<div class="col-md-2 control-label"><label for="message_receiver" class="required">发给：</label></div>
+			<div class="col-md-8">
+				<input type="text" class="form-control"  value="<?php echo $username?>" disabled/>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2 control-label"><label>内容</label></div>
+			<div class="col-md-8">
+				<textarea id="content" name="content"  class="form-control" rows="5"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+		      <div class="col-md-offset-2 col-md-2">
+		      	<input type="hidden" name="receiver_uid" id="receiver_uid" value="<?php echo $uid;?>">
+		        <button class="btn btn-primary" type="submit">发送</button>
+		      </div>
+		      <div class="col-md-4">
+		      		<div id="error" class="red"></div>
+		      </div>
+		</div>
+		</form>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </div>
 <div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
@@ -175,10 +212,33 @@
 <a href="/member/kandiyoki" class="profile_link" title="kandiyoki"><img alt="kandiyoki mini avatar" class="mini_avatar" src="/uploads/user_avatar/88/288/mini_267adc19f9e.jpg" /></a>
 </div>
 </div>-->
-
-
 <?php $this->load->view('block/right_ad');?>
-
 </div>
 </div></div></div>
 <?php $this->load->view('footer');?>
+<script>
+	$(function(){
+		$('#send-message').on('submit',function(e) {
+			e.preventDefault();
+			var receiver_uid = $('#receiver_uid').val();
+			var content =$.trim($('#content').val());
+			if (content == '') {
+				$('#error').html('内容不能为空!');
+				return  false;
+			}
+			$.ajax({
+				url: '<?php echo site_url('message/send')?>',
+				type: 'post',
+				dataType: 'json',
+				data: {receiver_uid:receiver_uid,content:content},
+				success: function(data) {
+					$('#content').val(data);
+					$('#message').modal('hide');
+					//location.href =site_url+"/message/index";
+				}
+			});
+
+		});
+
+	});
+</script>

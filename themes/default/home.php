@@ -42,10 +42,10 @@
 <div class='pull-right'>
 <div class='badge badge-info'><a href="<?php echo url('topic_show',$v['topic_id']).'#reply';?>"><?php echo $v['comments']?></a></div>
 </div>
-<h2 class='topic_title'>
+<h3 class='topic_title'>
 <a href="<?php echo url('topic_show',$v['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($v['title'],30);?></a>
 <?php if( $v['is_top'] == '1' ) echo '<span class="badge badge-info">置顶</span>'; ?>
-</h2>
+</h3>
 <div class='topic-meta'>
 <a href="<?php echo url('node_show',$v['node_id']);?>" class="node"><?php echo $v['cname']?></a>
 <span class='text-muted'>•</span>

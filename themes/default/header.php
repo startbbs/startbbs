@@ -27,11 +27,12 @@
           <ul class="nav navbar-nav navbar-right">
  
 	        <?php if($this->session->userdata('uid')){ ?>
-	        <li><a href="#"><span class="badge"></span></a></li>
+	        <li><!--<a href="<?php echo site_url('message/')?>"><span class="badge">22</span></a>--></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('username');?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<?php echo site_url('user/profile/'.$this->session->userdata('uid').'')?>">个人主页</a></li>
+                <li><a href="<?php echo site_url('message')?>">站内信</a></li>
                 <li><a href="<?php echo site_url('settings')?>">设置</a></li>
                 <?php if($this->auth->is_admin()){ ?>
                 <li><a href="<?php echo site_url('admin/login')?>">管理后台</a></li>

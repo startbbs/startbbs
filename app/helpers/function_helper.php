@@ -460,6 +460,47 @@ function url($type='',$num='',$any='')
 	return $STB->router->url($type,$num,$any);
 }
 
+//生成友好时间形式
+function  friendly_date( $from ){
+	static $now = NULL;
+	$now == NULL && $now = time();
+	! is_numeric( $from ) && $from = strtotime( $from );
+	$seconds = $now - $from;
+	$minutes = floor( $seconds / 60 );
+	$hours   = floor( $seconds / 3600 );
+	$day     = round( ( strtotime( date( 'Y-m-d', $now ) ) - strtotime( date( 'Y-m-d', $from ) ) ) / 86400 );
+	if( $seconds == 0 ){
+		return '刚刚';
+	}
+	if( ( $seconds >= 0 ) && ( $seconds <= 60 ) ){
+		return "{$seconds}秒前";
+	}
+	if( ( $minutes >= 0 ) && ( $minutes <= 60 ) ){
+		return "{$minutes}分钟前";
+	}
+	if( ( $hours >= 0 ) && ( $hours <= 24 ) ){
+		return "{$hours}小时前";
+	}
+	if( ( date( 'Y' ) - date( 'Y', $from ) ) > 0 ) {
+		return date( 'Y-m-d', $from );
+	}
+	
+	switch( $day ){
+		case 0:
+			return date( '今天H:i', $from );
+		break;
+		
+		case 1:
+			return date( '昨天H:i', $from );
+		break;
+		
+		default:
+			//$day += 1;
+			return "{$day} 天前";
+		break;
+	}
+}
+
 
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */

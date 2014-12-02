@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');//强制输出utf8
-
 /*
  *---------------------------------------------------------------
  * 应用环境
@@ -201,7 +200,7 @@ if (defined('ENVIRONMENT'))
  *
  */
  /*时区设置*/
-date_default_timezone_set("Asia/Shanghai");
+//date_default_timezone_set("Asia/Shanghai");
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */

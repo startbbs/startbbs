@@ -71,7 +71,13 @@ $config = array(
             'rules' => 'trim|strip_tags'
         )
     ),
-
+    'message/send' => array(
+        array(
+            'field' => 'content',
+            'label' => '信息内容',
+            'rules' => 'trim|strip_tags'
+        )
+    ),
     'auth/register' => array(
         array(
             'field' => 'email',

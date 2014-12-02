@@ -168,6 +168,11 @@ text-shadow:0 2px #fff;margin-bottom:10px
 .new_user_list {list-style:none;float:none;overflow:hidden;}  
 .new_user_list li {width:52px;height:52px;float:left;text-align:left;/*border:1px solid red;*/ position:relative; }  
 .new_user_list li img {width:48px;height:48px;float:left;/*border:1px solid #ddd;*/padding:0px;background:#f0f0f0;position:relative;-moz-border-radius: 3px;border-radius: 3px;}
+.panel-heading {
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    font-weight: bold;
+}
 /*
 http://sc.chinaz.com/info/131106485529.htm
 http://www.xichuangzhu.com/work/10181#
