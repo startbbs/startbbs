@@ -20,6 +20,8 @@
 <div class='cell'>
 <?php if($topics){?>
 <form name="myform" method="post" action="<?php echo site_url('admin/topics/batch_process')?>">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
+<div class='input-group'>
 <table class='topics table'>
 <thead>
 <tr>

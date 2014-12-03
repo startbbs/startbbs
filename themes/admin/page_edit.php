@@ -23,7 +23,7 @@
 </div>
 <div class='cell'>
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/page/edit/'.$page['pid']);?>" class="simple_form form-horizontal" id="edit_user_1" method="post" novalidate="novalidate">
-<div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="iM/k39XK4U+GmgVT7Ps8Ko3OhPrcTBqUSu4yKYPgAjk=" /></div>
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class="form-group">
 <label class="col-sm-3 control-label" for="title">标题</label>
 <div class="col-sm-5">

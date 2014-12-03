@@ -29,7 +29,7 @@ class User_m extends SB_Model
 	}
 	function check_login($username,$password){
 		$query = $this->check_username($username);
-		$password = password_dohash($password,$query['salt']);
+		$password = password_dohash($password,@$query['salt']);
 		if(@$query['password']==$password){
 			$this->db->where('uid', @$query['uid'])->update('users',array('lastlogin'=>time()));
 			return $query;

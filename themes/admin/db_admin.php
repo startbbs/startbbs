@@ -35,6 +35,7 @@
 <div>
 <?php if($act=='index'){?>
 <form name="myform" method="post" action="<?php echo site_url('admin/db_admin/index')?>">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <table class='table table-striped table-bordered table-condensed'>
 <thead>
 <tr>
@@ -68,6 +69,7 @@
 <?php }?>
 <?php if($act=='backup'){?>
 <form name="myform" method="post" action="<?php echo site_url('admin/db_admin/backup')?>">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <table class='table table-striped table-bordered table-condensed'>
 <thead>
 <tr>
@@ -108,6 +110,7 @@
 
 <?php if($act=='restore'){?>
 <form name="myform" method="post" action="<?php echo site_url('admin/db_admin/restore')?>">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <table class='table table-striped table-bordered table-condensed'>
 <thead>
 <tr>

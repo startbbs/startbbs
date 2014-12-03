@@ -164,8 +164,7 @@ at
 <div class='inner row'>
 <?php if($this->auth->is_login()){?>
 <!--<form id="myform" action="<?php echo site_url('comment/add_comment');?>" method="post" name="add_new">-->
-<input name="utf8" type="hidden" value="&#x2713;" />
-<input name="authenticity_token" type="hidden" value="b9p2+DhdHWTAHdRMrexpe7XxI2HxTaX7MaUKEaQiUsY=" />
+<input type="hidden" id="token" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
 <input name="topic_id" id="topic_id" type="hidden" value="<?php echo $content['topic_id']?>" />
 <input name="is_top" id="is_top" type="hidden" value="<?php echo $content['is_top']?>" />
 <input name="username" id="username" type="hidden" value="<?php echo $user['username']?>" />

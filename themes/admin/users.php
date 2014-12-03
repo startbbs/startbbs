@@ -16,7 +16,8 @@
 <div class='box'>
 <div class='cell'>
 <div class='pull-right'>
-<form accept-charset="UTF-8" action="<?php echo site_url('admin/users/search');?>" class="form-search" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+<form accept-charset="UTF-8" action="<?php echo site_url('admin/users/search');?>" class="form-search" method="post">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class='input-group'>
 <input class="span2 search-query" id="username" name="username" placeholder="用户昵称" type="text" />
 <input class="btn" name="commit" type="submit" value="搜索" />
@@ -121,7 +122,7 @@
 <?php if($act=='groupadd'){?>
 <div class='cell'>
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/users/group/add');?>" class="simple_form form-horizontal" id="edit_user_1" method="post" novalidate="novalidate">
-<div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="iM/k39XK4U+GmgVT7Ps8Ko3OhPrcTBqUSu4yKYPgAjk=" /></div>
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_group_name">用户组名</label>
 <div class="col-sm-5">
@@ -137,7 +138,7 @@
 <?php if($act=='groupedit'){?>
 <div class='cell'>
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/users/group/edit/'.$group_info['gid']);?>" class="simple_form form-horizontal" id="edit_user_1" method="post" novalidate="novalidate">
-<div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="iM/k39XK4U+GmgVT7Ps8Ko3OhPrcTBqUSu4yKYPgAjk=" /></div>
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_group_name">用户组名</label>
 <div class="col-sm-5">

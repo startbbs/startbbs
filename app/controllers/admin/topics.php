@@ -51,7 +51,9 @@ class Topics extends Admin_Controller
 		$data['pagination'] = $this->pagination->create_links();
 
 		$data['topics'] = $this->topic_m->get_all_topics($start, $limit);
-
+		
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('topics', $data);
 		
 	}

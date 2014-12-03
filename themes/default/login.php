@@ -15,10 +15,7 @@
 <div class='cell'><a href="<?php echo site_url()?>" class="startbbs"><?php echo $settings['site_name']?></a> <span class="chevron">&nbsp;›&nbsp;</span> 登入</div>
 <div class='inner'>
 <form accept-charset="UTF-8" action="<?php echo site_url('user/login?referer='.$referer);?>" class="form-horizontal" id="new_user" method="post" novalidate="novalidate">
-<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" />
-<input name="authenticity_token" type="hidden" value="lr/g+0G/gLUzIhYpJwhtULW5aftcf8soZOHMznkxxT0=" />
-</div>
+<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
 
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_nickname">用户名</label>

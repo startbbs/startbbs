@@ -22,6 +22,7 @@
                 <div class="panel-body">
 	                <div class="clearfix">
                     <form id="send-message" action="<?php echo site_url('message/send')?>" method="post" class="reply-message">
+                    <input type="hidden" id="token" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
                         <div class="form-group">
                             <textarea id="content"  class="form-control" name="content" rows="5" cols="3"></textarea>
                         </div>
@@ -94,6 +95,7 @@
 			e.preventDefault();
 			var receiver_uid = $('#receiver_uid').val();
 			var content =$.trim($('#content').val());
+			var token=$('#token').val();
 			if (content == '') {
 				$('#error').html('内容不能为空!');
 				return  false;
@@ -102,7 +104,7 @@
 				url: '<?php echo site_url('message/send')?>',
 				type: 'post',
 				dataType: 'json',
-				data: {receiver_uid:receiver_uid,content:content},
+				data: {receiver_uid:receiver_uid,content:content,<?php echo $csrf_name;?>:token},
 				success: function(data) {
 					//$('#content').val('');
 					//$('#message').modal('hide');

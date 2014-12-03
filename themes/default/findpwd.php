@@ -21,8 +21,8 @@
 </div>
 <div class='inner'>
 <?php if(isset($_GET['p'])){?>
-<form accept-charset="UTF-8" action="<?php echo site_url('user/resetpwd?p='.$p);?>" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="804LreQgz8POSg+5I2N1WCXiOU/uHFHOFj8z2u1mx3E=" /></div>
-<input id="user_reset_password_token" name="user[reset_password_token]" type="hidden" value="2QqFMnysGArDfzAP9zLj" />
+<form accept-charset="UTF-8" action="<?php echo site_url('user/resetpwd?p='.$p);?>" class="new_user" id="new_user" method="post">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <table class='form'>
 <tr>
 <td class='left'>

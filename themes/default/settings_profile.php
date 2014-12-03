@@ -27,9 +27,7 @@
 
 <div class='inner'>
 <form accept-charset="UTF-8" action="<?php echo site_url('settings/profile');?>" class="form-horizontal" id="edit_user_313" method="post" novalidate="novalidate">
-<!--<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="bFgf4gFtDOwT1iCoDRGI7aqc14eXt1h403ny+0VSrz0=" />
-</div>-->
+<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_nickname">用户名</label>
 <div class="col-sm-5">

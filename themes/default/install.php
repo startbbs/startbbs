@@ -212,6 +212,7 @@
 <?php }?>
 <?php if($step==2){?>
 <form action="<?php echo site_url('install/step/3');?>" method="post" id="dbform" role="form">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class='row'>
 <div class='box'>
 <div class='cell'>

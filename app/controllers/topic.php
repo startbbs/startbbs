@@ -138,6 +138,8 @@ class topic extends SB_controller
 			}
 			//开启storage config
 			$this->load->config('qiniu');
+            $data['csrf_name'] = $this->security->get_csrf_token_name();
+            $data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('topic_show', $data);
 		}
 	}
@@ -228,6 +230,8 @@ class topic extends SB_controller
 		$data['action'] = 'add';
 		//开启storage config
 		$this->load->config('qiniu');
+        $data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('add',$data);
 		
 	}
@@ -277,6 +281,8 @@ class topic extends SB_controller
 			}
 			//开启storage config
 			$this->load->config('qiniu');
+	        $data['csrf_name'] = $this->security->get_csrf_token_name();
+	        $data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('edit', $data);
 		}else{
 			show_message('你无权修改此贴子');

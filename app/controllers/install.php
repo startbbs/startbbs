@@ -29,6 +29,8 @@ class Install extends Install_Controller
 		$data['step']=$step;
 		if($step==1 || $step==2){
 			$data['permission'] = $this->_checkFileRight();
+			$data['csrf_token'] = $this->security->get_csrf_hash();
+        	$data['csrf_name'] = $this->security->get_csrf_token_name();
 			$this->load->view('install',$data);
 		}
 		if($step==3){
@@ -47,7 +49,8 @@ class Install extends Install_Controller
 				$dbpwd = $this->input->post('dbpwd')?$this->input->post('dbpwd'):'';
 				$dbprefix = $this->input->post('dbprefix');
 				$userid = $this->input->post('admin');
-				$pwd = md5($this->input->post('pwd'));
+				$salt =get_salt();
+				$pwd= password_dohash($this->input->post('pwd'),$salt);
 				$email = $this->input->post('email');
 				$sub_folder = '/'.$this->input->post('base_url').'/';
 				$conn = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpwd);
@@ -76,7 +79,7 @@ class Install extends Install_Controller
 				  	}
 					$password = $pwd;
 				  	$ip=$this->myclass->get_ip();
-				  	$insert= "INSERT INTO ".$dbprefix."users (group_type,gid,is_active,username,password,email,regtime,ip) VALUES ('0','1','1','".$userid."','".$password."','".$email."','".time()."','".$ip."')";
+				  	$insert= "INSERT INTO ".$dbprefix."users (group_type,gid,is_active,username,password,salt,email,regtime,ip) VALUES ('0','1','1','".$userid."','".$password."','".$salt."','".$email."','".time()."','".$ip."')";
 				  	mysql_query($insert);
 					mysql_close($conn);
 					$data['msg2']="安装完成，正在保存配置文件，请稍后……"; 

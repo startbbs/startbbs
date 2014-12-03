@@ -83,6 +83,8 @@ class Page extends Admin_Controller
 		$data['page']=$this->page_m->get_page_content($pid);
 		$this->load->helper('br2nl');
 		$data['page']['content'] = br2nl($data['page']['content']);
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('page_edit', $data);
 	}
 	public function add()
@@ -101,6 +103,8 @@ class Page extends Admin_Controller
 			}
 
 		}
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('page_add', $data);
 
 	}

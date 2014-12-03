@@ -63,6 +63,8 @@ class Nodes extends Admin_Controller
 		$data['cates']=$this->cate_m->get_cates_by_pid($pid);
 		$this->load->model('group_m');
 		$data['group_list'] = $this->group_m->group_list();
+        $data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('nodes_add', $data);
 	}
 
@@ -107,6 +109,8 @@ class Nodes extends Admin_Controller
 		$this->load->model('group_m');
 		$data['group_list'] = $this->group_m->group_list();
 		$data['permit_selected']=explode(',',$data['cateinfo']['permit']);
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('nodes_edit', $data);
 	}
 

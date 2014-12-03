@@ -28,11 +28,9 @@
 <div class='inner row'>
 <!--<div class='alert alert-info'>如果标题已经包含你想说的话，内容可以留空。</div>-->
 <form accept-charset="UTF-8" action="<?php echo site_url('topic/add')?>" id="new_topic" method="post" novalidate="novalidate" name="add_new">
-<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" />
+<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
 <input name="uid" type="hidden" value="1" />
 <input name="node_id" type="hidden" value="1" />
-</div>
 <a name='new_topic'></a>
 <div class="form-group">
 <div class="col-md-6">

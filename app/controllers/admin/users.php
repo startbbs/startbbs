@@ -47,7 +47,9 @@ class Users extends Admin_Controller
 		$data['pagination'] = $this->pagination->create_links();
 		
 		$data['users'] = $this->user_m->get_all_users($start, $limit);
-
+		
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('users', $data);
 		
 	}
@@ -107,6 +109,8 @@ class Users extends Admin_Controller
 		$data['group']=$this->db->get_where('user_groups',array('gid'=>$data['user']['gid']))->row_array();
 		//加载form类，为调用错误函数,需view前加载
 		$this->load->helper('form');
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('user_edit', $data);
 	}
 
@@ -156,6 +160,8 @@ class Users extends Admin_Controller
 				show_message('无法删除系统用户组',site_url('admin/users/group/index'));
 			}
 		}
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('users', $data);
 
 	}

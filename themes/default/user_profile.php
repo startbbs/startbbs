@@ -161,7 +161,8 @@
         <h4 class="modal-title">发信给</h4>
       </div>
       <div class="modal-body">
-	      <form id="send-message" class="form-horizontal">
+	    <form id="send-message" class="form-horizontal">
+		<input type="hidden" id="token" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
 		<div class="form-group">
 			<div class="col-md-2 control-label"><label for="message_receiver" class="required">发给：</label></div>
 			<div class="col-md-8">
@@ -222,6 +223,7 @@
 			e.preventDefault();
 			var receiver_uid = $('#receiver_uid').val();
 			var content =$.trim($('#content').val());
+			var token=$('#token').val();
 			if (content == '') {
 				$('#error').html('内容不能为空!');
 				return  false;
@@ -230,7 +232,7 @@
 				url: '<?php echo site_url('message/send')?>',
 				type: 'post',
 				dataType: 'json',
-				data: {receiver_uid:receiver_uid,content:content},
+				data: {receiver_uid:receiver_uid,content:content,<?php echo $csrf_name;?>:token},
 				success: function(data) {
 					$('#content').val(data);
 					$('#message').modal('hide');

@@ -166,6 +166,8 @@ class Comment extends SB_Controller
 				}	
 			}
 			$data['title'] = '编辑回贴';
+	        $data['csrf_name'] = $this->security->get_csrf_token_name();
+	        $data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('comment_edit',$data);
 		} else {
 			show_message('非本人或管理员或本版块版主不能操作',site_url('topic/show/'.$topic_id));

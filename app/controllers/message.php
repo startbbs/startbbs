@@ -43,7 +43,8 @@ class Message extends SB_Controller
 		$data['pagination'] = $this->pagination->create_links();
 		$uid = $this->session->userdata('uid');
 		$data['dialog_list']=$this->message_m->get_dialog_list($uid,$start,$limit);
-		foreach($data['dialog_list'] as $k=>$v)
+
+		foreach((array)$data['dialog_list'] as $k=>$v)
 		{
 			if($v['receiver_uid']==$uid){
 				$data['dialog_list'][$k]['receiver_username']=$v['sender_username'];
@@ -51,6 +52,7 @@ class Message extends SB_Controller
 				$data['dialog_list'][$k]['receiver_uid']=$v['receiver_uid'];
 			}
 		}
+
 		$data['title']='私信列表';
 		$this->load->view('message_index',$data);
 		
@@ -91,6 +93,8 @@ class Message extends SB_Controller
 
 		//echo var_dump($data['message_list']);
 		$data['title']='私信对话';
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('message_show',$data);
 	}
 

@@ -76,7 +76,7 @@ function cleanhtml($str)
 
 function check_auth()
 {
-	$url = 'http://www.startbbs.com/authorize/check_auth/'.get_domain();
+	$url = 'http://bbs.startbbs.com/authorize/check_auth/'.get_domain();
 	if(function_exists('file_get_contents')) {
 		$data=file_get_contents($url);
 	} else {

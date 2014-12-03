@@ -28,6 +28,7 @@
 
 	<div class="inner">
 		<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('settings/avatar')?>" method="post">
+		<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
   			<fieldset>
     			<div class="form-group">
       				<label class="col-sm-3 control-label">当前头像</label>

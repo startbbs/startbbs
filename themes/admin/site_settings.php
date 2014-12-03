@@ -51,11 +51,7 @@
 <div class="tab-pane active" id="tab1">
 <div class='inner'>
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=basic');?>" class="form-horizontal" method="post">
-<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" />
-<input name="_method" type="hidden" value="put" />
-<input name="authenticity_token" type="hidden" value="YNAXPQDviOJ/cf5OH/KrqdxOjGLCdka+kUCp+fa3J+A=" />
-</div>
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="settings_site_name">网站名称</label>
 <div class='col-sm-5'>
@@ -225,11 +221,7 @@
 <div class="tab-pane" id="tab2">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=topicset');?>" class="form-horizontal" method="post">
-<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" />
-<input name="_method" type="hidden" value="put" />
-<input name="authenticity_token" type="hidden" value="YNAXPQDviOJ/cf5OH/KrqdxOjGLCdka+kUCp+fa3J+A=" />
-</div>
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="comment_order">回复列表顺序</label>
 <div class='col-sm-5'>
@@ -310,11 +302,7 @@
 <div class="tab-pane" id="tab3">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=userset');?>" class="form-horizontal" method="post">
-<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" />
-<input name="_method" type="hidden" value="put" />
-<input name="authenticity_token" type="hidden" value="YNAXPQDviOJ/cf5OH/KrqdxOjGLCdka+kUCp+fa3J+A=" />
-</div>
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="credit_start">注册初始积分</label>
 <div class='col-sm-5'>
@@ -404,11 +392,7 @@
 <div class="tab-pane" id="tab4">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=mailset');?>" class="form-horizontal" method="post">
-<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" />
-<input name="_method" type="hidden" value="put" />
-<input name="authenticity_token" type="hidden" value="YNAXPQDviOJ/cf5OH/KrqdxOjGLCdka+kUCp+fa3J+A=" />
-</div>
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="protocol">邮件发送方式：</label>
 <div class='col-sm-5'>
@@ -479,6 +463,7 @@ Phpmail
 <div class="tab-pane" id="tab5">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=routes');?>" class="form-horizontal" method="post">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class="form-group">
 <label class="col-sm-3 control-label" for="settings_default_controller">默认首页模块:</label>
 <div class="col-sm-5">
@@ -520,11 +505,7 @@ Phpmail
 <div class="tab-pane" id="tab6">
 <div class="inner">
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/site_settings?a=storage');?>" class="form-horizontal" method="post">
-<div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" />
-<input name="_method" type="hidden" value="put" />
-<input name="authenticity_token" type="hidden" value="YNAXPQDviOJ/cf5OH/KrqdxOjGLCdka+kUCp+fa3J+A=" />
-</div>
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 <div class='form-group'>
 <label class="col-sm-3 control-label" for="qiniu_set">附件存储方式：</label>
 <div class='col-sm-5'>

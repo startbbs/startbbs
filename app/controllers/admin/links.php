@@ -79,6 +79,9 @@ class Links extends Admin_Controller
 
 		}
 		$data['link']=$this->link_m->get_link_by_id($id);
+		
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('link_edit', $data);
 	}
 	public function add()
@@ -95,6 +98,8 @@ class Links extends Admin_Controller
 			}
 
 		}
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('link_add', $data);
 
 	}

@@ -135,6 +135,8 @@ class Site_settings extends Admin_Controller
 
 		
 		$data['item'] = $this->db->get_where('settings',array('type'=>0))->result_array();
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('site_settings', $data);
 
 	}

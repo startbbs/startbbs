@@ -45,6 +45,8 @@ class Settings extends SB_Controller {
 			
 		}
 		$data['title'] = '账户设置';
+        $data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('settings_profile', $data);
 
 	}
@@ -69,6 +71,8 @@ class Settings extends SB_Controller {
 		$data['avatars']['big'] = $this->upload_m->get_avatar_url($uid, 'big');
 		$data['avatars']['middle'] = $this->upload_m->get_avatar_url($uid, 'middle');
 		$data['avatars']['small'] = $this->upload_m->get_avatar_url($uid, 'small');
+        $data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('settings_avatar', $data);
 	}
 	
@@ -88,6 +92,8 @@ class Settings extends SB_Controller {
 			}
 			$this->load->view ( 'settings_password', $data );
 		} else {
+	        $data['csrf_name'] = $this->security->get_csrf_token_name();
+	        $data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view ( 'settings_password', $data );
 		}
 

@@ -35,7 +35,8 @@ class db_admin extends Admin_Controller
 			}
 			
 		}
-
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('db_admin', $data);
 		
 	}
@@ -71,6 +72,8 @@ class db_admin extends Admin_Controller
 			}
 			
 		}
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('db_admin', $data);
 	}
 
@@ -96,7 +99,8 @@ class db_admin extends Admin_Controller
 				redirect('admin/db_admin/restore');
 			}
 		}
-
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('db_admin', $data);
 	}
 

@@ -23,8 +23,8 @@
 </div>
 <span style="color:red" id="error"><?php echo isset($msg)?$msg:''; ?></span>
 <div class='inner'>
-<form accept-charset="UTF-8" action="<?php echo site_url('settings/password');?>" class="simple_form form-horizontal" id="edit_user_313" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline">
-<input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="bFgf4gFtDOwT1iCoDRGI7aqc14eXt1h403ny+0VSrz0=" /></div>
+<form accept-charset="UTF-8" action="<?php echo site_url('settings/password');?>" class="simple_form form-horizontal" id="edit_user_313" method="post" novalidate="novalidate">
+<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
 <strong class='fade'>如果你不想更改密码，请留空以下输入框。</strong>
 <div class='sep5'></div>
 <div class="form-group">

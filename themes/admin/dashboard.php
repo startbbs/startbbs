@@ -89,7 +89,7 @@ StartBBS- 起点开源社区系统 <span class="red"><?php echo $this->config->i
 官方最新动态
 </div>
 <div class='inner'>
-<iframe src="http://www.startbbs.com/home/latest" width="100%" height="100%" frameborder="0" scrolling="no">Startbbs使用了框架技术，但是您的浏览器不支持框架，请升级您的浏览器以便正常访问StartBBS。</iframe>
+<iframe src="http://bbs.startbbs.com/home/latest" width="100%" height="100%" frameborder="0" scrolling="no">Startbbs使用了框架技术，但是您的浏览器不支持框架，请升级您的浏览器以便正常访问StartBBS。</iframe>
 </div>
 </div>
 	</div>

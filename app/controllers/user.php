@@ -43,6 +43,8 @@ class User extends SB_Controller
 		$this->load->model('follow_m');
 		$data['is_followed'] = $this->follow_m->follow_user_check($this->session->userdata('uid'), $uid);
 
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('user_profile', $data);
 		
 	}
@@ -89,6 +91,8 @@ class User extends SB_Controller
 			}
 
 		} else{
+            $data['csrf_name'] = $this->security->get_csrf_token_name();
+            $data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('register',$data);
 		}
 	}
@@ -133,14 +137,16 @@ class User extends SB_Controller
 				$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
 				//更新最后登录时间
 				$this->user_m->update_user($user['uid'],array('lastlogin'=>time()));
-				header("location: ".$data['referer']);
-				//redirect($data['referer']);
-				exit;
+				//header("location: ".$data['referer']);
+				redirect($data['referer']);
+				//exit;
 				
 			} else {
 				show_message('用户名或密错误!');
 			}
 		} else {
+            $data['csrf_name'] = $this->security->get_csrf_token_name();
+            $data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('login',$data);
 		}
 		
@@ -183,6 +189,8 @@ class User extends SB_Controller
 			}
 		} else{
 			$data['title'] = '找回密码';
+			$data['csrf_name'] = $this->security->get_csrf_token_name();
+        	$data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('findpwd',$data);
 		}
 
