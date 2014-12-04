@@ -194,25 +194,6 @@
 </div>
 <div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
 <?php $this->load->view('/block/right_login')?>
-
-<!--<div class='box'>
-<div class='box-header'>
-关注daqing的人
-<span class='gray'>(31)</span>
-</div>
-<div class='inner'>
-<a href="/member/lihuanchun" class="profile_link" title="lihuanchun"><img alt="lihuanchun mini avatar" class="mini_avatar" src="/uploads/user_avatar/1/401/mini_8bec70c1f03.jpg" /></a>
-<a href="/member/chopin" class="profile_link" title="chopin"><img alt="chopin mini avatar" class="mini_avatar" src="/avatar/mini_default.png" /></a>
-<a href="/member/deeme" class="profile_link" title="deeme"><img alt="deeme mini avatar" class="mini_avatar" src="/avatar/mini_default.png" /></a>
-<a href="/member/coon" class="profile_link" title="coon"><img alt="coon mini avatar" class="mini_avatar" src="/uploads/user_avatar/81/381/mini_310f8d895cf.png" /></a>
-<a href="/member/leegang" class="profile_link" title="leegang"><img alt="leegang mini avatar" class="mini_avatar" src="/uploads/user_avatar/76/376/mini_06cc6e065ee.png" /></a>
-<a href="/member/asdf01" class="profile_link" title="asdf01"><img alt="asdf01 mini avatar" class="mini_avatar" src="/uploads/user_avatar/78/278/mini_f9fb61a3196.jpg" /></a>
-<a href="/member/doudou" class="profile_link" title="doudou"><img alt="doudou mini avatar" class="mini_avatar" src="/avatar/mini_default.png" /></a>
-<a href="/member/4pple" class="profile_link" title="4pple"><img alt="4pple mini avatar" class="mini_avatar" src="/uploads/user_avatar/10/310/mini_6e3738054bc.jpg" /></a>
-<a href="/member/xiao" class="profile_link" title="xiao"><img alt="xiao mini avatar" class="mini_avatar" src="/uploads/user_avatar/22/222/mini_0385535bc98.jpg" /></a>
-<a href="/member/kandiyoki" class="profile_link" title="kandiyoki"><img alt="kandiyoki mini avatar" class="mini_avatar" src="/uploads/user_avatar/88/288/mini_267adc19f9e.jpg" /></a>
-</div>
-</div>-->
 <?php $this->load->view('block/right_ad');?>
 </div>
 </div></div></div>

@@ -1,31 +1,10 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');//强制输出utf8
-/*
- *---------------------------------------------------------------
- * 应用环境
- *---------------------------------------------------------------
- *
- * You can load different configurations depending on your
- * current environment. Setting the environment also influences
- * things like logging and error reporting.
- *
- * This can be set to anything, but default usage is:
- *
- *     development
- *     testing
- *     production
- *
- * NOTE: If you change these, also change the error_reporting() code below
- *
- */
-	define('ENVIRONMENT', 'development');
+define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
  * 错误报告
  *---------------------------------------------------------------
- *
- * Different environments will require different levels of error reporting.
- * By default development will show errors but testing and live will hide them.
  */
 
 if (defined('ENVIRONMENT'))
