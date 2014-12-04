@@ -138,8 +138,8 @@ $(function() {
 </div>
 
 <div class='col-xs-12 col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
-<?php $this->load->view('block/right_login');?>
-<?php $this->load->view('block/right_tags');?>
+<?php $this->load->view('common/sidebar_login');?>
+<?php $this->load->view('common/sidebar_tags');?>
 
  <div class="panel panel-default">
     <div class="panel-heading">
@@ -159,7 +159,7 @@ $(function() {
 </div> 
 
 
-<?php $this->load->view('block/right_ad');?>
+<?php $this->load->view('common/sidebar_ad');?>
  <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">友情链接</h3>

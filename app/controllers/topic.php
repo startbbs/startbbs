@@ -235,7 +235,7 @@ class topic extends SB_controller
 		$this->load->config('qiniu');
         $data['csrf_name'] = $this->security->get_csrf_token_name();
         $data['csrf_token'] = $this->security->get_csrf_hash();
-		$this->load->view('add',$data);
+		$this->load->view('topic_add',$data);
 		
 	}
 
@@ -286,7 +286,7 @@ class topic extends SB_controller
 			$this->load->config('qiniu');
 	        $data['csrf_name'] = $this->security->get_csrf_token_name();
 	        $data['csrf_token'] = $this->security->get_csrf_hash();
-			$this->load->view('edit', $data);
+			$this->load->view('topic_edit', $data);
 		}else{
 			show_message('你无权修改此贴子');
 		}

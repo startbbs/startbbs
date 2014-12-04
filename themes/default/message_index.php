@@ -45,8 +45,8 @@
             </div>
         </div>
 <div class="col-md-4">
-<?php $this->load->view('block/right_login');?>
-<?php $this->load->view('block/right_ad');?>
+<?php $this->load->view('common/sidebar_login');?>
+<?php $this->load->view('common/sidebar_ad');?>
 
 </div>
 

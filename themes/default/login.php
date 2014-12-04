@@ -66,8 +66,8 @@ function reloadcode() {//刷新验证码函数
 </div>
 <div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
 
-<?php $this->load->view('block/right_login');?>
-<?php $this->load->view('block/right_ad');?>
+<?php $this->load->view('common/sidebar_login');?>
+<?php $this->load->view('common/sidebar_ad');?>
 
 </div>
 </div></div></div>
