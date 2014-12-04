@@ -13,7 +13,6 @@ class SB_Controller extends Base_Controller
 {
 	var $nodes	= '';
 	var $pages = '';
-	var $gift_cards_enabled;
 	function __construct(){
 		parent::__construct();
 		//判断关闭
@@ -56,9 +55,6 @@ class SB_Controller extends Base_Controller
 		$data['user']['big_avatar']=(file_exists($data['user']['big_avatar']))?$data['user']['big_avatar']:'uploads/avatar/avatar_large.jpg';
 		$data['user']['middle_avatar']=$this->upload_m->get_avatar_url($this->session->userdata('uid'), 'middle');
 		$data['user']['middle_avatar']=(file_exists($data['user']['middle_avatar']))?$data['user']['middle_avatar']:'uploads/avatar/default.jpg';
-		//获取分类
-		$this->load->model('cate_m');
-		$data['catelist'] =$this->cate_m->get_all_cates();
 		//右侧登录调用收藏贴子数
 			$favorites=$this->db->select('favorites')->where('uid',$this->session->userdata('uid'))->get('favorites')->row_array();
 			if(!@$favorites['favorites']){

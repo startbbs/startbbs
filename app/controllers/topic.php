@@ -138,6 +138,9 @@ class topic extends SB_controller
 			}
 			//开启storage config
 			$this->load->config('qiniu');
+			//获取分类
+			$this->load->model('cate_m');
+			$data['catelist'] =$this->cate_m->get_all_cates();
             $data['csrf_name'] = $this->security->get_csrf_token_name();
             $data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('topic_show', $data);

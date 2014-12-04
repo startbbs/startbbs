@@ -104,7 +104,9 @@ class Node extends SB_Controller
 			$data['category'] = $this->cate_m->get_category_by_node_id($node_id);
 			$data['title'] = strip_tags($data['category']['cname']);
 			
-
+			//获取分类
+			$this->load->model('cate_m');
+			$data['catelist'] =$this->cate_m->get_all_cates();
 			$this->load->view('node_show', $data);
 		}
 
