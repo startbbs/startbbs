@@ -50,9 +50,10 @@ class User_m extends SB_Model
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 	function update_pwd($data){
+		$query = $this->get_user_by_id($data['uid']);
+		$password = password_dohash($data['password'],@$query['salt']);
 		$this->db->where('uid',$data['uid']);
-		$this->db->where('password',$data['password']);
-		$this->db->update('users', array('password'=>$data['newpassword']));
+		$this->db->update('users', array('password'=>$password));
 		return $this->db->affected_rows();
 	}
 	function update_avatar($avatar,$uid)

@@ -26,43 +26,50 @@
 </div>
 
 <div class='inner'>
-<form accept-charset="UTF-8" action="<?php echo site_url('settings/profile');?>" class="form-horizontal" id="edit_user_313" method="post" novalidate="novalidate">
+<form accept-charset="UTF-8" action="<?php echo site_url('settings/profile');?>" class="form-horizontal" method="post" novalidate="novalidate">
 <input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_nickname">用户名</label>
 <div class="col-sm-5">
-<input class="form-control" disabled="disabled" id="user_nickname" name="username" size="50" type="text" value="<?=$username?>" />
+<input class="form-control" disabled="disabled" id="user_nickname" name="username" size="50" type="text" value="<?php echo $username?>" />
 </div></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_email">电子邮件</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_email" name="email" size="50" type="email" value="<?=$email?>" />
+<input class="form-control" id="user_email" name="email" size="50" type="email" value="<?php echo $email?>" />
+<span class="help-block red"><?php echo form_error('email');?></span>
 </div></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_account_attributes_personal_website">个人网站</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_account_attributes_personal_website" name="homepage" size="50" type="text" value="<?=$homepage?>" /></div></div>
+<input class="form-control" id="user_account_attributes_personal_website" name="homepage" size="50" type="text" value="<?php echo $homepage?>" />
+<span class="help-block red"><?php echo form_error('homepage');?></span>
+</div></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_account_attributes_location">所在地</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_account_attributes_location" name="location" size="50" type="text" value="<?=$location?>" /></div></div>
+<input class="form-control" id="user_account_attributes_location" name="location" size="50" type="text" value="<?php echo $location?>" />
+<span class="help-block red"><?php echo form_error('location');?></span>
+</div></div>
 
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_account_attributes_signature">QQ</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_account_attributes_signature" name="qq" size="50" type="text" value="<?=$qq?>" />
+<input class="form-control" id="user_account_attributes_signature" name="qq" size="50" type="text" value="<?php echo $qq?>" />
+<span class="help-block red"><?php echo form_error('qq');?></span>
 </div></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_account_attributes_signature">签名</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_account_attributes_signature" name="signature" size="50" type="text" value="<?=$signature?>" />
+<input class="form-control" id="user_account_attributes_signature" name="signature" size="50" type="text" value="<?php echo $signature?>" />
+<span class="help-block red"><?php echo form_error('signature');?></span>
 </div></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_account_attributes_introduction">个人简介</label>
 <div class="col-sm-5">
-<textarea class="form-control" cols="40" id="user_account_attributes_introduction" name="introduction" rows="5"><?=$introduction?></textarea>
+<textarea class="form-control" cols="40" id="user_account_attributes_introduction" name="introduction" rows="5"><?php echo $introduction?></textarea>
+<span class="help-block red"><?php echo form_error('introduction');?></span>
 </div></div>
-<input id="user_account_attributes_id" name="user[account_attributes][id]" type="hidden" value="326" />
 <div class='form-group'>
 	<div class="col-sm-offset-3 col-sm-9">
 		<button type="submit" name="submit" class="btn btn-primary">保存设置</button>

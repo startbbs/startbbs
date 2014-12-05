@@ -78,6 +78,55 @@ $config = array(
             'rules' => 'trim|strip_tags'
         )
     ),
+    'settings/profile' => array(
+        array(
+            'field' => 'email',
+            'label' => '邮件',
+            'rules' => 'trim|max_length[30]|valid_email|xss_clean|strip_tags'
+        ),
+        array(
+            'field' => 'homepage',
+            'label' => '主页',
+            'rules' => 'trim|max_length[100]|prep_url|xss_clean|strip_tags'
+        ),
+        array(
+            'field' => 'location',
+            'label' => '城市',
+            'rules' => 'trim|max_length[20]|xss_clean|strip_tags'
+        ),
+        array(
+            'field' => 'qq',
+            'label' => 'QQ',
+            'rules' => 'trim|max_length[20]|xss_clean|strip_tags'
+        ),
+        array(
+            'field' => 'signature',
+            'label' => '签名',
+            'rules' => 'trim|max_length[100]|xss_clean|strip_tags'
+        ),
+        array(
+            'field' => 'introduction',
+            'label' => '简介',
+            'rules' => 'trim|max_length[300]|xss_clean|strip_tags'
+        )
+    ),
+    'settings/password' => array(
+        array(
+            'field' => 'password',
+            'label' => '原密码',
+            'rules' => 'trim|required|min_length[4]|max_length[18]|callback__check_password'
+        ),
+        array(
+            'field' => 'newpassword',
+            'label' => '新密码',
+            'rules' => 'trim|required|min_length[4]|max_length[18]'
+        ),
+        array(
+            'field' => 'newpassword2',
+            'label' => '重复新密码',
+            'rules' => 'trim|required|matches[newpassword]'
+        )
+    ),
     'auth/register' => array(
         array(
             'field' => 'email',
@@ -161,45 +210,6 @@ $config = array(
             'field' => 'content',
             'label' => '回复',
             'rules' => 'trim|required|min_length[5]|max_length[400]|xss_clean'
-        )
-    ),
-    'users/profile' => array(
-        array(
-            'field' => 'city',
-            'label' => '城市',
-            'rules' => 'trim|max_length[20]|xss_clean'
-        ),
-        array(
-            'field' => 'company',
-            'label' => '公司',
-            'rules' => 'trim|max_length[20]|xss_clean'
-        ),
-        array(
-            'field' => 'blog',
-            'label' => '主页',
-            'rules' => 'trim|max_length[100]|prep_url|xss_clean'
-        ),
-        array(
-            'field' => 'intro',
-            'label' => '简介',
-            'rules' => 'trim|max_length[400]|xss_clean'
-        )
-    ),
-    'users/password' => array(
-        array(
-            'field' => 'passold',
-            'label' => '原密码',
-            'rules' => 'trim|required|min_length[6]|max_length[18]|callback__correct_password'
-        ),
-        array(
-            'field' => 'password',
-            'label' => '新密码',
-            'rules' => 'trim|required|min_length[6]|max_length[18]'
-        ),
-        array(
-            'field' => 'passconf',
-            'label' => '重复新密码',
-            'rules' => 'trim|required|matches[password]'
         )
     ),
 );

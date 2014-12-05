@@ -14,6 +14,8 @@ class Settings extends SB_Controller {
 		$this->load->model('user_m');
 		$this->load->model('upload_m');
 		$this->load->library('myclass');
+		$this->load->library('form_validation');
+		$this->load->helper('form');
 		if(!$this->auth->is_login ()){
 			redirect('user/login');
 		}
@@ -26,18 +28,17 @@ class Settings extends SB_Controller {
 
 	public function profile()
 	{
-
 		$uid = $this->session->userdata ('uid');
 		$data = $this->user_m->get_user_by_id($uid);
-		if($_POST){
+		if($_POST && $this->form_validation->run('settings/profile')===TRUE){
 			$data = array(
 				'uid' => $uid,
-				'email' => strip_tags($this->input->post('email')),
-				'homepage' => prep_url(strip_tags($this->input->post('homepage'))),
-				'location' => strip_tags($this->input->post('location')),
-				'qq' => strip_tags($this->input->post('qq')),
-				'signature' => strip_tags($this->input->post('signature')),
-				'introduction' => strip_tags($this->input->post('introduction'))
+				'email' => $this->input->post('email'),
+				'homepage' => $this->input->post('homepage'),
+				'location' => $this->input->post('location'),
+				'qq' => $this->input->post('qq'),
+				'signature' => $this->input->post('signature'),
+				'introduction' => $this->input->post('introduction')
 			);
 			$this->user_m->update_user($uid, $data);
 			$data = $this->user_m->get_user_by_id($uid);
@@ -79,24 +80,32 @@ class Settings extends SB_Controller {
 	public function password() 
 	{
 		$data ['title'] = '修改密码';
-		$this->auth->is_login( $this->session->userdata ( 'uid' ), $this->session->userdata ( 'password' ) );
-		if ($_POST) {
-			$password = $this->input->post ('password',true);
-			$newpassword = $this->input->post ('newpassword',true);
-			$data = array ('uid' => $this->session->userdata ( 'uid' ), 'password' => md5 ( $password ), 'newpassword' => md5 ( $newpassword ) );
-			if ($this->user_m->update_pwd ( $data )) {
+		if ($_POST && $this->form_validation->run('settings/password')===TRUE) {
+			$newpassword = $this->input->post ('newpassword');
+			$data = array ('uid' => $this->session->userdata ( 'uid' ), 'password' =>$newpassword);
+			if($this->user_m->update_pwd($data)) {
 				$data ['msg'] = '更新成功';
-				$this->session->set_userdata ( 'password', $data ['newpassword'] );
+				$this->session->set_userdata ('password', @$data['newpassword'] );
 			} else {
 				$data ['msg'] = '修改失败';
 			}
-			$this->load->view ( 'settings_password', $data );
-		} else {
-	        $data['csrf_name'] = $this->security->get_csrf_token_name();
-	        $data['csrf_token'] = $this->security->get_csrf_hash();
-			$this->load->view ( 'settings_password', $data );
 		}
+		$data['csrf_name'] = $this->security->get_csrf_token_name();
+	    $data['csrf_token'] = $this->security->get_csrf_hash();
+	    $this->load->view('settings_password', $data);
 
+	}
+
+	function _check_password($password){
+	        $data = array(
+	            'username' => $this->session->userdata('username'),
+	            'password' => $password,
+	            );
+	        if (!$this->user_m->check_login($data['username'],$data['password'])){
+	            return FALSE;
+	        } else {
+	            return TRUE;
+	        }
 	}
 	
 }

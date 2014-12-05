@@ -30,17 +30,21 @@
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_current_password">当前密码</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_current_password" name="password" size="50" type="password" />
+<input class="form-control" id="user_current_password" name="password" value="<?php echo set_value('password'); ?>" size="50" type="password" />
+<span class="help-block red"><?php echo form_error('password');?></span>
 </div></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_password">新密码</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_password" name="newpassword" size="50" type="password" />
+<input class="form-control" id="user_password" name="newpassword" value="<?php echo set_value('newpassword'); ?>" size="50" type="password" />
+<span class="help-block red"><?php echo form_error('newpassword');?></span>
 </div></div>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="user_password_confirmation">新密码确认</label>
 <div class="col-sm-5">
-<input class="form-control" id="user_password_confirmation" name="newpassword2" size="50" type="password" /></div></div>
+<input class="form-control" id="user_password_confirmation" name="newpassword2" value="<?php echo set_value('newpassword2'); ?>" size="50" type="password" />
+<span class="help-block red"><?php echo form_error('newpassword2');?></span>
+</div></div>
 
 <div class='form-group'>
 	<div class="col-sm-offset-3 col-sm-9">
