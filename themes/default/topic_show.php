@@ -7,7 +7,7 @@
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <meta name="keywords" content="<?php echo $content['keywords']?>" />
 <meta name="description" content="<?php echo $content['description'];?>" />
-<?php $this->load->view ('header-meta');?>
+<?php $this->load->view('common/header-meta');?>
 <script src="<?php echo base_url('static/common/js/topic.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('static/common/js/plugins.js')?>" type="text/javascript"></script>
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
@@ -19,7 +19,7 @@
     
 </head>
 <body id="startbbs" name="top">
-<?php $this->load->view ('header'); ?>
+<?php $this->load->view('common/header'); ?>
 <div id="wrap"><div class="container" id="page-main"><div class="row"><div class='col-xs-12 col-sm-6 col-md-8'>
 <div class='box'>
 <article>
@@ -211,4 +211,6 @@ at
 <?php $this->load->view('common/sidebar_ad');?>
 </div>
 </div></div></div>
-<?php $this->load->view ('footer'); ?>
+<?php $this->load->view('common/footer');?>
+</body>
+</html>

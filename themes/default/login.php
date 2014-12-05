@@ -3,10 +3,10 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title>登入 - <?php echo $settings['site_name']?></title>
-<?php $this->load->view('header-meta');?>
+<?php $this->load->view('common/header-meta');?>
 </head>
 <body id="startbbs">
-<?php $this->load->view('header');?>
+<?php $this->load->view('common/header');?>
 
 <div id="wrap"><div class="container" id="page-main"><div class="row"><div class='col-xs-12 col-sm-6 col-md-8'>
 
@@ -71,4 +71,6 @@ function reloadcode() {//刷新验证码函数
 
 </div>
 </div></div></div>
-<?php $this->load->view ('footer'); ?>
+<?php $this->load->view('common/footer');?>
+</body>
+</html>

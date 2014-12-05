@@ -7,10 +7,10 @@
 <title><?php echo $title?>- <?php echo $settings['site_name']?></title>
 <meta name="keywords" content="<?php echo $title?>" />
 <meta name="description" content="<?php echo $category['content'];?>" />
-<?php $this->load->view ('header-meta');?>
+<?php $this->load->view('common/header-meta');?>
 </head>
 <body id="startbbs">
-<?php $this->load->view ('header');?>
+<?php $this->load->view('common/header');?>
 
 <div id="wrap">
 <div class="container" id="page-main">
@@ -110,4 +110,6 @@
 </div>
 </div></div></div>
 
-<?php $this->load->view ('footer'); ?>
+<?php $this->load->view('common/footer');?>
+</body>
+</html>

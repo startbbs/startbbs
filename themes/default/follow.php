@@ -3,12 +3,12 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?php echo $title?> - <?php echo $settings['site_name']?></title>
-<?php $this->load->view ('header-meta');?>
+<?php $this->load->view('common/header-meta');?>
 </head>
 
 <body id="startbbs">
 <a id="top" name="top"></a>
-<?php $this->load->view ('header'); ?>
+<?php $this->load->view('common/header'); ?>
 
 <div id="wrap">
 <div class="container" id="page-main">
@@ -94,4 +94,6 @@
 
 </div>
 </div></div></div>
-<?php $this->load->view ('footer'); ?>
+<?php $this->load->view('common/footer');?>
+</body>
+</html>

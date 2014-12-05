@@ -6,10 +6,10 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?php echo $username?> - <?php echo $settings['site_name']?></title>
-<?php echo $this->load->view('header-meta')?>
+<?php echo $this->load->view('common/header-meta')?>
 </head>
 <body id="startbbs">
-<?php echo $this->load->view('header')?>
+<?php echo $this->load->view('common/header')?>
 <div id="wrap">
 <div class="container" id="page-main">
 <div class="row"><div class='col-xs-12 col-sm-6 col-md-8'>
@@ -197,7 +197,7 @@
 <?php $this->load->view('common/sidebar_ad');?>
 </div>
 </div></div></div>
-<?php $this->load->view('footer');?>
+<?php $this->load->view('common/footer');?>
 <script>
 	$(function(){
 		$('#send-message').on('submit',function(e) {
@@ -225,3 +225,5 @@
 
 	});
 </script>
+</body>
+</html>

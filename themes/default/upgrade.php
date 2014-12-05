@@ -6,7 +6,7 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title>升级 - 管理后台 - Startbbs开源轻量社区系统</title>
-<?php $this->load->view ( 'header-meta' );?>
+<?php $this->load->view('common/header-meta' );?>
 </head>
 <body id="startbbs">
 <div class="navbar navbar-inverse navbar-static-top navbar-fixed-top">

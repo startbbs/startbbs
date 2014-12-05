@@ -6,7 +6,7 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?php echo $title?> - <?php echo $settings['site_name']?></title>
-<?php $this->load->view('header-meta');?>
+<?php $this->load->view('common/header-meta');?>
 <script src="<?php echo base_url('static/common/js/plugins.js')?>" type="text/javascript"></script>
 <?php if($this->config->item('show_editor')=='on'){?>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('static/common/js/editor/jquery.editor.css')?>" />
@@ -21,7 +21,7 @@
 <?php }?>
 </head>
 <body id="startbbs">
-<?php $this->load->view('header');?>
+<?php $this->load->view('common/header');?>
 <div id="wrap"><div class="container" id="page-main"><div class="row"><div class='col-xs-12 col-sm-6 col-md-8'>
 <div class='box'>
 <div class='box-header'>
@@ -67,4 +67,6 @@
 
 </div>
 </div></div></div>
-<?php $this->load->view ('footer'); ?>
+<?php $this->load->view('common/footer'); ?>
+</body>
+</html>

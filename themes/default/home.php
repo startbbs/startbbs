@@ -6,10 +6,10 @@
 <title><?php echo $settings['site_name']?> - <?php echo $settings['short_intro']?></title>
 <meta name="keywords" content="<?php echo $settings['site_keywords']?>" />
 <meta name="description" content="<?php echo $settings['short_intro']?>" />
-<?php $this->load->view('header-meta');?>
+<?php $this->load->view('common/header-meta');?>
 </head>
 <body>
-<?php $this->load->view('header');?>
+<?php $this->load->view('common/header');?>
 <div id="wrap">
 <div class="container" id="page-main">
 <div class="row">
@@ -185,4 +185,6 @@ $(function() {
 
 </div>
 </div></div></div>
-<?php $this->load->view('footer');?>
+<?php $this->load->view('common/footer');?>
+</body>
+</html>

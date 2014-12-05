@@ -8,10 +8,10 @@
 <meta name="author" content="">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <title><?php echo $title;?> - <?php echo $settings['site_name']?></title>
-<?php $this->load->view ('header-meta');?>
+<?php $this->load->view('common/header-meta');?>
 </head>
 <body>
-<?php $this->load->view ('header'); ?>
+<?php $this->load->view('common/header'); ?>
 <div class="container">
     <div class="row">
         <div class="col-md-8">
@@ -87,4 +87,6 @@
     </div>
 </div>
 </div>
-<?php $this->load->view ('footer'); ?>
+<?php $this->load->view('common/footer');?>
+</body>
+</html>

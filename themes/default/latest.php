@@ -3,7 +3,7 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title> New Document </title>
-<?php $this->load->view('header-meta')?>
+<?php $this->load->view('common/header-meta')?>
  </head>
 
  <body style="background: #fff;">
