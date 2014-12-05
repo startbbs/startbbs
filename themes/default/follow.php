@@ -26,11 +26,7 @@
 <li class="col-xs-5 col-md-2">
 <div class='thumbnail1'>
 <a href="<?php echo site_url('user/profile/'.$v['follow_uid']);?>" title="<?php echo $v['username']?>">
-<?php if($v['avatar']){?>
-<img alt="<?php echo $v['username']?> large avatar" class="large_avatar" src="<?php echo base_url($v['avatar'])?>" />
-<?php } else{?>
-<img alt="<?php echo $v['username']?> large avatar" class="large_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>" />
-<?php }?>
+<img alt="<?php echo $v['username']?> large avatar" class="large_avatar" src="<?php echo base_url($v['avatar'].'normal.png')?>" />
 </a></div>
 <div class='sep5'></div>
 <div class='caption center'>

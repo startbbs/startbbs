@@ -26,11 +26,7 @@
 <div class='header topic-head'>
 <div class='pull-right'>
 <a href="<?php echo site_url('user/profile/'.$content['uid']);?>" class="profile_link" title="<?php echo $content['username']?>">
-<?php if($content['avatar']) {?>
-<img alt="<?php echo $content['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($content['avatar']);?>" />
-<?php } else {?>
-<img alt="<?php echo $content['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>" />
-<?php }?>
+<img alt="<?php echo $content['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($content['avatar'].'normal.png');?>" />
 </a>
 </div>
 <p><a href="<?php echo site_url();?>">首页</a> <span class="text-muted">/</span> <a href="<?php echo site_url('node/show/'.$cate['node_id']);?>"><?php echo $cate['cname'];?></a></p>
@@ -104,11 +100,7 @@ at
 <div class="row">
 <div class="col-md-1">
 <a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username']?>">
-<?php if($v['avatar']) {?>
-<img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['avatar']);?>" />
-<?php } else {?>
-<img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>" />
-<?php }?>
+<img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['avatar'].'normal.png');?>" />
 </a>
 </div>
 <div class="col-md-11">
@@ -168,7 +160,7 @@ at
 <input name="topic_id" id="topic_id" type="hidden" value="<?php echo $content['topic_id']?>" />
 <input name="is_top" id="is_top" type="hidden" value="<?php echo $content['is_top']?>" />
 <input name="username" id="username" type="hidden" value="<?php echo $user['username']?>" />
-<input name="avatar" id="avatar" type="hidden" value="<?php echo base_url($user['middle_avatar'])?>" />
+<input name="avatar" id="avatar" type="hidden" value="<?php echo base_url($user['avatar'].'normal.png')?>" />
 
 <!--<div id='preview-widget'style="margin-left: 15px;">
 <a href="javascript:void(0);" class="action_label cancel_preview current_label" data-ref="comment_content">编辑区</a>

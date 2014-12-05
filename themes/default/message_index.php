@@ -25,11 +25,7 @@
 	<?php foreach($dialog_list as $v){?>
       <li class="media">
         <a class="media-left" href="<?php echo site_url('user/profile/'.$v['receiver_uid'])?>">
-<?php if($v['receiver_avatar']){?>
-          <img src="<?php echo base_url($v['receiver_avatar'])?>" alt="<?php echo $v['receiver_username'];?>">
-<?php } else{?>
-<img src="<?php echo base_url('uploads/avatar/default.jpg');?>" alt="<?php echo $v['receiver_username'];?>">
-                    <?php }?>
+          <img src="<?php echo base_url($v['receiver_avatar'].'normal.png')?>" alt="<?php echo $v['receiver_username'];?>">
         </a>
         <div class="media-body">
           <h5 class="media-heading"><a href="<?php echo site_url('user/profile/'.$v['receiver_uid'])?>"><?php echo $v['receiver_username']?></a> <?php echo friendly_date($v['update_time'])?></h5>

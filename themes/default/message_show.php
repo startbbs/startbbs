@@ -43,11 +43,7 @@
 <?php if($v['sender_uid']==$uid){?>
   <li class="media">
     <a class="media-left" href="<?php echo site_url('user/profile/'.$v['sender_uid'])?>">
-	   <?php if($v['sender_avatar']){?>
-      <img src="<?php echo base_url($v['sender_avatar']);?>" alt="<?php echo $v['sender_username'];?>">
-      <?php }else{?>
-      <img src="<?php echo base_url('uploads/avatar/default.jpg');?>" alt="<?php echo $v['sender_username'];?>">
-      <?php }?>
+      <img src="<?php echo base_url($v['sender_avatar'].'normal.png');?>" alt="<?php echo $v['sender_username'];?>">
     </a>
     <div class="media-body alert alert-info">
 	  我:
@@ -65,11 +61,7 @@
      <?php echo friendly_date($v['create_time'])?></p>
      </div>
     <a class="media-right" href="<?php echo site_url('user/profile/'.$v['sender_uid'])?>">
-	   <?php if($v['sender_avatar']){?>
-      <img src="<?php echo base_url($v['sender_avatar']);?>" alt="<?php echo $v['sender_username'];?>">
-      <?php }else{?>
-      <img src="<?php echo base_url('uploads/avatar/default.jpg');?>" alt="<?php echo $v['sender_username'];?>">
-      <?php }?>
+      <img src="<?php echo base_url($v['sender_avatar'].'normal.png');?>" alt="<?php echo $v['sender_username'];?>">
     </a>
   </li>
  <?php }?>

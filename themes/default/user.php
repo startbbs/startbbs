@@ -30,11 +30,7 @@
 <?php if($new_users) foreach($new_users as $v){?>
 <li>
 <a href="<?php echo site_url('user/profile/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
-<?php if($v['avatar']){?>
-<img src="<?php echo base_url($v['avatar']);?>" alt="<?php echo $v['username'];?>">
-<?php } else{?>
-<img src="<?php echo base_url('uploads/avatar/default.jpg');?>" title="<?php echo $v['username'];?>" alt="<?php echo $v['username'];?>">
-<?php }?>
+<img src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'];?>">
 </a>
 </li>
 <?php }?>
@@ -56,11 +52,7 @@
 <?php if($hot_users) foreach($hot_users as $v){?>
 <li>
 <a href="<?php echo site_url('user/profile/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
-<?php if($v['avatar']){?>
-<img src="<?php echo base_url($v['avatar']);?>" alt="<?php echo $v['username'];?>">
-<?php } else{?>
-<img src="<?php echo base_url('uploads/avatar/default.jpg');?>" title="<?php echo $v['username'];?>" alt="<?php echo $v['username'];?>">
-<?php }?>
+<img src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'];?>">
 </a>
 </li>
 <?php }?>

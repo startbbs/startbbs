@@ -49,12 +49,7 @@ class SB_Controller extends Base_Controller
 		$data['group']['group_name']=($data['group'])?$data['group']['group_name']:'普通会员';
 		//获取二级目录
 		$data['base_folder'] = $this->config->item('base_folder');
-		//获取头像
-		$this->load->model('upload_m');
-		$data['user']['big_avatar']=$this->upload_m->get_avatar_url($this->session->userdata('uid'), 'big');
-		$data['user']['big_avatar']=(file_exists($data['user']['big_avatar']))?$data['user']['big_avatar']:'uploads/avatar/avatar_large.jpg';
-		$data['user']['middle_avatar']=$this->upload_m->get_avatar_url($this->session->userdata('uid'), 'middle');
-		$data['user']['middle_avatar']=(file_exists($data['user']['middle_avatar']))?$data['user']['middle_avatar']:'uploads/avatar/default.jpg';
+
 		//右侧登录调用收藏贴子数
 			$favorites=$this->db->select('favorites')->where('uid',$this->session->userdata('uid'))->get('favorites')->row_array();
 			if(!@$favorites['favorites']){
