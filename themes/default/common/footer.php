@@ -21,5 +21,4 @@
 		</div>
 	</div>
 </footer>
-<script type="text/javascript" src="<?php echo base_url('static/common/js/jquery-1.10.2.min.js');?>"></script>
 <script src="<?php echo base_url('static/common/js/bootstrap.min.js')?>"></script>

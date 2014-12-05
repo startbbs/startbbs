@@ -31,11 +31,7 @@
 <div class='cell topic'>
 <div class='avatar pull-left'>
 <a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="profile_link" title="<?php echo $v['username']?>">
-<?php if($v['avatar']){?>
-<img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['avatar']);?>"/>
-<?php } else{?>
-<img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="uploads/avatar/default.jpg" />
-<?php }?>
+<img alt="<?php echo $v['username']?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['avatar'].'normal.png');?>"/>
 </a>
 </div>
 <div class='item_title'>

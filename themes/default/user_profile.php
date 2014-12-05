@@ -18,11 +18,7 @@
 <table border='0' cellpadding='0' cellspacing='0' width='100%'>
 <tr>
 <td align='center' valign='top' width='73'>
-<?php if($avatar){?>
-<img alt="<?php echo $username?> large avatar" class="large_avatar" style="width:72px; height:72px;" src="<?php echo base_url($big_avatar)?>"/>
-<?php } else{?>
-<img alt="<?php echo $username?> large avatar" class="large_avatar" style="width:72px; height:72px;" src="<?php echo base_url('uploads/avatar/default.jpg')?>"/>
-<?php }?>
+<img alt="<?php echo $username?> large avatar" class="large_avatar" style="width:72px; height:72px;" src="<?php echo base_url($avatar.'big.png')?>"/>
 </td>
 <td valign='top' width='10'></td>
 <td align='left' valign='top' width='auto'>

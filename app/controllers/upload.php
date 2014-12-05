@@ -132,7 +132,7 @@ class upload extends SB_Controller {
 
 	function upload_file() {
 
-		if(!$this->auth->is_admin())
+		if(!$this->auth->is_login())
 		{
 			die('无权访问此页');
 		}

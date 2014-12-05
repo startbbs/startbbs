@@ -27,7 +27,8 @@
 </div>
 
 	<div class="inner">
-		<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('settings/avatar')?>" method="post">
+		<?php if ($msg!='') echo '<div class="alert alert-danger">'.$msg.'</div>'; ?>
+		<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('settings/avatar_upload')?>" method="post">
 		<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
   			<fieldset>
     			<div class="form-group">
@@ -35,9 +36,9 @@
       				<div class="col-sm-8">
       					<p>
       					<?php if ($user['avatar']){?>
-      						<img class="large_avatar" src="<?php echo base_url($avatars['big']); ?>"/>
-      						<img class="middle_avatar" src="<?php echo base_url($avatars['middle']); ?>"/>
-      						<img class="small_avatar" src="<?php echo base_url($avatars['small']); ?>"/>
+							<img class="large_avatar" src="<?php echo base_url($avatar.'big.png');?>" class="img-rounded">
+                            <img class="middle_avatar" src="<?php echo base_url($avatar.'normal.png');?>" class="img-rounded">
+                            <img class="small_avatar" src="<?php echo base_url($avatar.'small.png');?>" class="img-rounded">
       					<?php } else {?>
 							<img class="large_avatar" src="<?php echo base_url('uploads/avatar/avatar_large.jpg');?>"/>
       						<img class="middle_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>"/>
@@ -54,13 +55,13 @@
     			<div class="form-group">
       				<label class="col-sm-3 control-label" for="avatar_file">选择图片</label>
       				<div class="col-sm-5">
-       					<input type="file" id="avatar_file" name="userfile" />
+       					<input type="file" id="avatar_file" name="avatar_file" />
       				</div>
     			</div>
     			
     			<div class="form-group">
 	    			<div class="col-sm-offset-3 col-sm-9">
-    				<button type="submit" name="upload" class="btn btn-sm btn-primary">上传新头像</button>
+    				<button type="submit" name="upload" class="btn btn-primary">上传新头像</button>
     				</div>
     			</div>
     		</fieldset>

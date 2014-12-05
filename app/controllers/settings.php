@@ -52,31 +52,53 @@ class Settings extends SB_Controller {
 
 	}
 	
-	public function avatar() {
+	public function avatar($msg='') {
 		$data['title'] = '头像设置';
 		$uid=$this->session->userdata('uid');
-		$data['my_avatar'] = $this->upload_m->get_avatar_url($uid, 'middle');
-		if($_POST){
-			//print_r($this->input->post('avatar_file'));
-			if($this->upload_m->do_avatar()){
-				$this->db->where('uid',$uid)->update('users', array('avatar'=>$data['my_avatar']));
-				$data['msg'] = '头像上传成功!';
-				header("location:".$_SERVER["PHP_SELF"]);
-				exit();
-			} else {
-				$data['msg'] = $this->upload->display_errors();
-			}
-			//header("location:".$_SERVER["PHP_SELF"]);
-			
-		}
-		$data['avatars']['big'] = $this->upload_m->get_avatar_url($uid, 'big');
-		$data['avatars']['middle'] = $this->upload_m->get_avatar_url($uid, 'middle');
-		$data['avatars']['small'] = $this->upload_m->get_avatar_url($uid, 'small');
+		$user_info=$this->user_m->get_user_by_id($this->session->userdata('uid'));
+        $data['avatar']=$user_info['avatar'];
+		$data['msg'] = $msg;
+
         $data['csrf_name'] = $this->security->get_csrf_token_name();
         $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('settings_avatar', $data);
 	}
-	
+
+    public function avatar_upload()
+    {
+        $config['upload_path'] = './uploads/avatar';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = TRUE;
+        $config['max_size'] = '512';
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('avatar_file'))
+        {
+            $this->avatar($this->upload->display_errors());
+        }
+        else
+        {
+            //upload sucess
+            $img_array = $this->upload->data();
+            $this->load->library('AvatarResize');
+
+            if ($this->avatarresize->resize($img_array['full_path'], 100 ,100 ,'big') && $this->avatarresize->resize($img_array['full_path'], 48 ,48 ,'normal') && $this->avatarresize->resize($img_array['full_path'], 24 ,24 ,'small')) {
+
+                $data = array(
+                    'avatar' => $this->avatarresize->get_dir()
+                    );
+                $this->user_m->update_user($this->session->userdata('uid'), $data);
+                //删除tmp下的原图
+                unlink($img_array['full_path']);
+                redirect('settings/avatar','refresh');
+            } else {
+                //设置三个头像没有成功
+                $this->avatar('头像上传失败，请重试！');
+            }
+        }
+    }
+
 	public function password() 
 	{
 		$data ['title'] = '修改密码';

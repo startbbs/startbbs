@@ -5,7 +5,7 @@
 <tr>
 <td valign='top' width='100'>
 <a href="<?php echo site_url('user/profile/'.$user['uid']);?>" class="profile_link" title="<?php echo $user['username']?>">
-<img alt="<?php echo $user['username']?> large avatar" class="large_avatar" src="<?php echo base_url($user['big_avatar'])?>" />
+<img alt="<?php echo $user['username']?> large avatar" class="large_avatar" src="<?php echo base_url($user['avatar'].'big.png')?>" />
 </a>
 </td>
 <td valign='top' width='10'></td>
@@ -39,14 +39,6 @@
 
 </table>
 </div>
-<?php if(!file_exists($user['big_avatar'])){?>
-<div class='cell'>
-<div class='text-muted alert alert-warn' style='margin-bottom: 0;'>
-头像不够个性？
-<a class='startbbs' href='<?php echo site_url('settings/avatar');?>'>立刻上传 →</a>
-</div>
-</div>
-<?php }?>
 <div class='panel-footer text-muted'>
 <?php if($users['notices']){?>
 <img align="top" alt="Dot_orange" class="icon" src="<?php echo base_url('static/common/images/dot_orange.png');?>" />
