@@ -9,74 +9,67 @@
 <?php echo $this->load->view('common/header-meta');?>
 </head>
 <body id="startbbs">
-
 <?php echo $this->load->view('common/header');?>
-
-<div id="wrap"><div class="container" id="page-main"><div class="row"><div class='col-xs-12 col-sm-6 col-md-8' class="clearfix">
-
-<div class='box'>
-<div class='cell' style="border-bottom-style: none;">
-<a href="<?php echo site_url()?>" class="startbbs"><?php echo $settings['site_name']?></a> <span class="chevron">&nbsp;›&nbsp;</span> 设置
-    <ul class="nav nav-tabs" style="margin-top:10px;">
-    <li>
-    <a href="<?php echo site_url('settings/profile');?>">个人信息</a>
-    </li>
-    <li class="active"><a href="#">头像</a></li>
-    <li><a href="<?php echo site_url('settings/password');?>">修改密码</a></li>
-    </ul>
-</div>
-
-	<div class="inner">
-		<?php if ($msg!='') echo '<div class="alert alert-danger">'.$msg.'</div>'; ?>
-		<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('settings/avatar_upload')?>" method="post">
-		<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
-  			<fieldset>
-    			<div class="form-group">
-      				<label class="col-sm-3 control-label">当前头像</label>
-      				<div class="col-sm-8">
-      					<p>
-      					<?php if ($user['avatar']){?>
-							<img class="large_avatar" src="<?php echo base_url($avatar.'big.png');?>" class="img-rounded">
-                            <img class="middle_avatar" src="<?php echo base_url($avatar.'normal.png');?>" class="img-rounded">
-                            <img class="small_avatar" src="<?php echo base_url($avatar.'small.png');?>" class="img-rounded">
-      					<?php } else {?>
-							<img class="large_avatar" src="<?php echo base_url('uploads/avatar/avatar_large.jpg');?>"/>
-      						<img class="middle_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>"/>
-      						<img class="small_avatar" src="<?php echo base_url('uploads/avatar/avatar_small.jpg');?>"/>
-      					<?php }?>
-      					</p>
-      					
-       					<p class="alert alert-info">
-       						<strong>注意</strong> 支持 500k 以内的 PNG / GIF / JPG 图片文件作为头像，推荐使用正方形的图片以获得最佳效果。
-	      				</p>
-      				</div>
-    			</div>
-    			
-    			<div class="form-group">
-      				<label class="col-sm-3 control-label" for="avatar_file">选择图片</label>
-      				<div class="col-sm-5">
-       					<input type="file" id="avatar_file" name="avatar_file" />
-      				</div>
-    			</div>
-    			
-    			<div class="form-group">
-	    			<div class="col-sm-offset-3 col-sm-9">
-    				<button type="submit" name="upload" class="btn btn-primary">上传新头像</button>
-    				</div>
-    			</div>
-    		</fieldset>
-    	</form>
-	</div>
-	
-</div>
-</div>
-
-<div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
-<?php $this->load->view('common/sidebar_login')?>
-<?php $this->load->view('common/sidebar_ad');?>
-
-</div>
-</div></div></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4>账号设置</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-tabs">
+                            <li><a href="<?php echo site_url('settings/profile');?>">基本信息</a></li>
+                            <li class="active"><a href="#">修改头像</a></li>
+                            <li><a href="<?php echo site_url('settings/password');?>">密码安全</a></li>
+                        </ul>
+                        <div class="setting">
+	                        <?php if ($msg!='') echo '<div class="alert alert-danger">'.$msg.'</div>'; ?>
+							<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('settings/avatar_upload')?>" method="post">
+								<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
+				  			<fieldset>
+				    			<div class="form-group">
+				      				<label class="col-md-2 control-label">当前头像</label>
+				      				<div class="col-md-8">
+				      					<?php if ($user['avatar']){?>
+											<img class="large_avatar" src="<?php echo base_url($avatar.'big.png');?>" class="img-rounded">
+				                            <img class="middle_avatar" src="<?php echo base_url($avatar.'normal.png');?>" class="img-rounded">
+				                            <img class="small_avatar" src="<?php echo base_url($avatar.'small.png');?>" class="img-rounded">
+				      					<?php } else {?>
+											<img class="large_avatar" src="<?php echo base_url('uploads/avatar/avatar_large.jpg');?>"/>
+				      						<img class="middle_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>"/>
+				      						<img class="small_avatar" src="<?php echo base_url('uploads/avatar/avatar_small.jpg');?>"/>
+				      					<?php }?>
+	                                    <div class="alert alert-info alert-avatar">
+	                                        <strong>注意</strong> 支持 512k 以内的 PNG / GIF / JPG 图片文件作为头像，推荐使用正方形的图片以获得最佳效果。
+	                                    </div>
+				      				</div>
+				    			</div>
+				    			
+				    			<div class="form-group">
+				      				<label class="col-md-2 control-label" for="avatar_file">选择图片</label>
+				      				<div class="col-md-6">
+				       					<input type="file" id="avatar_file" name="avatar_file" />
+				      				</div>
+				    			</div>
+				    			
+				    			<div class="form-group">
+					    			<div class="col-sm-offset-2 col-sm-6">
+				    				<button type="submit" name="upload" class="btn btn-primary">上传新头像</button>
+				    				</div>
+				    			</div>
+				    		</fieldset>
+	                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="col-md-4">
+			<?php $this->load->view('common/sidebar_login')?>
+			<?php $this->load->view('common/sidebar_ad');?>
+			</div> 
+        </div>
+    </div>
 <?php $this->load->view('common/footer');?>
 </body>
 </html>

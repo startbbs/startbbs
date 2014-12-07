@@ -10,67 +10,47 @@
 <a id="top" name="top"></a>
 <?php $this->load->view('common/header'); ?>
 
-<div id="wrap">
-<div class="container" id="page-main">
-<div class="row">
-<div class='col-xs-12 col-sm-6 col-md-8'>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">通知中心</h3>
+                    </div>
+                    <div class="panel-body">
+	                    <?php if($notices_list):?>
+                        <ul class="media-list">
+                            <?php foreach ($notices_list as $v) : ?>
+                            <li class="media">
+                                <div class="media-body">
+                                    <h4 class="media-heading topic-list-heading">
+<a href="<?php echo site_url('user/profile/'.$v['suid']);?>"><img alt="<?php echo $v['username'];?> mini avatar" src="<?php echo base_url($v['avatar'].'small.png');?>" /></a>
+	                                <a href="<?php echo site_url('user/profile/'.$v['suid']);?>"><?php echo $v['username'];?></a> 在贴子<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>"><?php echo $v['title'];?>...</a>中</h4>
+                                    <blockquote>
+	                                <?php if($v['ntype']==0){?>回复了你　<?php }?>
+									<?php if($v['ntype']==1){?>提到了@你　<?php }?>
+                                    <?php echo friendly_date($v['ntime']);?>
+                                    </blockquote>
+                                </div>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <ul class="pager"><!--<?php echo $pagination; ?>--></ul>
+                        <?php else: ?>
+                        暂无提醒
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div><!-- /.col-md-8 -->
 
-<div class='box'>
-<div class='cell'>
-<a href="/" class="startbbs"><?php echo $settings['site_name']?></a> <span class="chevron">&nbsp;›&nbsp;</span> 提醒系统(<?php echo $users['notices']?>)
-</div>
-<?php if($notices_list){?>
-<?php foreach($notices_list as $v){?>
-<div class='cell'>
-<table width='100%'>
-<tr>
-<td align='left' valign='top' width='32'>
-<a href="<?php echo site_url('user/profile/'.$v['suid']);?>" class="profile_link" title="<?php echo $v['username'];?>">
-<?php if($v['avatar']) {?>
-<img alt="<?php echo $v['username'];?> mini avatar" class="mini_avatar" src="<?php echo base_url($v['avatar']);?>" />
-<?php } else {?>
-<img alt="<?php echo $v['username'];?> mini avatar" class="mini_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>" />
-<?php }?>
-</a>
-</td>
-<td valign='top'>
-<span class='gray'>
-<strong><a href="<?php echo site_url('user/profile/'.$v['suid']);?>" class="startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a></strong>
-<?php if($v['ntype']==0){?>
-回复了你的贴子
-<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>" class="startbbs"><?php echo $v['title'];?>...</a>
-<?php }?>
-<?php if($v['ntype']==1){?>
-在回复
-<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>" class="startbbs"><?php echo $v['title'];?>...</a>
-时提到了@你
-<?php }?>
-</span>
-<span class='snow'>
-<?php echo $this->myclass->friendly_date($v['ntime']);?>
-</span>
-<!--<div class='sep5'></div>
-<div class='payload'><p>@<a class="startbbs" href="">doudou</a>XXXXXXX</p></div>-->
-</td>
-</tr>
-</table>
-</div>
-<?php }?>
-<?php } else{?>
-<div class='cell'>暂无提醒</div>
-<?php }?>
-</div>
-</div>
-<div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
-<?php $this->load->view('common/sidebar_login');?>
+			<div class="col-md-4">
+				<?php $this->load->view('common/sidebar_login');?>
+				<?php $this->load->view('common/sidebar_ad');?>
+			</div><!-- /.col-md-4 -->
 
-<?php $this->load->view('common/sidebar_ad');?>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
 
-
-
-
-</div>
-</div></div></div>
 <?php $this->load->view('common/footer');?>
 </body>
 </html>

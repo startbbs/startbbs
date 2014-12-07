@@ -23,7 +23,7 @@ class Home extends SB_Controller
 	public function index ()
 	{
 		//获取列表
-		$data['list'] = $this->topic_m->get_topics_list_nopage($this->home_page_num);
+		$data['topic_list'] = $this->topic_m->get_topics_list_nopage($this->home_page_num);
 		$data['catelist'] =$this->cate_m->get_all_cates();
 		//echo var_dump($data['catelist']);
 

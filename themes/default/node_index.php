@@ -10,183 +10,92 @@
 </head>
 <body id="startbbs">
 <?php $this->load->view('common/header');?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?php echo $settings['site_name']?><span class='pull-right'>话题总数<span class='badge badge-info'>&nbsp;<?php echo $total_topics;?>&nbsp;</span></span></h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php echo $settings['site_description']?>
+                    </div>
+                </div>
+                <?php if($catelist[0]):?>
+                <?php if(count($catelist)==1):?>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">所有结点</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="media-list">
+	                        <?php foreach ($catelist[0] as $k=>$v):?>
+                            <li class="media">
+                                <a class="media-left" href="#"><img class="img-rounded" src="<?php echo base_url($v['ico'])?>" alt="<?php echo $v['cname'];?>"></a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="<?php echo url('node_show',$v['node_id']);?>"><?php echo $v['cname'];?></a></h4>
+                                    <p class="text-muted">
+                                        <?php echo $v['content'];?>
+                                    </p>
+                                    <p class="text-muted">
+                                        版主:<?php echo $v['master'];?>
+                                    </p>
+                                </div>
+                            </li>
+                            <?php endforeach?>
+                        </ul>
+                    </div>
+                </div>
+                <?php endif?>
+                <?php if(count($catelist)>1):?>
+                <?php foreach ($catelist[0] as $v) {?>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?php echo $v['cname'];?></h3>
+                    </div>
+                    <div class="panel-body">
+	                    <?php if(isset($catelist[$v['node_id']])){?>
+                        <ul class="media-list">
+	                        <?php foreach ($catelist[$v['node_id']] as $k=>$c) {?>
+                            <li class="media">
+                                <a class="media-left" href="#"><img class="img-rounded" src="<?php echo base_url($c['ico'])?>" alt="<?php echo $c['cname'];?>"></a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><?php echo $c['cname'];?></h4>
+                                    <p class="text-muted">
+                                        <?php echo $c['content'];?>
+                                    </p>
+                                    <p class="text-muted">
+                                        版主:<?php echo $c['master'];?>
+                                    </p>
+                                </div>
+                            </li>
+                            <?php }?>
+                        </ul>
+                        <?php }else{?>
+                        暂无节点
+                        <?php }?>
+                    </div>
+                </div>
+                <?php }?>
+                <?php endif?>
+              <?php else:?>
+              <div class="panel panel-default">
+				  <div class="panel-body">
+				    暂无节点，请到后台添加
+				  </div>
+			</div>
+              <?php endif?>
+            </div><!-- /.col-md-8 -->
 
-<div id="wrap">
-<div class="container" id="page-main">
-<div class="row">
-<div class='col-xs-12 col-sm-6 col-md-8'>
+            <div class="col-md-4">
+                <?php $this->load->view('common/sidebar_login');?>
+				<?php $this->load->view('common/sidebar_new_users');?>
+				<?php $this->load->view('common/sidebar_new_topics');?>
+				<?php $this->load->view('common/sidebar_ad');?>
+            </div><!-- /.col-md-4 -->
 
-<div class='box'>
-<div class='box-header'>
-<div class='pull-right'>
-话题总数
-<div class='badge badge-info'>
-&nbsp;
-<?php echo $total_topics;?>
-&nbsp;
-</div>
-</div>
-<a href="<?php echo site_url()?>" class="startbbs"><?php echo $settings['site_name']?></a>
-</div>
-<div class='cell'>
-<?php echo $settings['site_description']?>
-</div>
-</div>
-
-<?php if($catelist[0]){?>
-<?php if(count($catelist)==1){?>
-	<div class='box'>
-	<div class='box-header'>
-	所有结点
-	<div class='fr'>
-	<!--888-->
-	</div>
-	</div>
-	<?php foreach ($catelist[0] as $k=>$v) {?>
-	<div class='admin cell topic'>
-	<table border='0' cellpadding='0' cellspacing='0' width='100%'>
-	<tr>
-	<td class='avatar' valign='top'>
-	<a href="<?php echo url('node_show',$v['node_id']);?>" class="profile_link" title="<?php echo $v['cname'];?>">
-	<?php if($v['ico']){?>
-	<img alt="<?php echo $v['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url($v['ico'])?>" />
-	<?php } else {?>
-	<img alt="<?php echo $v['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('static/common/images/node.png')?>" />
-	<?php }?>
-	</a>
-	</td>
-	<td style='padding-left: 12px' valign='top' width="50%">
-	<div class='sep3'></div>
-	<h2 class='topic_title'>
-	<a href="<?php echo url('node_show',$v['node_id']);?>" class="startbbs topic"><?php echo $v['cname'];?></a>
-	</h2>
-	<div class='topic-meta'>
-	<?php echo $v['content'];?>
-	</div>
-	<div class='topic-bottom'>
-	版主:<?php echo $v['master'];?>
-	</div>
-	</td>
-	<td style='padding-left: 12px;text-align:right;' valign='top' width="15%">
-	<div class='sep3'></div>
-	<?php foreach($today_topics[$v['node_id']] as $t){?>
-	<div><?php echo @$t?>/今日</div>
-	<?php }?>
-	<div><?php echo $v['listnum'];?>/话题</div>
-	</td>
-	<td style='padding-left: 12px' valign='top' width="25%">
-	<div class='sep3'></div>
-	<?php if(@$new_topic[$v['node_id']]){?>
-	<?php foreach(@$new_topic[$v['node_id']] as $f){?>
-	<div><a href="<?php echo url('topic_show',$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
-	<div>by <a href="<?php echo site_url('user/profile/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
-	<div><?php echo $this->myclass->friendly_date($f['updatetime']);?></div>
-	<?php }?>
-	<?php } else{?>
-	<div>暂无话题</div>
-	<?php }?>
-	</td>
-	</tr>
-	</table>
-	</div>
-	<?php } ?>
-	</div>
-	
-<?php }?>
-<?php if(count($catelist)>1){?>
-	<?php foreach ($catelist[0] as $v) {?>
-	<div class='box'>
-	<div class='box-header'>
-	<?php echo $v['cname'];?>
-	<div class='fr'>
-	<!--888-->
-	</div>
-	</div>
-
-	<?php if(isset($catelist[$v['node_id']])){?>
-	<?php foreach ($catelist[$v['node_id']] as $k=>$c) {?>
-	<div class='admin cell topic'>
-	<table border='0' cellpadding='0' cellspacing='0' width='100%'>
-	<tr>
-	<td class='avatar' valign='top'>
-	<a href="<?php echo url('node_show',$v['node_id']);?>" class="profile_link" title="<?php echo $c['cname'];?>">
-	<?php if($c['ico']){?>
-	<img alt="<?php echo $c['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url($c['ico'])?>" />
-	<?php } else {?>
-	<img alt="<?php echo $c['cname'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('static/common/images/node.png')?>" />
-	<?php }?>
-	</a>
-	</td>
-	<td style='padding-left: 12px' valign='top' width="50%">
-	<div class='sep3'></div>
-	<h2 class='topic_title'>
-	<a href="<?php echo url('node_show',$v['node_id']);?>" class="startbbs topic"><?php echo $c['cname'];?></a>
-	</h2>
-	<div class='topic-meta'>
-	<?php echo $c['content'];?>
-	</div>
-	<div class='topic-bottom'>
-	版主:<?php echo $c['master'];?>
-	</div>
-	</td>
-	<td style='padding-left: 12px;text-align:right;' valign='top' width="15%">
-	<div class='sep3'></div>
-	<?php foreach($today_topics[$c['node_id']] as $t){?>
-	<div><?php echo @$t?>/今日</div>
-	<?php }?>
-	<div><?php echo $c['listnum'];?>/话题</div>
-	</td>
-	<td style='padding-left: 12px' valign='top' width="25%">
-	<div class='sep3'></div>
-	<?php if(@$new_topic[$c['node_id']]){?>
-	<?php foreach(@$new_topic[$c['node_id']] as $f){?>
-	<div><a href="<?php echo url('topic_show',$f['topic_id']);?>" class="startbbs topic"><?php echo sb_substr($f['title'],8);?></a></div>
-	<div>by <a href="<?php echo site_url('user/profile/'.$f['uid']);?>" class="dark startbbs profile_link" title="<?php echo $f['username'];?>"><?php echo $f['username'];?></a></div>
-	<div><?php echo $this->myclass->friendly_date($f['updatetime']);?></div>
-	<?php }?>
-	<?php } else{?>
-	<div>暂无话题</div>
-	<?php }?>
-	</td>
-	</tr>
-	</table>
-	</div>
-	<?php } ?>
-	<?php } else{?>
-	<div class='cell topic'>
-	暂二级节点, 请到后台设定节点！
-	</div>
-	<?php } ?>
-	</div>
-
-	<?php } ?>
-<?php }?>
-<?php } else{?>
-<div class='cell topic'>
-暂无节点, 请到后台设定节点！
-</div>
-<?php }?>
-
-
-
-<!--<div class='box'>
-<div class='box-header'>
-创建新话题
-</div>
-<div class='inner'>
-
-</div>
-</div>-->
-
-</div>
-<div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
-<?php $this->load->view('common/sidebar_login');?>
-<?php $this->load->view('common/sidebar_new_users');?>
-<?php $this->load->view('common/sidebar_new_topics');?>
-<?php $this->load->view('common/sidebar_ad');?>
-
-</div>
-</div></div></div>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
 
 <?php $this->load->view('common/footer');?>
 </body>

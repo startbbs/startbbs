@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-default navbar-fixed-top">
 <div class="container">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="<?php echo site_url()?>">Start<span class="green">BBS</span></a>

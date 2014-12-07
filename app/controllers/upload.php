@@ -88,7 +88,7 @@ class upload extends SB_Controller {
 			'allowed_types' => 'jpg|jpeg|gif|png',
 			'upload_path' => $path,
 			//'encrypt_name' => false,
-			'file_name'=>$node_id.'.jpg',
+			'file_name'=>$node_id.'.png',
 			'overwrite'=>true,
 			'max_size' => 2000
 		);

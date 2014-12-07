@@ -3,7 +3,7 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?php echo $title?> - 管理后台 - <?php echo $settings['site_name']?></title>
-<?php $this->load->view ( 'header-meta' ); ?>
+<?php $this->load->view ('header-meta' ); ?>
 <script src="<?php echo base_url('static/common/js/jquery.upload.js')?>" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -13,13 +13,14 @@ $(document).ready(function(){
 });
 function doUpload() {
         // 上传方法
+        var token=$('#token').val();
         $.upload({
                         // 上传地址
                         url:baseurl+"index.php/upload/upload_pic/<?php echo $cateinfo['node_id']?>", 
                         // 文件域名字
                         fileName: 'img', 
                         // 其他表单数据
-                        //params: {name: 'pxblog'},
+                        params:{stb_csrf_token:token},
                         // 上传完成后, 返回json, text
                         dataType: 'json',
                         // 上传之前回调,return true表示可继续上传
@@ -58,7 +59,7 @@ function doUpload() {
 </div>
 <div class='cell'>
 <form accept-charset="UTF-8" action="<?php echo site_url('admin/nodes/edit/'.$cateinfo['node_id']);?>" class="simple_form form-horizontal" id="edit_user_1" method="post" novalidate="novalidate">
-<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
+<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>" id="token">
 <div class='input-group'>
 <div class="form-group">
 <label class="col-sm-3 control-label" for="cname">分类名称</label>

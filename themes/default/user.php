@@ -11,63 +11,48 @@
 <body id="startbbs">
 <?php $this->load->view('common/header');?>
 
-<div id="wrap">
-<div class="container" id="page-main">
-<div class="row">
-<div class='col-xs-12 col-sm-6 col-md-8'>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">最新会员</h3>
+                    </div>
+                    <div class="panel-body">
+						<ul class='user-list clearfix'>
+						<?php if($new_users) foreach($new_users as $v){?>
+						<li>
+						<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
+						<img class="img-rounded" alt="<?php echo $v['username'];?>" src="<?php echo base_url($v['avatar'].'normal.png');?>" />
+						</a></li>
+						<?php }?>
+						</ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">活跃会员</h3>
+                    </div>
+                    <div class="panel-body">
+						<ul class='user-list clearfix'>
+						<?php if($hot_users) foreach($hot_users as $v){?>
+						<li>
+						<a href="<?php echo site_url('user/profile/'.$v['uid']);?>"  title="<?php echo $v['username'];?>">
+						<img class="img-rounded" alt="<?php echo $v['username'];?>" src="<?php echo base_url($v['avatar'].'normal.png');?>" />
+						</a></li>
+						<?php }?>
+						</ul>
+                    </div>
+                </div>
+            </div><!-- /.col-md-8 -->
 
+            <div class="col-md-4">
+			<?php $this->load->view('common/sidebar_login');?>
+			<?php $this->load->view('common/sidebar_ad');?>
+            </div><!-- /.col-md-4 -->
 
-<div class='box'>
-<div class='box-header'>
-最新会员
-<div class='pull-right'>
-<!--888-->
-</div>
-</div>
-
-<div class="cell">
-<ul class='user_list'>
-<?php if($new_users) foreach($new_users as $v){?>
-<li>
-<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
-<img src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'];?>">
-</a>
-</li>
-<?php }?>
-</ul>
-</div>
-
-</div>
-
-<div class='box'>
-<div class='box-header'>
-活跃会员
-<div class='pull-right'>
-<!--888-->
-</div>
-</div>
-
-<div class="cell">
-<ul class='inline user_list'>
-<?php if($hot_users) foreach($hot_users as $v){?>
-<li>
-<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" title="<?php echo $v['username'];?>">
-<img src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'];?>">
-</a>
-</li>
-<?php }?>
-</ul>
-</div>
-
-</div>
-
-</div>
-<div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
-<?php $this->load->view('common/sidebar_login');?>
-<?php $this->load->view('common/sidebar_ad');?>
-
-</div>
-</div></div></div>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
 
 <?php $this->load->view('common/footer');?>
 </body>

@@ -120,7 +120,7 @@ class Tag_m extends SB_Model
 	{
 		$tag = $this->db->select('tag_id')->where('tag_title',$tag_title)->get('tags')->row_array();
 		if($tag){
-			$this->db->select('a.topic_id, a.title, a.comments, a.updatetime, b.uid, b.username, b.avatar')
+			$this->db->select('a.topic_id, a.title, a.comments, a.is_top, a.updatetime, b.uid, b.username, b.avatar')
 			->from('topics a')
 			->join('users b','a.uid=b.uid')
 			->join('tags_relation c','a.topic_id=c.topic_id')

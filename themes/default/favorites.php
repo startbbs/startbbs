@@ -5,81 +5,54 @@
 <title><?php echo $title?> - <?php echo $settings['site_name']?></title>
 <?php $this->load->view('common/header-meta');?>
 </head>
-
 <body id="startbbs">
 <a id="top" name="top"></a>
 <?php $this->load->view('common/header'); ?>
+   <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">我收藏的话题<!--<span class='pull-right badge badge-info'><?php echo $user['favorites'] ;?></span>--></h3>
+                    </div>
+                    <div class="panel-body">
+	                    <?php if(isset($fav_list)):?>
+                        <ul class="media-list">
+							<?php foreach($fav_list as $v):?>
+                            <li class="media">
+                                <a class="media-left" href="<?php echo site_url('user/profile/'.$v['uid']);?>"><img class="img-rounded" src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'];?>"></a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="<?php echo url('topic_show',$v['topic_id']);?>"><?php echo $v['title'];?></a><?php if( $v['is_top'] == '1' ) echo '<span class="badge badge-info">置顶</span>'; ?></h4>
+                                    <p class="text-muted">
+                                        <span><a href="<?php echo site_url('user/profile/'.$v['uid']);?>"><?php echo $v['username'];?></a></span>&nbsp;•&nbsp;
+                                        <span><?php echo friendly_date($v['updatetime'])?></span>&nbsp;•&nbsp;
+                                        <?php if ($v['rname']!=NULL):?>
+                                            <span>最后回复来自 <a href="<?php echo site_url('user/profile/'.$v['ruid']);?>"><?php echo $v['rname']; ?></a></span>&nbsp;•&nbsp;
+                                        <?php else:?>
+                                            <span>暂无回复</span>&nbsp;•&nbsp;
+                                        <?php endif;?>
+<span><a href="<?php echo site_url('favorites/del/'.$v['topic_id']);?>" title="取消收藏">取消收藏 X</a></span>
+                                    </p>
+                                </div>
+                            </li>
+						<?php endforeach;?>
+                        </ul>
+                        <?php if($pagination):?><ul class="pager"><?php echo $pagination;?></ul><?php endif?>
+						<?php else:?>
+						暂无话题
+						<?php endif?>
+                    </div>
+                </div>
+            </div><!-- /.col-md-8 -->
 
-<div id="wrap">
-<div class="container" id="page-main">
-<div class="row">
-<div class='col-xs-12 col-sm-6 col-md-8'>
+            <div class="col-md-4">
+			<?php $this->load->view('common/sidebar_login');?>
+			<?php $this->load->view('common/sidebar_ad');?>
+            </div><!-- /.col-md-4 -->
 
-<div class='box fix_cell'>
-<div class='cell'><a href="<?php echo site_url()?>" class="startbbs"><?php echo $settings['site_name']?></a> <span class="chevron">&nbsp;›&nbsp;</span> 我收藏的话题</div>
-<?php if(isset($fav_list)){?>
-<?php foreach($fav_list as $v){?>
-<div class='admin cell topic'>
-<div class='avatar pull-left'>
-<?php if($v['avatar']) {?>
-<a href="/member/admin" class="profile_link" title="<?php echo $v['username'];?>"><img alt="<?php echo $v['username'];?> medium avatar" class="medium_avatar" src="<?php echo base_url();?><?php echo $v['avatar'];?>" /></a>
-<?php } else {?>
-<a href="/member/admin" class="profile_link" title="<?php echo $v['username'];?>"><img alt="<?php echo $v['username'];?> medium avatar" class="medium_avatar" src="<?php echo base_url('uploads/avatar/default.jpg');?>" /></a>
-<?php }?>
-</div>
-<div class='item_title'>
-<div class='pull-right'>
-<div class='badge badge-info'>1</div>
-</div>
-<h2 class='topic_title'>
-<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>" class="startbbs topic"><?php echo $v['title']?></a>
-</h2>
-<div class='topic-meta'>
-<!--<a href="<?php echo site_url('node/show/'.$v['node_id']);?>" class="node"><?php echo $category['cname'];?></a>-->
-<span class='text-muted'>•</span>
-<a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="dark startbbs profile_link" title="<?php echo $v['username'];?>"><?php echo $v['username'];?></a>
-<span class='text-muted'>•</span>
-<?php echo $this->myclass->friendly_date($v['addtime']);?>
-<span class='text-muted'>•</span>
-最后回复来自
-<a href="<?php echo site_url('user/profile/'.$v['ruid']);?>" class="startbbs profile_link" title="<?php echo $v['rname'];?>"><?php echo $v['rname'];?></a>
-<span class='text-muted'>•</span>
-<a href="<?php echo site_url('favorites/del/'.$v['topic_id']);?>" title="取消收藏">取消收藏 X</a>
-</div>
-</div>
-</div>
-<?php }?>
-<?php } else{?>
-<div class='cell topic'>
-暂无收藏话题
-</div>
-<?php } ?>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
 
-
-<div class='inner'>
-<ul class='pager'>
-<li class='center'>
-<?php echo $pagination;?>
-<!--<span class='gray'></span>-->
-</li>
-<!--<li class='next'>
-<a href="/go/noticeboard?p=2">下一页 →</a>
-</li>-->
-</ul>
-</div>
-</div>
-
-</div>
-<div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
-<?php $this->load->view('common/sidebar_login');?>
-
-<?php $this->load->view('common/sidebar_ad');?>
-
-
-
-
-</div>
-</div></div></div>
 <?php $this->load->view('common/footer'); ?>
 </body>
 </html>

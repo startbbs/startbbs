@@ -99,7 +99,7 @@ class Node extends SB_Controller
 			$data['pagination'] = $this->pagination->create_links();
 
 			//获取列表
-			$data['list'] = $this->topic_m->get_topics_list($start, $limit, $node_id);
+			$data['topic_list'] = $this->topic_m->get_topics_list($start, $limit, $node_id);
 			
 			$data['category'] = $this->cate_m->get_category_by_node_id($node_id);
 			$data['title'] = strip_tags($data['category']['cname']);
