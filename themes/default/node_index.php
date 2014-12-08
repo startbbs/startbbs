@@ -58,9 +58,9 @@
                         <ul class="media-list">
 	                        <?php foreach ($catelist[$v['node_id']] as $k=>$c) {?>
                             <li class="media">
-                                <a class="media-left" href="#"><img class="img-rounded" src="<?php echo base_url($c['ico'])?>" alt="<?php echo $c['cname'];?>"></a>
+                                <a class="media-left" href="<?php echo url('node_show',$v['node_id']);?>"><img class="img-rounded" src="<?php echo base_url($c['ico'])?>" alt="<?php echo $c['cname'];?>"></a>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><?php echo $c['cname'];?></h4>
+                                    <h4 class="media-heading"><a href="<?php echo url('node_show',$v['node_id']);?>"><?php echo $c['cname'];?></a></h4></h4>
                                     <p class="text-muted">
                                         <?php echo $c['content'];?>
                                     </p>

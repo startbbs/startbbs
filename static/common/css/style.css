@@ -65,14 +65,16 @@ h6{font-size:12px}
 .topic-list-heading {
     margin: 0 0 10px;
 }
+
+.topic-list-heading a{
+    font-size: 16px;
+    color: #444;
+}
 .topic-list{
 	border-bottom: 1px solid #eee;
 	padding-bottom: 13px;
 }
 
-.topic-list-heading a{
-    font-size: 16px;
-}
 .panel-default .topic-detail-heading{
     background-color: #fff;
 }
@@ -109,6 +111,9 @@ ul.user-list li img{width:50px;height:50px;background:#fff}
 }
 .alert-avatar{
     margin-top: 20px;
+}
+.nav-tabs,.nav-pills{
+	margin-bottom:20px;
 }
 
 

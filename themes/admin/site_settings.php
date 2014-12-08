@@ -3,22 +3,22 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title>基本设置 - 管理后台 - <?php echo $settings['site_name']?></title>
-<?php $this->load->view ( 'header-meta' ); ?>
+<?php $this->load->view ( 'common/header-meta' ); ?>
 </head>
 <body id="starbbs">
-<?php $this->load->view ( 'header' ); ?>
+<?php $this->load->view ( 'common/header' ); ?>
     <div class="container">
         <div class="row">
-	        <?php $this->load->view ( 'sidebar' ); ?>
+	        <?php $this->load->view ( 'common/sidebar' ); ?>
             <div class="col-md-9">
                 <div class="panel panel-default">
 
                     <div class="panel-body">
-	                    	                	            <ol class="breadcrumb">
-				  <li><a href="#">Home</a></li>
-				  <li><a href="#">Library</a></li>
-				  <li class="active">Data</li>
-				</ol>
+			            <ol class="breadcrumb">
+						  <li><a href="#">Home</a></li>
+						  <li><a href="#">Library</a></li>
+						  <li class="active">Data</li>
+						</ol>
 	                    <ul class="nav nav-tabs">
 							<li class="active"><a href="#tab1" data-toggle="tab">网站设定</a></li>
 							<li><a href="#tab2" data-toggle="tab">话题设定</a></li>
@@ -514,7 +514,7 @@
         </div><!-- /.row -->
     </div><!-- /.container -->
 
-<?php $this->load->view ('footer');?>
+<?php $this->load->view ('common/footer');?>
 <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-tab.js"></script>
 <script type="text/javascript">
             $(function () {

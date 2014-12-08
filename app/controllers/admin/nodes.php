@@ -79,6 +79,8 @@ class Nodes extends Admin_Controller
 		$pid=0;
 		$data['node_id']=$this->uri->segment(4);
 		$data['cates']=$this->cate_m->get_cates_by_pid($pid);
+        $data['csrf_name'] = $this->security->get_csrf_token_name();
+        $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('nodes_move', $data);
 	}
 

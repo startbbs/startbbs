@@ -31,12 +31,12 @@ class Page extends SB_Controller
 				'add_time'=>time(),
 				'is_hidden'=>$this->input->post('is_hidden')
 			);
-			if($this->link_m->add_page($str)){
-				show_message('添加页面成功！',site_url('admin/links'),1);
+			if($this->page_m->add_page($str)){
+				show_message('添加页面成功！',site_url('admin/page'),1);
 			}
 
 		}
-		$this->load->view('link_add', $data);
+		$this->load->view('page_add', $data);
 
 	}
 }
