@@ -133,11 +133,13 @@ class User extends SB_Controller
 				//更新session
 				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid']));
 
-				//更新积分
-				$this->config->load('userset');
-				$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
 				//更新最后登录时间
 				$this->user_m->update_user($user['uid'],array('lastlogin'=>time()));
+				//更新积分
+				if(time()-$user['lastlogin']>86400){
+					$this->config->load('userset');
+					$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
+				}
 				//header("location: ".$data['referer']);
 				redirect($data['referer']);
 				//exit;

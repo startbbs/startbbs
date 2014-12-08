@@ -68,6 +68,8 @@ class Login extends Admin_Controller
 				show_message('用户名或密错误!');
 			}
 		} else {
+			$data['csrf_name'] = $this->security->get_csrf_token_name();
+        	$data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('do_login',$data);
 		}
 		
