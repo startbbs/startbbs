@@ -38,35 +38,35 @@
                     </form>
                     </div>
                     
-<ul class="media-list">
-<?php if(isset($message_list)) foreach($message_list as $k=>$v){?>
-<?php if($v['sender_uid']==$uid){?>
-  <li class="media">
-    <a class="media-left" href="<?php echo site_url('user/profile/'.$v['sender_uid'])?>">
-      <img src="<?php echo base_url($v['sender_avatar'].'normal.png');?>" alt="<?php echo $v['sender_username'];?>">
-    </a>
-    <div class="media-body alert alert-info">
-	  我:
-      <?php echo $v['content'];?>
-      <p>
-     <?php echo friendly_date($v['create_time'])?></p>
-    </div>
-  </li>
-<?php }else{?>
-  <li class="media">
-    <div class="media-body alert alert-warning">
-	   <?php echo $v['sender_username'];?>:
-      <?php echo $v['content'];?>
-            <p>
-     <?php echo friendly_date($v['create_time'])?></p>
-     </div>
-    <a class="media-right" href="<?php echo site_url('user/profile/'.$v['sender_uid'])?>">
-      <img src="<?php echo base_url($v['sender_avatar'].'normal.png');?>" alt="<?php echo $v['sender_username'];?>">
-    </a>
-  </li>
- <?php }?>
- <?php }?>
-</ul>
+					<ul class="media-list">
+					<?php if(isset($message_list)) foreach($message_list as $k=>$v){?>
+					<?php if($v['sender_uid']==$uid){?>
+					  <li class="media">
+					    <a class="media-left" href="<?php echo site_url('user/profile/'.$v['sender_uid'])?>">
+					      <img src="<?php echo base_url($v['sender_avatar'].'normal.png');?>" alt="<?php echo $v['sender_username'];?>">
+					    </a>
+					    <div class="media-body alert alert-info">
+						  我:
+					      <?php echo $v['content'];?>
+					      <p>
+					     <?php echo friendly_date($v['create_time'])?></p>
+					    </div>
+					  </li>
+					<?php }else{?>
+					  <li class="media">
+					    <div class="media-body alert alert-warning">
+						   <?php echo $v['sender_username'];?>:
+					      <?php echo $v['content'];?>
+					            <p>
+					     <?php echo friendly_date($v['create_time'])?></p>
+					     </div>
+					    <a class="media-right" href="<?php echo site_url('user/profile/'.$v['sender_uid'])?>">
+					      <img src="<?php echo base_url($v['sender_avatar'].'normal.png');?>" alt="<?php echo $v['sender_username'];?>">
+					    </a>
+					  </li>
+					 <?php }?>
+					 <?php }?>
+					</ul>
 
                                </div>
             </div>

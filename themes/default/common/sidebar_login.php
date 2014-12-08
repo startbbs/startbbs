@@ -5,7 +5,7 @@
 <tr>
 <td valign='top' width='100'>
 <a href="<?php echo site_url('user/profile/'.$user['uid']);?>" class="profile_link" title="<?php echo $user['username']?>">
-<img alt="<?php echo $user['username']?> large avatar" class="large_avatar" src="<?php echo base_url($user['avatar'].'big.png')?>" />
+<img alt="<?php echo $user['username']?> large avatar" class="img-rounded" src="<?php echo base_url($user['avatar'].'big.png')?>" />
 </a>
 </td>
 <td valign='top' width='10'></td>

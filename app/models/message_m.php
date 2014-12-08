@@ -30,7 +30,7 @@ class Message_m extends SB_Model
 	
 	public function get_message_list($dialog_id,$start,$limit)
 	{
-		$this->db->select("a.*,b.username as sender_username,b.avatar as sender_avatar,c.username as receiver_username,c.avatar as sender_avatar");
+		$this->db->select("a.*,b.username as sender_username,b.avatar as sender_avatar,c.username as receiver_username,c.avatar as receiver_avatar");
 		$this->db->from('message a');
 		$this->db->where('a.dialog_id',$dialog_id);
 		$this->db->join('users b','b.uid = a.sender_uid','LEFT');

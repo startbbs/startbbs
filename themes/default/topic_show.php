@@ -110,7 +110,7 @@
 	                            <textarea class="form-control" id="post_content" name="comment" rows="5"></textarea>
 	                            <span class="help-block red"><?php echo form_error('content');?></span>
 							    <p>
-								<span>可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
+								<span class="text-muted">可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
 								<span class="pull-right">
 								<?php if($this->config->item('storage_set')=='local'){?>
 								<input id="upload_file" type="button" value="图片/附件" name="file" class="btn btn-default pull-right">
