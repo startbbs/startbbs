@@ -44,10 +44,11 @@ class Nodes extends Admin_Controller
 				'cname'=>$this->input->post('cname'),
 				'content'=>cleanhtml($this->input->post('content')),
 				'keywords'=>$this->input->post('keywords'),
-				'ico'=>$this->input->post('ico'),
 				'master'=>$this->input->post('master'),
 				'permit'=>@$permit,
 			);
+			if($this->input->post('ico'))
+			$str['ico']=$this->input->post('ico');
 			return $str;
 	}
 	public function add()
