@@ -52,7 +52,7 @@
 				<?php if($catelist[0]){?>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">节点导航<a href="" class="pull-right">浏览所有节点</a></h3>
+                        <h3 class="panel-title">节点导航</h3>
                     </div>
                     <div class="panel-body">
 						<?php foreach ($catelist[0] as $v){?>

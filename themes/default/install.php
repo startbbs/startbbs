@@ -3,7 +3,7 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title>运行状态 - 管理后台 - Startbbs开源轻量社区系统</title>
-<?php $this->load->view ( 'header-meta' ); ?>
+<?php $this->load->view ( 'common/header-meta' ); ?>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var url = location.href;

@@ -108,8 +108,18 @@
 						<input name="avatar" id="avatar" type="hidden" value="<?php echo base_url($user['avatar'].'normal.png')?>" />
                             <div class="form-group">
 	                            <textarea class="form-control" id="post_content" name="comment" rows="5"></textarea>
+	                            <span class="help-block red"><?php echo form_error('content');?></span>
+							    <p>
+								<span>可直接粘贴链接和图片地址/发代码用&lt;pre&gt;标签</span>
+								<span class="pull-right">
+								<?php if($this->config->item('storage_set')=='local'){?>
+								<input id="upload_file" type="button" value="图片/附件" name="file" class="btn btn-default pull-right">
+								<?php } else {?>
+								<input id="upload_tip" type="button" value="图片/附件"  class="btn btn-default">
+								<?php }?></span>
+								</p>
                             </div>
-                            <button type="submit" class="btn btn-default" id="comment-submit">提交</button>
+                            <button type="submit" class="btn btn-default" id="comment-submit">回复</button>
                         </form>
                         <?php else : ?>
                             <div class="well text-center">

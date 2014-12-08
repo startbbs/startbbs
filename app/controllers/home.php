@@ -79,7 +79,7 @@ class Home extends SB_Controller
 		$data['pagination'] = $this->pagination->create_links();
 
 		//获取列表
-		$data['list'] = $this->topic_m->get_topics_list($start, $limit, 0);
+		$data['topic_list'] = $this->topic_m->get_topics_list($start, $limit, 0);
 		
 		//$data['category'] = $this->cate_m->get_category_by_node_id($node_id);
 		$this->load->view('getmore', $data);

@@ -52,7 +52,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <?php echo $settings['site_name']?>
+        <h4><?php echo $settings['site_name']?></h4>
     </div>
     <div class="panel-body">
         <a href="<?php echo site_url('user/register');?>" class="btn btn-default">现在注册</a> 已注册用户请

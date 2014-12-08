@@ -1,6 +1,6 @@
  <div class="panel panel-default">
     <div class="panel-heading">
-        最新标签
+        <h4>最新标签</h4>
     </div>
     <div class="panel-body">
 	    <?php if($taglist){?>
