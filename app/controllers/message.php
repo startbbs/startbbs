@@ -103,6 +103,9 @@ class Message extends SB_Controller
 		if($_POST){
 			$my_uid=$this->session->userdata('uid');
 			$receiver_uid=(int)$this->input->post('receiver_uid');
+			if($my_uid==$receiver_uid){
+				exit;
+			}
 			//$receiver_uid=9;
 			$content=htmlentities(trim($this->input->post('content',true)));
 			//$content='testsssssssssssssssss';

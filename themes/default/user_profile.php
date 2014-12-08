@@ -26,7 +26,7 @@
                             <p>所在地：<?php echo $user['location'];?></p>
                         </div>
                         <div class="col-md-4">
-						<?php if($this->session->userdata('uid')){?>
+						<?php if($this->session->userdata('uid') && $user['uid']!=$this->session->userdata('uid')){?>
 						<button class="btn btn-default" data-toggle="modal" data-target="#message">私信</button>
 						<?php if(!$is_followed){?>
 						<a href="<?php echo site_url('follow/add/'.$user['uid']);?>" class="btn btn-info" data-method="post" rel="nofollow">关注</a>
@@ -158,7 +158,7 @@
 				success: function(data) {
 					$('#content').val(data);
 					$('#message').modal('hide');
-					//location.href =site_url+"/message/index";
+					//location.href ='<?php echo site_url('message/index')?>;
 				}
 			});
 
