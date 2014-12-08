@@ -30,7 +30,7 @@
                     <div class="panel-body">
                         <ul class="media-list">
 	                        <?php foreach ($catelist[0] as $k=>$v):?>
-                            <li class="media">
+                            <li class="media section">
                                 <a class="media-left" href="#"><img class="img-rounded" src="<?php echo base_url($v['ico'])?>" alt="<?php echo $v['cname'];?>"></a>
                                 <div class="media-body">
                                     <h4 class="media-heading"><a href="<?php echo url('node_show',$v['node_id']);?>"><?php echo $v['cname'];?></a></h4>
@@ -57,10 +57,11 @@
 	                    <?php if(isset($catelist[$v['node_id']])){?>
                         <ul class="media-list">
 	                        <?php foreach ($catelist[$v['node_id']] as $k=>$c) {?>
-                            <li class="media">
-                                <a class="media-left" href="<?php echo url('node_show',$v['node_id']);?>"><img class="img-rounded" src="<?php echo base_url($c['ico'])?>" alt="<?php echo $c['cname'];?>"></a>
+                            <li class="media section">
+                                <a class="pull-left" href="<?php echo url('node_show',$v['node_id']);?>"><img class="img-rounded" src="<?php echo base_url($c['ico'])?>" alt="<?php echo $c['cname'];?>"></a>
+                            	<span class="pull-right"><p>0/今日</p><p><?php echo $v['listnum'];?>/话题</p></span>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a href="<?php echo url('node_show',$v['node_id']);?>"><?php echo $c['cname'];?></a></h4></h4>
+                                    <h4 class="media-heading"><a href="<?php echo url('node_show',$c['node_id']);?>"><?php echo $c['cname'];?></a></h4></h4>
                                     <p class="text-muted">
                                         <?php echo $c['content'];?>
                                     </p>

@@ -116,8 +116,17 @@ ul.user-list li img{width:50px;height:50px;background:#fff}
 	margin-bottom:20px;
 }
 
-
-
+.section{
+	padding-bottom:10px;
+	border-bottom: 1px solid #eee;
+}
+.section img{
+	width:50px;
+	height:50px;
+}
+.nodes{
+    margin: 4px 2px;
+}
 footer{
     /*background-color: #f8f8f8; #e4e4e4 #f9fafb*/
     background-color: #fff;

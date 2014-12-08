@@ -58,8 +58,8 @@
 						<?php foreach ($catelist[0] as $v){?>
 						<?php if(@$catelist[$v['node_id']]){?>
                         <div class="row">
-	                        <div class="col-sm-2"><?php echo $v['cname']?></div>
-	                        <div class="col-sm-10">
+	                        <div class="col-md-2"><?php echo $v['cname']?></div>
+	                        <div class="col-md-10">
 		                        <p>
 		                        <?php foreach(@$catelist[$v['node_id']] as $c){?>
 		                        <a href="<?php echo url('node_show',$c['node_id']);?>" class="btn btn-default nodes" role="button"><?php echo $c['cname']?></a>
@@ -69,9 +69,9 @@
 	                    </div>
 	                    <?php } else {?>
                         <div class="row">
-	                        <div class="col-sm-12">
+	                        <div class="col-md-12">
 		                        <p>
-		                        <?php foreach(@$catelist[$v['node_id']] as $c){?>
+		                        <?php if($v['pid']!=0) foreach(@$catelist[$v['node_id']] as $c){?>
 		                        <a href="<?php echo url('node_show',$c['node_id']);?>" class="btn btn-default nodes" role="button"><?php echo $c['cname']?></a>
 								<?php }?>
 		                        </p>
