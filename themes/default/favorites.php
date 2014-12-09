@@ -37,7 +37,7 @@
                             </li>
 						<?php endforeach;?>
                         </ul>
-                        <?php if($pagination):?><ul class="pager"><?php echo $pagination;?></ul><?php endif?>
+                        <?php if($pagination):?><ul class="pagination"><?php echo $pagination;?></ul><?php endif?>
 						<?php else:?>
 						暂无话题
 						<?php endif?>

@@ -81,7 +81,7 @@
 
 						</tbody>
 						</table>
-						<?php if($pagination){?><ul class="pager"><?php echo $pagination;?></ul><?php }?>
+						<?php if($pagination){?><ul class="pagination"><?php echo $pagination;?></ul><?php }?>
 						<div class='form-actions'>
 						<input class="btn btn-primary btn-danger" name="batch_del" type="submit" value="批量删除" />
 						<input class="btn btn-primary" name="batch_approve" type="submit" value="批量审核" />

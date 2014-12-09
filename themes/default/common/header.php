@@ -19,9 +19,10 @@
             <li<?php if(@$action=='user'){?> class="active"<?php }?>><a href="<?php echo site_url('user')?>">会员</a></li>
             <li<?php if(@$action=='add'){?> class="active"<?php }?>><a href="<?php echo site_url('topic/add')?>">发表</a></li>
            </ul>
-		<form class="form-inline navbar-left" style="margin-left:10px;margin-top: 8px;" role="search" action="http://www.google.com/search" method="get" target="_blank">
+
+        <?php echo form_open('search',array('class'=>'navbar-form navbar-left','target'=>'_blank','role'=>'search'))?>
 		      <div class="form-group">
-		        <input type="text" class="form-control" name="q" placeholder="输入关键字回车"><input type=hidden name=sitesearch value="<?php echo base_url()?>">
+		        <input type="text" class="form-control" name="keyword" placeholder="输入关键字回车">
 		      </div>
 		</form>
           <ul class="nav navbar-nav navbar-right">

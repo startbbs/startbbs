@@ -67,7 +67,7 @@
                             <hr class="smallhr">
                             <?php endforeach; ?>
                         </ul>
-                        <ul class="pager"></ul>
+                        <ul class="pagination"></ul>
                     </div>
                 </div><!-- /.topics -->
                 <div class="panel panel-default">
@@ -89,7 +89,7 @@
                             <hr class="smallhr">
                             <?php endforeach; ?>
                         </ul>
-                        <!--<ul class="pager"></ul>-->
+                        <!--<ul class="pagination"></ul>-->
                     </div>
                 </div><!-- /.comments -->
             </div><!-- /.col-md-8 -->

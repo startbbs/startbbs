@@ -243,6 +243,23 @@ $query=$this->db->query($sql);
 		}
 	}
 
+	public function get_search_list($page,$limit,$keyword)
+	{
+		$this->db->select('topic_id, title,updatetime,comments');
+		if(preg_match('/[\x80-\xff]./',$keyword)){
+			$this->db->like('title',$keyword);
+		}else{
+			$this->db->where('MATCH (title) AGAINST ("'.$keyword.'" IN BOOLEAN MODE)',null,FALSE);
+		}
+		$this->db->limit($limit,$page);
+		$query=$this->db->get('topics');
+		//$query=$this->db->query($sql);
+		
+		return $query->result_array();
+
+			
+	}
+
 /*    	public function get_topics_list ($page, $per_page = 1, $node_id)
 	{
 		$this->db->select('topics.*,users.username');

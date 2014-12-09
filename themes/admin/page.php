@@ -61,7 +61,7 @@
 							<?php } ?>
 						</tbody>
 					</table>
-					<?php if($pagination){?><ul class="pager"><?php echo $pagination;?></ul><?php }?>
+					<?php if($pagination){?><ul class="pagination"><?php echo $pagination;?></ul><?php }?>
 					<?php } else{?>
 					暂无内容，请添加内容
 					<?php }?>

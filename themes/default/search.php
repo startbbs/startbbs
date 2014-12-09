@@ -1,84 +1,55 @@
-<!DOCTYPE html><html><head><meta content='## 电子邮件&#x000A;&#x000A;daqing1986@gmail.com&#x000A;&#x000A;## QQ&#x000A;&#x000A;420771712 (请注明 rabel)&#x000A;&#x000A;&#x000A;' name='description'>
+<!DOCTYPE html>
+<html>
+	<head>
+<meta content='' name='description'>
 <meta charset='UTF-8'>
-<meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
-<title><?php echo $title;?>列表 - <?=$settings['site_name']?></title>
+<title><?php echo $title;?> - <?php echo $settings['site_name']?></title>
 <?php $this->load->view('common/header-meta');?>
 </head>
+
 <body id="startbbs">
-<?php $this->load->view('common/header');?>
+<a id="top" name="top"></a>
+<?php $this->load->view('common/header'); ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">搜索: <span class="red">#<?php echo $keyword;?></span> (<?php echo $topic_num;?>)</h3>
+                    </div>
+                    <div class="panel-body">
+	                    <?php if($search_list):?>
+                        <ul class="media-list">
+							<?php foreach($search_list as $v):?>
+                            <li class="media">
+	                            <div class="pull-right">
+                                    <span class="badge badge-info topic-comment"><?php echo $v['comments']?></span>
+                                </div>
+                               
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="<?php echo url('topic_show',$v['topic_id']);?>"><?php echo highlight_phrase($v['title'],$keyword,'<span class=red>','</span>');?></a>&nbsp;<span class="text-muted"><?php echo friendly_date($v['updatetime'])?></span></h4>
+                                </div>
 
-<div id="wrap"><div class="container" id="page-main"><div class="row"><div class='col-xs-12 col-sm-6 col-md-8'>
+                            </li>
+						<?php endforeach;?>
+                        </ul>
+                        <?php if($pagination):?><ul class="pagination"><?php echo $pagination;?></ul><?php endif?>
+						<?php else:?>
+						暂无话题
+						<?php endif?>
+                    </div>
+                </div>
+            </div><!-- /.col-md-8 -->
 
-<div class='box'>
-<div class='inner'>
-<div class='page'>
-<article>
-<h1 class='page-header'>
-<?php echo $title;?><span class="red"><?php echo $q;?></span>列表
-</h1>
-<!-- Put the following javascript before the closing </head> tag. -->
-  
-<script>
-  (function() {
-    var cx = 'partner-pub-0724371017144625:2619846736';
-    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//www.google.cn/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<!-- Place this tag where you want the search results to render -->
-<gcse:searchresults-only></gcse:searchresults-only>
-</article>
-</div>
-</div>
-</div>
+            <div class="col-md-4">
+			<?php $this->load->view('common/sidebar_login');?>
+			<?php $this->load->view('common/sidebar_ad');?>
+            </div><!-- /.col-md-4 -->
 
-</div>
-<div class='col-xs-12 col-sm-6 col-md-4' id='Rightbar'>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
 
-<?php $this->load->view('common/sidebar_login');?>
-
-<div class='box'>
-<div class='box-header'>
-社区运行状态
-</div>
-<div class='inner'>
-<table border='0' cellpadding='3' cellspacing='0' width='100%'>
-<tr>
-<td align='right' width='60'>
-<span class='gray'>注册会员</span>
-</td>
-<td align='left'>
-<strong>468</strong>
-</td>
-</tr>
-<tr>
-<td align='right' width='50'>
-<span class='gray'>话题</span>
-</td>
-<td align='left'>
-<strong>193</strong>
-</td>
-</tr>
-<tr>
-<td align='right' width='50'>
-<span class='gray'>回复</span>
-</td>
-<td align='left'>
-<strong>1060</strong>
-</td>
-</tr>
-</table>
-</div>
-</div>
-
-<?php $this->load->view('common/sidebar_ad');?>
-
-</div>
-</div></div></div>
-
-<?php $this->load->view('common/footer');?>
+<?php $this->load->view('common/footer'); ?>
 </body>
 </html>
