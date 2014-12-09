@@ -27,7 +27,7 @@
                     <div class="panel-heading topic-detail-heading">
                         <div class="pull-right"><a href="<?php echo site_url('user/profile/'.$content['uid']);?>"><img src="<?php echo base_url($content['avatar'].'normal.png');?>" alt="<?php echo $content['username']?>';?>"></a></div>
                         <p><a href="<?php echo base_url();?>">首页</a> / <a href="<?php echo site_url('node/show/'.$cate['node_id']);?>"><?php echo $cate['cname'];?></a></p>
-                        <h1 class="panel-title"><?php echo $content['title']?></h1>
+                        <h2 class="panel-title"><?php echo $content['title']?></h2>
                         <small class="text-muted">
                             <span>By <a href="<?php echo site_url('user/profile/'.$content['uid']);?>"><?php echo $content['username']; ?></a></span>&nbsp;•&nbsp;
                             <span><?php echo date('Y-m-d h:i:s',$content['addtime']);?></span>&nbsp;•&nbsp;

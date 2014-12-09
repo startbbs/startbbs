@@ -19,6 +19,21 @@ class User_m extends SB_Model
 	function register($data){
 		return $this->db->insert('users',$data);
 	}
+    function login($data){
+        $this->db->where('username', $data['username']);
+        $query = $this->db->get('users');
+        if ($query->num_rows() > 0) {
+            $user = $query->row_array();
+            if($user['password']==$data['password']) {
+				$this->session->set_userdata(array('uid' =>$user['uid'], 'username' =>$user['username'], 'group_type' =>$user['group_type'], 'gid' => $user['gid']));  
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        } else {
+            return FALSE;
+        }
+    }
 	function check_register($email){
 		$query = $this->db->get_where('users',array('email'=>$email));
         return $query->row_array();

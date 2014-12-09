@@ -54,16 +54,20 @@ body{
 
 }
 h1{font-size:25px}
-h2{font-size:20px}
+h2{font-size:22px}
 h3{font-size:18px}
 h4{font-size:16px}
 h5{font-size:14px}
 h6{font-size:12px}
+small {
+    font-size: 12px;
+}
+
 .container {
     max-width: 970px;
 }
 .topic-list-heading {
-    margin: 0 0 10px;
+    margin: 0 0 5px 0;
 }
 
 .topic-list-heading a{
@@ -72,15 +76,18 @@ h6{font-size:12px}
 }
 .topic-list{
 	border-bottom: 1px solid #eee;
-	padding-bottom: 13px;
+	padding-bottom: 10px;
 }
 
+.media{
+	margin-top: 10px;
+}
 .panel-default .topic-detail-heading{
     background-color: #fff;
 }
 
-.topic-detail-heading h1{
-    font-size: 24px;
+.topic-detail-heading h2{
+    font-size: 22px;
     margin: 5px 0;
 }
 
@@ -138,6 +145,7 @@ ul.user-list li img{width:50px;height:50px;background:#fff}
 .label-grey a, .label-grey a:hover,.label-default a:focus{
 	color:#FFF;
 }
+.tag {padding:2px 2px 0px 20px;margin:10px 2px 0px 2px;background: url(../images/tag.gif) no-repeat 0 6px;color:#CCC;}
 footer{
     /*background-color: #f8f8f8; #e4e4e4 #f9fafb*/
     background-color: #fff;

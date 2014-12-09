@@ -127,6 +127,39 @@ $config = array(
             'rules' => 'trim|required|matches[newpassword]'
         )
     ),
+    'install/process' => array(
+        array(
+            'field' => 'dbhost',
+            'label' => '服务器',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'dbuser',
+            'label' => '数据库用户名',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'dbname',
+            'label' => '数据库名',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'username',
+            'label' => '管理员',
+            'rules' => 'trim|required|min_length[3]|max_length[15]'
+        ),
+        array(
+            'field' => 'password',
+            'label' => '密码',
+            'rules' => 'trim|required|min_length[4]|max_length[15]'
+        ),
+        array(
+            'field' => 'email',
+            'label' => '邮箱',
+            'rules' => 'trim|required|valid_email'
+        )
+    ),
+    
     'auth/register' => array(
         array(
             'field' => 'email',

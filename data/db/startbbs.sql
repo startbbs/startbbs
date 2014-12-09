@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 12 月 02 日 20:55
+-- 生成日期: 2014 年 12 月 09 日 21:40
 -- 服务器版本: 5.5.40
 -- PHP 版本: 5.5.17
 
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `stb_nodes` (
   `cname` varchar(30) DEFAULT NULL COMMENT '分类名称',
   `content` varchar(255) DEFAULT NULL,
   `keywords` varchar(255) DEFAULT NULL,
-  `ico` varchar(128) DEFAULT NULL,
+  `ico` varchar(128) NOT NULL DEFAULT 'uploads/ico/default.png',
   `master` varchar(100) NOT NULL,
   `permit` varchar(255) DEFAULT NULL,
   `listnum` mediumint(8) unsigned DEFAULT '0',
@@ -251,7 +251,8 @@ CREATE TABLE IF NOT EXISTS `stb_topics` (
   `ord` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`topic_id`,`node_id`,`uid`),
   KEY `updatetime` (`updatetime`),
-  KEY `ord` (`ord`)
+  KEY `ord` (`ord`),
+  FULLTEXT KEY `title` (`title`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -267,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `salt` char(6) DEFAULT NULL COMMENT '混淆码',
   `openid` char(32) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `avatar` varchar(100) DEFAULT NULL,
+  `avatar` varchar(100) DEFAULT 'uploads/avatar/default/',
   `homepage` varchar(50) DEFAULT NULL,
   `money` int(11) DEFAULT '0',
   `credit` int(11) NOT NULL DEFAULT '100',
@@ -315,17 +316,7 @@ CREATE TABLE IF NOT EXISTS `stb_user_groups` (
   `group_name` varchar(50) DEFAULT NULL,
   `usernum` int(11) NOT NULL,
   PRIMARY KEY (`gid`,`group_type`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- 转存表中的数据 `stb_user_groups`
---
-
-INSERT INTO `stb_user_groups` (`gid`, `group_type`, `group_name`, `usernum`) VALUES
-(1, 0, '管理员', 1),
-(2, 1, '版主', 0),
-(3, 2, '普通会员', 0),
-(4, 2, 'vip group', 0);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
