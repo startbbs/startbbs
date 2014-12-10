@@ -207,26 +207,26 @@ class Install extends Install_Controller
                 'regtime' => time(),
                 'ip' => $this->myclass->get_ip()
                 );
-				  	
-            //再次检查数据库信息是否正确
-            if (!@mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port)) {
+			$con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
+            //检查数据库信息是否正确
+            if (!$con) {
                 $string='
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <script>
                 alert("无法访问数据库，请重新安装！");
-                top.location="'.base_url('install').'";
+                top.location="'.site_url('install').'";
                 </script>
                 ';
                 exit($string);
             }
 
             //写入数据库配置文件
-            $this->_writeDBConfig($dbhost, $dbuser, $dbpsw, $dbname, $port, $dbprefix);
+            $this->_writeDBConfig($dbhost, $dbuser, $dbpsw, $dbname, $port,$dbprefix);
 
             //创建数据表
-            $this->_createTables($dbhost, $dbuser, $dbpsw, $dbname, $port, $dbprefix);
+            $this->_createTables($dbhost, $dbuser, $dbpsw, $dbname, $port, $dbprefix,$con);
 
-            //写禁止再次安装的文件
+            //禁止安装的文件
             file_put_contents(FCPATH.'install.lock', time());
             //写入config文件
             $sub_folder=$this->input->post('base_url');
@@ -237,8 +237,7 @@ class Install extends Install_Controller
 			if($encryption_key){
 				$this->config->update('myconfig','encryption_key', $encryption_key);
 			}
-            sleep(3);
-
+            sleep(1);
             //添加管理员
             $this->load->database();
             $this->load->model('user_m');
@@ -286,7 +285,7 @@ class Install extends Install_Controller
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <script>
             alert("数据库配置文件保存失败，请检查文件app/config/database.php权限！");
-            top.location="'.base_url('install').'";
+            top.location="'.site_url('install').'";
             </script>
             ';
             exit($string);
@@ -296,11 +295,12 @@ class Install extends Install_Controller
     /**
      * 导入数据表
      */
-    private function _createTables($dbhost, $dbuser, $dbpsw, $dbname, $port,$dbprefix)
+    private function _createTables($dbhost, $dbuser, $dbpsw, $dbname, $port,$dbprefix,$con)
     {
-        $sql = file_get_contents(FCPATH.'data/db/startbbs.sql');
+        $sql = file_get_contents(FCPATH.'data/db/startbbs.sql'); 
         $sql = str_replace('stb_', $dbprefix, $sql);
-        if (!@mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port)->multi_query($sql)) {
+        
+        if (!mysqli_multi_query($con,$sql)) {
             $string='
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <script>
@@ -320,198 +320,10 @@ class Install extends Install_Controller
         $con = @mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
 
         if ($con) {
-            echo "数据库连接成功！";
+            echo "<font color=green><b>数据库连接成功！</b></font>";
         } else {
-            echo "数据库连接失败，请重新输入数据库信息！";
+            echo "<font color=red><b>数据库连接失败，请重新输入数据库信息！</b></font>";
         }
     }
 
-	public function step($step)
-	{
-		$data['step']=$step;
-		if($step==1 || $step==2){
-			$data['permission'] = $this->_checkFileRight();
-			$data['csrf_token'] = $this->security->get_csrf_hash();
-        	$data['csrf_name'] = $this->security->get_csrf_token_name();
-			$this->load->view('install',$data);
-		}
-		if($step==3){
-			$this->_install_do();
-		}
-	}
-
-	function _install_do()
-	{
-		$data['step']=3;
-		if($_POST){	
-				$dbhost = $this->input->post('dbhost');
-				$dbport = $this->input->post('dbport');
-				$dbname = $this->input->post('dbname');
-				$dbuser = $this->input->post('dbuser');
-				$dbpwd = $this->input->post('dbpwd')?$this->input->post('dbpwd'):'';
-				$dbprefix = $this->input->post('dbprefix');
-				$userid = $this->input->post('admin');
-				$salt =get_salt();
-				$pwd= password_dohash($this->input->post('pwd'),$salt);
-				$email = $this->input->post('email');
-				$sub_folder = '/'.$this->input->post('base_url').'/';
-				$conn = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpwd);
-				if (!$conn) {
-					die('无法连接到数据库服务器，请检查用户名和密码是否正确');
-				}
-				if($this->input->post('creatdb')){
-					if(!@mysql_query('CREATE DATABASE IF NOT EXISTS '.$dbname)){
-						die('指定的数据库('.$dbname.')系统尝试创建失败，请通过其他方式建立数据库');
-					}
-				}
-				if(!mysql_select_db($dbname,$conn)){
-					die($dbname.'数据库不存在，请创建或检查数据名.');
-
-				}
-					$sql = file_get_contents(FCPATH.'app/config/startbbs.sql');
-					$sql = str_replace("stb_",$dbprefix,$sql);
-					$explode = explode(";",$sql);
-					$data['msg1']="创建表".$dbname."成功，请稍后……<br/>";
-				 	foreach ($explode as $key=>$value){
-				    	if(!empty($value)){
-				    		if(trim($value)){
-					    		mysql_query($value.";");
-				    		}
-				    	}
-				  	}
-					$password = $pwd;
-				  	$ip=$this->myclass->get_ip();
-				  	$insert= "INSERT INTO ".$dbprefix."users (group_type,gid,is_active,username,password,salt,email,regtime,ip) VALUES ('0','1','1','".$userid."','".$password."','".$salt."','".$email."','".time()."','".$ip."')";
-				  	mysql_query($insert);
-					mysql_close($conn);
-					$data['msg2']="安装完成，正在保存配置文件，请稍后……"; 
-					$dbconfig = "<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');\n"
-					."\$active_group = 'default';\n"
-					."\$active_record = TRUE;\n"
-					."\$db['default']['hostname'] = '".$dbhost."';\n"
-					."\$db['default']['port'] = '".$dbport."';\n"
-					."\$db['default']['username'] = '".$dbuser."';\n"
-					."\$db['default']['password'] = '".$dbpwd."';\n"
-					."\$db['default']['database'] = '".$dbname."';\n"
-					."\$db['default']['dbdriver'] = 'mysql';\n"
-					."\$db['default']['dbprefix'] = '".$dbprefix."';\n"
-					."\$db['default']['pconnect'] = TRUE;\n"
-					."\$db['default']['db_debug'] = TRUE;\n"
-					."\$db['default']['cache_on'] = FALSE;\n"
-					."\$db['default']['cachedir'] = 'app/cache';\n"
-					."\$db['default']['char_set'] = 'utf8';\n"
-					."\$db['default']['dbcollat'] = 'utf8_general_ci';\n"
-					."\$db['default']['swap_pre'] = '';\n"
-					."\$db['default']['autoinit'] = TRUE;\n"
-					."\$db['default']['stricton'] = FALSE;";
-					$file = FCPATH.'/app/config/database.php';
-					file_put_contents($file,$dbconfig);
-			 
-					//保存config文件
-					if($sub_folder){
-						$this->config->update('myconfig','sub_folder', $sub_folder);
-					}
-					$encryption_key = md5(uniqid());
-					if($encryption_key){
-						$this->config->update('myconfig','encryption_key', $encryption_key);
-					}
-
-					$data['msg3']="保存配置文件完成！";
-					touch(FCPATH.'install.lock'); 
-					$data['msg4']="创建锁定安装文件install.lock成功";
-					$data['msg5']="安装startbbs成功！";
-		}
-		$this->load->view('install',$data);
-
-	}
-
-	/**
-	 * 检查数据库连接
-	 */
-	public function chec1k(){
-		$dbhost = $_REQUEST["dbhost"];
-		$dbport = $_REQUEST["dbport"];
-		$dbname = $_REQUEST["dbname"];
-		$dbuser = $_REQUEST["dbuser"];
-		$dbpwd = $_REQUEST["dbpwd"];
-		$res = array("msg"=>"");		
-		$conn = mysql_connect($dbhost.":".$dbport,$dbuser,$dbpwd);
-		$db = mysql_select_db($dbname,$conn);
-		if($db){
-			$res["code"] = 1;
-			$res["msg"] = "数据库连接成功！";
-			mysql_close($conn);
-		}else{
-			$res["code"] = 0;
-			$res["msg"] = "数据库连接失败";
-		}
-		echo json_encode($res);
-	}
-	
-
-	/**
-	 * 检查目录权限
-	 *
-	 * @return array
-	 */
-	private function _checkFileRight() {
-	
-		$files_writeble[] = FCPATH . '/';
-		$files_writeble[] = FCPATH . 'app/config/';
-		$files_writeble[] = FCPATH . 'app/config/config.php';
-		$files_writeble[] = FCPATH . 'app/config/myconfig.php';
-		$files_writeble[] = FCPATH . 'app/config/database.php';
-		$files_writeble[] = FCPATH . 'data/';
-		$files_writeble[] = FCPATH . 'data/backup/';
-		$files_writeble[] = FCPATH . 'uploads/';
-		$files_writeble[] = FCPATH . 'uploads/avatar/';
-		$files_writeble[] = FCPATH . 'uploads/avatar/tmp/';
-		$files_writeble[] = FCPATH . 'uploads/files/';
-		$files_writeble[] = FCPATH . 'uploads/image/';
-		
-		$files_writeble = array_unique($files_writeble);
-		sort($files_writeble);
-		$writable = array();
-		
-		foreach ($files_writeble as $file) {
-			$key = str_replace(FCPATH, '', $file);
-			$isWritable = $this->_checkWriteAble($file) ? true : false;
-			if ($isWritable) {
-				$flag = false;
-				foreach ($writable as $k=>$v) {
-					if (0 === strpos($key, $k)) $flag = true;
-				}
-				$flag || $writable[$key] = $isWritable;
-			} else {
-				$writable[$key] = $isWritable;
-			}
-		}
-		return $writable;
-	}
-	/**
-	 * 检查目录可写
-	 *
-	 * @param string $pathfile
-	 * @return boolean
-	 */
-	private function _checkWriteAble($pathfile) {
-		if (!$pathfile) return false;
-		$isDir = in_array(substr($pathfile, -1), array('/', '\\')) ? true : false;
-		if ($isDir) {
-			if (is_dir($pathfile)) {
-				mt_srand((double) microtime() * 1000000);
-				$pathfile = $pathfile . 'stb_' . uniqid(mt_rand()) . '.tmp';
-			} elseif (@mkdir($pathfile)) {
-				return self::_checkWriteAble($pathfile);
-			} else {
-				return false;
-			}
-		}
-		@chmod($pathfile, 0777);
-		$fp = @fopen($pathfile, 'ab');
-		if ($fp === false) return false;
-		fclose($fp);
-		$isDir && @unlink($pathfile);
-		return true;
-	}
 }
