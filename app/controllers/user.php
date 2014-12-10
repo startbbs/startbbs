@@ -201,7 +201,6 @@ class User extends SB_Controller
 
 	public function resetpwd()
 	{
-
 		$array = explode('.',base64_decode(@$_GET['p']));
 		$data = $this->user_m->getpwd_by_username($array['0']);
 		//$sql = "select passwords from member where username = '".trim($_array['0'])."'";
@@ -209,8 +208,9 @@ class User extends SB_Controller
 			
 		if(@$array['1'] === $checkCode ){
 			if($_POST){
-				$password = $this->input->post('password');
-				if($this->user_m->update_user(@$data['uid'], array('password'=>$password))){
+				$salt =get_salt();
+				$password= password_dohash($this->input->post('password'),$salt);
+				if($this->user_m->update_user(@$data['uid'], array('password'=>$password,'salt'=>$salt))){
 					$this->session->set_userdata(array ('uid' => $data['uid'], 'username' => $array['0'], 'group_type' => $data['group_type'], 'gid' => $data['gid']));
 					redirect('/');
 				}
@@ -220,6 +220,8 @@ class User extends SB_Controller
 		}
 		$data['title'] = '设置新密码';
 		$data['p'] = $_GET['p'];
+	    $data['csrf_name'] = $this->security->get_csrf_token_name();
+	    $data['csrf_token'] = $this->security->get_csrf_hash();
 		$this->load->view('findpwd',$data);
 	}
 

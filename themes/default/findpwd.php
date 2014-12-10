@@ -7,7 +7,6 @@
 <title><?php echo $title?> - <?php echo $settings['site_name']?></title>
 <?php $this->load->view('common/header-meta');?>
 </head>
-
 <body id="startbbs">
 <a id="top" name="top"></a>
 <?php $this->load->view('common/header'); ?>
