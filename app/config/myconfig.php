@@ -8,9 +8,9 @@ $config = array (
   'site_close_msg' => '网站升级中，暂时关闭。       ',
   'basic_folder' => '',
   'version' => false,
-  'static' => 'white1',
+  'static' => 'white',
   'themes' => 'default',
   'logo' => 'Start<span class=\'green\'>BBS</span>',
   'auto_tag' => 'on',
-  'encryption_key' => 'efa1dba05dd6402c6feb156600b13314',
+  'encryption_key' => 'd6c7ef5a51eb5eed3443b3275fb891d8',
 );

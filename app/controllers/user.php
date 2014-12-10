@@ -106,7 +106,6 @@ class User extends SB_Controller
 			return true;
 		}
 	}
-
 	public function _check_captcha($captcha)
 	{
 		if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=strtolower($captcha)){

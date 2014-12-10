@@ -973,12 +973,12 @@ class CI_Form_validation {
 			return FALSE;
 		}
 
-		if (function_exists('mb_strlen'))
-		{
-			return (mb_strlen($str) < $val) ? FALSE : TRUE;
-		}
+		//if (function_exists('mb_strlen'))
+		//{
+		//	return (mb_strlen($str) < $val) ? FALSE : TRUE;
+		//}
 
-		return (strlen($str) < $val) ? FALSE : TRUE;
+		return (str_len($str) < $val) ? FALSE : TRUE;
 	}
 
 	// --------------------------------------------------------------------
@@ -998,12 +998,12 @@ class CI_Form_validation {
 			return FALSE;
 		}
 
-		if (function_exists('mb_strlen'))
-		{
-			return (mb_strlen($str) > $val) ? FALSE : TRUE;
-		}
+		//if (function_exists('mb_strlen'))
+		//{
+		//	return (mb_strlen($str) > $val) ? FALSE : TRUE;
+		//}
 
-		return (strlen($str) > $val) ? FALSE : TRUE;
+		return (str_len($str) > $val) ? FALSE : TRUE;
 	}
 
 	// --------------------------------------------------------------------

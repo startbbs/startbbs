@@ -79,6 +79,14 @@ RewriteCond $1 !^(index\.php|images|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1 [L]
 </IfModule>
 
+Nginx:
+
+location / {
+  if (!-e $request_filename) {
+    rewrite ^/(.*)$ /index.php last;
+  }
+}
+
 后续会增加更多规则
 
 +=======================+

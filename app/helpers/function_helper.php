@@ -501,6 +501,20 @@ function  friendly_date( $from ){
 	}
 }
 
+	function str_len($str)
+	{
+	    $length = strlen(preg_replace('/[\x00-\x7F]/', '', $str));
+	 
+	    if ($length)
+	    {
+	        return strlen($str) - $length + intval($length / 3) * 2;
+	    }
+	    else
+	    {
+	        return strlen($str);
+	    }
+	}
+
 
 /* End of file function_helper.php */
 /* Location: ./system/helpers/function_helper.php */
