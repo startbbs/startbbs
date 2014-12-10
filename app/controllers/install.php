@@ -205,7 +205,7 @@ class Install extends Install_Controller
                 'salt' => $salt,
                 'email' =>$this->input->post('email'),
                 'regtime' => time(),
-                'ip' => $this->myclass->get_ip()
+                'ip' => get_onlineip()
                 );
 			$con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
             //检查数据库信息是否正确

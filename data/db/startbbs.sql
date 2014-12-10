@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 12 月 09 日 21:40
+-- 生成日期: 2014 年 12 月 10 日 23:03
 -- 服务器版本: 5.5.40
 -- PHP 版本: 5.5.17
 
@@ -25,6 +25,7 @@ SET time_zone = "+00:00";
 --
 -- 表的结构 `stb_comments`
 --
+
 DROP TABLE IF EXISTS `stb_comments`;
 CREATE TABLE IF NOT EXISTS `stb_comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `stb_comments` (
 --
 -- 表的结构 `stb_favorites`
 --
+
 DROP TABLE IF EXISTS `stb_favorites`;
 CREATE TABLE IF NOT EXISTS `stb_favorites` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -55,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `stb_favorites` (
 --
 -- 表的结构 `stb_links`
 --
+
 DROP TABLE IF EXISTS `stb_links`;
 CREATE TABLE IF NOT EXISTS `stb_links` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
@@ -77,6 +80,7 @@ INSERT INTO `stb_links` (`id`, `name`, `url`, `logo`, `is_hidden`) VALUES
 --
 -- 表的结构 `stb_message`
 --
+
 DROP TABLE IF EXISTS `stb_message`;
 CREATE TABLE IF NOT EXISTS `stb_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -96,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `stb_message` (
 --
 -- 表的结构 `stb_message_dialog`
 --
+
 DROP TABLE IF EXISTS `stb_message_dialog`;
 CREATE TABLE IF NOT EXISTS `stb_message_dialog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -117,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `stb_message_dialog` (
 --
 -- 表的结构 `stb_nodes`
 --
+
 DROP TABLE IF EXISTS `stb_nodes`;
 CREATE TABLE IF NOT EXISTS `stb_nodes` (
   `node_id` smallint(5) NOT NULL AUTO_INCREMENT,
@@ -138,6 +144,7 @@ CREATE TABLE IF NOT EXISTS `stb_nodes` (
 --
 -- 表的结构 `stb_notifications`
 --
+
 DROP TABLE IF EXISTS `stb_notifications`;
 CREATE TABLE IF NOT EXISTS `stb_notifications` (
   `nid` int(11) NOT NULL AUTO_INCREMENT,
@@ -154,6 +161,7 @@ CREATE TABLE IF NOT EXISTS `stb_notifications` (
 --
 -- 表的结构 `stb_page`
 --
+
 DROP TABLE IF EXISTS `stb_page`;
 CREATE TABLE IF NOT EXISTS `stb_page` (
   `pid` tinyint(6) NOT NULL AUTO_INCREMENT,
@@ -170,6 +178,7 @@ CREATE TABLE IF NOT EXISTS `stb_page` (
 --
 -- 表的结构 `stb_settings`
 --
+
 DROP TABLE IF EXISTS `stb_settings`;
 CREATE TABLE IF NOT EXISTS `stb_settings` (
   `id` tinyint(5) NOT NULL AUTO_INCREMENT,
@@ -203,6 +212,7 @@ INSERT INTO `stb_settings` (`id`, `title`, `value`, `type`) VALUES
 --
 -- 表的结构 `stb_tags`
 --
+
 DROP TABLE IF EXISTS `stb_tags`;
 CREATE TABLE IF NOT EXISTS `stb_tags` (
   `tag_id` int(10) NOT NULL AUTO_INCREMENT,
@@ -217,6 +227,7 @@ CREATE TABLE IF NOT EXISTS `stb_tags` (
 --
 -- 表的结构 `stb_tags_relation`
 --
+
 DROP TABLE IF EXISTS `stb_tags_relation`;
 CREATE TABLE IF NOT EXISTS `stb_tags_relation` (
   `tag_id` int(10) NOT NULL DEFAULT '0',
@@ -230,6 +241,7 @@ CREATE TABLE IF NOT EXISTS `stb_tags_relation` (
 --
 -- 表的结构 `stb_topics`
 --
+
 DROP TABLE IF EXISTS `stb_topics`;
 CREATE TABLE IF NOT EXISTS `stb_topics` (
   `topic_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -260,6 +272,7 @@ CREATE TABLE IF NOT EXISTS `stb_topics` (
 --
 -- 表的结构 `stb_users`
 --
+
 DROP TABLE IF EXISTS `stb_users`;
 CREATE TABLE IF NOT EXISTS `stb_users` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
@@ -295,6 +308,7 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
 --
 -- 表的结构 `stb_user_follow`
 --
+
 DROP TABLE IF EXISTS `stb_user_follow`;
 CREATE TABLE IF NOT EXISTS `stb_user_follow` (
   `follow_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -309,6 +323,7 @@ CREATE TABLE IF NOT EXISTS `stb_user_follow` (
 --
 -- 表的结构 `stb_user_groups`
 --
+
 DROP TABLE IF EXISTS `stb_user_groups`;
 CREATE TABLE IF NOT EXISTS `stb_user_groups` (
   `gid` int(11) NOT NULL AUTO_INCREMENT,
@@ -316,7 +331,16 @@ CREATE TABLE IF NOT EXISTS `stb_user_groups` (
   `group_name` varchar(50) DEFAULT NULL,
   `usernum` int(11) NOT NULL,
   PRIMARY KEY (`gid`,`group_type`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `stb_user_groups`
+--
+
+INSERT INTO `stb_user_groups` (`gid`, `group_type`, `group_name`, `usernum`) VALUES
+(1, 0, '管理员', 1),
+(2, 1, '版主', 0),
+(3, 2, '普通会员', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
