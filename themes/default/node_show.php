@@ -31,7 +31,7 @@
 	                    <?php if($topic_list):?>
                         <ul class="media-list">
 							<?php foreach($topic_list as $v):?>
-                            <li class="media">
+                            <li class="media topic-list">
                                 <a class="media-left" href="<?php echo site_url('user/profile/'.$v['uid']);?>"><img class="img-rounded" src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'];?>"></a>
                                 <div class="media-body">
                                     <h4 class="media-heading"><a href="<?php echo url('topic_show',$v['topic_id']);?>"><?php echo $v['title'];?></a><?php if( $v['is_top'] == '1' ) echo '<span class="badge badge-info">置顶</span>'; ?></h4>
@@ -49,7 +49,8 @@
                             </li>
 						<?php endforeach;?>
                         </ul>
-                        <?php if($pagination):?><ul class="pagination"><?php echo $pagination;?></ul><?php endif?>
+                        <nav>
+                        <?php if($pagination):?><ul class="pager"><?php echo $pagination;?></ul><?php endif?></nav>
 						<?php else:?>
 						暂无话题
 						<?php endif?>

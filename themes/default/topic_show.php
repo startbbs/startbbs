@@ -43,7 +43,7 @@
                         </small>
                     </div>
                     <?php if($page==1){?>
-                    <div class="panel-body">
+                    <div class="panel-body content">
                         <?php echo $content['content']?>
                         <?php if(isset($tag_list)){?>
 						<p class="tag">
@@ -85,7 +85,7 @@
                                 <a class="media-left" href="<?php echo site_url('user/profile/'.$v['uid']);?>">
                                     <img class="img-rounded" src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'].'_avatar';?>">
                                 </a>
-                                <div class="media-body">
+                                <div class="media-body reply_content">
                                     <h4 class="media-heading topic-list-heading"><a href="<?php echo site_url('user/profile/'.$v['uid']);?>"><?php echo $v['username']; ?></a>&nbsp;&nbsp;<small><?php echo friendly_date($v['replytime'])?></small></h4>
                                     <?php echo $v['content']; ?>
                                 </div>

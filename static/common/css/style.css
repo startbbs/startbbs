@@ -46,11 +46,12 @@ abbr,acronym {
     border: 0; 
 }
 
+
 body{
 	padding-top: 70px;
 	background:#E0E0E0/* url(../images/bg.png) bottom left repeat*/;
 	/*font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;*/
-	font-size: 13px/1.4;
+	/*ont-size: 13px;*/
 
 }
 h1{font-size:25px}
@@ -63,6 +64,9 @@ small {
     font-size: 12px;
 }
 
+.w1,.w2,.w3,.w4,.w5,.w6,.w7,.w8,.w9,.w10,.w11,.w12,.w13,.w14,.w15,.w16,.w17,.w18,.w19,.w20,.w21,.w22,.w23,.w24 {position:relative;min-height:1px;padding-right:5px;padding-left:15px;float: left;}
+.w1{width:4.66666667%}.w2{width:8.33333333%}.w3{width:12.5%}.w4{width:16.66666667%}.w5{width:20.83333333%}.w6{width:25%}.w7{width:29.16666667%}.w8{width:33.33333333%}.w9{width:37.5%}.w10{width:41.66666667%}.w11{width:41.66666667%}.w12{width:50%}.w13{width:54.16666667%}.w14{width:58.33333333%}.w15{width:62.5%}.w16{width:66.66666667%}.w17{width:70.83333333%}.w18{width:75%}.w19{width:79.16666667%}.w20{width:83.33333333%}.w21{width:87.5%}.w22{width:91.66666667%}.w23{width:95.83333333%}
+
 .container {
     max-width: 970px;
 }
@@ -74,7 +78,7 @@ small {
     font-size: 16px;
     color: #444;
 }
-.topic-list{
+.topic-list,.reply-list{
 	border-bottom: 1px solid #eee;
 	padding-bottom: 10px;
 }
@@ -146,6 +150,7 @@ ul.user-list li img{width:50px;height:50px;background:#fff}
 	color:#FFF;
 }
 .tag {padding:2px 2px 0px 20px;margin:10px 2px 0px 2px;background: url(../images/tag.gif) no-repeat 0 6px;color:#CCC;}
+.content img,.reply_content img{display:block;height:auto;max-width:100%}
 footer{
     /*background-color: #f8f8f8; #e4e4e4 #f9fafb*/
     background-color: #fff;

@@ -47,7 +47,7 @@
                     <div class="panel-body">
                         <ul class="media-list">
                             <?php foreach ($topic_list as $v) : ?>
-                            <li class="media">
+                            <li class="media topic-list">
                                 <div class="pull-right">
                                     <span class="badge badge-info"><?php echo $v['comments'] ;?></span>
                                 </div>
@@ -64,7 +64,6 @@
                                     </p>
                                 </div>
                             </li>
-                            <hr class="smallhr">
                             <?php endforeach; ?>
                         </ul>
                         <ul class="pagination"></ul>
@@ -77,8 +76,8 @@
                     <div class="panel-body">
                         <ul class="media-list">
                             <?php foreach ($comment_list as $v) : ?>
-                            <li class="media">
-                                <div class="media-body">
+                            <li class="media reply-list">
+                                <div class="media-body reply_content">
                                     <h4 class="media-heading topic-list-heading"><small>回复了 <a href="<?php echo site_url('user/profile/'.$v['uid']);?>" title="<?php echo $v['username']?>"><?php echo $v['username']; ?></a> 创建的主题 </small><a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>"><?php echo $v['title']; ?></a></h4>
                                     <blockquote>
                                         <?php echo $v['content'];?>
@@ -86,7 +85,6 @@
                                     </blockquote>
                                 </div>
                             </li>
-                            <hr class="smallhr">
                             <?php endforeach; ?>
                         </ul>
                         <!--<ul class="pagination"></ul>-->

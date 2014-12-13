@@ -16,7 +16,8 @@
                         <h3 class="panel-title">欢迎进入后台管理</h3>
                     </div>
                     <div class="panel-body">
-					StartBBS- 起点开源社区系统 <span class="red"><?php echo $this->config->item('version');?>(<?php echo check_auth()?>)</span>
+					StartBBS开源社区系统</a>
+ <span class="red"><?php echo $this->config->item('sys_version');?></span>
                     </div>
                 </div>
                 <div class="row">

@@ -5,7 +5,6 @@ if ( ! function_exists('format_content'))
 	function format_content($text)
 	{
 
-
 		//if(preg_match($img_url, $text)){
 		//	$text = preg_replace($img_url, '<img src="\1" alt="" />', $text);
 	   //	}
@@ -33,7 +32,8 @@ if ( ! function_exists('format_content'))
 	            $text = preg_replace('/http:\/\/www.tudou.com\/(programs\/view|listplay)\/([a-zA-Z0-9\=\_\-]+)(\/|.html?)?/', '<embed src="http://www.tudou.com/l/\2/" quality="high" width="600" height="420" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"></embed>', $text);
 	        }
 	    }
-	    
+	    $CI =& get_instance();
+		$CI->load->helper('typography');
 		$text = auto_link_pic($text, 'url', TRUE);
 //$text = auto_link($text, 'url', TRUE);
 	   	//url
@@ -47,6 +47,7 @@ if ( ! function_exists('format_content'))
 	        $text = substr($text, 1);
 	    }
 	   	*/
+	   	$text=nl2br_except_pre($text);
 		return $text;
 	}
 }
