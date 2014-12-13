@@ -179,7 +179,8 @@ if (defined('ENVIRONMENT'))
  *
  */
  /*时区设置*/
-//date_default_timezone_set("Asia/Shanghai");
+ 
+date_default_timezone_set("Asia/Shanghai");
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
