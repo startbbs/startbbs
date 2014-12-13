@@ -12,9 +12,8 @@
             <?php $this->load->view ('common/sidebar');?>
             <div class="col-md-9">
                 <ol class="breadcrumb">
-				  <li><a href="#">Home</a></li>
-				  <li><a href="#">Library</a></li>
-				  <li class="active">Data</li>
+				  <li><a href="<?php echo site_url('admin/login')?>">管理首页</a></li>
+				  <li class="active">数据库管理</li>
 				</ol>
 				<?php if($this->session->flashdata('error')){?>
 <p class="alert alert-danger"><?php echo $this->session->flashdata('error');?></p>

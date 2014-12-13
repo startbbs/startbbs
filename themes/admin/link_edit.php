@@ -12,13 +12,13 @@
             <?php $this->load->view ('common/sidebar');?>
             <div class="col-md-9">
                 <ol class="breadcrumb">
-				  <li><a href="#">Home</a></li>
-				  <li><a href="#">Library</a></li>
-				  <li class="active">Data</li>
+				  <li><a href="<?php echo site_url('admin/login')?>">管理首页</a></li>
+				  <li><a href="<?php echo site_url('admin/links')?>">链接列表</a></li>
+				  <li class="active">编辑链接</li>
 				</ol>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">所有主题</h3>
+                        <h3 class="panel-title">编辑链接</h3>
                     </div>
                     <div class="panel-body">
 						<form accept-charset="UTF-8" action="<?php echo site_url('admin/links/edit/'.$link['id']);?>" class="simple_form form-horizontal" id="edit_user_1" method="post" novalidate="novalidate">

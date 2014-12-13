@@ -18,9 +18,8 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 	                    <ol class="breadcrumb">
-						  <li><a href="#">Home</a></li>
-						  <li><a href="#">Library</a></li>
-						  <li class="active">Data</li>
+						  <li><a href="<?php echo site_url('admin/login')?>">管理首页</a></li>
+						  <li class="active">用户列表</li>
 						</ol>
 						<ul class="nav nav-pills">
 						    <li<?php if($act=='index' || $act=='search'){?> class="active"<?php }?>><a href="<?php echo site_url('admin/users/index');?>">用户列表</a></li>
