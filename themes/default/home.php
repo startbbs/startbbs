@@ -60,11 +60,11 @@
                         <div class="row">
 	                        <div class="w3"><?php echo $v['cname']?></div>
 	                        <div class="w21">
-		                        <p>
+
 		                        <?php foreach(@$catelist[$v['node_id']] as $c){?>
 		                        <a href="<?php echo url('node_show',$c['node_id']);?>" class="btn btn-default nodes" role="button"><?php echo $c['cname']?></a>
 								<?php }?>
-		                        </p>
+
 		                    </div>
 	                    </div>
 	                    <?php } else {?>

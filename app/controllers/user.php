@@ -21,8 +21,8 @@ class User extends SB_Controller
 	public function index()
 	{
 		$data['title'] = '用户';
-		$data['new_users'] = $this->user_m->get_users(33,'new');
-		$data['hot_users'] = $this->user_m->get_users(33,'hot');
+		$data['new_users'] = $this->user_m->get_users(30,'new');
+		$data['hot_users'] = $this->user_m->get_users(30,'hot');
 		//action
 		$data['action'] = 'user';		
 		$this->load->view('user',$data);

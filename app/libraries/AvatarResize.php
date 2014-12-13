@@ -50,10 +50,11 @@ class AvatarResize {
     {
         $config['image_library'] = 'gd2';
         $config['source_image'] = $source;
-        $config['maintain_ratio'] = TRUE;
+        $config['maintain_ratio'] = false;
         $config['width'] = $width;
         $config['height'] = $height;
         $config['new_image'] = $this->avatar_dir . $this->uid . '_' . $size .'.png';
+        $config['master_dim'] = 'auto';
 
         $this->CI->image_lib->initialize($config);
         return $this->CI->image_lib->resize();
