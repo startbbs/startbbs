@@ -1,5 +1,4 @@
-/uploads
-!uploads/avatar
+/app/cache
 
 *.cache
 *.swp
