@@ -30,7 +30,7 @@
                         <h2 class="panel-title"><?php echo $content['title']?></h2>
                         <small class="text-muted">
                             <span>By <a href="<?php echo site_url('user/profile/'.$content['uid']);?>"><?php echo $content['username']; ?></a></span>&nbsp;•&nbsp;
-                            <span><?php echo date('Y-m-d h:i:s',$content['addtime']);?></span>&nbsp;•&nbsp;
+                            <span><?php echo date('Y-m-d H:i:s',$content['addtime']);?></span>&nbsp;•&nbsp;
                             <span><?php echo $content['views']?>次点击</span>
                             <?php if($this->session->userdata('uid')){?>
                             <span>• <a href="javascript:void(0)" class="reply">回复</a></span>
@@ -93,6 +93,8 @@
                             <hr class="smallhr">
                             <?php endforeach; ?>
                         </ul>
+                        <?php if($pagination):?><nav><ul class="pager"><?php echo $pagination;?></ul></nav><?php endif?>
+                        
                     </div>
                 </div><!-- /.panel comment -->
                 <div class="panel panel-default" id="Reply">
