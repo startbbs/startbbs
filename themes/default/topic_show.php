@@ -117,7 +117,7 @@
 								<?php if($this->config->item('storage_set')=='local'){?>
 								<input id="upload_file" type="button" value="图片/附件" name="file" class="btn btn-default pull-right">
 								<?php } else {?>
-								<input id="upload_tip" type="button" value="图片/附件"  class="btn btn-default">
+								<input id="upload_file" type="button" value="图片/附件"  class="btn btn-default">
 								<?php }?></span>
 								</p>
                             </div>
