@@ -21,22 +21,4 @@ class Page extends SB_Controller
 		$data['title'] = $data['page']['title'];
 		$this->load->view('page',$data);
 	}
-	public function add()
-	{
-		$data['title'] = '增加页面';
-		if($_POST){
-			$str = array(
-				'time'=>$this->input->post('name'),
-				'content'=>$this->input->post('content'),
-				'add_time'=>time(),
-				'is_hidden'=>$this->input->post('is_hidden')
-			);
-			if($this->page_m->add_page($str)){
-				show_message('添加页面成功！',site_url('admin/page'),1);
-			}
-
-		}
-		$this->load->view('page_add', $data);
-
-	}
 }
