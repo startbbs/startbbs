@@ -54,6 +54,7 @@ body{
 	/*ont-size: 13px;*/
 
 }
+
 h1{font-size:25px}
 h2{font-size:22px}
 h3{font-size:18px}
@@ -98,6 +99,9 @@ small {
 .topic-detail-heading img{
     width: 64px;
 }
+.reply-body{
+	padding-left: 20px;
+}
 .red{
 	color: #FF0000;
 }
@@ -106,7 +110,7 @@ small {
     border-bottom: 1px solid #eee;
     font-size: 18px;
 }
-.panel-body p img{
+.panel-body p img,.reply-body img{
     max-width: 100%;
     height: auto;
 }

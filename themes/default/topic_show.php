@@ -76,23 +76,21 @@
                     <div class="panel-heading">
                         <h3 class="panel-title"><small id="comments"><?php echo $content['comments']?> 回复 | 直到<?php echo date('Y-m-d H:i',time()); ?></small><a href="javascript:void(0)" class="pull-right"><small class="text-muted">添加回复</small></a></h3>
                     </div>
-                    <div class="panel-body">
-                        <ul class="media-list" id="comment_list">
+                    <div class="panel-body" id="comment_list">
+	                       
                             <?php foreach ($comment as $key=>$v):?>
-                            <li class="media" id="r<?php echo ($page-1)*10+$key+1;?>">
-                                <span class='pull-right' id="r<?php echo ($page-1)*10+$key+1;?>">
-#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>">回复</a></span>
-                                <a class="media-left" href="<?php echo site_url('user/profile/'.$v['uid']);?>">
+                             <div class="row" id="r<?php echo ($page-1)*10+$key+1;?>">
+                                <div class="col-md-1"><a href="<?php echo site_url('user/profile/'.$v['uid']);?>">
                                     <img class="img-rounded" src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'].'_avatar';?>">
-                                </a>
-                                <div class="media-body reply_content">
-                                    <h4 class="media-heading topic-list-heading"><a href="<?php echo site_url('user/profile/'.$v['uid']);?>"><?php echo $v['username']; ?></a>&nbsp;&nbsp;<small><?php echo friendly_date($v['replytime'])?></small></h4>
-                                    <?php echo $v['content']; ?>
-                                </div>
-                            </li>
+                                </a></div>
+                                    <div class="col-md-11 reply-body"><h4 class="topic-list-heading"><span><a href="<?php echo site_url('user/profile/'.$v['uid']);?>"><?php echo $v['username']; ?></a>&nbsp;&nbsp;<small><?php echo friendly_date($v['replytime'])?></small></span><span class='pull-right' id="r<?php echo ($page-1)*10+$key+1;?>">
+#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>">回复</a></span></h4>
+                                    <?php echo $v['content']; ?></div>
+
+                            </div>
                             <hr class="smallhr">
                             <?php endforeach; ?>
-                        </ul>
+                   
                         <?php if($pagination):?><nav><ul class="pager"><?php echo $pagination;?></ul></nav><?php endif?>
                         
                     </div>
