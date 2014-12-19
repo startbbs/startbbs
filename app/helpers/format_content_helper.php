@@ -48,9 +48,13 @@ if ( ! function_exists('format_content'))
 	        $text = substr($text, 1);
 	    }
 	   	*/
+		$text=str_replace('&lt;pre&gt;','<pre>',$text);
+		$text=str_replace('&lt;/pre&gt;','</pre>',$text);
 	   	$text=nl2br_except_pre($text);
 		return $text;
 	}
+
+
 }
 
 /* End of file format_content_helper.php */

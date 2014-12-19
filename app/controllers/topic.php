@@ -32,8 +32,7 @@ class topic extends SB_controller
 			$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 			//取出处理
 			$content['content']=stripslashes($content['content']);
-			$content['content']=str_replace('&lt;pre&gt;','<pre>',$content['content']);
-			$content['content']=str_replace('&lt;/pre&gt;','</pre>',$content['content']);
+
 			
 			$data['content'] = $content;
 			

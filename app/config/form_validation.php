@@ -58,7 +58,7 @@ $config = array(
         array(
             'field' => 'content',
             'label' => '内容',
-            'rules' => 'trim|required|htmlspecialchars|min_length[8]|max_length['.$CI->config->item('words_limit').']|xss_clean|nl2br_except_pre'
+            'rules' => 'trim|required|htmlspecialchars|min_length[8]|max_length['.$CI->config->item('words_limit').']|xss_clean'
         ),
         array(
             'field' => 'node_id',
