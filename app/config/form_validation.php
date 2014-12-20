@@ -246,3 +246,21 @@ $config = array(
         )
     ),
 );
+if($CI->config->item('show_captcha')=='off'){
+$config = array(
+	'user/register' => array(
+        array(
+            'field' => 'captcha_code',
+            'label' => '验证码',
+            'rules' => ''
+        )
+	),
+	'user/login' => array(
+        array(
+            'field' => 'captcha_code',
+            'label' => '验证码',
+            'rules' => ''
+        )
+	),
+);	
+}
