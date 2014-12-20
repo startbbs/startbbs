@@ -81,19 +81,19 @@ class db_admin extends Admin_Controller
 	{
 		$data['title'] = '数据库还原';
 		$data['act']=$this->uri->segment(3);
-		$data['sqlfiles'] = get_dir_file_info(FCPATH.'data/backup', $top_level_only = TRUE);
+		$data['sqlfiles'] = get_dir_file_info(FCPATH.'data/db', $top_level_only = TRUE);
 		//echo var_dump($data['sqlfiles']);
 		if($_POST){
 			$sqlfiles=array_slice($this->input->post(), 0, -1);
 			//echo var_export($sqlfiles);
 			foreach($sqlfiles as $k=>$v){
-				unlink(FCPATH.'data/backup/'.$v);
+				unlink(FCPATH.'data/db/'.$v);
 			}
 			$this->session->set_flashdata('error', '删除sql文件成功!');
 			redirect('admin/db_admin/restore');
 		}
 		if($sqlfile){
-			$sql  = file_get_contents(FCPATH.'data/backup/'.$sqlfile);
+			$sql  = file_get_contents(FCPATH.'data/db/'.$sqlfile);
 			if($this->run_sql($sql)){
 				$this->session->set_flashdata('error', '还原sql文件成功!');
 				redirect('admin/db_admin/restore');
