@@ -300,7 +300,8 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `location` varchar(128) DEFAULT NULL,
   `introduction` text,
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`uid`,`group_type`)
+  PRIMARY KEY (`uid`,`group_type`),
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
