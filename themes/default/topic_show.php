@@ -95,6 +95,7 @@
                         
                     </div>
                 </div><!-- /.panel comment -->
+                <div id="error"></div>
                 <div class="panel panel-default" id="Reply">
                     <div class="panel-heading">
                         <h3 class="panel-title">回复</h3>
@@ -106,6 +107,7 @@
 						<input name="is_top" id="is_top" type="hidden" value="<?php echo $content['is_top']?>" />
 						<input name="username" id="username" type="hidden" value="<?php echo $user['username']?>" />
 						<input name="avatar" id="avatar" type="hidden" value="<?php echo base_url($user['avatar'].'normal.png')?>" />
+						<input name="lastpost" id="lastpost" type="hidden" value="<?php echo $user['lastpost']?>" />
                             <div class="form-group">
 	                            <textarea class="form-control" id="post_content" name="comment" rows="5"></textarea>
 	                            <span class="help-block red"><?php echo form_error('content');?></span>

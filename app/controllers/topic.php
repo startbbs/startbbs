@@ -165,11 +165,11 @@ class topic extends SB_controller
 			$this->session->set_flashdata('error', '您无权在此节点发表话题!请重新选择节点');
 			exit;
 		}
-		if(time()-$user['lastpost']<$this->config->item('timespan')){
-			$this->session->set_flashdata('error', '发帖最小间隔时间是'.$this->config->item('timespan').'秒!');
-			exit;
-		}
 		if($_POST && $this->form_validation->run() === TRUE){
+			if(time()-$user['lastpost']<$this->config->item('timespan')){
+				$this->session->set_flashdata('error', '发帖最小间隔时间是'.$this->config->item('timespan').'秒!');
+				redirect('topic/add');
+			}
 			$data = array(
 				'title' => $this->input->post ('title'),
 				'content' => $this->input->post ('content'),
