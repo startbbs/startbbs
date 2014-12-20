@@ -25,7 +25,7 @@ class Comment extends SB_Controller
 		} else {
 		//数据提交
 		$data = array(
-			'content' => filter_code($this->input->post('comment')),
+			'content' => $this->input->post('comment'),
 			'topic_id' => $this->input->post('topic_id'),
 			'uid' => $this->uid,
 			'replytime' => time()

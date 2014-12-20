@@ -25,13 +25,16 @@ var token=$("#token").val();
     data: "comment="+comment+"&topic_id="+$("#topic_id").val()+"&is_top="+$("#is_top").val()+"&username="+$("#username").val()+"&avatar="+$("#avatar").val()+"&layer="+$("#layer").val()+"&stb_csrf_token="+token,    //输入框writer中的值作为提交的数据  
     dataType: 'json',  
     success: function(msg){                 //提交成功后的回调，msg变量是ok.php输出的内容。
-    var html="<li class='media' id='r"+msg.layer+"'><span class='pull-right' id='r"+msg.layer+"'>#"+msg.layer+" -<a href='#reply' class='clickable'  data-mention='"+msg.username+"'>回复</a></span><a class='media-left' href='"+siteurl+"user/profile/"+msg.uid+"'><img class='img-rounded' src='"+msg.avatar+"' alt='"+msg.username+"'></a><div class='media-body'><h4 class='media-heading topic-list-heading'><a href=''"+siteurl+"user/profile/"+msg.uid+"'>"+msg.username+"</a>&nbsp;&nbsp;<small>"+msg.replytime+"</small></h4>"+msg.content+"</div></li><hr class='smallhr'>";
+    var html="<div class='row' id='r"+msg.layer+"'><div class='col-md-1'><a href='"+siteurl+"user/profile/"+msg.uid+"'><img class='img-rounded' src='"+msg.avatar+"' alt='"+msg.username+"'></a></div><div class='col-md-11 reply-body'><h4 class='topic-list-heading'><span><a href='"+siteurl+"user/profile/"+msg.uid+"'>"+msg.username+"</a>&nbsp;&nbsp;<small>"+msg.replytime+"</small></span><span class='pull-right' id='r"+msg.layer+"'>#"+msg.layer+" -<a href='#reply' class='clickable startbbs'  data-mention='"+msg.username+"'>回复</a></span></h4>"+msg.content+"</div></div><hr class='smallhr'>";
     $('#comment_list').append(html);
     $('#comments').html(msg.layer);//改变回复数
       //alert("数据提交成功");                     //如果有必要，可以把msg变量的值显示到某个DIV元素中    
 }
   });
 }
+
+
+
 
 //快速回复ctrl+enter
     $(document).keypress(function(e){

@@ -74,7 +74,7 @@
                 </div><!-- /.panel content -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><small id="comments"><?php echo $content['comments']?> 回复 | 直到<?php echo date('Y-m-d H:i',time()); ?></small><a href="javascript:void(0)" class="pull-right"><small class="text-muted">添加回复</small></a></h3>
+                        <h3 class="panel-title"><small id="comments"><?php echo $content['comments']?></small><small> 回复 | 直到<?php echo date('Y-m-d H:i',time()); ?></small><a href="javascript:void(0)" class="pull-right"><small class="text-muted">添加回复</small></a></h3>
                     </div>
                     <div class="panel-body" id="comment_list">
 	                       
