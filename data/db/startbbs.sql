@@ -279,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `username` varchar(20) DEFAULT NULL,
   `password` char(32) DEFAULT NULL,
   `salt` char(6) DEFAULT NULL COMMENT '混淆码',
-  `openid` char(32) NOT NULL,
+  `openid` char(32) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `avatar` varchar(100) DEFAULT 'uploads/avatar/default/',
   `homepage` varchar(50) DEFAULT NULL,
