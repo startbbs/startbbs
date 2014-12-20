@@ -24,14 +24,11 @@ class Tag extends SB_Controller
 		$limit = 10;
 		$config['uri_segment'] = 4;
 		$config['use_page_numbers'] = TRUE;
-		$config['base_url'] = site_url('tag/show/'.$data['title']);
+		$config['base_url'] = url('tag_show','',$data['title']);
 		$data['tag']=$this->db->select('topics')->where('tag_title',$data['title'])->get('tags')->row_array();
 		$config['total_rows'] = @$data['tag']['topics'];
 		$config['per_page'] = $limit;
 		$config['first_link'] ='首页';
-		$config['last_link'] ='尾页';
-		$config['prev_link'] = '上一页';
-		$config['next_link'] = '下一页';
 		$config['last_link'] ='尾页';
 		$config['num_links'] = 10;
 		
