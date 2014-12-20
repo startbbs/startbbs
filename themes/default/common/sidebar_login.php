@@ -1,55 +1,39 @@
 <?php if($this->session->userdata('uid')){ ?>
-<div class='panel panel-default'>
-<div class='panel-body'>
-<table>
-<tr>
-<td valign='top' width='100'>
-<a href="<?php echo site_url('user/profile/'.$user['uid']);?>" class="profile_link" title="<?php echo $user['username']?>">
-<img alt="<?php echo $user['username']?> large avatar" class="img-rounded" src="<?php echo base_url($user['avatar'].'big.png')?>" />
-</a>
-</td>
-<td valign='top' width='10'></td>
-<td valign='left' width='auto'>
-<dl>
-  <dt class='profile-link'><a href="<?php echo site_url('user/profile/'.$user['uid']);?>" class="startbbs profile_link" title="<?php echo $user['username']?>"><?php echo $user['username']?></a></dt>
-  <dd class="small text-muted">用户组：<?php echo $group['group_name']?></dd>
-  <dd class="small text-muted">积分：<?php echo $user['credit']?></dd>
-</dl>
-<div class='signature'></div>
-</td>
-</tr>
-</table>
-<div class='sep10'></div>
-<table width='100%'>
-<tr>
-<td align='center' class='with_separator' width='34%'>
-<a href="<?php echo site_url('favorites');?>" class="dark" style="display: block;">
-<span class='bigger'>
-<?php echo $users['favorites']?>
-</span>
-<div class='sep3'></div>
-<span class='gray'>话题收藏</span>
-</a></td>
-<td align='center' width='33%'>
-<a href="<?php echo site_url('follow');?>" class="dark" style="display: block;"><span class='bigger'><?php echo $users['follows']?></span>
-<div class='sep3'></div>
-<span class='gray'>特别关注</span>
-</a></td>
-</tr>
-
-</table>
-</div>
-<div class='panel-footer text-muted'>
-<?php if($users['notices']){?>
-<img align="top" alt="Dot_orange" class="icon" src="<?php echo base_url('static/common/images/dot_orange.png');?>" />
-<a href="<?php echo site_url('notifications');?>"><?php echo $users['notices']?> 条未读提醒</a>
-<?php } else{?>
-暂无提醒
-<?php }?>
-</div>
+<div class="panel">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-5">
+                <a href="<?php echo site_url('user/profile/'.$user['uid']);?>"><img alt="<?php echo $user['username']?> large avatar" class="img-rounded" src="<?php echo base_url($user['avatar'].'big.png')?>" /></a>
+            </div>
+            <div class="col-md-7">
+	            <ul class="list-unstyled small">
+	            	<li><a href="<?php echo site_url('user/profile/'.$user['uid']);?>" title="<?php echo $user['username']?>"><?php echo $user['username']?></a></li>
+	            	<li>用户组：<?php echo $group['group_name']?></li>
+	            	<li>积分：<?php echo $user['credit']?></li>
+	            </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center">
+	            <p><a href="<?php echo site_url('favorites');?>"><?php echo $users['follows']?></a></p>
+	            <p><a href="<?php echo site_url('favorites');?>">话题收藏</a></p>
+            </div>
+            <div class="col-md-6">
+	            <p><a href="<?php echo site_url('follow');?>"><?php echo $users['follows']?></a></p>
+	            <p><a href="<?php echo site_url('follow');?>">特别关注</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer text-muted">
+		<?php if($users['notices']){?>
+		<img align="top" alt="Dot_orange" class="icon" src="<?php echo base_url('static/common/images/dot_orange.png');?>" />
+		<a href="<?php echo site_url('notifications');?>"><?php echo $users['notices']?> 条未读提醒</a>
+		<?php } else{?>
+		暂无提醒
+		<?php }?>
+	</div>
 </div>
 <?php } else {?>
-
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4><?php echo $settings['site_name']?></h4>
