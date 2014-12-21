@@ -30,6 +30,7 @@ $lang['_email_valid']      = "无效的%s";
 $lang['_check_password']      = "%s错误";
 $lang['_check_username'] = '%s 只能含有汉字、数字、字母、下划线（不能开头或结尾)';
 $lang['xss_clean'] = '%s 非法字符！';
+$lang['_disabled_username'] = '此%s是禁止注册的';
 
 /* End of file form_validation_lang.php */
 /* Location: ./system/language/english/form_validation_lang.php */

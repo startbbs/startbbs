@@ -114,6 +114,19 @@ class User extends SB_Controller
 			return true;
 		}
 	}
+
+	public function _disabled_username($username)
+	{
+		$this->config->load('userset');
+		$user_arr=explode(',',$this->config->item('disabled_username'));
+		if(in_array($username,$user_arr,true)){
+			return false;
+		}else{
+			return true;
+		}
+
+
+	}
 	
 	public function login ()
 	{

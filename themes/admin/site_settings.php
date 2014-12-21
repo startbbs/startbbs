@@ -337,6 +337,15 @@
 							<small class='help-block'></small>
 							</div>
 							</div>
+							<div class='form-group'>
+							<label class="col-md-3 control-label" for="credit_follow">禁注册的用户名</label>
+							<div class='col-md-5'>
+							<input class="form-control" id="disabled_username" name="disabled_username" type="text" value="<?php echo $this->config->item('disabled_username');?>" />
+							<small class='help-block'>不同用户名间用逗号(,)隔开</small>
+							</div>
+							</div>
+							
+							
 							<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-9">
 							  <button type="submit" name="commit" class="btn btn-primary">保存</button>

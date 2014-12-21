@@ -89,6 +89,7 @@ class Site_settings extends Admin_Controller
 			$this->config->update('userset','credit_reply_by', $this->input->post('credit_reply_by'));
 			$this->config->update('userset','credit_del', $this->input->post('credit_del'));
 			$this->config->update('userset','credit_follow', $this->input->post('credit_follow'));
+			$this->config->update('userset','disabled_username', $this->input->post('disabled_username'));			
 			show_message('userset更新成功',site_url('admin/site_settings'),1);
 		}
 

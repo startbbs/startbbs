@@ -11,7 +11,7 @@ $config = array(
 		array(
 			'field' => 'username',
 			'label' => '用户名',
-			'rules' => 'trim|required|min_length[3]|max_length[15]|is_unique[users.username]|callback__check_username|xss_clean'
+			'rules' => 'trim|required|min_length[3]|max_length[15]|is_unique[users.username]|callback__check_username|callback__disabled_username|xss_clean'
 		),
 		array(
 			'field' => 'password',
