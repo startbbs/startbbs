@@ -17,4 +17,11 @@ class MY_Loader extends CI_Loader
 	{
 		$this->_ci_view_paths = array(FCPATH.'themes/admin/'	=> TRUE);
 	}
+	public function plugin($name)
+	{
+		$this->add_package_path(APPPATH.'plugin/'.$name.'/');
+		$this->library($name);
+		$ci= &get_instance();
+		$ci->config->load('config');
+	}
 }
