@@ -15,7 +15,7 @@
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">节点:<?php echo $category['cname'];?><span class="pull-right">话题<span class='badge badge-info'><?php echo $category['listnum'];?></span></span></h3>
+                        <h3 class="panel-title">节点:<?php echo $category['cname'];?><span class="pull-right">话题&nbsp;<span class='badge badge-info'><?php echo $category['listnum'];?></span></span></h3>
                     </div>
                     <div class="panel-body">
                         <p class="text-muted">

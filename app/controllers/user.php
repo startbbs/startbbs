@@ -57,7 +57,7 @@ class User extends SB_Controller
 
 		$data['title'] = '注册新用户';
 		if ($this->auth->is_login()) {
-			show_message('已登录，请退出再注册');
+			show_message('已登录，请退出再注册',site_url());
 		}
 		if($_POST && $this->form_validation->run() === TRUE){
 			$password = $this->input->post('password',true);

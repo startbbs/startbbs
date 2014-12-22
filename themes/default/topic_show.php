@@ -76,8 +76,8 @@
                     <div class="panel-heading">
                         <h3 class="panel-title"><small id="comments"><?php echo $content['comments']?></small><small> 回复 | 直到<?php echo date('Y-m-d H:i',time()); ?></small><a href="javascript:void(0)" class="pull-right"><small class="text-muted">添加回复</small></a></h3>
                     </div>
-                    <div class="panel-body" id="comment_list">
-	                       
+                    <div class="panel-body">
+	                       <ul id="comment_list">
                             <?php foreach ($comment as $key=>$v):?>
                              <div class="row" id="r<?php echo ($page-1)*10+$key+1;?>">
                                 <div class="col-md-1"><a href="<?php echo site_url('user/profile/'.$v['uid']);?>">
@@ -90,7 +90,7 @@
                             </div>
                             <hr class="smallhr">
                             <?php endforeach; ?>
-                   
+                            </ul>        
                         <?php if($pagination):?><nav><ul class="pager"><?php echo $pagination;?></ul></nav><?php endif?>
                         
                     </div>
@@ -121,7 +121,7 @@
 								<?php }?></span>
 								</p>
                             </div>
-                            <button type="submit" class="btn btn-default" id="comment-submit">回复</button>
+                            <button type="submit" class="btn btn-primary" id="comment-submit">回复</button>
                         </form>
                         <?php else : ?>
                             <div class="well text-center">
