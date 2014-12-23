@@ -2,8 +2,8 @@
 
 $config = array (
   'site_name' => 'StartBBS- 开源微社区-烧饼bbs',
-  'index_page' => '',
-  'show_captcha' => 'off',
+  'index_page' => 'index.php',
+  'show_captcha' => 'on',
   'site_close' => 'on',
   'site_close_msg' => '网站升级中，暂时关闭。                                   ',
   'basic_folder' => '',
