@@ -39,9 +39,9 @@
 							</thead>
 							<tbody>
 								<?php foreach($users as $v){?>
-								<tr id='user_<?php echo $v[' uid ']?>'>
+								<tr id='user_<?php echo $v['uid']?>'>
 									<td>
-										<?php echo $v[ 'uid']?>
+										<?php echo $v['uid']?>
 									</td>
 									<td>
 										<strong><a href="<?php echo site_url('user/profile/'.$v['uid']);?>" class="black startbbs profile_link" title="admin"><?php echo $v['username']?></a></strong>
@@ -49,10 +49,10 @@
 									<td>	<strong class='green'><?php echo $v['group_type']?></strong>
 									</td>
 									<td>
-										<?php echo $v[ 'email']?>
+										<?php echo $v['email']?>
 									</td>
 									<td>
-										<?php echo $v[ 'credit']?>
+										<?php echo $v['credit']?>
 									</td>
 									<td class='center'>	<a href="<?php echo site_url('admin/users/edit/'.$v['uid']);?>" class="btn btn-primary btn-sm">修改</a>
 							<a href="<?php echo site_url('admin/users/del/'.$v['uid']);?>" class="btn btn-sm btn-danger">删除</a>
@@ -61,11 +61,17 @@
 								<?php }?>
 							</tbody>
 						</table>
-						<?php if($pagination){?>
+						<?php if(@$pagination){?>
 						<ul class='pagination'>
 						<?php if($act=='index') echo $pagination?>
 						</ul>
 						<?php }?>
+						<ul class='pagination'>
+							<?php echo form_open('admin/users/search', array('class'=>'form-inline'));?>
+							<input id="username" class="form-control" name="username" placeholder="用户昵称" type="text" />
+							<button type="submit" name="commit" class="btn btn-default">搜索</button>
+							</form>
+						</ul>
 						<?php }?>
 
 						<?php if($act=='groupindex'){?>
@@ -104,23 +110,7 @@
 								<?php }?>
 							</tbody>
 						</table>
-						<a href="<?php echo site_url('admin/users/group/add');?>" class="btn">新建用户组</a>
-						<?php }?>
-						<?php if($act=='groupadd'){?>
-						<div>
-						<form accept-charset="UTF-8" action="<?php echo site_url('admin/users/group/add');?>" class="simple_form form-horizontal" id="edit_user_1" method="post" novalidate="novalidate">
-						<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
-						<div class="form-group">
-						<label class="col-md-3 control-label" for="user_group_name">用户组名</label>
-						<div class="col-md-5">
-						<input class="form-control" id="user_group_name" name="group_name" size="50" type="text" value="" /></div></div>
-						<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-9">
-						  <button type="submit" name="commit_add" value=1 class="btn btn-primary">添加用户组</button>
-						</div>
-						</div>
-						</form>
-						</div>
+						<a class="btn btn-default" href="<?php echo site_url('admin/users/group/add');?>" class="btn">新建用户组</a>
 						<?php }?>
 						<?php if($act=='groupadd'){?>
 						<div>
