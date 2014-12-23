@@ -19,50 +19,45 @@
                     </div>
                     <div class="panel-body">
 					<?php if(isset($_GET['p'])){?>
-					<form accept-charset="UTF-8" action="<?php echo site_url('user/resetpwd?p='.$p);?>" class="new_user" id="new_user" method="post">
+					<form accept-charset="UTF-8" action="<?php echo site_url('user/resetpwd?p='.$p);?>" class="form-horizontal" id="new_user" method="post">
 					<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
-					<table class='form'>
-					<tr>
-					<td class='left'>
-					<label for="user_password">新密码</label>
-					</td>
-					<td class='right'>
-					<input class="sl" id="user_password" name="password" size="30" type="password" />
-					</td>
-					</tr>
-					<tr>
-					<td class='left'>
-					<label for="user_password_confirmation">请再输入一次</label>
-					</td>
-					<td class='right'>
-					<input class="sl" id="user_password_confirmation" name="password_c" size="30" type="password" />
-					</td>
-					</tr>
-					<tr>
-					<td class='left'></td>
-					<td class='right'>
-					<input class="btn btn-sm" name="commit" type="submit" value="继续" />
-					</td>
-					</tr>
-					</table>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="user_password">新密码</label>
+						<div class="col-md-5">
+						<input class="form-control" id="user_password" name="password" value="<?php echo set_value('password'); ?>" type="password" />
+						<span class="help-block red"><?php echo form_error('password');?></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="user_password_confirmation">再输入一次</label>
+						<div class="col-md-5">
+						<input class="form-control" id="user_password_confirmation" name="password_c" value="<?php echo set_value('password_c'); ?>" type="password" />
+						<span class="help-block red"><?php echo form_error('password_c');?></span>
+						</div>
+					</div>
+					  <div class="form-group">
+					    <div class="col-md-offset-3 col-md-9">
+					      <button type="submit" name="commit" class="btn btn-primary" name="commit">继续</button>
+					    </div>
+					</div>
 					</form>
 					<?php } else {?>
 					<form accept-charset="UTF-8" action="<?php echo site_url('user/findpwd');?>" class="simple_form form-horizontal" id="new_user" method="post" novalidate="novalidate">
 					<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="user_nickname">用户名</label>
-						<div class="col-sm-6">
+						<label class="col-md-3 control-label" for="user_nickname">用户名</label>
+						<div class="col-md-5">
 						<input class="form-control" id="user_nickname" name="username" type="text" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="user_email">注册邮箱</label>
-						<div class="col-sm-6">
+						<label class="col-md-3 control-label" for="user_email">注册邮箱</label>
+						<div class="col-md-5">
 						<input class="form-control" id="user_email" name="email" type="email" value="" />
 						</div>
 					</div>
 					  <div class="form-group">
-					    <div class="col-sm-offset-2 col-sm-10">
+					    <div class="col-md-offset-3 col-md-9">
 					      <button type="submit" class="btn btn-primary" name="commit">找回密码</button>
 					    </div>
 					  </div>

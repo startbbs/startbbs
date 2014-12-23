@@ -213,13 +213,14 @@ class User extends SB_Controller
 
 	public function resetpwd()
 	{
+		$this->load->helper('form');
 		$array = explode('.',base64_decode(@$_GET['p']));
 		$data = $this->user_m->getpwd_by_username($array['0']);
 		//$sql = "select passwords from member where username = '".trim($_array['0'])."'";
 		$checkCode = md5($array['0'].'+').@$data['password'];
 			
 		if(@$array['1'] === $checkCode ){
-			if($_POST){
+			if($this->form_validation->run() === TRUE){
 				$salt =get_salt();
 				$password= password_dohash($this->input->post('password'),$salt);
 				if($this->user_m->update_user(@$data['uid'], array('password'=>$password,'salt'=>$salt))){

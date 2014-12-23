@@ -16,7 +16,7 @@ $config = array(
 		array(
 			'field' => 'password',
 			'label' => '密码',
-			'rules' => 'trim|required|min_length[4]|max_length[15]'
+			'rules' => 'trim|required|min_length[6]|max_length[18]'
 		),
 		array(
 			'field' => 'password_confirm',
@@ -39,7 +39,7 @@ $config = array(
 		array(
 			'field' => 'password',
 			'label' => '密码',
-			'rules' => 'trim|required|min_length[4]|max_length[15]'
+			'rules' => 'trim|required|min_length[4]|max_length[18]'
 		),
         array(
             'field' => 'captcha_code',
@@ -151,12 +151,25 @@ $config = array(
         array(
             'field' => 'password',
             'label' => '密码',
-            'rules' => 'trim|required|min_length[4]|max_length[15]'
+            'rules' => 'trim|required|min_length[6]|max_length[18]'
         ),
         array(
             'field' => 'email',
             'label' => '邮箱',
             'rules' => 'trim|required|valid_email'
+        )
+    ),
+
+    'user/resetpwd' => array(
+        array(
+            'field' => 'password',
+            'label' => '新密码',
+            'rules' => 'trim|required|min_length[6]|max_length[18]'
+        ),
+        array(
+            'field' => 'password_c',
+            'label' => '重复新密码',
+            'rules' => 'trim|required|matches[password]'
         )
     ),
     
