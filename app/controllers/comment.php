@@ -17,6 +17,7 @@ class Comment extends SB_Controller
 		$this->load->library('session');
 		$this->uid = $this->session->userdata('uid');
 		$this->config->load('topicset');
+		$this->load->library('form_validation');
 	}
 
 	public function add_comment ()
@@ -24,7 +25,7 @@ class Comment extends SB_Controller
 		if(empty($this->uid)) {
 			show_message('请登录后再发表',site_url('user/login/'));
 		}
-		if($_POST){
+		if($this->form_validation->run() === TRUE){
 			if(time()-$this->input->post('lastpost')<$this->config->item('timespan')){
 				$callback['error']='发帖最小间隔时间是'.$this->config->item('timespan').'秒!';
 				echo json_encode($callback);

@@ -71,6 +71,13 @@ $config = array(
             'rules' => 'trim|strip_tags'
         )
     ),
+    'comment/add_comment' => array(
+        array(
+            'field' => 'comment',
+            'label' => '内容',
+            'rules' => 'trim|required|htmlspecialchars|xss_clean'
+        )
+    ),
     'message/send' => array(
         array(
             'field' => 'content',
