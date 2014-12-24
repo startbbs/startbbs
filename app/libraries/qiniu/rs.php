@@ -32,7 +32,7 @@ class Qiniu_RS_GetPolicy
 
 function Qiniu_RS_MakeBaseUrl($domain, $key) // => $baseUrl
 {
-	$keyEsc = rawurlencode($key);
+	$keyEsc = str_replace("%2F", "/", rawurlencode($key));
 	return "http://$domain/$keyEsc";
 }
 
@@ -54,7 +54,10 @@ class Qiniu_RS_PutPolicy
 	public $FsizeLimit;
 	public $SaveKey;
 	public $PersistentOps;
+	public $PersistentPipeline;
 	public $PersistentNotifyUrl;
+	public $FopTimeout;
+	public $MimeLimit;
 
 	public function __construct($scope)
 	{
@@ -88,8 +91,8 @@ class Qiniu_RS_PutPolicy
 		if (!empty($this->EndUser)) {
 			$policy['endUser'] = $this->EndUser;
 		}
-		if (!empty($this->InsertOnly)) {
-			$policy['exclusive'] = $this->InsertOnly;
+		if (isset($this->InsertOnly)) {
+			$policy['insertOnly'] = $this->InsertOnly;
 		}
 		if (!empty($this->DetectMime)) {
 			$policy['detectMime'] = $this->DetectMime;
@@ -103,9 +106,19 @@ class Qiniu_RS_PutPolicy
 		if (!empty($this->PersistentOps)) {
 			$policy['persistentOps'] = $this->PersistentOps;
 		}
+		if (!empty($this->PersistentPipeline)) {
+			$policy['persistentPipeline'] = $this->PersistentPipeline;
+		}
 		if (!empty($this->PersistentNotifyUrl)) {
 			$policy['persistentNotifyUrl'] = $this->PersistentNotifyUrl;
 		}
+		if (!empty($this->FopTimeout)) {
+			$policy['fopTimeout'] = $this->FopTimeout;
+		}
+		if (!empty($this->MimeLimit)) {
+			$policy['mimeLimit'] = $this->MimeLimit;
+		}
+
 
 		$b = json_encode($policy);
 		return Qiniu_SignWithData($mac, $b);
@@ -244,6 +257,17 @@ function Qiniu_RS_BatchCopy($self, $entryPairs)
 	}
 	return Qiniu_RS_Batch($self, $params);
 }
+
+// ----------------------------------------------------------
+// fetch
+function Qiniu_RS_Fetch($self, $url, $bucket, $key)
+{
+
+	global $QINIU_IOVIP_HOST;
+	$path = '/fetch/' . Qiniu_Encode($url) . '/to/' . Qiniu_Encode("$bucket:$key");
+	return Qiniu_Client_CallNoRet($self, $QINIU_IOVIP_HOST . $path);
+}
+
 
 // ----------------------------------------------------------
 

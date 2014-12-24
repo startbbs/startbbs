@@ -248,20 +248,12 @@ class upload extends SB_Controller {
 		);
 		//获得文件扩展名
 		$info = pathinfo($file);
-		$data['file_ext'] = (@$info['extension'])?@$info['extension']:'';
+		$info['extension']=strtolower($info['extension']);
+		$data['file_ext'] = $info['extension']?$info['extension']:'';
 		//新文件名
 		$data['new_file_name'] = date("YmdHis") . '_' . rand(1, 99999) . '.' . $data['file_ext'];
-		$data['file_path']='';
-		if(in_array($data['file_ext'], $ext_arr['image'])){
-			$data['file_path']='uploads/image/'.date("Ym").'/';
-		}
-		if(in_array($data['file_ext'], $ext_arr['media'])){
-			$data['file_path']='uploads/media/'.date("Ym").'/';
-		}
-		if(in_array($data['file_ext'], $ext_arr['file'])){
-			$data['file_path']='uploads/file/'.date("Ym").'/';	
-		}
-		$data['file_path_url']=$data['file_path'].$data['new_file_name'];
+		$data['folder']=in_array($data['file_ext'],$ext_arr['image'])?'image':(in_array($data['file_ext'],$ext_arr['media'])?'media':'file');
+		$data['file_path_url']='uploads/'.$data['folder'].'/'.date("Ym").'/'.$data['new_file_name'];
 		return $data;
 	}
 

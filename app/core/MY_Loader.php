@@ -21,7 +21,7 @@ class MY_Loader extends CI_Loader
 	{
 		$this->add_package_path(APPPATH.'plugin/'.$name.'/');
 		$this->library($name);
-		$ci= &get_instance();
-		$ci->config->load('config');
+		//$ci= &get_instance();
+		//$ci->config->load($config);
 	}
 }

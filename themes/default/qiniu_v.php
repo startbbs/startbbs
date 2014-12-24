@@ -4,7 +4,7 @@
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?=$title?> - <?=$settings['site_name']?></title>
 <?php $this->load->view('common/header-meta');?>
-        <script src="http://malsup.github.com/jquery.form.js"></script> 
+        <!--<script src="http://malsup.github.com/jquery.form.js"></script> 
         <script> 
             // wait for the DOM to be loaded 
             $(document).ready(function() { 
@@ -27,7 +27,7 @@
                                     }
                         });
                 }); 
-        </script> 
+        </script> -->
 </head>
 
 <body id="startbbs">
@@ -47,6 +47,7 @@
 <?=$title?>
 </h1>
 <form id="myForm" action="<?php site_url('upload/qiniu')?>" method="post" enctype="multipart/form-data">
+<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>" id="token">
 <label for="file">Filename:</label>
 <input type="file" name="file" id="file" /> 
 <br />

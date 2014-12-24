@@ -1,5 +1,6 @@
 /app/cache
 install.lock
+uploads
 data/
 *.cache
 *.swp
