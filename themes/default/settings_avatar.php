@@ -31,7 +31,7 @@
 				    			<div class="form-group">
 				      				<label class="col-md-2 control-label">当前头像</label>
 				      				<div class="col-md-8">
-				      					<?php if ($user['avatar']){?>
+				      					<?php if ($myinfo['avatar']){?>
 											<img class="large_avatar" src="<?php echo base_url($avatar.'big.png');?>" class="img-rounded">
 				                            <img class="middle_avatar" src="<?php echo base_url($avatar.'normal.png');?>" class="img-rounded">
 				                            <img class="small_avatar" src="<?php echo base_url($avatar.'small.png');?>" class="img-rounded">

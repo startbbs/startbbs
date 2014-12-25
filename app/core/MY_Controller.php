@@ -42,25 +42,28 @@ class SB_Controller extends Base_Controller
 			'per_page_num'=>$data['items'][9]['value'],
 			'logo'=>$this->config->item('logo')
 		 );
-		 //取一个用户信息
-		$data['user']=$this->db->select('uid,username,avatar,credit,lastpost')->where('uid',$this->session->userdata('uid'))->get('users')->row_array();
-		//一个用户的用户组
-		$data['group'] = $this->db->select('group_name')->get_where('user_groups',array('gid'=>$this->session->userdata('gid')))->row_array();
-		$data['group']['group_name']=($data['group'])?$data['group']['group_name']:'普通会员';
+
+        //用户相关信息
+        if ($this->session->userdata('uid')) {
+	        $data['myinfo']=array(
+				'uid'=>$this->session->userdata('uid'),
+				'username'=>$this->session->userdata('username'),
+				'avatar'=>$this->session->userdata('avatar'),
+				'group_type'=>$this->session->userdata('group_type'),
+				'gid'=>$this->session->userdata('gid'),
+				'group_name'=>$this->session->userdata('group_name'),
+				'is_active'=>$this->session->userdata('is_active'),
+				'favorites'=>$this->session->userdata('favorites'),
+				'follows'=>$this->session->userdata('follows'),
+				'credit'=>$this->session->userdata('credit'),
+				'notices'=>$this->session->userdata('notices'),
+				'lastpost'=>$this->session->userdata('lastpost')
+	        );
+        }
+
 		//获取二级目录
 		$data['base_folder'] = $this->config->item('base_folder');
 
-		//右侧登录调用收藏贴子数
-			$favorites=$this->db->select('favorites')->where('uid',$this->session->userdata('uid'))->get('favorites')->row_array();
-			if(!@$favorites['favorites']){
-				@$favorites['favorites'] =0;
-			}
-		//右侧登录处调用提醒数
-		$notices= $this->db->select('notices')->where('uid',$this->session->userdata('uid'))->get('users')->row_array();
-		$data['users'] = array('favorites'=>@$favorites['favorites'],'notices'=>@$notices['notices']);
-		//右侧调用关注数
-		$follows= $this->db->select('follows')->where('uid',$this->session->userdata('uid'))->get('users')->row_array();
-		$data['users']['follows'] = @$follows['follows'];
 		//底部菜单(单页面)
 		$this->load->model('page_m');
 		$data['page_links'] = $this->page_m->get_page_menu(10,0);

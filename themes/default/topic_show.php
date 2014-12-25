@@ -105,9 +105,9 @@
                         <input type="hidden" id="token" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
 						<input name="topic_id" id="topic_id" type="hidden" value="<?php echo $content['topic_id']?>" />
 						<input name="is_top" id="is_top" type="hidden" value="<?php echo $content['is_top']?>" />
-						<input name="username" id="username" type="hidden" value="<?php echo $user['username']?>" />
-						<input name="avatar" id="avatar" type="hidden" value="<?php echo base_url($user['avatar'].'normal.png')?>" />
-						<input name="lastpost" id="lastpost" type="hidden" value="<?php echo $user['lastpost']?>" />
+						<input name="username" id="username" type="hidden" value="<?php echo $myinfo['username']?>" />
+						<input name="avatar" id="avatar" type="hidden" value="<?php echo base_url($myinfo['avatar'].'normal.png')?>" />
+						<input name="lastpost" id="lastpost" type="hidden" value="<?php echo $myinfo['lastpost']?>" />
                             <div class="form-group">
 	                            <textarea class="form-control" id="post_content" name="comment" rows="5"></textarea>
 	                            <span class="help-block red"><?php echo form_error('content');?></span>

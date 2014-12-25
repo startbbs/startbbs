@@ -78,29 +78,31 @@ class Favorites extends SB_Controller
 					array_unshift($ids_arr, $topic_id);
 					//$topics = count($ids_arr);
 					$content = implode(',', $ids_arr);
-					if($this->db->where('uid', $uid)->update('favorites',array('content'=>$content)) && $this->db->where('uid', $uid)->set('favorites','favorites+1',FALSE)->update('favorites') && $this->db->where('topic_id', $topic_id)->set('favorites','favorites+1',FALSE)->update('topics')){
-						redirect('topic/show/'.$topic_id);
-					}
+					$this->db->where('uid', $uid)->update('favorites',array('content'=>$content));
+					$this->db->where('uid', $uid)->set('favorites','favorites+1',FALSE)->update('favorites');
+					$this->db->where('uid', $uid)->set('favorites','favorites+1',FALSE)->update('users');
+					$this->db->where('topic_id', $topic_id)->set('favorites','favorites+1',FALSE)->update('topics');
 				}
 				unset($ids_arr);
 			} else {
 				$data['content'] = $topic_id;
 				$data['favorites'] =1;
-				if($this->db->where('uid', $uid)->update('favorites',$data) && $this->db->where('topic_id', $topic_id)->set('favorites','favorites+1',FALSE)->update('topics')){
-					redirect('topic/show/'.$topic_id);
-				}
+				$this->db->where('uid', $uid)->update('favorites',$data);
+				$this->db->where('uid', $uid)->set('favorites','favorites+1',FALSE)->update('users');
+				$this->db->where('topic_id', $topic_id)->set('favorites','favorites+1',FALSE)->update('topics');
 			}
 		} else{
 			$data['content'] = $topic_id;
             $data['favorites'] = 1;
             $data['uid'] = $uid;
-            if($this->db->insert('favorites', $data) && $this->db->set('favorites','favorites+1',FALSE)->where('topic_id', $topic_id)->update('topics')){
-				redirect('topic/show/'.$topic_id);
-            }
+            $this->db->insert('favorites', $data);
+            $this->db->where('uid', $uid)->set('favorites','favorites+1',FALSE)->update('users');
+            $this->db->set('favorites','favorites+1',FALSE)->where('topic_id', $topic_id)->update('topics');
             
 		}
-		$data['title'] = '贴子收藏';
-		$this->load->view('favorites',$data);
+		$userinfo=$this->db->select('favorites')->get_where('users',array('uid'=>$uid))->row_array();
+		$this->session->set_userdata('favorites', @$userinfo['favorites']);
+		redirect('topic/show/'.$topic_id);
 	}
 
 	public function del($topic_id)
@@ -117,7 +119,9 @@ class Favorites extends SB_Controller
             }
             //$topics = count($ids_arr);
             $content = implode(',', $ids_arr);
-            if($this->db->where('uid', $uid)->update('favorites',array('content'=>$content)) && $this->db->where('uid', $uid)->set('favorites','favorites-1',FALSE)->update('favorites') && $this->db->set('favorites','favorites-1',FALSE)->where('topic_id', $topic_id)->update('topics')){
+            if($this->db->where('uid', $uid)->update('favorites',array('content'=>$content)) && $this->db->where('uid', $uid)->set('favorites','favorites-1',FALSE)->update('favorites') && $this->db->where('uid', $uid)->set('favorites','favorites-1',FALSE)->update('users') && $this->db->set('favorites','favorites-1',FALSE)->where('topic_id', $topic_id)->update('topics')){
+				$userinfo=$this->db->select('favorites')->get_where('users',array('uid'=>$uid))->row_array();
+				$this->session->set_userdata('favorites', @$userinfo['favorites']);
 				redirect($this->input->server('HTTP_REFERER'));	            
             }
             

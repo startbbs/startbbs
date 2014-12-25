@@ -143,7 +143,7 @@ class User extends SB_Controller
 			$user = $this->user_m->check_login($username, $password);
 			if($user){
 				//更新session
-				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid']));
+				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid'], 'avatar' => $user['avatar'], 'group_name' => $user['group_name'], 'is_active' => $user['is_active'], 'favorites' => $user['favorites'], 'follows' => $user['follows'], 'notices' => $user['notices'], 'credit' => $user['credit'], 'lastpost' => $user['lastpost']));
 
 				//更新最后登录时间
 				$this->user_m->update_user($user['uid'],array('lastlogin'=>time()));

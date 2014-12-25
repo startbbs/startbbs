@@ -182,7 +182,7 @@ class Users extends Admin_Controller
 		$data['title'] = '用户搜索';
 		$data['act']=$this->uri->segment(3);
 		if($_POST){
-			$data['users']=$this->user_m->get_user_by_username($this->input->post('username'));
+			$data['users']=$this->user_m->search_user_by_username($this->input->post('username'));
 		}
 		$this->load->view('users', $data);
 	}

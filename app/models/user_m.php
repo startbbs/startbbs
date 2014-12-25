@@ -38,12 +38,12 @@ class User_m extends SB_Model
 		$query = $this->db->get_where('users',array('email'=>$email));
         return $query->row_array();
 	}
-	function check_username($username){
-		$query = $this->db->get_where('users',array('username'=>$username));
+	function get_user_by_username($username){
+		$query = $this->db->select('a.*,b.*')->from('users a')->join('user_groups b','b.group_type=a.group_type',LEFT)->where('a.username',$username)->get();
         return $query->row_array();
 	}
 	function check_login($username,$password){
-		$query = $this->check_username($username);
+		$query = $this->get_user_by_username($username);
 		$password = password_dohash($password,@$query['salt']);
 		if(@$query['password']==$password){
 			$this->db->where('uid', @$query['uid'])->update('users',array('lastlogin'=>time()));
@@ -122,7 +122,7 @@ class User_m extends SB_Model
 		$query = $this->db->select('uid,email,password,group_type')->get_where('users', array('username'=>$username));
 		return $query->row_array();
 	}
-		public function get_user_by_username($username)
+		public function search_user_by_username($username)
 	{
 		$query = $this->db->limit(1)->get_where('users', array('username'=>$username));
 		return $query->result_array();

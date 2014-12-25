@@ -60,7 +60,7 @@
 				        <h3 class="panel-title">社区统计</h3>
 				    </div>
 				    <div class="panel-body">
-				        <ul class="list-unstyled statistics">
+				        <ul class="list-unstyled">
 					        <?php if($total_users>0){?>
 				            <li>最新会员：<?php echo $last_user['username']?></li>
 				            <?php }?>
@@ -79,7 +79,7 @@
 				        <h3 class="panel-title">友情链接</h3>
 				    </div>
 				    <div class="panel-body">
-				        <ul class="list-unstyled statistics">
+				        <ul class="list-unstyled">
 					        <li style="width:0; height:0; overflow:hidden;"><a href="http://www.startbbs.com" target="_blank">StartBBS</a></li>
 							<?php if($links){?>
 							<?php foreach($links as $v){?>

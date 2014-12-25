@@ -3,31 +3,31 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-5">
-                <a href="<?php echo site_url('user/profile/'.$user['uid']);?>"><img alt="<?php echo $user['username']?> large avatar" class="img-rounded" src="<?php echo base_url($user['avatar'].'big.png')?>" /></a>
+                <a href="<?php echo site_url('user/profile/'.$myinfo['uid']);?>"><img alt="<?php echo $myinfo['username']?> large avatar" class="img-rounded" src="<?php echo base_url($myinfo['avatar'].'big.png')?>" /></a>
             </div>
             <div class="col-md-7">
 	            <ul class="list-unstyled">
-	            	<li><a href="<?php echo site_url('user/profile/'.$user['uid']);?>" title="<?php echo $user['username']?>"><?php echo $user['username']?></a></li>
-	            	<li>用户组：<?php echo $group['group_name']?></li>
-	            	<li>积分：<?php echo $user['credit']?></li>
+	            	<li><a href="<?php echo site_url('user/profile/'.$myinfo['uid']);?>" title="<?php echo $myinfo['username']?>"><?php echo $myinfo['username']?></a></li>
+	            	<li>用户组：<?php echo $myinfo['group_name']?></li>
+	            	<li>积分：<?php echo $myinfo['credit']?></li>
 	            </ul>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 text-center">
-	            <p><a href="<?php echo site_url('favorites');?>"><?php echo $users['follows']?></a></p>
+	            <p><a href="<?php echo site_url('favorites');?>"><?php echo $myinfo['favorites']?></a></p>
 	            <p><a href="<?php echo site_url('favorites');?>">话题收藏</a></p>
             </div>
             <div class="col-md-6">
-	            <p><a href="<?php echo site_url('follow');?>"><?php echo $users['follows']?></a></p>
+	            <p><a href="<?php echo site_url('follow');?>"><?php echo $myinfo['follows']?></a></p>
 	            <p><a href="<?php echo site_url('follow');?>">特别关注</a></p>
             </div>
         </div>
     </div>
     <div class="panel-footer text-muted">
-		<?php if($users['notices']){?>
+		<?php if($myinfo['notices']){?>
 		<img align="top" alt="Dot_orange" class="icon" src="<?php echo base_url('static/common/images/dot_orange.png');?>" />
-		<a href="<?php echo site_url('notifications');?>"><?php echo $users['notices']?> 条未读提醒</a>
+		<a href="<?php echo site_url('notifications');?>"><?php echo $myinfo['notices']?> 条未读提醒</a>
 		<?php } else{?>
 		暂无提醒
 		<?php }?>
