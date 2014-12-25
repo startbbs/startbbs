@@ -58,6 +58,8 @@ class Follow extends SB_Controller
 				$this->config->load('userset');
 				$this->load->model ('user_m');
 				$this->user_m->update_credit($follow_uid,$this->config->item('credit_follow'));
+				$user=$this->db->select('follows')->get_where('users',array('uid'=>$uid))->row_array();
+				$this->session->set_userdata('follows',$user['follows']);
 				redirect('user/profile/'.$follow_uid);
 			}
 		} else{
@@ -70,6 +72,8 @@ class Follow extends SB_Controller
 		$uid = $this->session->userdata('uid');
 		$is_followed = $this->follow_m->follow_user_check($uid, $follow_uid);
 		if($is_followed && $this->db->delete('user_follow', array('uid'=>$uid,'follow_uid'=>$follow_uid)) && $this->db->set('follows','follows-1',FALSE)->where('uid', $uid)->update('users')){
+			$user=$this->db->select('follows')->get_where('users',array('uid'=>$uid))->row_array();
+			$this->session->set_userdata('follows',$user['follows']);
 			redirect('user/profile/'.$follow_uid);
 		}
 	}
