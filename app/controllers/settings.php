@@ -106,8 +106,9 @@ class Settings extends SB_Controller {
 			$newpassword = $this->input->post ('newpassword');
 			$data = array ('uid' => $this->session->userdata ( 'uid' ), 'password' =>$newpassword);
 			if($this->user_m->update_pwd($data)) {
-				$data ['msg'] = '更新成功';
-				$this->session->set_userdata ('password', @$data['newpassword'] );
+				//$data ['msg'] = '更新成功';
+				//$this->session->set_userdata ('password', @$data['newpassword'] );
+				show_message('修改密码成功,请重新登录！',site_url('user/logout'),1);
 			} else {
 				$data ['msg'] = '修改失败';
 			}
@@ -123,7 +124,7 @@ class Settings extends SB_Controller {
 	            'username' => $this->session->userdata('username'),
 	            'password' => $password,
 	            );
-	        if (!$this->user_m->check_login($data['username'],$data['password'])){
+	        if (!$this->user_m->login($data)){
 	            return FALSE;
 	        } else {
 	            return TRUE;

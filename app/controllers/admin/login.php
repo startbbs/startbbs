@@ -40,32 +40,26 @@ class Login extends Admin_Controller
 		$data['referer']=$this->input->get('referer',true);
 		//$data['referer']=($this->input->server('HTTP_REFERER')==site_url('user/login'))?'/':$this->input->server('HTTP_REFERER');
 		$data['referer']=$data['referer']?$data['referer']: $this->input->server('HTTP_REFERER');
-		if($this->auth->is_login()){
-			redirect('admin/login/index');
-		}
 		if($_POST){
-			$username = $this->input->post('username',true);
-			$password = $this->input->post('password',true);
-			$user = $this->user_m->check_login($username, $password);
-			$captcha = $this->input->post('captcha_code');
-			if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha) {
-				show_message('验证码不正确');
-			}
-			if($user){
-				//更新session
-				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid']));
-
+			$data = array(
+                'username' => $this->input->post('username', TRUE),
+                'password' => $this->input->post('password',TRUE)
+            );
+			if($this->user_m->login($data)){
+				$uid=$this->session->userdata('uid');
 				//更新积分
 				$this->config->load('userset');
-				$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
+				$this->user_m->update_credit($uid,$this->config->item('credit_login'));
 				//更新最后登录时间
-				$this->user_m->update_user($user['uid'],array('lastlogin'=>time()));
-				header("location: ".$data['referer']);
-				//redirect($data['referer']);
-				exit;
+				$this->user_m->update_user($uid,array('lastlogin'=>time()));
+				redirect('admin/login/index');
 				
 			} else {
 				show_message('用户名或密错误!');
+			}
+			$captcha = $this->input->post('captcha_code');
+			if($this->config->item('show_captcha')=='on' && $this->session->userdata('yzm')!=$captcha) {
+				show_message('验证码不正确');
 			}
 		} else {
 			$data['csrf_name'] = $this->security->get_csrf_token_name();

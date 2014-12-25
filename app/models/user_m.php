@@ -19,39 +19,28 @@ class User_m extends SB_Model
 	function register($data){
 		return $this->db->insert('users',$data);
 	}
+	/*login in*/
     function login($data){
-        $this->db->where('username', $data['username']);
-        $query = $this->db->get('users');
-        if ($query->num_rows() > 0) {
-            $user = $query->row_array();
-            if($user['password']==$data['password']) {
-				$this->session->set_userdata(array('uid' =>$user['uid'], 'username' =>$user['username'], 'group_type' =>$user['group_type'], 'gid' => $user['gid']));  
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        } else {
-            return FALSE;
-        }
+	    $user = $this->get_user_by_username($data['username']);
+	    if($user){
+			$password = password_dohash($data['password'],$user['salt']);
+			if($user['password']==$password){
+				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid'], 'avatar' => $user['avatar'], 'group_name' => $user['group_name'], 'is_active' => $user['is_active'], 'favorites' => $user['favorites'], 'follows' => $user['follows'], 'notices' => $user['notices'], 'credit' => $user['credit'], 'lastpost' => $user['lastpost']));
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+	    } else {
+			return FALSE;
+		}
     }
 	function check_register($email){
 		$query = $this->db->get_where('users',array('email'=>$email));
         return $query->row_array();
 	}
 	function get_user_by_username($username){
-		$query = $this->db->select('a.*,b.*')->from('users a')->join('user_groups b','b.group_type=a.group_type',LEFT)->where('a.username',$username)->get();
+		$query = $this->db->select('a.*,b.*')->from('users a')->join('user_groups b','b.group_type=a.group_type','LEFT')->where('a.username',$username)->get();
         return $query->row_array();
-	}
-	function check_login($username,$password){
-		$query = $this->get_user_by_username($username);
-		$password = password_dohash($password,@$query['salt']);
-		if(@$query['password']==$password){
-			$this->db->where('uid', @$query['uid'])->update('users',array('lastlogin'=>time()));
-			return $query;
-		} else {
-			return false;
-		}
-		
 	}
 	public function get_user_by_id($uid)
 	{
@@ -122,7 +111,7 @@ class User_m extends SB_Model
 		$query = $this->db->select('uid,email,password,group_type')->get_where('users', array('username'=>$username));
 		return $query->row_array();
 	}
-		public function search_user_by_username($username)
+	public function search_user_by_username($username)
 	{
 		$query = $this->db->limit(1)->get_where('users', array('username'=>$username));
 		return $query->result_array();
