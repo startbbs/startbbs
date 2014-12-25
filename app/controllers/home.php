@@ -35,10 +35,6 @@ class Home extends SB_Controller
 		$data['total_users']=$this->db->count_all('users');
 		$data['last_user']=$this->db->select('username',1)->order_by('uid','desc')->get('users')->row_array();
 
-		//tags
-		$this->load->model('tag_m');
-		$data['taglist'] = $this->tag_m->get_latest_tags(15);
-
 		//links
 		$data['links']=$this->link_m->get_latest_links();
 

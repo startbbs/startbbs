@@ -25,7 +25,7 @@
                                 <div class="pull-right">
                                     <span class="badge badge-info topic-comment"><a href="<?php echo url('topic_show',$v['topic_id']).'#reply';?>"><?php echo $v['comments'] ;?></a></span>
                                 </div>
-                                <a class="media-left" href="<?php echo site_url('user/profile/'.$v['uid']);?>"><img class="img-rounded" src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username']?> medium avatar"></a>
+                                <a class="media-left" href="<?php echo site_url('user/profile/'.$v['uid']);?>"><img class="img-rounded medium" src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username']?> medium avatar"></a>
                                 <div class="media-body">
                                     <h2 class="media-heading topic-list-heading"><a href="<?php echo url('topic_show',$v['topic_id']);?>"><?php echo $v['title'];?></a><?php if( $v['is_top'] == '1' ) echo '<span class="badge badge-info">置顶</span>'; ?></h2>
                                     <p class="text-muted">
@@ -48,46 +48,12 @@
                     </div>
                      <div class="panel-footer"><a href="javascript:void(0)" id="getmore" class="startbbs">更多新主题</a></div>
                 </div><!-- /.topic list -->
-
-				<?php if($catelist[0]){?>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">节点导航</h3>
-                    </div>
-                    <div class="panel-body">
-						<?php foreach ($catelist[0] as $v){?>
-						<?php if(@$catelist[$v['node_id']]){?>
-                        <div class="row">
-	                        <div class="w3"><?php echo $v['cname']?></div>
-	                        <div class="w21">
-
-		                        <?php foreach(@$catelist[$v['node_id']] as $c){?>
-		                        <a href="<?php echo url('node_show',$c['node_id']);?>" class="btn btn-default nodes" role="button"><?php echo $c['cname']?></a>
-								<?php }?>
-
-		                    </div>
-	                    </div>
-	                    <?php } else {?>
-                        <div class="row">
-	                        <div class="col-md-12">
-		                        <p>
-		                        <?php if($v['pid']!=0) foreach(@$catelist[$v['node_id']] as $c){?>
-		                        <a href="<?php echo url('node_show',$c['node_id']);?>" class="btn btn-default nodes" role="button"><?php echo $c['cname']?></a>
-								<?php }?>
-		                        </p>
-		                    </div>
-	                    </div>
-						<?php }?>
-						<?php }?>
-				</div>
-                </div><!-- /.node list -->
-				<?php }?>
                 
             </div><!-- /.col-md-8 -->
 
 			<div class="col-md-4">
 				<?php $this->load->view('common/sidebar_login');?>
-				<?php $this->load->view('common/sidebar_tags');?>
+				<?php $this->load->view('common/sidebar_cates');?>
 
 				 <div class="panel panel-default">
 				    <div class="panel-heading">

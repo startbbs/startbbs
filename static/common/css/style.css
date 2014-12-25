@@ -49,8 +49,8 @@ abbr,acronym {
 body{
 	padding-top: 70px;
 	background:#E0E0E0/* url(../images/bg.png) bottom left repeat*/;
-	/*font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;*/
-	/*ont-size: 13px;*/
+	font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+	font-size: 14px;
 
 }
 
@@ -117,7 +117,7 @@ small {
 .badge-info{background-color:#AAB0C6;color:white}
 .badge-info a{color:white}
 ul.user-list{margin-top:5px}
-ul.user-list li{text-align:center;margin:0 8px 10px 0px;float:left;overflow:hidden;font-size:7pt}
+ul.user-list li{text-align:center;margin:0 8px 10px 0px;float:left;overflow:hidden;font-size:12pt}
 ul.user-list li img{width:50px;height:50px;background:#fff}
 .setting {
     margin-top: 20px;
@@ -157,12 +157,51 @@ ul.user-list li img{width:50px;height:50px;background:#fff}
 embed,object,iframe {
     width: 100%;
 }
+/*header*/
+.navbar-default .navbar-brand  {
+    color: #fff;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+      color: #fff;
+      background-color: #11547f;
+}
+.navbar-default {
+    background-color: #0575bd;
+    border: none;
+    margin-bottom: 30px;
+}
+.navbar-default .navbar-nav >li >a, .navbar-brand {
+    padding: 18px;
+    font-size: 1.6rem;
+    color: #fff;
+    font-weight: 300;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #fff;
+    background-color: #1b6595;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #fff;
+    background-color: transparent;
+}
 
-footer{
+.medium{
+	width:48px;
+	height:48px;
+}
+
+footer {
     /*background-color: #f8f8f8; #e4e4e4 #f9fafb*/
-    background-color: #fff;
+    background-color: #3b3f45;
+    color: #fff;
     /*border-top: 1px solid #edf0f3;*/
-    border-top: 1px solid #e7e7e7;
-    padding: 15px 0;
+    border-top: 1px solid #dad9d5;
+    padding: 30px 0;
+    margin-top: 100px;
 }
 /*.media-list li:hover{background:#f6f6f6}*/

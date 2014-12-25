@@ -6,7 +6,7 @@
                 <a href="<?php echo site_url('user/profile/'.$user['uid']);?>"><img alt="<?php echo $user['username']?> large avatar" class="img-rounded" src="<?php echo base_url($user['avatar'].'big.png')?>" /></a>
             </div>
             <div class="col-md-7">
-	            <ul class="list-unstyled small">
+	            <ul class="list-unstyled">
 	            	<li><a href="<?php echo site_url('user/profile/'.$user['uid']);?>" title="<?php echo $user['username']?>"><?php echo $user['username']?></a></li>
 	            	<li>用户组：<?php echo $group['group_name']?></li>
 	            	<li>积分：<?php echo $user['credit']?></li>

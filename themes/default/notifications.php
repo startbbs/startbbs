@@ -23,10 +23,10 @@
                             <?php foreach ($notices_list as $v) : ?>
                             <li class="media">
                                 <div class="media-body">
-                                    <h4 class="media-heading topic-list-heading">
-<a href="<?php echo site_url('user/profile/'.$v['suid']);?>"><img alt="<?php echo $v['username'];?> mini avatar" src="<?php echo base_url($v['avatar'].'small.png');?>" /></a>
-	                                <a href="<?php echo site_url('user/profile/'.$v['suid']);?>"><?php echo $v['username'];?></a> 在贴子<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>"><?php echo $v['title'];?>...</a>中</h4>
+                                    
                                     <blockquote>
+									<h4 class="media-heading topic-list-heading">
+									<a href="<?php echo site_url('user/profile/'.$v['suid']);?>"><img alt="<?php echo $v['username'];?> mini avatar" src="<?php echo base_url($v['avatar'].'small.png');?>" /></a><a href="<?php echo site_url('user/profile/'.$v['suid']);?>"><?php echo $v['username'];?></a> 在贴子<a href="<?php echo site_url('topic/show/'.$v['topic_id']);?>"><?php echo $v['title'];?>...</a>中</h4>
 	                                <?php if($v['ntype']==0){?>回复了你　<?php }?>
 									<?php if($v['ntype']==1){?>提到了@你　<?php }?>
                                     <?php echo friendly_date($v['ntime']);?>
@@ -35,7 +35,7 @@
                             </li>
                             <?php endforeach; ?>
                         </ul>
-                        <ul class="pagination"><!--<?php echo $pagination; ?>--></ul>
+                        <?php if(@$pagination):?><ul class="pagination"><!--<?php echo $pagination; ?>--></ul><?php endif?>
                         <?php else: ?>
                         暂无提醒
                         <?php endif; ?>
