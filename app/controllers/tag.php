@@ -16,6 +16,17 @@ class Tag extends SB_Controller
 		$this->load->model('tag_m');
 	}
 
+	public function index($page=1)
+	{
+		$limit = 30;
+		$start = ($page-1)*$limit;
+		$this->load->library('pagination');
+		$data['pagination'] = $this->pagination->create_links();
+		$data['tag_list'] = $this->tag_m->get_tag_list($start, $limit);
+		$data['action']='tag';
+		$data['title']="标签列表";
+		$this->load->view('tag_index',$data);
+	}
 	public function show($tag_title,$page=1)
 	{
 

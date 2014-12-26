@@ -74,7 +74,7 @@
                 </div><!-- /.panel content -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span id="comments"><?php echo $content['comments']?></span><span> 回复 | 直到<?php echo date('Y-m-d H:i',time()); ?></span><a href="javascript:void(0)" class="pull-right"><span class="text-muted">添加回复</span></a></h3>
+                        <h5><span id="comments"><?php echo $content['comments']?></span><span> 回复 | 直到<?php echo date('Y-m-d H:i',time()); ?></span><a href="javascript:void(0)" class="pull-right"><span class="text-muted">添加回复</span></a></h5>
                     </div>
                     <div class="panel-body">
 	                       <ul id="comment_list">
@@ -83,8 +83,7 @@
                                 <div class="col-md-1"><a href="<?php echo site_url('user/profile/'.$v['uid']);?>">
                                     <img class="img-rounded" src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'].'_avatar';?>">
                                 </a></div>
-                                    <div class="col-md-11 reply-body"><h4 class="topic-list-heading"><span><a href="<?php echo site_url('user/profile/'.$v['uid']);?>"><?php echo $v['username']; ?></a>&nbsp;&nbsp;<span><?php echo friendly_date($v['replytime'])?></span></span><span class='pull-right' id="r<?php echo ($page-1)*10+$key+1;?>">
-#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable startbbs"  data-mention="<?php echo $v['username']?>">回复</a></span></h4>
+                                    <div class="col-md-11 reply-body"><h5><span><a href="<?php echo site_url('user/profile/'.$v['uid']);?>"><?php echo $v['username']; ?></a>&nbsp;&nbsp;<?php echo friendly_date($v['replytime'])?></span><span class='pull-right' id="r<?php echo ($page-1)*10+$key+1;?>">#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable"  data-mention="<?php echo $v['username']?>">回复</a></span></h5>
                                     <?php echo $v['content']; ?></div>
 
                             </div>
@@ -98,7 +97,7 @@
                 <div id="error"></div>
                 <div class="panel panel-default" id="Reply">
                     <div class="panel-heading">
-                        <h3 class="panel-title">回复</h3>
+                        <h4 class="panel-title">回复</h4>
                     </div>
                     <div class="panel-body">
                         <?php if($this->auth->is_login()):?>

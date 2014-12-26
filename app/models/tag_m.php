@@ -144,6 +144,16 @@ class Tag_m extends SB_Model
 		}
 		
 	}
+	//tag分页列表
+	public function get_tag_list($page,$limit)
+	{
+		$this->db->select('*')->order_by('tag_id','desc')->limit($limit,$page);
+		$query = $this->db->get('tags');
+		if($query->num_rows>0){
+			return $query->result_array();
+		}
+		
+	}
 
 
 }
