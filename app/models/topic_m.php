@@ -249,6 +249,7 @@ $query=$this->db->query($sql);
 		if(preg_match('/[\x80-\xff]./',$keyword)){
 			$this->db->like('title',$keyword);
 		}else{
+			$keyword=mysql_real_escape_string($keyword);
 			$this->db->where('MATCH (title) AGAINST ("'.$keyword.'" IN BOOLEAN MODE)',null,FALSE);
 		}
 		$this->db->limit($limit,$page);
