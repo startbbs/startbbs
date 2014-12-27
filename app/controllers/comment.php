@@ -158,13 +158,10 @@ class Comment extends SB_Controller
 			$data['comment']['node_id']=$node_id;
 			//加载form类，为调用错误函数,需view前加载
 			$this->load->helper('form');
-			if($this->input->post('commit') && $this->_validate_add_form()){
+			if($this->form_validation->run('comment/edit') === TRUE){
 				//数据处理
-				$this->load->library('typography');
-				$content=$this->typography->nl2br_except_pre($this->input->post('content',true),true);
-				//$content=$this->input->post('content',true);
 				$comment=array(
-					'content'=>filter_code($content),
+					'content'=>$this->input->post('content',true),
 					'replytime'=>time()
 				);
 				$this->load->helper('format_content');
@@ -185,20 +182,6 @@ class Comment extends SB_Controller
 			show_message('非本人或管理员或本版块版主不能操作',site_url('topic/show/'.$topic_id));
 		}
 
-	}
-
-		function _validate_add_form(){
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('content', '内容' , 'trim|required|min_length[6]|max_length['.$this->config->item('words_limit').']');
-		$this->form_validation->set_message('required', "%s 不能为空！");
-		$this->form_validation->set_message('min_length', "%s 最小长度不少于 %s 个字符！");
-		$this->form_validation->set_message('xss_clean', "%s 非法字符！");
-		$this->form_validation->set_message('max_length', "%s 字数最大长度不多于 %s 个字符！");
-		if ($this->form_validation->run() == FALSE){
-			return FALSE;
-		}else{
-			return TRUE;
-		}
 	}
 
 
