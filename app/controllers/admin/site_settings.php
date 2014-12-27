@@ -47,7 +47,7 @@ class Site_settings extends Admin_Controller
 			$config['static']=$this->input->post('static');
 			$config['themes']=$this->input->post('themes');
 			$logo = pathinfo($this->input->post('logo'));
-			if(in_array(strtolower($logo['extension']),array('gif','png','jpg','jpeg'))){
+			if(in_array(strtolower(@$logo['extension']),array('gif','png','jpg','jpeg'))){
 				$config['logo']='<img src='.$this->input->post('logo').'>';
 			} else {
 				$config['logo']=$this->input->post('logo');
@@ -57,8 +57,7 @@ class Site_settings extends Admin_Controller
 			
 			$this->config->set_item('myconfig', $config);
 			$this->config->save('myconfig',$config);
-			redirect('admin/site_settings');
-			//$this->myclass->notice('alert("网站设置更新成功");window.location.href="'.site_url('admin/site_settings').'";');
+			show_message('话题设定更新成功',site_url('admin/site_settings'),1);
 		}
 
 		//话题设定
