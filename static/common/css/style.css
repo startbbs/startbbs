@@ -2,7 +2,8 @@
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,p,th,td { 
     padding: 0;
     margin: 0; 
-} 
+
+}
 /*a, a:link, a:visited, a:hover, a:active{
 	color:#778087;
     text-decoration:none;
@@ -49,7 +50,7 @@ abbr,acronym {
 body{
 	padding-top: 70px;
 	background:#E0E0E0/* url(../images/bg.png) bottom left repeat*/;
-	font-family: "Arial","Microsoft YaHei","宋体",sans-serif;
+	font-family: "FontAwesome","Arial","Microsoft YaHei","宋体",sans-serif;
 	font-size: 14px;
 
 }
@@ -113,7 +114,10 @@ small {
     max-width: 100%;
     height: auto;
 }
-
+.panel-body{
+	word-wrap: break-word; 
+	word-break: normal; 
+}
 .badge-info{background-color:#AAB0C6;color:white}
 .badge-info a{color:white}
 ul.user-list{margin-top:5px}
@@ -193,6 +197,12 @@ embed,object,iframe {
 .medium{
 	width:48px;
 	height:48px;
+}
+.smallhr{
+    margin: 10px 0;
+}
+.link-text-muted a{
+	color:#444;
 }
 
 footer {

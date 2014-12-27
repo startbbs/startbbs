@@ -84,7 +84,13 @@
                                     <img class="img-rounded" src="<?php echo base_url($v['avatar'].'normal.png');?>" alt="<?php echo $v['username'].'_avatar';?>">
                                 </a></div>
                                     <div class="col-md-11 reply-body"><h5><span><a href="<?php echo site_url('user/profile/'.$v['uid']);?>"><?php echo $v['username']; ?></a>&nbsp;&nbsp;<?php echo friendly_date($v['replytime'])?></span><span class='pull-right' id="r<?php echo ($page-1)*10+$key+1;?>">#<?php echo ($page-1)*10+$key+1;?> -<a href="#reply" class="clickable"  data-mention="<?php echo $v['username']?>">回复</a></span></h5>
-                                    <?php echo $v['content']; ?></div>
+                                    <?php echo $v['content']; ?>
+									<?php if($this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
+									<p class="pull-right link-text-muted"><a href="javascript:if(confirm('确实要删除吗?'))location='<?php echo site_url('comment/del/'.$content['node_id'].'/'.$v['topic_id'].'/'.$v['id']);?>'"><span class="glyphicon glyphicon-trash"></span> 删除</a><?php }?>
+									<?php if($this->auth->is_user($v['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
+									 <a href="<?php echo site_url('comment/edit/'.$content['node_id'].'/'.$v['topic_id'].'/'.$v['id']);?>"><span class="glyphicon glyphicon-align-left"></span> 编辑</a></p>
+									 <?php }?>
+                                    </div>
 
                             </div>
                             <hr class="smallhr">
