@@ -1,7 +1,7 @@
 <?php 
 class Captcha
 {
-	var $width='65';
+	var $width='60';
 	var $num='4';
 	var $height='32';
 	var $name='randcode';
@@ -67,18 +67,18 @@ class Captcha
 			//imagestring($im, 5, $j, 6, $code, $color3);
 			//ImageChar($im, $fontsize, $j, 6, $code, $color3); //绘字符
 			// Add the text
-			imagettftext($im, 16, 0, $j, 24, $color3, './system/fonts/texb.ttf', $code);
+			imagettftext($im, 14, 0, $j, 24, $color3, './system/fonts/texb.ttf', $code);
 			$randcode .= $code; //逐位加入验证码字符串
 		}
 		
 		/*
 		* 添加干扰
 		*/
-	/*	for($i=0; $i<5; $i++)//绘背景干扰线
+		for($i=0; $i<5; $i++)//绘背景干扰线
 		{   
 			$color1 = ImageColorAllocate($im, mt_rand(0,255), mt_rand(0,255), mt_rand(0,255)); //干扰线颜色
 			ImageArc($im, mt_rand(-5,$w), mt_rand(-5,$h), mt_rand(20,300), mt_rand(20,200), 55, 44, $color1); //干扰线
-		} */  
+		}  
 		for($i=0; $i<$how*5; $i++)//绘背景干扰点
 		{   
 			$color2 = ImageColorAllocate($im, mt_rand(0,255), mt_rand(0,255), mt_rand(0,255)); //干扰点颜色 

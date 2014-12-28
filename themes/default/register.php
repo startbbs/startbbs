@@ -53,7 +53,7 @@
 						<span class="help-block red"><?php echo form_error('captcha_code');?></span>
 						</div>
 						<div class="col-sm-4">
-						<a href="javascript:reloadcode();" title="更换一张验证码图片"><img src="<?php echo site_url('captcha_code');?>" name="checkCodeImg" id="checkCodeImg" border="0" /></a> <a href="javascript:reloadcode();">换一张</a>
+						<a href="javascript:reloadcode();" title="更换验证码"><img src="<?php echo site_url('captcha_code');?>" name="checkCodeImg" id="checkCodeImg" border="0" /></a> <a href="javascript:reloadcode();">换一张</a>
 						</div>
 					</div>
 					<script language="javascript">
