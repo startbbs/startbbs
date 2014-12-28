@@ -1,9 +1,9 @@
 <?php 
 class Captcha
 {
-	var $width='60';
+	var $width='65';
 	var $num='4';
-	var $height='20';
+	var $height='32';
 	var $name='randcode';
 
 	public function __construct($conf="")
@@ -32,7 +32,7 @@ class Captcha
 		$how = $this->num; //验证码位数
 		$w = $this->width; //图片宽度
 		$h = $this->height; //图片高度
-		$fontsize = 5; //字体大小
+		$fontsize = 24; //字体大小
 		$alpha = "abcdefghijkmnpqrstuvwxyz"; //验证码内容1:字母
 		$number = "23456789"; //验证码内容2:数字
 		$randcode = ""; //验证码字符串初始化
@@ -61,8 +61,13 @@ class Captcha
 			$which = mt_rand(0, strlen($str)-1); //取哪个字符
 			$code = substr($str, $which, 1); //取字符
 			$j = !$i ? 4 : $j+15; //绘字符位置
-			$color3 = ImageColorAllocate($im, mt_rand(0,100), mt_rand(0,100), mt_rand(0,100)); //字符随即颜色
-			ImageChar($im, $fontsize, $j, 3, $code, $color3); //绘字符
+			$color3 = ImageColorAllocate($im, mt_rand(0,255), mt_rand(0,255), mt_rand(0,255)); //字符随即颜色
+
+			// 把字符串写在图像左上角
+			//imagestring($im, 5, $j, 6, $code, $color3);
+			//ImageChar($im, $fontsize, $j, 6, $code, $color3); //绘字符
+			// Add the text
+			imagettftext($im, 16, 0, $j, 24, $color3, './system/fonts/texb.ttf', $code);
 			$randcode .= $code; //逐位加入验证码字符串
 		}
 		
@@ -80,11 +85,22 @@ class Captcha
 			ImageSetPixel($im, mt_rand(0,$w), mt_rand(0,$h), $color2); //干扰点
 		}
 		
-		//$_SESSION[$this->name]=$randcode;
 		$CI->session->set_userdata($this->name, $randcode);
 		//ob_clean();
 		/*绘图结束*/
-		Imagegif($im);
+		if (imagetypes() & IMG_GIF) {
+		    header ("Content-type: image/gif");
+		    $img=imagegif ($im);
+		}
+		elseif (imagetypes() & IMG_JPG) {
+        	header ("Content-type: image/jpeg");
+		    $img=imagejpeg ($im, "", 0.5);
+		}
+		elseif (imagetypes() & IMG_PNG) {
+        	header ("Content-type: image/png");
+		    $img=imagepng ($im, "", 0.5);
+	    }
+	    return $img;
 		ImageDestroy($im);
 		/*绘图结束*/
 	}

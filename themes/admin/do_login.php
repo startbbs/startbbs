@@ -36,7 +36,7 @@
 									<input class="form-control" id="captcha_code" name="captcha_code" size="50" type="text" value="" />
 								</div>
 								<div class="col-md-3">
-						<a href="javascript:reloadcode();" title="更换一张验证码图片"><img src="<?php echo site_url('captcha_code');?>" name="checkCodeImg" id="checkCodeImg" border="0" /></a>  <a href="javascript:reloadcode();">换一张</a>
+						<a title="更换一张验证码图片"><img src="<?php echo site_url('captcha_code');?>" name="checkCodeImg" id="checkCodeImg" border="0" /></a>  <a href="javascript:reloadcode();">换一张</a>
 								</div>
 							</div>
 							<script language="javascript">

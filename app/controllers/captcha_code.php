@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Captcha_code extends SB_Controller {
+class Captcha_code extends Other_Controller {
 
 	function __construct()
     {
