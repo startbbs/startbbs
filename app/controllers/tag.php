@@ -30,7 +30,7 @@ class Tag extends SB_Controller
 	public function show($tag_title,$page=1)
 	{
 
-		$data['title'] = urldecode($tag_title);
+		$data['title'] = urldecode(strip_tags($tag_title));
 		//分页
 		$limit = 10;
 		$config['uri_segment'] = 4;
