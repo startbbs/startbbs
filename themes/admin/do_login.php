@@ -15,7 +15,7 @@
                         <h3 class="panel-title">后台登入</h3>
                     </div>
                     <div class="panel-body">
-						<form accept-charset="UTF-8" action="<?php echo site_url('user/login?referer='.$referer);?>" class="form-horizontal" id="new_user" method="post" novalidate="novalidate">
+						<form accept-charset="UTF-8" action="<?php echo site_url('admin/login/do_login');?>" class="form-horizontal" id="new_user" method="post" novalidate="novalidate">
 							<input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="user_nickname">用户名</label>

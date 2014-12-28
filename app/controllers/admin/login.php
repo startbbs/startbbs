@@ -37,9 +37,6 @@ class Login extends Admin_Controller
 			redirect('admin/login/index');
 		}
 		$data['title'] = '用户登录';
-		$data['referer']=$this->input->get('referer',true);
-		//$data['referer']=($this->input->server('HTTP_REFERER')==site_url('user/login'))?'/':$this->input->server('HTTP_REFERER');
-		$data['referer']=$data['referer']?$data['referer']: $this->input->server('HTTP_REFERER');
 		if($_POST){
 			$data = array(
                 'username' => $this->input->post('username', TRUE),
