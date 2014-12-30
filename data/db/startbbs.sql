@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 12 月 23 日 11:38
+-- 生成日期: 2014 年 12 月 30 日 22:20
 -- 服务器版本: 5.5.40
 -- PHP 版本: 5.5.17
 
@@ -196,14 +196,14 @@ INSERT INTO `stb_settings` (`id`, `title`, `value`, `type`) VALUES
 (1, 'site_name', 'StartBBS- 开源微社区-烧饼bbs', 0),
 (2, 'welcome_tip', '欢迎访问Startbbs开源微社区', 0),
 (3, 'short_intro', '新一代简洁社区软件', 0),
-(4, 'show_captcha', 'off', 0),
+(4, 'show_captcha', 'on', 0),
 (5, 'site_run', '0', 0),
-(6, 'site_stats', '统计代码																																			', 0),
+(6, 'site_stats', '统计代码																																																																													', 0),
 (7, 'site_keywords', '轻量 •  易用  •  社区系统', 0),
-(8, 'site_description', '																																			Startbbs', 0),
+(8, 'site_description', '																																																																													Startbbs', 0),
 (9, 'money_title', '银币', 0),
 (10, 'per_page_num', '20', 0),
-(11, 'is_rewrite', 'on', 0),
+(11, 'is_rewrite', 'off', 0),
 (12, 'show_editor', 'on', 0),
 (13, 'comment_order', 'desc', 0);
 
@@ -290,6 +290,7 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `replies` int(11) DEFAULT '0',
   `notices` smallint(5) DEFAULT '0',
   `follows` int(11) NOT NULL DEFAULT '0',
+  `favorites` int(11) DEFAULT '0',
   `regtime` int(10) DEFAULT NULL,
   `lastlogin` int(10) DEFAULT NULL,
   `lastpost` int(10) DEFAULT NULL,

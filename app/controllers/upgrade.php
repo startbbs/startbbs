@@ -16,7 +16,7 @@ class Upgrade extends Other_Controller
 	}
 	public function index ()
 	{
-		echo "<font color=red>升级前务必要备份数据库！！！</font></br></br>";
+		echo "<font color=red>升级前务必要备份数据库！！！</font></br>升级版本从1.2.1到1.2.2</br>";
 		echo "<a class='btn btn-default' href='".site_url('upgrade/do_upgrade')."'>开始升级</a>";
 		
 	}
@@ -25,16 +25,22 @@ class Upgrade extends Other_Controller
 	{
 		$dbprefix=$this->db->dbprefix;
 		$database=$this->db->database;
-		$sql1="ALTER TABLE `{$dbprefix}users` CHANGE `openid` `openid` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL";
-		$sql2="delete from `{$dbprefix}users` where uid in (select * from (select max(uid) from `{$dbprefix}users` group by username having count(username)>1) as b)";
-		$sql3="ALTER TABLE `{$dbprefix}users` ADD UNIQUE (`username`)";
-
+		$sql1="ALTER TABLE `{$dbprefix}users` ADD `favorites` INT( 11 ) NULL DEFAULT '0' AFTER `follows`";
 		if($this->db->query($sql1)){
-			echo "修改openid成功<br/>";
+			echo "修改表users成功<br/>";
 		}
 		sleep(2);
-		if($this->db->query($sql2) && $this->db->query($sql3)){
-			echo "修改username成功<br/>";
+		$follow=$this->db->get('user_follow')->result_array();
+		foreach( $follow as $k => $v )
+		{
+			$newfollow[]['uid']=$v['uid'];
+			$uids=$explode(",",$v['follow_uid']));
+			$newfollow[]['follows']=count($uids);
+		}
+		$sql2=$this->db->update_batch('users',$newfollow,$newfollow['uid']);
+		
+		if($sql2){
+			echo "统计follows成功<br/>";
 		}
 		sleep(2);
 		$path=FCPATH.'/app/controllers/upgrade.php';
