@@ -52,11 +52,12 @@
 						<?php }?>
 						</p>
 						<?php }?>
+
                     </div>
                     <?php }?>
                     <div class="panel-footer">
-                        <div class="bdsharebuttonbox">
 						<?php if($this->auth->is_user($content['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
+						
 						<a href="<?php echo site_url('topic/edit/'.$content['topic_id']);?>" class="btn btn-default btn-sm unbookmark" data-method="edit" rel="nofollow">编辑</a>
 						<a href="javascript:if(confirm('确实要删除吗?'))location='<?php echo site_url('topic/del/'.$content['topic_id'].'/'.$content['node_id'].'/'.$content['uid']);?>'" class="btn btn-sm btn-danger" data-method="edit" rel="nofollow">删除</a>
 						<?php }?>
@@ -69,7 +70,6 @@
 						<?php }?>
 						</a>
 						<?php }?>
-                        </div>
                     </div>
                 </div><!-- /.panel content -->
                 <div class="panel panel-default">
