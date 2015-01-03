@@ -44,8 +44,9 @@ var token=$("#token").val();
 
 //快速回复ctrl+enter
     $(document).keypress(function(e){
-        var active_id = document.activeElement.id;  
-        if((e.ctrlKey && e.which == 13 || e.which == 10) && (active_id == "topic_content" || active_id == "post_content")) {
+        var active_id = document.activeElement.id;
+        var currKey = e.keyCode || e.which || e.charCode;
+        if((e.ctrlKey && currKey == 13 || currKey == 10) && (active_id == "topic_content" || active_id == "post_content")) {
             e.preventDefault();
           //  $("#new_topic").submit();
             $("input[type=submit]").click();
@@ -66,7 +67,7 @@ function replyOne(username){
 	}
 	replyContent.focus();
 	replyContent.val(newContent);
-	moveEnd(replyContent);
+	//moveEnd(replyContent);
 }
 function check_content(){
 if($("#post_content").val().length < 4){
