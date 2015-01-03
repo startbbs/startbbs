@@ -208,10 +208,16 @@ embed,object,iframe {
 footer {
     /*background-color: #f8f8f8; #e4e4e4 #f9fafb*/
     background-color: #3b3f45;
-    color: #fff;
+    color: #727880;
     /*border-top: 1px solid #edf0f3;*/
     border-top: 1px solid #dad9d5;
-    padding: 30px 0;
+    padding: 10px 0;
     margin-top: 100px;
+}
+footer a{
+	color:#727880;
+}
+footer a:hover{
+	color:#ccc;
 }
 /*.media-list li:hover{background:#f6f6f6}*/

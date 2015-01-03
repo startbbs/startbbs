@@ -155,6 +155,7 @@ class Comment extends SB_Controller
 			//	$data['comment']['content'] =br2nl($data['comment']['content'] );
 			//}
 			$data['comment']['content'] =br2nl($data['comment']['content'] );
+			$data['comment']['content'] = $this->input->post ('content')?$this->input->post ('content'):$data['comment']['content'];
 			$data['comment']['node_id']=$node_id;
 			//加载form类，为调用错误函数,需view前加载
 			$this->load->helper('form');

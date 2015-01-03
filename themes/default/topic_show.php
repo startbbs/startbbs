@@ -127,7 +127,6 @@
 								</p>
                             </div>
                             <button type="submit" class="btn btn-primary" id="comment-submit">回复</button>
-                        </form>
                         <?php else : ?>
                             <div class="well text-center">
                                 <a class="btn btn-default" href="<?php echo site_url('user/login');?>">登录</a>发表 or 还没有账号？去<a href="<?php echo site_url('user/register');?>">注册</a>
