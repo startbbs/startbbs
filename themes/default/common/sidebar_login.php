@@ -13,14 +13,14 @@
 	            </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 text-center">
+        <div class="row text-center">
+            <div class="col-md-6">
 	            <p><a href="<?php echo site_url('favorites');?>"><?php echo $myinfo['favorites']?></a></p>
-	            <p><a href="<?php echo site_url('favorites');?>">话题收藏</a></p>
+	            <p><a href="<?php echo site_url('favorites');?>">收藏</a></p>
             </div>
             <div class="col-md-6">
 	            <p><a href="<?php echo site_url('follow');?>"><?php echo $myinfo['follows']?></a></p>
-	            <p><a href="<?php echo site_url('follow');?>">特别关注</a></p>
+	            <p><a href="<?php echo site_url('follow');?>">关注</a></p>
             </div>
         </div>
     </div>
