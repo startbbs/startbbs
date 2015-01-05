@@ -208,11 +208,11 @@ embed,object,iframe {
 footer {
     /*background-color: #f8f8f8; #e4e4e4 #f9fafb*/
     background-color: #3b3f45;
-    color: #727880;
+    color: #68696d;
     /*border-top: 1px solid #edf0f3;*/
     border-top: 1px solid #dad9d5;
     padding: 10px 0;
-    margin-top: 100px;
+    margin-top: 0px;
 }
 footer a{
 	color:#727880;

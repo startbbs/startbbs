@@ -74,12 +74,11 @@
                             </tbody>
                         </table>
                         <center>
-                            <br><br>
                             <?php if ($do_next) : ?>
                             <a class="btn btn-success btn-block" href="<?php echo site_url('install/process');?>" role="button">下一步</a>
                             <?php else : ?>
-                            <a class="btn btn-danger btn-block" href="<?php echo site_url('install/check');?>" role="button">重新检测</a>
-                            <a class="btn btn-default btn-block" href="<?php echo site_url('install/process');?>" role="button">强制安装</a>
+                            <div class="col-md-6"><a class="btn btn-primary btn-block" href="<?php echo site_url('install/check');?>" role="button">重新检测</a></div>
+                            <div class="col-md-6"><a class="btn btn-danger btn-block" href="<?php echo site_url('install/process');?>" role="button">强制安装</a></div>
                             <?php endif; ?>
                         </center>
                     </div>
