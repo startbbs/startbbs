@@ -154,8 +154,7 @@
 							<div class='form-group'>
 							<label class="col-md-3 control-label" for="settings_seo_description">SEO 描述</label>
 							<div class='col-md-5'>
-							<textarea class="form-control" id="settings_seo_description" name="site_description">
-							<?php echo $item['7']['value'];?></textarea>
+							<textarea class="form-control" id="settings_seo_description" name="site_description"><?php echo $item['7']['value'];?></textarea>
 							<small class='help-block'>用于HTML meta标签</small>
 							</div>
 							</div>
