@@ -91,6 +91,7 @@ class Settings extends SB_Controller {
                 $this->user_m->update_user($this->session->userdata('uid'), $data);
                 //删除tmp下的原图
                 unlink($img_array['full_path']);
+                $this->session->set_userdata('avatar',$data['avatar']);
                 redirect('settings/avatar','refresh');
             } else {
                 //设置三个头像没有成功
