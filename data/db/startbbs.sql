@@ -331,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `stb_user_groups` (
   `gid` int(11) NOT NULL AUTO_INCREMENT,
   `group_type` tinyint(3) NOT NULL DEFAULT '0',
   `group_name` varchar(50) DEFAULT NULL,
-  `usernum` int(11) NOT NULL,
+  `usernum` int(11) NULL DEFAULT '0',
   PRIMARY KEY (`gid`,`group_type`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
