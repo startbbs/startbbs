@@ -131,13 +131,13 @@ class User extends SB_Controller
 	
 	public function login ()
 	{
+		if($this->auth->is_login()){
+			redirect();
+		}
 		$data['title'] = '用户登录';
 		$data['referer']=$this->input->get('referer',true);
 		//$data['referer']=($this->input->server('HTTP_REFERER')==site_url('user/login'))?'/':$this->input->server('HTTP_REFERER');
 		$data['referer']=$data['referer']?$data['referer']: $this->input->server('HTTP_REFERER');
-		if($this->auth->is_login()){
-			redirect();
-		}
 		if($_POST && $this->form_validation->run() === TRUE){
 
             $data = array(
@@ -148,7 +148,7 @@ class User extends SB_Controller
             if ($this->user_m->login($data)) {
 	            $uid=$this->session->userdata('uid');
 				//更新积分
-				if(time()-$data['myinfo']['lastlogin']>86400){
+				if(time()-@$data['myinfo']['lastlogin']>86400){
 					$this->config->load('userset');
 					$this->user_m->update_credit($uid,$this->config->item('credit_login'));
 				}
