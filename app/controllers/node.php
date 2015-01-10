@@ -20,7 +20,8 @@ class Node extends SB_Controller
 	public function index ()
 	{
 		$data['title'] = '版块列表';
-		$data['total_topics']=$this->db->count_all('topics');
+		$stats=$this->db->where('item','total_topics')->get('site_stats')->row_array();
+		$data['stats']['total_topics']=@$stats['value'];
 		//获取版块列表
 		$data['catelist'] = $this->cate_m->get_all_cates();
 		//获取node_ids数据
@@ -30,7 +31,6 @@ class Node extends SB_Controller
 			foreach($c[$k] as $k1=>$d){
 				//if($d['pid'] != 0)
 				$node_ids[]=$d['node_id'];
-				$data['today_topics'][$d['node_id']][]=$this->topic_m->today_topics_count($d['node_id']);
 			}
 		}
 		//echo var_dump(@$node_ids);

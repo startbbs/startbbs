@@ -76,7 +76,7 @@ class User extends SB_Controller
 				'is_active' => 1
 			);
 			if($this->user_m->register($data)){
-				//$uid = $this->db->insert_id();
+				$uid = $this->db->insert_id();
 				$newdata=array('username'=>$data['username'],'password'=>$password);
 				$this->user_m->login($newdata);
 				//去除验证码session
@@ -88,7 +88,8 @@ class User extends SB_Controller
 					send_mail($data['email'],$subject,$message);
 					//echo $this->email->print_debugger();
 				}
-
+				$this->db->set('value',$uid,false)->where('item','last_uid')->update('site_stats');
+				$this->db->set('value','value+1',false)->where('item','total_users')->update('site_stats');
 				redirect();
 			}
 

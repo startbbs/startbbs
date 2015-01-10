@@ -106,6 +106,8 @@ class Comment extends SB_Controller
 				//更新作者的提醒数
 				$this->db->set('notices','notices+1',FALSE)->where('uid', $topic['uid'])->update('users');
 			}
+			//更新统计
+			$this->db->set('value','value+1',false)->where('item','total_comments')->update('site_stats');
 			//更新会员积分
 			$this->config->load('userset');
 			$this->user_m->update_credit($this->uid,$this->config->item('credit_reply'));
@@ -128,7 +130,8 @@ class Comment extends SB_Controller
 				$this->db->set('comments','comments-1',FALSE)->where('topic_id',$topic_id)->update('topics');
 				//更新用户的回复数
 				$this->db->set('replies','replies-1',FALSE)->where('uid',$this->uid)->update('users');
-				
+				//更新统计
+				$this->db->set('value','value-1',false)->where('item','total_comments')->update('site_stats');
 				redirect('topic/show/'.$topic_id);
 			}
 		} else {

@@ -28,9 +28,12 @@
 		                    </div>
 		                    <div class="panel-body">
 			                    <ul class="list-unstyled">
-									<li>会员总数:<?php echo $total_users?></li>
-									<li>主题总数:<?php echo $total_topics?></li>
-									<li>回复总数:<?php echo $total_comments?></li>
+						            <li>最新会员：<?php echo $stats['last_username']?></li>
+						            <li>注册会员： <?php echo $stats['total_users']?></li>
+						            <li>今日话题： <?php echo $stats['today_topics'];?></li>
+						            <li>昨日话题： <?php echo $stats['yesterday_topics'];?></li>
+						            <li>话题总数： <?php echo $stats['total_topics']?></li>
+						            <li>回复数： <?php echo $stats['total_comments']?></li>
 								</ul>
 		                    </div>
 		                </div>

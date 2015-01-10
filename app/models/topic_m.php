@@ -186,24 +186,7 @@ $query=$this->db->query($sql);
   		$this->db->update('topics', $data); 
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
-	//今日贴子
-    public function today_topics_count($node_id)
-    {
-    	$todaydate = date('Y-m-d');  //今天的日期
-		$todayunix = strtotime($todaydate);  //今天零点的unix时间戳
-		$this->db->select('topic_id');
-		if($node_id!=0){
-			$this->db->where('node_id',$node_id);
-		}
-		$this->db->where('updatetime >=',$todayunix);
-		$query = $this->db->get('topics');
-		if($query->result()){
-			return $query->num_rows();
-		} else {
-			return '0';
-		}
-		
-    }
+
     
 	//置顶及更新
     public function set_top($topic_id,$is_top,$update=0)

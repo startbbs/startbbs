@@ -54,11 +54,7 @@ class Comment_m extends SB_Model
 		$this->db->where('uid',$uid)->update('users',array('replies'=>$replies['replies']-$rnum));
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
-	public function today_topics_count($node_id)
-	{
-		# code...
-	}
-
+	
 	function get_comment_by_id ($id)
 	{
 		$this->db->select('id,topic_id,content')->where('id',$id);

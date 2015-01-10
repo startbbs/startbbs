@@ -28,12 +28,11 @@ class Home extends SB_Controller
 		//echo var_dump($data['catelist']);
 
 		$this->db->cache_on();
-		$data['total_topics']=$this->db->count_all('topics');
-		$data['today_topics']=$this->topic_m->today_topics_count(0);
-		$data['total_comments']=$this->db->count_all('comments');
+		$stats=$this->db->get('site_stats')->result_array();
+		$data['stats']=array_column($stats, 'value', 'item');
+		$data['last_user']=$this->db->select('username')->where('uid',@$data['stats']['last_uid'])->get('users')->row_array();
+		$data['stats']['last_username']=@$data['last_user']['username'];
 		$this->db->cache_off();
-		$data['total_users']=$this->db->count_all('users');
-		$data['last_user']=$this->db->select('username',1)->order_by('uid','desc')->get('users')->row_array();
 
 		//links
 		$data['links']=$this->link_m->get_latest_links();
