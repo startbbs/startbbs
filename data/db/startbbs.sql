@@ -198,14 +198,43 @@ INSERT INTO `stb_settings` (`id`, `title`, `value`, `type`) VALUES
 (3, 'short_intro', '新一代简洁社区软件', 0),
 (4, 'show_captcha', 'on', 0),
 (5, 'site_run', '0', 0),
-(6, 'site_stats', '统计代码																																																																													', 0),
+(6, 'site_stats', '统计代码', 0),
 (7, 'site_keywords', '轻量 •  易用  •  社区系统', 0),
-(8, 'site_description', '																																																																													Startbbs', 0),
+(8, 'site_description', 'Startbbs', 0),
 (9, 'money_title', '银币', 0),
 (10, 'per_page_num', '20', 0),
 (11, 'is_rewrite', 'off', 0),
 (12, 'show_editor', 'on', 0),
 (13, 'comment_order', 'desc', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `stb_site_stats`
+--
+
+DROP TABLE IF EXISTS `stb_site_stats`;
+CREATE TABLE IF NOT EXISTS `stb_site_stats` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `item` varchar(20) NOT NULL,
+  `value` int(10) DEFAULT '0',
+  `update_time` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- 转存表中的数据 `stb_site_stats`
+--
+
+INSERT INTO `stb_site_stats` (`id`, `item`, `value`, `update_time`) VALUES
+(1, 'last_uid', 1, NULL),
+(2, 'total_users', 1, NULL),
+(3, 'today_topics', 0, NULL),
+(4, 'yesterday_topics', 0, NULL),
+(5, 'total_topics', 0, NULL),
+(6, 'total_comments', 0, NULL),
+(7, 'total_nodes', 0, NULL),
+(8, 'total_tags', 0, NULL);
 
 -- --------------------------------------------------------
 
