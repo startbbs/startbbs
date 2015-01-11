@@ -136,9 +136,6 @@ class User extends SB_Controller
 			redirect();
 		}
 		$data['title'] = '用户登录';
-		$data['referer']=$this->input->get('referer',true);
-		//$data['referer']=($this->input->server('HTTP_REFERER')==site_url('user/login'))?'/':$this->input->server('HTTP_REFERER');
-		$data['referer']=$data['referer']?$data['referer']: $this->input->server('HTTP_REFERER');
 		if($_POST && $this->form_validation->run() === TRUE){
 
             $data = array(
@@ -155,7 +152,7 @@ class User extends SB_Controller
 				}
 				//更新最后登录时间
 				$this->user_m->update_user($uid,array('lastlogin'=>time()));
-                redirect($data['referer']);
+                redirect();
             } else {
                 show_message('用户名或密错误!');
             }
