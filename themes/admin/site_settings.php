@@ -137,8 +137,7 @@
 							<div class='form-group'>
 							<label class="col-md-3 control-label" for="settings_site_close_msg">站点关闭公告</label>
 							<div class='col-md-5'>
-							<textarea class="form-control" id="settings_site_close_msg" name="site_close_msg" rows="5"><?php echo $this->config->item('site_close_msg')?>
-							</textarea>
+							<textarea class="form-control" id="settings_site_close_msg" name="site_close_msg" rows="5"><?php echo $this->config->item('site_close_msg')?></textarea>
 							</div>
 							</div>
 
@@ -246,7 +245,7 @@
 							<input class="form-control" id="settings_words_limit" name="words_limit" type="text" value="<?php echo $this->config->item('words_limit');?>" />
 							<span class='input-group-addon'>/ 字</span>
 
-							</div><small class='help-block'>默认5000字</small>
+							</div><small class='help-block'>默认8000字</small>
 							</div>
 							</div>
 							<div class="form-group">

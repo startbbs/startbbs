@@ -6,5 +6,5 @@ $config = array (
   'per_page_num' => '20',
   'home_page_num' => '20',
   'timespan' => '10',
-  'words_limit' => '5000',
+  'words_limit' => '8000',
 );
