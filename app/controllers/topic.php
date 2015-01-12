@@ -157,7 +157,7 @@ class topic extends SB_controller
 		$data['title'] = '发表话题';
 		$uid = $this->session->userdata('uid');
 		$this->load->model ('user_m');
-		$user = $this->user_m->get_user_by_id($uid);
+		$user = $this->user_m->get_user_by_uid($uid);
 		if(!$this->auth->is_login()) {
 			redirect('user/login/');
 		}

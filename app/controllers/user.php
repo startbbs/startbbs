@@ -27,9 +27,12 @@ class User extends SB_Controller
 		$data['action'] = 'user';		
 		$this->load->view('user',$data);
 	}
-	public function profile ($uid)
+	public function profile ($uid='')
 	{
-		$data['user'] = $this->user_m->get_user_by_id($uid);
+		$data['user'] = $this->user_m->get_user_by_uid($uid);
+		if(!$data['user']){
+			show_message('用户不存在',site_url('/'));
+		}
 		//用户大头像
 		$this->load->model('upload_m');
 		$data['big_avatar']=$this->upload_m->get_avatar_url($uid, 'big');
