@@ -22,14 +22,17 @@ class Notifications extends SB_Controller
 
 	public function index ()
 	{
-		$data['notices_list'] = $this->notifications_m->get_notifications_list($this->session->userdata('uid'),20);
-		$data['title'] = '提醒用户';
-		$this->load->view('notifications',$data);
+		$uid=$this->session->userdata('uid');
+		$data['notices_list'] = $this->notifications_m->get_notifications_list($uid,20);
 		//删除数据
 		if($data['notices_list']){
-			$this->db->where('nuid',$this->session->userdata('uid'))->delete('notifications');
-			$this->db->where('uid',$this->session->userdata('uid'))->update('users',array('notices'=>0));
+			$this->db->where('nuid',$uid)->delete('notifications');
+			$this->db->where('uid',$uid)->update('users',array('notices'=>0));
+			//update session
+			$this->session->set_userdata('notices', 0);
 		}
+		$data['title'] = '提醒用户';
+		$this->load->view('notifications',$data);
 
 	}
 
