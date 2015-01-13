@@ -206,9 +206,7 @@ class topic extends SB_controller
 				$this->tag_m->insert_tag($data['keywords'], $new_topic_id);
 				
 				//更新贴子数
-				$node_id = $this->input->post ('node_id');
-				$category = $this->cate_m->get_category_by_node_id($node_id);
-				$this->db->where('node_id',$node_id)->update('nodes',array('listnum'=>$category['listnum']+1));
+				$this->db->set('listnum','listnum+1',false)->where('node_id',$node_id)->update('nodes');
 				//更新统计
 				$this->db->set('value','value+1',false)->where('item','total_topics')->update('site_stats');
 				$stats=$this->db->where('item','today_topics')->get('site_stats')->row_array();

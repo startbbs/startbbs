@@ -170,13 +170,10 @@ $query=$this->db->query($sql);
 	function del_topic($topic_id,$node_id,$uid)
 	{
 		$this->db->where('topic_id', $topic_id)->delete('topics');
-		//查询相关数据
-		$listnum = $this->db->select('listnum')->get_where('nodes', array('node_id'=>$node_id))->row_array();
-		$topics = $this->db->select('topics')->get_where('users', array('uid'=>$uid))->row_array();
 		//更新分类中的贴子数
-		$this->db->where('node_id',$node_id)->update('nodes',array('listnum'=>$listnum['listnum']-1));
+		$this->db->set('listnum','listnum-1',FALSE)->where('node_id',$node_id)->update('nodes');
 		//更新用户中的贴子数
-		$this->db->where('uid',$uid)->update('users',array('topics'=>$topics['topics']-1));
+		$this->db->set('topics','topics-1',FALSE)->where('uid',$uid)->update('users');
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 
