@@ -47,24 +47,18 @@ class Comment_m extends SB_Model
 	
 	function del_comments_by_topic_id($topic_id,$uid)
 	{
+		$this->db->where('topic_id', $topic_id)->delete('comments');
 		//更新用户中的回复数
-		$comments=$this->db->select('uid')->where('topic_id',$topic_id)->get('comments')->result_array();
-		if($comments){
-			$uids=array_count_values(array_column($comments, 'uid'));
-			foreach($uids as $k =>$v)
-			{
-				$user[$k]['uid']=$k;
-				$user[$k]['replies']=$v;
-			}
-			$this->db->update_batch('users', $user, 'uid');
-			
-			$this->db->where('topic_id', $topic_id)->delete('comments');
-			$rnum = mysql_affected_rows();
-			$this->db->set('value','value-'.$rnum,FALSE)->where('item','total_comments')->update('site_stats');
-		}
+		$rnum = mysql_affected_rows();
+		$replies = $this->db->select('replies')->get_where('users', array('uid'=>$uid))->row_array();
+		$this->db->where('uid',$uid)->update('users',array('replies'=>$replies['replies']-$rnum));
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
-	
+	public function today_topics_count($node_id)
+	{
+		# code...
+	}
+
 	function get_comment_by_id ($id)
 	{
 		$this->db->select('id,topic_id,content')->where('id',$id);

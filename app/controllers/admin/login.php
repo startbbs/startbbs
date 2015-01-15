@@ -17,10 +17,9 @@ class Login extends Admin_Controller
 		}
 		$data['title'] = '管理后台';
 		//统计
-		$stats=$this->db->get('site_stats')->result_array();
-		$data['stats']=array_column($stats, 'value', 'item');
-		$data['last_user']=$this->db->select('username')->where('uid',@$data['stats']['last_uid'])->get('users')->row_array();
-		$data['stats']['last_username']=@$data['last_user']['username'];
+		$data['total_topics']=$this->db->count_all('topics');
+		$data['total_comments']=$this->db->count_all('comments');
+		$data['total_users']=$this->db->count_all('users');
 		
 		//$redirect	= $this->auth->is_logged_in(false, false);
 		$this->load->view('dashboard', $data);

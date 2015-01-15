@@ -204,28 +204,18 @@ embed,object,iframe {
 .link-text-muted a{
 	color:#444;
 }
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
+
 footer {
-	position: absolute;
- 	bottom: 0;
- 	width: 100%;
     /*background-color: #f8f8f8; #e4e4e4 #f9fafb*/
     background-color: #3b3f45;
-    color: #68696d;
+    color: #727880;
     /*border-top: 1px solid #edf0f3;*/
     border-top: 1px solid #dad9d5;
     padding: 10px 0;
-    margin-top: 0px;
+    margin-top: 100px;
 }
 footer a{
-	color:#68696d;
+	color:#727880;
 }
 footer a:hover{
 	color:#ccc;

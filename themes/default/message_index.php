@@ -23,7 +23,7 @@
 <?php if($dialog_list){?>
 <ul class="media-list">
 	<?php foreach($dialog_list as $v){?>
-      <li class="media<?php if($v['receiver_uid']==$myinfo['uid'] && $v['receiver_read']==0){?> alert alert-warning<?php }?>">
+      <li class="media">
         <a class="media-left" href="<?php echo site_url('user/profile/'.$v['receiver_uid'])?>">
           <img src="<?php echo base_url($v['receiver_avatar'].'normal.png')?>" alt="<?php echo $v['receiver_username'];?>">
         </a>

@@ -5,7 +5,6 @@ class Users extends Admin_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('user_m');
 		/** 检查登陆 */
 		if(!$this->auth->is_admin())
 		{
@@ -80,7 +79,7 @@ class Users extends Admin_Controller
 	public function edit($uid)
 	{
 		$data['title'] = '修改用户信息';
-		$data['user'] = $this->user_m->get_user_by_uid($uid);
+		$data['user'] = $this->user_m->get_user_by_id($uid);
 	
 		$this->load->model('group_m');
 		if($_POST){
@@ -167,31 +166,12 @@ class Users extends Admin_Controller
 
 	}
 
-	public function del()
+	public function del ()
 	{	
-		$uid=(int)$this->uri->segment(4);
-		$user=$this->user_m->get_user_by_uid($uid);
-		if(!$user){
-			show_message('用户uid不能为空',site_url('admin/users/index'));
-		} else{
-			$this->db->set('value','value-1',false)->where('item','total_users')->update('site_stats');
-			$this->db->set('value','value-'.@$user['topics'],false)->where('item','total_topics')->update('site_stats');
-			$this->db->set('value','value-'.@$user['replies'],false)->where('item','total_comments')->update('site_stats');
-			$this->user_m->del($uid);
-			//更新栏目中的数据
-			$this->load->model('cate_m');
-			$nodes=$this->cate_m->get_node_ids();
-			foreach($nodes as $k=>$v)
-			{
-				$data[$k]['node_id']=@$v['node_id'];
-				$data[$k]['listnum']=$this->db->where('node_id',@$v['node_id'])->count_all_results('topics');
-			}
-			$this->db->update_batch('nodes', $data, 'node_id');
-			if($user['avatar']!='uploads/avatar/default/'){
-				@unlink(FCPATH.$user['avatar'].'big.png');
-				@unlink(FCPATH.$user['avatar'].'normal.png');
-				@unlink(FCPATH.$user['avatar'].'small.png');
-			}
+		$uid=$this->uri->segment(4);
+		if(empty($uid)){
+			show_message('uid不能为空',site_url('admin/users/index'));
+		} elseif($this->db->delete('users',array('uid'=>$uid))){
 			show_message('删除用户成功',site_url('admin/users/index'),1);
 		}
 	}

@@ -157,7 +157,7 @@ class topic extends SB_controller
 		$data['title'] = '发表话题';
 		$uid = $this->session->userdata('uid');
 		$this->load->model ('user_m');
-		$user = $this->user_m->get_user_by_uid($uid);
+		$user = $this->user_m->get_user_by_id($uid);
 		if(!$this->auth->is_login()) {
 			redirect('user/login/');
 		}
@@ -206,17 +206,10 @@ class topic extends SB_controller
 				$this->tag_m->insert_tag($data['keywords'], $new_topic_id);
 				
 				//更新贴子数
-				$this->db->set('listnum','listnum+1',false)->where('node_id',$node_id)->update('nodes');
-				//更新统计
-				$this->db->set('value','value+1',false)->where('item','total_topics')->update('site_stats');
-				$stats=$this->db->where('item','today_topics')->get('site_stats')->row_array();
-				if(!is_today(@$stats['update_time'])){
-					$this->db->set('value',@$stats['value'],false)->set('update_time',time(),false)->where('item','yesterday_topics')->update('site_stats');
-					$value=1;
-				} else{
-					$value='value+1';
-				}
-				$this->db->set('value',$value,false)->set('update_time',time(),false)->where('item','today_topics')->update('site_stats');
+				$node_id = $this->input->post ('node_id');
+				$category = $this->cate_m->get_category_by_node_id($node_id);
+				$this->db->where('node_id',$node_id)->update('nodes',array('listnum'=>$category['listnum']+1));
+
 				//更新数据库缓存
 				$this->db->cache_delete('/default', 'index');
 				//更新发贴人的贴子数/最后发贴时间
@@ -308,11 +301,6 @@ class topic extends SB_controller
 			if($this->topic_m->del_topic($topic_id,$node_id,$uid)){
 				$this->load->model('comment_m');
 				$this->comment_m->del_comments_by_topic_id($topic_id,$uid);
-				//更新统计
-				$this->db->set('value','value-1',false)->where('item','total_topics')->update('site_stats');
-				$stats=$this->db->where('item','today_topics')->get('site_stats')->row_array();
-				$value=is_today(@$stats['update_time'])?'value-1':0;
-				$this->db->set('value',$value,false)->set('update_time',time(),false)->where('item','today_topics')->update('site_stats');
 				//更新会员积分
 				$this->config->load('userset');
 				$this->load->model ('user_m');
