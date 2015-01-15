@@ -3,7 +3,9 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-5">
-                <a href="<?php echo site_url('user/profile/'.$myinfo['uid']);?>"><img alt="<?php echo $myinfo['username']?> large avatar" class="img-rounded" src="<?php echo base_url($myinfo['avatar'].'big.png')?>" /></a>
+                <a href="<?php echo site_url('user/profile/'.$myinfo['uid']);?>">
+                    <img alt="<?php echo $myinfo['username']?> large avatar" class="img-rounded" src="<?php echo base_url($myinfo['avatar'].'big.png')?>" />
+                </a>
             </div>
             <div class="col-md-7">
 	            <ul class="list-unstyled">
@@ -13,14 +15,14 @@
 	            </ul>
             </div>
         </div>
-        <div class="row text-center">
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 text-center">
 	            <p><a href="<?php echo site_url('favorites');?>"><?php echo $myinfo['favorites']?></a></p>
-	            <p><a href="<?php echo site_url('favorites');?>">收藏</a></p>
+	            <p><a href="<?php echo site_url('favorites');?>">话题收藏</a></p>
             </div>
             <div class="col-md-6">
 	            <p><a href="<?php echo site_url('follow');?>"><?php echo $myinfo['follows']?></a></p>
-	            <p><a href="<?php echo site_url('follow');?>">关注</a></p>
+	            <p><a href="<?php echo site_url('follow');?>">特别关注</a></p>
             </div>
         </div>
     </div>

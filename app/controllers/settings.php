@@ -29,7 +29,7 @@ class Settings extends SB_Controller {
 	public function profile()
 	{
 		$uid = $this->session->userdata ('uid');
-		$data = $this->user_m->get_user_by_uid($uid);
+		$data = $this->user_m->get_user_by_id($uid);
 		if($_POST && $this->form_validation->run('settings/profile')===TRUE){
 			$data = array(
 				'uid' => $uid,
@@ -41,7 +41,7 @@ class Settings extends SB_Controller {
 				'introduction' => $this->input->post('introduction')
 			);
 			$this->user_m->update_user($uid, $data);
-			$data = $this->user_m->get_user_by_uid($uid);
+			$data = $this->user_m->get_user_by_id($uid);
 			//$this->myclass->notice('alert("更新账户成功");history.back();');
 			
 		}
@@ -55,7 +55,7 @@ class Settings extends SB_Controller {
 	public function avatar($msg='') {
 		$data['title'] = '头像设置';
 		$uid=$this->session->userdata('uid');
-		$user_info=$this->user_m->get_user_by_uid($this->session->userdata('uid'));
+		$user_info=$this->user_m->get_user_by_id($this->session->userdata('uid'));
         $data['avatar']=$user_info['avatar'];
 		$data['msg'] = $msg;
 
@@ -91,7 +91,6 @@ class Settings extends SB_Controller {
                 $this->user_m->update_user($this->session->userdata('uid'), $data);
                 //删除tmp下的原图
                 unlink($img_array['full_path']);
-                $this->session->set_userdata('avatar',$data['avatar']);
                 redirect('settings/avatar','refresh');
             } else {
                 //设置三个头像没有成功

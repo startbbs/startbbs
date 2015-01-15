@@ -87,13 +87,6 @@ class Message extends SB_Controller
 		if($data['uid']==$data['message_list'][0]['receiver_uid']){
 			$data['dialog']['receiver_uid']=$data['message_list'][0]['sender_uid'];
 			$data['dialog']['receiver_username']=$data['message_list'][0]['sender_username'];
-			//update unread
-			if($data['dialog']['receiver_read']==0){
-				$this->db->set('receiver_read',1,false)->where('id',$dialog_id)->update('message_dialog');
-				$this->db->set('messages_unread','messages_unread-1',false)->where('uid',$data['uid'])->update('users');
-				$userinfo=$this->db->select('messages_unread')->get_where('users',array('uid'=>$data['uid']))->row_array();
-				$this->session->set_userdata('messages_unread', @$userinfo['messages_unread']);
-			}
 		}else{
 			$data['dialog']['receiver_username']=$data['message_list'][0]['receiver_username'];
 		}
@@ -115,6 +108,7 @@ class Message extends SB_Controller
 			}
 			//$receiver_uid=9;
 			$content=htmlentities(trim($this->input->post('content',true)));
+			//$content='testsssssssssssssssss';
 			$dialog_list=$this->message_m->get_dialog_by_uid($my_uid,$receiver_uid);
 			//echo var_dump($message_list);
 			if(!$dialog_list){
@@ -134,14 +128,10 @@ class Message extends SB_Controller
 	                'sender_uid' => $my_uid,
 	                'receiver_uid' => $receiver_uid,
 	                'last_content'  => $content,
-	                'receiver_read'=>0,
 	                'update_time'=>time(),
 	                'messages' =>$dialog_list['messages']+1
 	            );
 	            $this->db->where('id',$dialog_id)->update('message_dialog',$dialog_data);
-				if($dialog_list['receiver_read']==1){
-					$this->db->set('messages_unread','messages_unread+1',false)->where('uid',$receiver_uid)->update('users');
-				}
 			}
 			$message_data=array(
 				'dialog_id'=>$dialog_id,

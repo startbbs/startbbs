@@ -23,7 +23,7 @@ class Cate_m extends SB_Model
 		$query = $this->db->get('nodes');
 		return $query->row_array();
 	}
-	public function get_all_cates()
+	public function get_all_cates ()
 	{
 		$this->db->select('node_id,pid,cname,ico,content,listnum,master');
 		$this->db->order_by('pid', 'desc');
@@ -61,11 +61,6 @@ class Cate_m extends SB_Model
 	{
 		$this->db->where('node_id',$node_id)->update('nodes', $data);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
-	}
-
-	public function get_node_ids()
-	{
-		return $this->db->select('node_id')->get('nodes')->result_array();
 	}
 
 	

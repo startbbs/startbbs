@@ -17,7 +17,7 @@ class Site_settings extends Admin_Controller
 	{
 		$data['title'] = '站点设置';
 		//基本设置
-		if($_POST && @$_GET['a']=='basic'){
+		if($_POST && $_GET['a']=='basic'){
 			$str = array(
 				array('value'=>$this->input->post('site_name'),'id'=>1),
 				array('value'=>$this->input->post('welcome_tip'),'id'=>2),
@@ -61,7 +61,7 @@ class Site_settings extends Admin_Controller
 		}
 
 		//话题设定
-		if($_POST && @$_GET['a']=='topicset'){
+		if($_POST && $_GET['a']=='topicset'){
 			$str = array(
 				array('value'=>$this->input->post('per_page_num'),'id'=>10),
 				array('value'=>$this->input->post('comment_order'),'id'=>13),
@@ -80,7 +80,7 @@ class Site_settings extends Admin_Controller
 		}
 		//会员设定
 		$this->config->load('userset');
-		if($_POST && @$_GET['a']=='userset'){
+		if($_POST && $_GET['a']=='userset'){
 			$this->config->update('userset','credit_start', $this->input->post('credit_start'));
 			$this->config->update('userset','credit_login', $this->input->post('credit_login'));
 			$this->config->update('userset','credit_post', $this->input->post('credit_post'));
@@ -93,7 +93,7 @@ class Site_settings extends Admin_Controller
 		}
 
 		//mailset设定
-		if($_POST && @$_GET['a']=='mailset'){
+		if($_POST && $_GET['a']=='mailset'){
 			$this->config->update('mailset','protocol', $this->input->post('protocol'));
 			$this->config->update('mailset','smtp_host', $this->input->post('smtp_host'));
 			$this->config->update('mailset','smtp_port', $this->input->post('smtp_port'));
@@ -105,7 +105,7 @@ class Site_settings extends Admin_Controller
 
 		//routes
 		$data['routes']=array_keys($this->router->routes);
-		if($_POST && @$_GET['a']=='routes'){
+		if($_POST && $_GET['a']=='routes'){
 
 			$routes ="<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');\n\n";
 			$routes .="\$route['default_controller'] = '".$this->input->post('default_controller')."';\n";

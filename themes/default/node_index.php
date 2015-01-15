@@ -15,7 +15,7 @@
             <div class="col-md-8">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><?php echo $settings['site_name']?><span class='pull-right'>话题总数<span class='badge badge-info'>&nbsp;<?php echo $stats['total_topics'];?>&nbsp;</span></span></h3>
+                        <h3 class="panel-title"><?php echo $settings['site_name']?><span class='pull-right'>话题总数<span class='badge badge-info'>&nbsp;<?php echo $total_topics;?>&nbsp;</span></span></h3>
                     </div>
                     <div class="panel-body">
                         <?php echo $settings['site_description']?>
@@ -59,7 +59,7 @@
 	                        <?php foreach ($catelist[$v['node_id']] as $k=>$c) {?>
                             <li class="media section">
                                 <a class="pull-left" href="<?php echo url('node_show',$v['node_id']);?>"><img class="img-rounded" src="<?php echo base_url($c['ico'])?>" alt="<?php echo $c['cname'];?>"></a>     	
-                            	<span class="pull-right text-right"><p>/今日</p><p><?php echo $c['listnum'];?>/话题</p></span>
+                            	<span class="pull-right text-right"><p><?php foreach($today_topics[$v['node_id']] as $t){?><?php echo @$t?>/今日<?php }?></p><p><?php echo $c['listnum'];?>/话题</p></span>
                                 <div class="media-body">
                                     <h4 class="media-heading"><a href="<?php echo url('node_show',$c['node_id']);?>"><?php echo $c['cname'];?></a></h4></h4>
                                     <p class="text-muted">

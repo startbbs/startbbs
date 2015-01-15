@@ -17,22 +17,44 @@ class Home extends SB_Controller
 		$this->load->model('cate_m');
 		$this->load->library('myclass');
 		$this->load->model('link_m');
+		$this->load->model('user_m');
 		$this->home_page_num=($this->config->item('home_page_num'))?$this->config->item('home_page_num'):20;
 		
 	}
 	public function index ()
 	{
+		$openid = $this->input->get('openid', TRUE);
+		if ($openid) {
+			setcookie("openid",$openid);
+			$user = $this->db->select('uid,username,password,openid,group_type,gid')->from('users')->where('openid', $openid)->limit(1)->get()->row_array();
+			if($user){
+				// openid在数据库中有记录
+
+				//更新积分
+				if(time()-$data['myinfo']['lastlogin']>86400){
+					$this->config->load('userset');
+					$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
+				}
+				//更新最后登录时间
+				$this->user_m->update_user($uid,array('lastlogin'=>time()));
+
+				// 跳转到首页
+				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid'], 'avatar' => $user['avatar'], 'group_name' => $user['group_name'], 'is_active' => $user['is_active'], 'favorites' => $user['favorites'], 'follows' => $user['follows'], 'notices' => $user['notices'], 'credit' => $user['credit'], 'lastpost' => $user['lastpost']));
+				redirect('/');
+			}
+		}
 		//获取列表
 		$data['topic_list'] = $this->topic_m->get_topics_list_nopage($this->home_page_num);
 		$data['catelist'] =$this->cate_m->get_all_cates();
 		//echo var_dump($data['catelist']);
 
 		$this->db->cache_on();
-		$stats=$this->db->get('site_stats')->result_array();
-		$data['stats']=array_column($stats, 'value', 'item');
-		$data['last_user']=$this->db->select('username')->where('uid',@$data['stats']['last_uid'])->get('users')->row_array();
-		$data['stats']['last_username']=@$data['last_user']['username'];
+		$data['total_topics']=$this->db->count_all('topics');
+		$data['today_topics']=$this->topic_m->today_topics_count(0);
+		$data['total_comments']=$this->db->count_all('comments');
 		$this->db->cache_off();
+		$data['total_users']=$this->db->count_all('users');
+		$data['last_user']=$this->db->select('username',1)->order_by('uid','desc')->get('users')->row_array();
 
 		//links
 		$data['links']=$this->link_m->get_latest_links();

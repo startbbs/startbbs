@@ -25,7 +25,7 @@ class User_m extends SB_Model
 	    if($user){
 			$password = password_dohash($data['password'],$user['salt']);
 			if($user['password']==$password){
-				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid'], 'avatar' => $user['avatar'], 'group_name' => $user['group_name'], 'is_active' => $user['is_active'], 'favorites' => $user['favorites'], 'follows' => $user['follows'], 'notices' => $user['notices'], 'messages_unread' => $user['messages_unread'], 'credit' => $user['credit'], 'lastpost' => $user['lastpost']));
+				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid'], 'avatar' => $user['avatar'], 'group_name' => $user['group_name'], 'is_active' => $user['is_active'], 'favorites' => $user['favorites'], 'follows' => $user['follows'], 'notices' => $user['notices'], 'credit' => $user['credit'], 'lastpost' => $user['lastpost']));
 				return TRUE;
 			} else {
 				return FALSE;
@@ -42,7 +42,7 @@ class User_m extends SB_Model
 		$query = $this->db->select('a.*,b.*')->from('users a')->join('user_groups b','b.group_type=a.group_type','LEFT')->where('a.username',$username)->get();
         return $query->row_array();
 	}
-	public function get_user_by_uid($uid)
+	public function get_user_by_id($uid)
 	{
 		$query = $this->db->get_where('users', array('uid'=>$uid));
 		return $query->row_array();
@@ -54,7 +54,7 @@ class User_m extends SB_Model
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 	function update_pwd($data){
-		$query = $this->get_user_by_uid($data['uid']);
+		$query = $this->get_user_by_id($data['uid']);
 		$password = password_dohash($data['password'],@$query['salt']);
 		$this->db->where('uid',$data['uid']);
 		$this->db->update('users', array('password'=>$password));
@@ -120,35 +120,6 @@ class User_m extends SB_Model
 	{
 		$this->db->set('credit','credit+'.$credit,false)->where('uid',$uid)->update('users');
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
-	}
-	function del($uid)
-	{
-		$this->db->where('uid',$uid)->delete('users');
-		$comment=$this->db->select('topic_id')->where('uid',$uid)->get('comments')->result_array();
-		if($comment){
-			$data=array();
-			foreach($comment as $k=>$v)
-			{
-				$data[$k]['topic_id']=@$v['topic_id'];
-				$data[$k]['comments']=$this->db->where('topic_id',@$v['topic_id'])->count_all_results('comments');
-			}
-			$this->db->update_batch('topics', $data, 'topic_id');
-		}
-		$this->db->where('uid',$uid)->delete('comments');
-		$this->db->where('uid',$uid)->delete('favorites');
-		$this->db->where('uid',$uid)->delete('user_follow');
-		$this->db->where('nuid',$uid)->delete('notifications');
-
-		$topic=$this->db->select('topic_id')->where('uid',$uid)->get('topics')->result_array();
-		if($topic){
-			foreach($topic as $v)
-			{
-				$topic_ids[]=$v['topic_id'];
-			}
-			$this->db->where_in('topic_id',@$topic_ids)->delete('comments');
-			$this->db->where('uid',$uid)->delete('topics');
-		}
-
 	}
 
 }
