@@ -57,6 +57,7 @@ class SB_Controller extends Base_Controller
 				'follows'=>$this->session->userdata('follows'),
 				'credit'=>$this->session->userdata('credit'),
 				'notices'=>$this->session->userdata('notices'),
+				'messages_unread'=>$this->session->userdata('messages_unread'),
 				'lastpost'=>$this->session->userdata('lastpost')
 	        );
         }
