@@ -26,7 +26,7 @@ class Notifications extends SB_Controller
 		$data['notices_list'] = $this->notifications_m->get_notifications_list($uid,20);
 		//删除数据
 		if($data['notices_list']){
-			$this->db->where('nuid',$uid)->delete('notifications');
+			//$this->db->where('nuid',$uid)->delete('notifications');
 			$this->db->where('uid',$uid)->update('users',array('notices'=>0));
 			//update session
 			$this->session->set_userdata('notices', 0);
