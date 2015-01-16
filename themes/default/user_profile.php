@@ -21,6 +21,7 @@
                         <div class="col-md-6">
                             <h4><?php echo $user['username'];?></h4>
                             <p class="text-muted"><small><?php echo $user['username'];?>是第<?php echo $user['uid'];?>号会员，加入于<?php echo date('Y-m-d H:i',$user['regtime']);?></small></p>
+                            <p>积分：<?php echo $user['credit'];?></p>
                             <p>签名：<?php echo $user['signature'];?></p>
                             <p>个人主页：<a href="<?php echo $user['homepage'];?>"><?php echo $user['homepage'];?></a></p>
                             <p>所在地：<?php echo $user['location'];?></p>

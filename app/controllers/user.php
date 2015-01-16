@@ -27,12 +27,9 @@ class User extends SB_Controller
 		$data['action'] = 'user';		
 		$this->load->view('user',$data);
 	}
-	public function profile ($uid='')
+	public function profile ($uid)
 	{
-		$data['user'] = $this->user_m->get_user_by_uid($uid);
-		if(!$data['user']){
-			show_message('用户不存在',site_url('/'));
-		}
+		$data['user'] = $this->user_m->get_user_by_id($uid);
 		//用户大头像
 		$this->load->model('upload_m');
 		$data['big_avatar']=$this->upload_m->get_avatar_url($uid, 'big');
@@ -71,6 +68,7 @@ class User extends SB_Controller
 				'password' => password_dohash($password,$salt),
 				'salt' => $salt,
 				'email' => $this->input->post('email',true),
+				'openid' => $this->input->post('openid'),
 				'credit' => $this->config->item('credit_start'),
 				'ip' => get_onlineip(),
 				'group_type' => 2,
@@ -79,7 +77,7 @@ class User extends SB_Controller
 				'is_active' => 1
 			);
 			if($this->user_m->register($data)){
-				$uid = $this->db->insert_id();
+				//$uid = $this->db->insert_id();
 				$newdata=array('username'=>$data['username'],'password'=>$password);
 				$this->user_m->login($newdata);
 				//去除验证码session
@@ -91,8 +89,7 @@ class User extends SB_Controller
 					send_mail($data['email'],$subject,$message);
 					//echo $this->email->print_debugger();
 				}
-				$this->db->set('value',$uid,false)->where('item','last_uid')->update('site_stats');
-				$this->db->set('value','value+1',false)->where('item','total_users')->update('site_stats');
+
 				redirect();
 			}
 
@@ -135,10 +132,13 @@ class User extends SB_Controller
 	
 	public function login ()
 	{
+		$data['title'] = '用户登录';
+		$data['referer']=$this->input->get('referer',true);
+		//$data['referer']=($this->input->server('HTTP_REFERER')==site_url('user/login'))?'/':$this->input->server('HTTP_REFERER');
+		$data['referer']=$data['referer']?$data['referer']: $this->input->server('HTTP_REFERER');
 		if($this->auth->is_login()){
 			redirect();
 		}
-		$data['title'] = '用户登录';
 		if($_POST && $this->form_validation->run() === TRUE){
 
             $data = array(
@@ -149,13 +149,13 @@ class User extends SB_Controller
             if ($this->user_m->login($data)) {
 	            $uid=$this->session->userdata('uid');
 				//更新积分
-				if(time()-@$data['myinfo']['lastlogin']>86400){
+				if(time()-$data['myinfo']['lastlogin']>86400){
 					$this->config->load('userset');
 					$this->user_m->update_credit($uid,$this->config->item('credit_login'));
 				}
 				//更新最后登录时间
 				$this->user_m->update_user($uid,array('lastlogin'=>time()));
-                redirect();
+                redirect($data['referer']);
             } else {
                 show_message('用户名或密错误!');
             }

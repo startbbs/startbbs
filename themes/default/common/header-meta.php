@@ -1,8 +1,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link href='http://www.startbbs.com' rel='canonical'>
-<link href="<?php echo base_url('static/common/css/bootstrap.min.css');?>" media="screen" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url('static/common/css/style.css');?>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url('static/common/css/bootstrap.min.css?v=1');?>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url('static/common/css/style.css?v=1');?>" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 var baseurl='<?php echo base_url()?>';
 var siteurl='<?php echo site_url()?>';

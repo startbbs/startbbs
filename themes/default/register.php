@@ -19,6 +19,7 @@
                     <div class="panel-body">
 					<form accept-charset="UTF-8" action="<?php echo site_url('user/register');?>" class="form-horizontal" id="new_user" method="post" novalidate="novalidate">
 					<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
+					<input name="openid" type="hidden" value="<?php if(isset($_COOKIE['openid'])){ echo $_COOKIE['openid'];} ?>" />
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="user_nickname">用户名</label>
 						<div class="col-sm-5">
