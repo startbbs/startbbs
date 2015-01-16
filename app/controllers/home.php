@@ -26,12 +26,12 @@ class Home extends SB_Controller
 		$openid = $this->input->get('openid', TRUE);
 		if ($openid) {
 			setcookie("openid",$openid);
-			$user = $this->db->select('uid,username,password,openid,group_type,gid')->from('users')->where('openid', $openid)->limit(1)->get()->row_array();
+			$user = $this->db->select('*')->from('users')->where('openid', $openid)->limit(1)->get()->row_array();
 			if($user){
 				// openid在数据库中有记录
 
 				//更新积分
-				if(time()-$data['myinfo']['lastlogin']>86400){
+				if(time()-$user['lastlogin']>86400){
 					$this->config->load('userset');
 					$this->user_m->update_credit($user['uid'],$this->config->item('credit_login'));
 				}
