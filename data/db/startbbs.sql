@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 12 月 30 日 22:20
+-- 生成日期: 2015 年 01 月 16 日 15:19
 -- 服务器版本: 5.5.40
--- PHP 版本: 5.5.17
+-- PHP 版本: 5.2.17
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -111,8 +111,8 @@ CREATE TABLE IF NOT EXISTS `stb_message_dialog` (
   `update_time` int(10) NOT NULL,
   `sender_remove` tinyint(1) NOT NULL DEFAULT '0',
   `receiver_remove` tinyint(1) NOT NULL DEFAULT '0',
-  `sender_read` tinyint( 1 ) NOT NULL DEFAULT '1',
-  `receiver_read` tinyint( 1 ) NOT NULL DEFAULT '0',
+  `sender_read` tinyint(1) NOT NULL DEFAULT '1',
+  `receiver_read` tinyint(1) NOT NULL DEFAULT '0',
   `messages` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid` (`sender_uid`,`receiver_uid`),
@@ -200,7 +200,7 @@ INSERT INTO `stb_settings` (`id`, `title`, `value`, `type`) VALUES
 (3, 'short_intro', '新一代简洁社区软件', 0),
 (4, 'show_captcha', 'on', 0),
 (5, 'site_run', '0', 0),
-(6, 'site_stats', '统计代码', 0),
+(6, 'site_stats', '统计代码																																																																																																																														', 0),
 (7, 'site_keywords', '轻量 •  易用  •  社区系统', 0),
 (8, 'site_description', 'Startbbs', 0),
 (9, 'money_title', '银币', 0),
@@ -229,10 +229,10 @@ CREATE TABLE IF NOT EXISTS `stb_site_stats` (
 --
 
 INSERT INTO `stb_site_stats` (`id`, `item`, `value`, `update_time`) VALUES
-(1, 'last_uid', 1, NULL),
-(2, 'total_users', 1, NULL),
-(3, 'today_topics', 0, NULL),
-(4, 'yesterday_topics', 0, NULL),
+(1, 'last_uid', 0, NULL),
+(2, 'total_users', 0, NULL),
+(3, 'today_topics', 0, 0),
+(4, 'yesterday_topics', 0, 0),
 (5, 'total_topics', 0, NULL),
 (6, 'total_comments', 0, NULL),
 (7, 'total_nodes', 0, NULL),
@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `stb_users` (
   `notices` smallint(5) DEFAULT '0',
   `follows` int(11) NOT NULL DEFAULT '0',
   `favorites` int(11) DEFAULT '0',
-  `messages_unread` int( 11 ) NULL DEFAULT `0`,
+  `messages_unread` int(11) DEFAULT '0',
   `regtime` int(10) DEFAULT NULL,
   `lastlogin` int(10) DEFAULT NULL,
   `lastpost` int(10) DEFAULT NULL,
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `stb_user_groups` (
   `gid` int(11) NOT NULL AUTO_INCREMENT,
   `group_type` tinyint(3) NOT NULL DEFAULT '0',
   `group_name` varchar(50) DEFAULT NULL,
-  `usernum` int(11) NULL DEFAULT '0',
+  `usernum` int(11) DEFAULT '0',
   PRIMARY KEY (`gid`,`group_type`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 

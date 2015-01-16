@@ -206,8 +206,12 @@ class Install extends Install_Controller
                 'email' =>$this->input->post('email'),
                 'regtime' => time(),
                 'ip' => get_onlineip()
-                );
-			$con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
+            );
+            if(function_exists(@mysqli_connect)){
+	            $con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
+            } else {
+				$con = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
+            }
             //检查数据库信息是否正确
             if (!$con) {
                 $string='
@@ -242,6 +246,9 @@ class Install extends Install_Controller
             $this->load->database();
             $this->load->model('user_m');
             $this->user_m->register($admin);
+            //update stats
+            $this->db->set('value',1)->where('item','total_users')->update('site_stats');
+            $this->db->set('value',1)->where('item','last_uid')->update('site_stats');
             $this->user_m->login($admin);
 
             $this->load->view('install_done');
@@ -299,8 +306,19 @@ class Install extends Install_Controller
     {
         $sql = file_get_contents(FCPATH.'data/db/startbbs.sql'); 
         $sql = str_replace('stb_', $dbprefix, $sql);
-        
-        if (!mysqli_multi_query($con,$sql)) {
+        if(function_exists(@mysqli_multi_query)){
+	        $query=mysqli_multi_query($con,$sql);
+        }else{
+			$explode = explode(";",$sql);
+		 	foreach ($explode as $key=>$value){
+		    	if(!empty($value)){
+		    		if(trim($value)){
+			    		@mysql_query($value.";");
+		    		}
+		    	}
+		  	}
+        }
+        if (!$query) {
             $string='
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <script>
@@ -317,8 +335,13 @@ class Install extends Install_Controller
      */
     public function testdb($dbhost='host', $dbuser='user', $dbpsw='psw', $dbname='name',$port='3306')
     {
-        $con = @mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
-
+        if(function_exists(@mysqli_connect)){
+            $con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
+        } else {
+			$con = @mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
+			$con = @mysql_select_db($dbname,$con);
+        }
+		
         if ($con) {
             echo "<font color=green><b>数据库连接成功！</b></font>";
         } else {
