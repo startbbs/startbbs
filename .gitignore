@@ -1,5 +1,5 @@
 /app/cache
-/app/config/config.php
+/app/config/database.php
 install.lock
 uploads
 data/
