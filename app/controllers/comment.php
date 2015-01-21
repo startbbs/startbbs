@@ -155,9 +155,9 @@ class Comment extends SB_Controller
 		if(empty($node_id) || empty($topic_id) || empty($id)){
 			show_message('缺少参数哟',site_url('topic/show/'.$topic_id));
 		}
-		if($this->auth->is_admin() || $this->auth->is_master($node_id) || $this->auth->is_user($this->uid)){
-			$this->load->model('comment_m');
-			$data['comment']=$this->comment_m->get_comment_by_id ($id);
+		$this->load->model('comment_m');
+		$data['comment']=$this->comment_m->get_comment_by_id ($id);
+		if($this->auth->is_admin() || $this->auth->is_master($node_id) || $this->auth->is_user($data['comment']['uid'])){
 			//无编辑器时的处理
 			//if($this->config->item('show_editor')=='off'){
 			//	$data['comment']['content'] = filter_check($data['comment']['content']);

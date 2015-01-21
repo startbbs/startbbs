@@ -22,7 +22,7 @@ function doUpload() {
                         // 上传之后回调
                         onComplate: function(data) {
 	                        if(data.key){
-	                        var addString = data.key +'\n';
+	                        var addString = ' '+data.key +'\n';
 							var textareaContain = $("#post_content").eq(0);
 							$('#post_content').val(textareaContain.val()+addString);
                                         //alert(data.key);

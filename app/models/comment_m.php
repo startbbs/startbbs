@@ -67,7 +67,7 @@ class Comment_m extends SB_Model
 	
 	function get_comment_by_id ($id)
 	{
-		$this->db->select('id,topic_id,content')->where('id',$id);
+		$this->db->select('id,topic_id,content,uid')->where('id',$id);
 		$query = $this->db->get('comments');
 		return $query->row_array();
 	}
