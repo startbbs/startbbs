@@ -128,6 +128,7 @@ class Message extends SB_Controller
 	            );
 	            $this->db->insert('message_dialog',$dialog_data);
 	            $dialog_id=$this->db->insert_id();
+	            $this->db->set('messages_unread','messages_unread+1',false)->where('uid',$receiver_uid)->update('users');
 			}else{
 				$dialog_id = $dialog_list['id'];
 	            $dialog_data = array(
