@@ -45,7 +45,7 @@ class SB_Controller extends Base_Controller
 
         //用户相关信息
         if ($this->session->userdata('uid')) {
-	        $notices= $this->db->select('notices')->where('uid',$this->session->userdata('uid'))->get('users')->row_array();
+	        $userinfo= $this->db->select('notices,messages_unread')->where('uid',$this->session->userdata('uid'))->get('users')->row_array();
 	        $data['myinfo']=array(
 				'uid'=>$this->session->userdata('uid'),
 				'username'=>$this->session->userdata('username'),
@@ -57,8 +57,8 @@ class SB_Controller extends Base_Controller
 				'favorites'=>$this->session->userdata('favorites'),
 				'follows'=>$this->session->userdata('follows'),
 				'credit'=>$this->session->userdata('credit'),
-				'notices'=>@$notices['notices'],
-				'messages_unread'=>$this->session->userdata('messages_unread'),
+				'notices'=>@$userinfo['notices'],
+				'messages_unread'=>@$userinfo['messages_unread'],
 				'lastpost'=>$this->session->userdata('lastpost')
 	        );
         }

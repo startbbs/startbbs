@@ -2,5 +2,6 @@
 install.lock
 uploads
 data/
+/themes/light
 *.cache
 *.swp
