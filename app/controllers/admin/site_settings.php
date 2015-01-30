@@ -124,7 +124,7 @@ class Site_settings extends Admin_Controller
 		}
 		//存储设定
 		$this->config->load('qiniu');
-		if($_POST && $_GET['a']=='storage'){
+		if($_POST && @$_GET['a']=='storage'){
 			$this->config->update('qiniu','storage_set', $this->input->post('storage_set'));
 			$this->config->update('qiniu','accesskey', $this->input->post('accesskey'));
 			$this->config->update('qiniu','secretkey', $this->input->post('secretkey'));
