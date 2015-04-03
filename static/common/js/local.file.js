@@ -5,7 +5,8 @@ $(document).ready(function(){
 });
 function doUpload() {
         // 上传方法
-        var token=$('#token').val();
+        //var token=$('#token').val();
+        var token = $('input[name=stb_csrf_token]').val();
         $.upload({
                         // 上传地址
                         url:baseurl+"index.php/upload/upload_file/", 
