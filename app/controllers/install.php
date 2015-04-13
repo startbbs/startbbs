@@ -336,7 +336,7 @@ class Install extends Install_Controller
     public function testdb($dbhost='host', $dbuser='user', $dbpsw='psw', $dbname='name',$port='3306')
     {
         if(function_exists(@mysqli_connect)){
-            $con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
+            $con = @mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
         } else {
 			$con = @mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
 			$con = @mysql_select_db($dbname,$con);
