@@ -56,9 +56,9 @@
                                 <a class="btn btn-primary btn-block" href="<?php echo site_url('install/check');?>" role="button">接受协议并继续</a>
                             </center>
                     </div>
-                    <center class="panel-footer">
+                    <div class="panel-footer" style="text-align: center">
                         Copyright © 2014 <a href="http://startbbs.com">StartBBS</a>. All rights reserved.
-                    </center>
+                    </div>
                 </div>
             </div>
         </div>

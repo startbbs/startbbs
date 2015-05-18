@@ -338,15 +338,21 @@ class Install extends Install_Controller
         if(function_exists(@mysqli_connect)){
             $con = @mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
         } else {
-			$con = @mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
+			$con = @mysql_connect($dbhost.':'.$port,$dbuser,$dbpsw);
 			$con = @mysql_select_db($dbname,$con);
         }
-		
+
+        $result = array(
+            'code' => 400,
+            'msg' => "数据库连接失败，请重新输入数据库信息！"
+        );
+
         if ($con) {
-            echo "<font color=green><b>数据库连接成功！</b></font>";
-        } else {
-            echo "<font color=red><b>数据库连接失败，请重新输入数据库信息！</b></font>";
+            $result['code'] = 200;
+            $result['msg'] = "数据库连接成功！";
         }
+
+        echo json_encode($result);
     }
 
 }

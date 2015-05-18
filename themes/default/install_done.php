@@ -29,9 +29,9 @@
                             <br>
                         </center>
                     </div>
-                    <center class="panel-footer">
+                    <div class="panel-footer" style="text-align: center">
                         Copyright © 2014 <a href="http://startbbs.com">StartBBS</a>. All rights reserved.
-                    </center>
+                    </div>
                 </div>
             </div>
         </div>

@@ -91,16 +91,16 @@
                                     <input type="text" class="form-control" id="email" name="email" value="startbbs@126.com" placeholder="startbbs@126.com">
                                 </div>
                             </div>
-                            <center>
+                            <div style="text-align: center">
                                 <br>
                                 <button type="submit" class="btn btn-primary btn-block">创建数据</button>
-                            </center>
+                            </div>
 
                         </form>
                     </div>
-                    <center class="panel-footer">
+                    <div class="panel-footer" style="text-align: center">
                         Copyright © 2014 <a href="http://startbbs.com">StartBBS</a>. All rights reserved.
-                    </center>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,7 +111,12 @@
                                     $.ajax({
                                         url: '<?php echo site_url('install/testdb');?>'+'/'+document.getElementById("dbhost").value+'/'+document.getElementById("dbuser").value+'/'+document.getElementById("dbpsw").value+'/'+document.getElementById("dbname").value+'/'+document.getElementById("port").value,
                                         success: function(data) {
-                                          $("#testdb").html(data);
+                                            var obj = JSON.parse(data);
+                                            var fcolor = 'red';
+                                            if (obj.code == 200) {
+                                                fcolor = "green";
+                                            }
+                                            $("#testdb").html('<div style="color: ' + fcolor + '; font-weight: bloder;">' + obj.msg + '</div>');
                                       }});
                                 });
                             });
