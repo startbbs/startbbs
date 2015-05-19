@@ -48,6 +48,8 @@
                                 <label for="dbname" class="col-md-2 col-md-offset-1 control-label">数据库名</label>
                                 <div class="col-md-7">
                                     <input type="text" class="form-control" id="dbname" name="dbname" value="<?php echo set_value('dbname')?>">
+                                    <input type="checkbox" id="dbcreate" name="dbcreate" disabled>
+                                    <label>新建</label>
 	                            	<span class="help-block red"><?php echo form_error('dbname');?></span>
                                 </div> 
                             </div>
@@ -93,7 +95,7 @@
                             </div>
                             <div style="text-align: center">
                                 <br>
-                                <button type="submit" class="btn btn-primary btn-block">创建数据</button>
+                                <button type="submit" id="check" class="btn btn-primary btn-block">创建数据</button>
                             </div>
 
                         </form>
@@ -106,17 +108,55 @@
         </div>
     </div>
                             <script type="text/javascript">
-                            $(document).ready(function(){
+                            $(function(){
+
+                                //获取输入信息
+                                function get_inputs() {
+                                    var dbhost = $("#dbhost").val();
+                                    var dbport = $("#port").val();
+                                    var dbuser = $("#dbuser").val();
+                                    var dbpwd = $("#dbpsw").val();
+                                    var dbname = $("#dbname").val();
+
+                                    if (! dbhost || ! dbuser || ! dbname || ! dbhost || ! dbport) {
+                                        $("#testdb").html('<div style="color: brown; font-weight: bolder;">数据库信息错误</div>');
+                                        return false;
+                                    }
+
+                                    return {dbhost:dbhost,dbport:dbport,dbuser:dbuser,dbpwd:dbpwd,dbname:dbname};
+                                }
+
+                                //检测数据库信息
+                                $("#check").click(function(){
+                                    var obj = get_inputs();
+                                    if (!obj) return false;
+                                })
+
+                                //填写数据库名及离开焦点后
                                 $("#dbname").blur(function(){
+                                    var obj = get_inputs();
+                                    if (!obj) return false;
+
+                                    var url = '<?php echo site_url('install/testdb');?>'+'/' + obj.dbhost +'/' + obj.dbuser +'/' + obj.dbpwd +'/' + obj.dbname + '/' + obj.dbport;
                                     $.ajax({
-                                        url: '<?php echo site_url('install/testdb');?>'+'/'+document.getElementById("dbhost").value+'/'+document.getElementById("dbuser").value+'/'+document.getElementById("dbpsw").value+'/'+document.getElementById("dbname").value+'/'+document.getElementById("port").value,
+                                        url: url,
                                         success: function(data) {
                                             var obj = JSON.parse(data);
                                             var fcolor = 'red';
+                                            var cr_dis = true;  //新建数据库选项
+                                            var cr_sel = false;
                                             if (obj.code == 200) {
                                                 fcolor = "green";
+                                            } else if (obj.code == 1049) {
+                                                obj.msg = "请检测数据库是否存在";
+                                                cr_dis = false;
+                                                cr_sel = true;
                                             }
-                                            $("#testdb").html('<div style="color: ' + fcolor + '; font-weight: bloder;">' + obj.msg + '</div>');
+
+                                            $("#dbcreate").attr("disabled", cr_dis);  //禁用
+                                            $("#dbcreate").attr("checked", cr_sel);  //选中
+                                            //if (cr_sel == true) obj.msg = "将启用新数据库安装";
+                                            $("#testdb").html('<div style="color: ' + fcolor + '; font-weight: bolder;">' + obj.msg + '</div>');
                                       }});
                                 });
                             });

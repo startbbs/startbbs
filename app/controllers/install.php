@@ -192,7 +192,7 @@ class Install extends Install_Controller
             $dbuser = $this->input->post('dbuser');
             $dbpsw = $this->input->post('dbpsw');
             $dbname = $this->input->post('dbname');
-            $port =$this->input->post('port');
+            $dbport =$this->input->post('port');
             $dbprefix = $this->input->post('dbprefix');
 			$salt =get_salt();
 			$password= password_dohash($this->input->post('password'),$salt);
@@ -207,15 +207,29 @@ class Install extends Install_Controller
                 'regtime' => time(),
                 'ip' => get_onlineip()
             );
+
+            //创建数据库
+            $dbcreate = $this->input->post('dbcreate');
+            if ($dbcreate) {
+                $create_db = "CREATE DATABASE ".$dbname;
+                if (function_exists(@mysqli_connect)) {
+                    $create_con = mysqli_connect($dbhost, $dbuser, $dbpsw);
+                    mysqli_query($create_con, $create_db);
+                } else {
+                    $create_con = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
+                    mysql_query($create_db, $create_con);
+                }
+            }
+
             if(function_exists(@mysqli_connect)){
-	            $con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
+	            $con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$dbport);
             } else {
 				$con = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
             }
             //检查数据库信息是否正确
             if (!$con) {
+                header("Content-type: text/html; charset=utf-8");
                 $string='
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <script>
                 alert("无法访问数据库，请重新安装！");
                 top.location="'.site_url('install').'";
@@ -225,10 +239,10 @@ class Install extends Install_Controller
             }
 
             //写入数据库配置文件
-            $this->_writeDBConfig($dbhost, $dbuser, $dbpsw, $dbname, $port,$dbprefix);
+            $this->_writeDBConfig($dbhost, $dbuser, $dbpsw, $dbname, $dbport,$dbprefix);
 
             //创建数据表
-            $this->_createTables($dbhost, $dbuser, $dbpsw, $dbname, $port, $dbprefix,$con);
+            $this->_createTables($dbhost, $dbuser, $dbpsw, $dbname, $dbport, $dbprefix,$con);
 
             //禁止安装的文件
             file_put_contents(FCPATH.'install.lock', time());
@@ -333,18 +347,20 @@ class Install extends Install_Controller
     /**
      * 测试数据库连接
      */
-    public function testdb($dbhost='host', $dbuser='user', $dbpsw='psw', $dbname='name',$port='3306')
+    public function testdb($dbhost='host', $dbuser='user', $dbpsw='psw', $dbname='name',$dbport='3306')
     {
         if(function_exists(@mysqli_connect)){
-            $con = @mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$port);
+            $con = @mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$dbport);
+            $code = mysqli_connect_errno();
         } else {
-			$con = @mysql_connect($dbhost.':'.$port,$dbuser,$dbpsw);
-			$con = @mysql_select_db($dbname,$con);
+			$con = @mysql_connect($dbhost.':'.$dbport, $dbuser, $dbpsw);
+			$con = @mysql_select_db($dbname, $con);
+            $code = mysql_errno();
         }
 
         $result = array(
-            'code' => 400,
-            'msg' => "数据库连接失败，请重新输入数据库信息！"
+            'code' => $code,
+            'msg' => "数据库连接失败，请重新输入数据库信息！",
         );
 
         if ($con) {
