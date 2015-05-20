@@ -11,6 +11,8 @@
 class Link_m extends SB_Model
 {
 
+    const TB_LINKS = "links";
+
 	function __construct ()
 	{
 		parent::__construct();
@@ -23,7 +25,7 @@ class Link_m extends SB_Model
 		if($limit)
 		$this->db->limit($limit);
 		
-		$query = $this->db->get_where('links',array('is_hidden'=>0));
+		$query = $this->db->get_where(self::TB_LINKS,array('is_hidden'=>0));
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}
@@ -31,21 +33,19 @@ class Link_m extends SB_Model
     
     public function get_link_by_id($id)
     {
-    	$query = $this->db->get_where('links',array('id'=>$id));
+    	$query = $this->db->get_where(self::TB_LINKS,array('id'=>$id));
     	return $query->row_array();
     }
 
     public function add_link($data)
     {
-    	$this->db->insert('links',$data);
+    	$this->db->insert(self::TB_LINKS,$data);
     	return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
     }
 
 	public function get_all_links($page,$limit)
 	{
-		$this->db->select('id,name,url,is_hidden');
-		$this->db->limit($limit,$page);
-		$query = $this->db->get('links');
+		$query = $this->db->select('id,name,url,is_hidden')->limit($limit,$page)->get(self::TB_LINKS);
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}
@@ -53,14 +53,13 @@ class Link_m extends SB_Model
 
 	function del_link($id)
 	{
-		$this->db->where('id', $id)->delete('links');
+        $this->db->delete(self::TB_LINKS, array('id' => $id));
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 
 
 	function update_link($id, $data){
-		$this->db->where('id',$id);
-  		$this->db->update('links', $data); 
+  		$this->db->where('id',$id)->update(self::TB_LINKS, $data);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
     

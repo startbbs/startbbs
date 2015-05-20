@@ -48,7 +48,7 @@
                                 <label for="dbname" class="col-md-2 col-md-offset-1 control-label">数据库名</label>
                                 <div class="col-md-7">
                                     <input type="text" class="form-control" id="dbname" name="dbname" value="<?php echo set_value('dbname')?>">
-                                    <input type="checkbox" id="dbcreate" name="dbcreate" disabled>
+                                    <input type="checkbox" id="dbcreate" name="dbcreate" >
                                     <label>新建</label>
 	                            	<span class="help-block red"><?php echo form_error('dbname');?></span>
                                 </div> 
@@ -109,6 +109,8 @@
     </div>
                             <script type="text/javascript">
                             $(function(){
+                                //数据库连接
+                                var dblink = true;
 
                                 //获取输入信息
                                 function get_inputs() {
@@ -128,37 +130,45 @@
 
                                 //检测数据库信息
                                 $("#check").click(function(){
+                                    var tip = "请检查数据库信息";
                                     var obj = get_inputs();
-                                    if (!obj) return false;
-                                })
+                                    //字段空值
+                                    if (! obj) {
+                                        $("#testdb").html('<div style="color: red; font-weight: bolder;">' + tip + '</div>');
+                                        return false;
+                                    }
 
-                                //填写数据库名及离开焦点后
-                                $("#dbname").blur(function(){
-                                    var obj = get_inputs();
-                                    if (!obj) return false;
-
+                                    var cb = false;
                                     var url = '<?php echo site_url('install/testdb');?>'+'/' + obj.dbhost +'/' + obj.dbuser +'/' + obj.dbpwd +'/' + obj.dbname + '/' + obj.dbport;
                                     $.ajax({
                                         url: url,
                                         success: function(data) {
+                                            var cre_db = $("#dbcreate").prop("checked");
+                                            console.log(cre_db);
                                             var obj = JSON.parse(data);
-                                            var fcolor = 'red';
-                                            var cr_dis = true;  //新建数据库选项
-                                            var cr_sel = false;
+                                            var fcolor = "red";
                                             if (obj.code == 200) {
                                                 fcolor = "green";
+                                                sub(true);
+                                            } else if (obj.code == 1045) {
+                                                obj.msg = "请检测数据用户信息错误";
                                             } else if (obj.code == 1049) {
-                                                obj.msg = "请检测数据库是否存在";
-                                                cr_dis = false;
-                                                cr_sel = true;
+                                                if (cre_db) {
+                                                    sub(true);
+                                                } else {
+                                                    obj.msg = "请检测数据库是否存在";
+                                                }
+                                            } else {
+                                                obj.msg = "未知错误";
                                             }
-
-                                            $("#dbcreate").attr("disabled", cr_dis);  //禁用
-                                            $("#dbcreate").attr("checked", cr_sel);  //选中
-                                            //if (cr_sel == true) obj.msg = "将启用新数据库安装";
                                             $("#testdb").html('<div style="color: ' + fcolor + '; font-weight: bolder;">' + obj.msg + '</div>');
-                                      }});
+                                        }});
+                                    function sub(res) {
+                                        return res;
+                                    }
+                                    return true;
                                 });
+
                             });
                             </script>
 </body>

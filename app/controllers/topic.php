@@ -21,14 +21,16 @@ class topic extends SB_controller
 
 	public function show ($topic_id=1,$page=1)
 	{
-		
+
 		$content = $this->topic_m->get_topic_by_topic_id($topic_id);
+        die();
 		if(!$content){
 			show_message('贴子不存在',site_url('/'));
 		} elseif(!$this->auth->user_permit($content['node_id'])){//权限
 			show_message('您无权访问此节点中的贴子');
 		} else {
 			//$this->output->cache(1);
+            die();
 			$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 			//取出处理
 			$content['content']=stripslashes($content['content']);
@@ -40,7 +42,7 @@ class topic extends SB_controller
 			//	$this->myclass->notice('alert("贴子不存在");window.location.href="'.site_url('/').'";');
 			//	exit;
 			//}
-			
+			die();
 
 			//更新浏览数
 			$this->db->where('topic_id',$content['topic_id'])->update('topics',array('views'=>$content['views']+1));

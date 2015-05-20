@@ -11,29 +11,32 @@
 class topic_m extends SB_Model
 {
 
+    const TB_NODES = "nodes";
+    const TB_TOPICS = "topics";
+    const TB_USERS = "users";
+
 	function __construct ()
 	{
 		parent::__construct();
 		$this->load->library('myclass');
-		
 	}
 
 	/*
 	获取栏目条目
+	* result部分有点疑问 by Skiychan
 	*/
 	public function count_topics($node_id)
 	{
 		$this->db->select('listnum');
 		if($node_id==0){
-			$query = $this->db->get('nodes');
+			$query = $this->db->get(self::TB_NODES);
 		} else{
-			$query = $this->db->get_where('nodes',array('node_id'=>$node_id));
+			$query = $this->db->get_where(self::TB_NODES,array('node_id'=>$node_id));
 		}
 		foreach ($query->result() as $row)
 		{
 		    return $row->listnum;
 		}
-
     }
 
 	
@@ -41,10 +44,10 @@ class topic_m extends SB_Model
 	public function get_topics_list ($page, $limit, $node_id)
 	{
 		$this->db->select('a.*,b.username, b.avatar, c.username as rname, d.cname');
-		$this->db->from('topics a');
-		$this->db->join('users b','b.uid = a.uid','left');
-		$this->db->join('users c','c.uid = a.ruid','left');
-		$this->db->join('nodes d','d.node_id = a.node_id','left');
+		$this->db->from(self::TB_TOPICS.' a');
+		$this->db->join(self::TB_USERS.' b','b.uid = a.uid','left');
+		$this->db->join(self::TB_USERS.' c','c.uid = a.ruid','left');
+		$this->db->join(self::TB_NODES.' d','d.node_id = a.node_id','left');
 		if($node_id!=0){
 			$this->db->where('a.node_id',$node_id);
 		}
@@ -84,12 +87,11 @@ $query=$this->db->query($sql);
 	/*最新XX条贴子*/
 	public function get_latest_topics ($limit)
 	{
-		$this->db->select('topic_id,title,updatetime');
-		$this->db->from('topics');
-		$this->db->where('is_hidden',0);
-		$this->db->order_by('updatetime','desc');
-		$this->db->limit($limit);
-		$query = $this->db->get();
+		$query = $this->db->select('topic_id,title,updatetime')
+            ->where(array('is_hidden' => 0))
+            ->order_by('updatetime','desc')
+            ->limit($limit)
+            ->get(self::TB_TOPICS);
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}
@@ -98,42 +100,43 @@ $query=$this->db->query($sql);
 	/*贴子列表，无分页*/
 	public function get_topics_list_nopage ($limit)
 	{
-		$this->db->select('topics.*,b.username, b.avatar, c.username as rname, d.cname');
-		$this->db->from('topics');
-		$this->db->join('users b','b.uid = topics.uid','left');
-		$this->db->join('users c','c.uid = topics.ruid','left');
-		$this->db->join('nodes d','d.node_id = topics.node_id','left');
-		$this->db->where('topics.is_hidden',0);
+		$this->db->select('t.*,b.username, b.avatar, c.username as rname, d.cname');
+		$this->db->from(self::TB_TOPICS.' t');
+		$this->db->join(self::TB_USERS.' b','b.uid = t.uid','left');
+		$this->db->join(self::TB_USERS.' c','c.uid = t.ruid','left');
+		$this->db->join(self::TB_NODES.' d','d.node_id = t.node_id','left');
+		$this->db->where('t.is_hidden',0);
 		$this->db->order_by('ord','desc');
 		$this->db->limit($limit);
 		$query = $this->db->get();
 		if($query->num_rows() > 0){
 			return $query->result_array();
-			
 		}
     }
 
     public function get_topic_by_topic_id ($topic_id)
     {
-		$this->db->select('topics.*,users.username, users.avatar');
-		$this->db->join('users', 'users.uid = topics.uid');
-    	$query = $this->db->where('topic_id',$topic_id)->get('topics');
+    	$query = $this->db->select('t.*,u.username, u.avatar')
+                ->join(self::TB_USERS.' u', 'u.uid = t.uid', 'left')
+                ->where('topic_id',$topic_id)
+                ->from(self::TB_TOPICS.' t')->get();
     	return $query->row_array();
     }
 
     public function add($data)
     {
-    	$this->db->insert('topics',$data);
+    	$this->db->insert(self::TB_TOPICS, $data);
     	return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
     }
+
 	public function get_topics_by_uid($uid,$num)
 	{
-		$this->db->select('topics.*, b.username as rname,c.cname');
-		$this->db->from('topics');
-		$this->db->where('topics.uid',$uid);
-		$this->db->where('topics.is_hidden',0);
-		$this->db->join('users b', 'b.uid= topics.ruid','left');
-		$this->db->join('nodes c','c.node_id = topics.node_id','left');
+		$this->db->select('t.*, b.username as rname,c.cname');
+		$this->db->from(self::TB_TOPICS.' t');
+		$this->db->where('t.uid',$uid);
+		$this->db->where('t.is_hidden',0);
+		$this->db->join(self::TB_USERS.' b', 'b.uid= t.ruid','left');
+		$this->db->join(self::TB_NODES.' c','c.node_id = t.node_id','left');
 		$this->db->limit($num);
 		$this->db->order_by('updatetime','desc');
 		$query = $this->db->get();
@@ -142,12 +145,12 @@ $query=$this->db->query($sql);
 
 	public function get_topics_by_uids($uids,$num)
 	{
-		$this->db->select('topics.*, b.username, b.avatar, c.username as rname,d.cname');
-		$this->db->from('topics');
-		$this->db->where_in('topics.uid',$uids);
-		$this->db->join('users b', 'b.uid= topics.uid','left');
-		$this->db->join('users c', 'c.uid= topics.ruid','left');
-		$this->db->join('nodes d','d.node_id = topics.node_id','left');
+		$this->db->select('t.*, b.username, b.avatar, c.username as rname,d.cname');
+		$this->db->from(self::TB_TOPICS.' t');
+		$this->db->where_in('t.uid',$uids);
+		$this->db->join(self::TB_USERS.' b', 'b.uid= t.uid','left');
+		$this->db->join(self::TB_USERS.' c', 'c.uid= t.ruid','left');
+		$this->db->join(self::TB_NODES.' d','d.node_id = t.node_id','left');
 		$this->db->limit($num);
 		$this->db->order_by('updatetime','desc');
 		$query = $this->db->get();
@@ -156,9 +159,9 @@ $query=$this->db->query($sql);
 	public function get_all_topics($page, $limit)
 	{
 		$this->db->select('a.topic_id, a.title, a.addtime, a.views, a.uid, a.comments, a.is_top, a.is_hidden, b.cname, b.node_id, c.username');
-		$this->db->from('topics a');
-		$this->db->join('nodes b','b.node_id = a.node_id');
-		$this->db->join('users c', 'c.uid = a.uid');
+		$this->db->from(self::TB_TOPICS.' a');
+		$this->db->join(self::TB_NODES.' b','b.node_id = a.node_id');
+		$this->db->join(self::TB_USERS.' c', 'c.uid = a.uid');
 		$this->db->order_by('ord','desc');
 		$this->db->limit($limit,$page);
 		$query = $this->db->get();
@@ -169,18 +172,17 @@ $query=$this->db->query($sql);
 
 	function del_topic($topic_id,$node_id,$uid)
 	{
-		$this->db->where('topic_id', $topic_id)->delete('topics');
+		$this->db->where('topic_id', $topic_id)->delete(self::TB_TOPICS);
 		//更新分类中的贴子数
-		$this->db->set('listnum','listnum-1',FALSE)->where('node_id',$node_id)->update('nodes');
+		$this->db->set('listnum','listnum-1',FALSE)->where('node_id',$node_id)->update(self::TB_NODES);
 		//更新用户中的贴子数
-		$this->db->set('topics','topics-1',FALSE)->where('uid',$uid)->update('users');
+		$this->db->set('topics','topics-1',FALSE)->where('uid',$uid)->update(self::TB_USERS);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 
 
 	function update_topic($topic_id, $data){
-		$this->db->where('topic_id',$topic_id);
-  		$this->db->update('topics', $data); 
+  		$this->db->where('topic_id',$topic_id)->update(self::TB_TOPICS, $data);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 
@@ -198,7 +200,7 @@ $query=$this->db->query($sql);
 		}
 		$arr['updatetime'] = time();
 		
-    	if($this->db->where('topic_id',$topic_id)->update('topics', $arr)){
+    	if($this->db->where('topic_id',$topic_id)->update(self::TB_TOPICS, $arr)){
 	    	return true;
     	}
     }
@@ -213,7 +215,7 @@ $query=$this->db->query($sql);
 			$this->db->select_min('topic_id')
 			->where('topic_id >',$topic_id);
 		}
-		$query = $this->db->get('topics');
+		$query = $this->db->get(self::TB_TOPICS);
 		if($query->num_rows() >0)
 		{
 			return $query->row_array();
@@ -233,7 +235,7 @@ $query=$this->db->query($sql);
 			$this->db->where('MATCH (title) AGAINST ("'.$keyword.'" IN BOOLEAN MODE)',null,FALSE);
 		}
 		$this->db->limit($limit,$page);
-		$query=$this->db->get('topics');
+		$query=$this->db->get(self::TB_TOPICS);
 		//$query=$this->db->query($sql);
 		
 		return $query->result_array();

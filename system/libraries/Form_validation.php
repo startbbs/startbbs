@@ -5,8 +5,9 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @author		EllisLab Dev Team
+ * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -21,7 +22,7 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Validation
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/form_validation.html
  */
 class CI_Form_validation {
@@ -973,12 +974,12 @@ class CI_Form_validation {
 			return FALSE;
 		}
 
-		//if (function_exists('mb_strlen'))
-		//{
-		//	return (mb_strlen($str) < $val) ? FALSE : TRUE;
-		//}
+		if (function_exists('mb_strlen'))
+		{
+			return (mb_strlen($str) < $val) ? FALSE : TRUE;
+		}
 
-		return (str_len($str) < $val) ? FALSE : TRUE;
+		return (strlen($str) < $val) ? FALSE : TRUE;
 	}
 
 	// --------------------------------------------------------------------
@@ -998,12 +999,12 @@ class CI_Form_validation {
 			return FALSE;
 		}
 
-		//if (function_exists('mb_strlen'))
-		//{
-		//	return (mb_strlen($str) > $val) ? FALSE : TRUE;
-		//}
+		if (function_exists('mb_strlen'))
+		{
+			return (mb_strlen($str) > $val) ? FALSE : TRUE;
+		}
 
-		return (str_len($str) > $val) ? FALSE : TRUE;
+		return (strlen($str) > $val) ? FALSE : TRUE;
 	}
 
 	// --------------------------------------------------------------------

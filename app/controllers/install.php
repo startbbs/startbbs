@@ -208,31 +208,36 @@ class Install extends Install_Controller
                 'ip' => get_onlineip()
             );
 
-            //创建数据库
-            $dbcreate = $this->input->post('dbcreate');
-            if ($dbcreate) {
-                $create_db = "CREATE DATABASE ".$dbname;
-                if (function_exists(@mysqli_connect)) {
-                    $create_con = mysqli_connect($dbhost, $dbuser, $dbpsw);
-                    mysqli_query($create_con, $create_db);
-                } else {
-                    $create_con = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
-                    mysql_query($create_db, $create_con);
-                }
-            }
-
+            $create_tag = true;
+            create_database:
             if(function_exists(@mysqli_connect)){
 	            $con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$dbport);
             } else {
 				$con = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
             }
+
+            //创建数据库
+            $dbcreate = $this->input->post('dbcreate');
+            if (! $con && $create_tag && $dbcreate) {
+                $create_tag = false;
+                $create_db = "CREATE DATABASE ".$dbname;
+                if (function_exists(@mysqli_connect)) {
+                    $create_con = @mysqli_connect($dbhost, $dbuser, $dbpsw);
+                    mysqli_query($create_con, $create_db);
+                } else {
+                    $create_con = @mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
+                    mysql_query($create_db, $create_con);
+                }
+                goto create_database;
+            }
             //检查数据库信息是否正确
             if (!$con) {
+
                 header("Content-type: text/html; charset=utf-8");
                 $string='
                 <script>
                 alert("无法访问数据库，请重新安装！");
-                top.location="'.site_url('install').'";
+                //top.location="'.site_url('install').'";
                 </script>
                 ';
                 exit($string);

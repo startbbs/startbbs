@@ -15,8 +15,8 @@ class Home extends SB_Controller
 
 		$this->load->model('topic_m');
 		$this->load->model('cate_m');
-		$this->load->library('myclass');
 		$this->load->model('link_m');
+        $this->load->library('myclass');
 		$this->home_page_num=($this->config->item('home_page_num'))?$this->config->item('home_page_num'):20;
 		
 	}
