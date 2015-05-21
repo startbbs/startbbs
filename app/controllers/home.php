@@ -6,22 +6,26 @@
 #	author :doudou QQ:858292510 startbbs@126.com
 #	Copyright (c) 2013 http://www.startbbs.com All rights reserved.
 #/doc
+/**
+ * Author: Skiychan <developer@zzzzy.com>
+ * Website: www.skiy.net   QQ:1005043848
+ */
 
 class Home extends SB_Controller
 {
-	function __construct ()
+	public function __construct ()
 	{
 		parent::__construct();
-
-		$this->load->model('topic_m');
-		$this->load->model('cate_m');
-		$this->load->model('link_m');
-		$this->load->model('stat_m');
-		$this->load->model('user_m');
+		$models = array('topic_m', 'cate_m', 'link_m', 'stat_m', 'user_m');
+		$this->load->model($models);
         $this->load->library('myclass');
 		$this->home_page_num=($this->config->item('home_page_num'))?$this->config->item('home_page_num'):20;
 		
 	}
+
+	/**
+	 * 首页
+	 */
 	public function index ()
 	{
 		//获取列表
@@ -64,7 +68,11 @@ class Home extends SB_Controller
 		$this->load->view('search', $data);
 	}
 
-	public function getmore ($page=1)
+	/**
+	 * 取得更多
+	 * @param int $page 页码
+	 */
+	public function getmore($page=1)
 	{
 		//分页
 		$limit = $this->home_page_num;
@@ -76,16 +84,13 @@ class Home extends SB_Controller
 		$config['first_link'] ='首页';
 		$config['last_link'] ='尾页';
 		$config['num_links'] = 10;
-		
-		$this->load->library('pagination');
-		$this->pagination->initialize($config);
-		
-		$start = ($page-1)*$limit;
-		$data['pagination'] = $this->pagination->create_links();
 
+		$this->load->library('pagination');  //pagination
+		//$this->pagination->initialize($config);  //既然已经定义了个pagination.php了，应该不需要再加载了货了
+		$start = ($page - 1) * $limit;
+		$data['pagination'] = $this->pagination->create_links();
 		//获取列表
 		$data['topic_list'] = $this->topic_m->get_topics_list($start, $limit, 0);
-		
 		//$data['category'] = $this->cate_m->get_category_by_node_id($node_id);
 		$this->load->view('getmore', $data);
 	}

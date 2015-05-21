@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $config = array (
-  'site_name' => 'StartBBS- 开源微社区-烧饼bbs',
+  'site_name' => 'StartBBS - 开源微社区 - 烧饼bbs',
   'index_page' => 'index.php',
   'show_captcha' => 'on',
   'site_close' => 'on',

@@ -187,7 +187,6 @@ $query=$this->db->query($sql);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 
-    
 	//置顶及更新
     public function set_top($topic_id,$is_top,$update=0)
     {
@@ -205,6 +204,14 @@ $query=$this->db->query($sql);
 	    	return true;
     	}
     }
+
+	/**
+	 * 更新浏览数
+	 */
+	public function set_views($tid) {
+		$this->db->set('views', 'views+1', FALSE);
+		$this->db->where(array('topic_id' => $tid))->update(self::TB_TOPICS);
+	}
 
 	public function get_near_id($topic_id,$node_id,$position)
 	{
@@ -238,10 +245,7 @@ $query=$this->db->query($sql);
 		$this->db->limit($limit,$page);
 		$query=$this->db->get(self::TB_TOPICS);
 		//$query=$this->db->query($sql);
-		
 		return $query->result_array();
-
-			
 	}
 
 /*    	public function get_topics_list ($page, $per_page = 1, $node_id)
@@ -259,6 +263,4 @@ $query=$this->db->query($sql);
 			return show_error('消息!!!!!!!');
 		}
     }*/
-
-
 }

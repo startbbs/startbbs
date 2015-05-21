@@ -27,11 +27,10 @@ class Cate_m extends SB_Model
 	{
 		$this->db->select('node_id,pid,cname,ico,content,listnum,master');
 		$this->db->order_by('pid', 'desc');
-		$query=$this->db->get(self::TB_NODES)->result_array();
-		if(!empty($query)){
-			foreach($query as $k=>$v){
+		$query = $this->db->get(self::TB_NODES)->result_array();
+		if(!empty($query)) {
+			foreach($query as $k=>$v) {
 				$cates[$v['pid']][] = $v;
-				
 			}
 		}
 		return @$cates;
@@ -70,8 +69,4 @@ class Cate_m extends SB_Model
 	{
 		return $this->db->select('node_id')->get(self::TB_NODES)->result_array();
 	}
-
-	
-	
-
 }

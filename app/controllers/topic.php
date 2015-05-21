@@ -9,17 +9,20 @@
 
 class topic extends SB_controller
 {
-
-	function __construct ()
+	public function __construct ()
 	{
 		parent::__construct();
-		$this->load->model('topic_m');
-		$this->load->model('cate_m');
+		$models = array('topic_m', 'cate_m', 'nodes_m');
+		$this->load->model($models);
 		$this->load->library('myclass');
 		$this->load->library('form_validation');
 	}
 
-	public function show ($topic_id=1,$page=1)
+	public function index() {
+		show_message('贴子不存在',site_url('/'));
+	}
+
+	public function show($topic_id=1 ,$page=1)
 	{
 
 		$content = $this->topic_m->get_topic_by_topic_id($topic_id);
@@ -41,8 +44,8 @@ class topic extends SB_controller
 			//}
 
 			//更新浏览数
-			$this->db->where('topic_id',$content['topic_id'])->update('topics',array('views'=>$content['views']+1));
-			
+			$this->topic_m->set_views($content['topic_id']);
+
 			//评论分页
 			$limit = 10;
 			$config['uri_segment'] = 4;
@@ -68,58 +71,57 @@ class topic extends SB_controller
 			$config['num_links'] = 10;
 			
 			$this->load->library('pagination');
-			$this->pagination->initialize($config);
+			//$this->pagination->initialize($config);
 			
-			$start = ($page-1)*$limit;
+			$start = ($page - 1) * $limit;
 			$data['page'] = $page;
 			$data['pagination'] = $this->pagination->create_links();
 			//获取评论
-			$this->load->model ( 'comment_m' );
-			$data['comment']= $this->comment_m->get_comment ($start,$limit,$topic_id,$this->config->item('comment_order'));
+			$this->load->model('comment_m');
+			$data['comment']= $this->comment_m->get_comment($start,$limit,$topic_id,$this->config->item('comment_order'));
 
 			//获取当前分类
-			$data['cate']=$this->db->get_where('nodes',array('node_id'=>$content['node_id']))->row_array();
+			$data['cate'] = $this->nodes_m->get_cat($content['node_id']);
 
 			//上下主题
-			$data['content']['previous'] = $this->topic_m->get_near_id($topic_id,$data['cate']['node_id'],0);
-			$data['content']['next'] = $this->topic_m->get_near_id($topic_id,$data['cate']['node_id'],1);
-			$data['content']['previous']=$data['content']['previous']['topic_id'];
-			$data['content']['next']=$data['content']['next']['topic_id'];
+			$data['content']['previous'] = $this->topic_m->get_near_id($topic_id,$data['cate']['node_id'], 0);
+			$data['content']['next'] = $this->topic_m->get_near_id($topic_id,$data['cate']['node_id'], 1);
+			$data['content']['previous'] = $data['content']['previous']['topic_id'];
+			$data['content']['next'] = $data['content']['next']['topic_id'];
 			
 			// 判断是不是已被收藏
 			$data['in_favorites'] = '';
 			$uid = $this->session->userdata('uid');
 			if($uid){
 				$user_fav = $this->db->get_where('favorites',array('uid'=>$uid))->row_array();
-			
-				if($user_fav && $user_fav['content']){
-					if(strpos(' ,'.$user_fav['content'].',', ','.$topic_id.',') ){
+				if ($user_fav && $user_fav['content']) {
+					if (strpos(' ,'.$user_fav['content'].',', ','.$topic_id.',')) {
 						$data['in_favorites'] = '1';
 					}
 				}
 			}
 			//关键字tag
-			if($content['keywords']){
+			if ($content['keywords']) {
 				$data['tags'] = explode(',',$content['keywords']);
 				$data['content']['keywords'] = $content['keywords'];
 			} else{
 				$data['content']['keywords'] = $content['title'];
 			}
 			//描述
-			$data['content']['description']= sb_substr(cleanhtml($content['content']),200);
+			$data['content']['description'] = sb_substr(cleanhtml($content['content']), 200);
 
 			//自定义tag_url
-			$data['tag_url']=array_keys($this->router->routes,'tag/show/$1');
+			$data['tag_url'] = array_keys($this->router->routes, 'tag/show/$1');
 
 			if(is_array(@$data['tags'])){
 				foreach($data['tags'] as $k=>$v){
-					$data['tag_list'][$k]['tag_title']=$v;
-					$data['tag_list'][$k]['tag_url']=str_replace('(:any)',urlencode($v),$data['tag_url'][0]);
+					$data['tag_list'][$k]['tag_title'] = $v;
+					$data['tag_list'][$k]['tag_url'] = str_replace('(:any)',urlencode($v),$data['tag_url'][0]);
 				}
 			}
 			
 			//相关贴子
-			if(isset($data['tags'])){
+			if (isset($data['tags'])) {
 				$this->load->model('tag_m');
 				$data['related_topic_list'] = $this->tag_m->get_related_topics_by_tag($data['tags'],10);
 				

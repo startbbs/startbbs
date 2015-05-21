@@ -10,7 +10,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  * @version :  0.0.1
  */
 
-class stat_m extends SB_Controller {
+class Stat_m extends SB_Model {
 
     const TB_STAT = "site_stats";
 
@@ -22,5 +22,7 @@ class stat_m extends SB_Controller {
         return $this->db->get(self::TB_STAT)->result_array();
     }
 
-
+    public function get_item($item) {
+        return $this->db->get_where(self::TB_STAT, array('item' => $item), 1)->row_array();
+    }
 }
