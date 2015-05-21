@@ -16,6 +16,8 @@ class Home extends SB_Controller
 		$this->load->model('topic_m');
 		$this->load->model('cate_m');
 		$this->load->model('link_m');
+		$this->load->model('stat_m');
+		$this->load->model('user_m');
         $this->load->library('myclass');
 		$this->home_page_num=($this->config->item('home_page_num'))?$this->config->item('home_page_num'):20;
 		
@@ -24,34 +26,42 @@ class Home extends SB_Controller
 	{
 		//获取列表
 		$data['topic_list'] = $this->topic_m->get_topics_list_nopage($this->home_page_num);
-		$data['catelist'] =$this->cate_m->get_all_cates();
+		$data['catelist'] = $this->cate_m->get_all_cates();
 		//echo var_dump($data['catelist']);
 
 		$this->db->cache_on();
-		$stats=$this->db->get('site_stats')->result_array();
-		$data['stats']=array_column($stats, 'value', 'item');
-		$data['last_user']=$this->db->select('username')->where('uid',@$data['stats']['last_uid'])->get('users')->row_array();
+		$stats = $this->stat_m->get_list();
+		$data['stats'] = array_column($stats, 'value', 'item');
+		$data['last_user'] = $this->user_m->get_username_by_uid(@$data['stats']['last_uid']);
 		$data['stats']['last_username']=@$data['last_user']['username'];
 		$this->db->cache_off();
 
 		//links
-		$data['links']=$this->link_m->get_latest_links();
+		$data['links'] = $this->link_m->get_latest_links();
 
 		//action
 		$data['action'] = 'home';
 		$this->load->view('home',$data);
 
 	}
+
+	/**
+	 * 最新5篇文章
+	 */
 	public function latest()
 	{
 		$data['list'] = $this->topic_m->get_topics_list_nopage(5);
 		$this->load->view('latest',$data);
 	}
+
+	/**
+	 * 搜索
+	 */
 	public function search()
 	{
 		$data['q'] = $this->input->get('q', TRUE);
 		$data['title'] = '搜索';
-		$this->load->view('search',$data);
+		$this->load->view('search', $data);
 	}
 
 	public function getmore ($page=1)

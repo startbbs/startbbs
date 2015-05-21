@@ -98,7 +98,7 @@ $query=$this->db->query($sql);
     }
 
 	/*贴子列表，无分页*/
-	public function get_topics_list_nopage ($limit)
+	public function get_topics_list_nopage($limit)
 	{
 		$this->db->select('t.*,b.username, b.avatar, c.username as rname, d.cname');
 		$this->db->from(self::TB_TOPICS.' t');
@@ -109,6 +109,7 @@ $query=$this->db->query($sql);
 		$this->db->order_by('ord','desc');
 		$this->db->limit($limit);
 		$query = $this->db->get();
+		file_put_contents('t.txt', $this->db->last_query());
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}
@@ -116,10 +117,10 @@ $query=$this->db->query($sql);
 
     public function get_topic_by_topic_id ($topic_id)
     {
-    	$query = $this->db->select('t.*,u.username, u.avatar')
-                ->join(self::TB_USERS.' u', 'u.uid = t.uid', 'left')
+    	$query = $this->db->select(self::TB_TOPICS.'.*,u.username, u.avatar')
+                ->join(self::TB_USERS.' u', 'u.uid = '.self::TB_TOPICS.'.uid', 'left')
                 ->where('topic_id',$topic_id)
-                ->from(self::TB_TOPICS.' t')->get();
+                ->from(self::TB_TOPICS)->get();
     	return $query->row_array();
     }
 

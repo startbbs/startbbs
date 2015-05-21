@@ -16,10 +16,10 @@
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">搜索: <span class="red">#<?php echo $keyword;?></span> (<?php echo $topic_num;?>)</h3>
+                        <h3 class="panel-title">搜索: <?php if (isset($keyword)) { ?><span class="red">#<?php echo $keyword;?></span> (<?php echo $topic_num;?>) <?php } ?></h3>
                     </div>
                     <div class="panel-body">
-	                    <?php if($search_list):?>
+	                    <?php if (isset($search_list) && !empty($search_list)):?>
                         <ul class="media-list">
 							<?php foreach($search_list as $v):?>
                             <li class="media">

@@ -11,6 +11,8 @@
 class User_m extends SB_Model
 {
 
+	const TB_USERS = 'users';
+
 	function __construct ()
 	{
 		parent::__construct();
@@ -44,8 +46,13 @@ class User_m extends SB_Model
 	}
 	public function get_user_by_uid($uid)
 	{
-		$query = $this->db->get_where('users', array('uid'=>$uid));
+		$query = $this->db->get_where(self::TB_USERS, array('uid'=>$uid), 1);
 		return $query->row_array();
+	}
+
+	public function get_username_by_uid($uid) {
+		$this->db->select('username');
+		return $this->get_user_by_uid($uid);
 	}
 
 	function update_user($uid, $data){
