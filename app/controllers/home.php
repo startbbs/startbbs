@@ -36,7 +36,7 @@ class Home extends SB_Controller
 		$this->db->cache_on();
 		$stats = $this->stat_m->get_list();
 		$data['stats'] = array_column($stats, 'value', 'item');
-		$data['last_user'] = $this->user_m->get_username_by_uid(@$data['stats']['last_uid']);
+		$data['last_user'] = $this->user_m->get_user_by_uid(@$data['stats']['last_uid'], 'username');
 		$data['stats']['last_username']=@$data['last_user']['username'];
 		$this->db->cache_off();
 

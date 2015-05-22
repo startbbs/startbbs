@@ -88,7 +88,7 @@
                                     <?php echo $v['content']; ?>
                                     </p>
 									<?php if($this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
-									<p class="pull-right link-text-muted"><a href="javascript:if(confirm('确实要删除吗?'))location='<?php echo site_url('comment/del/'.$content['node_id'].'/'.$v['topic_id'].'/'.$v['id']);?>'"><span class="glyphicon glyphicon-trash"></span> 删除</a><?php }?>
+									<p class="pull-right link-text-muted"><a href="javascript:;" data-comment="<?php echo $content['node_id'].'/'.$v['topic_id'].'/'.$v['id']; ?>"><span class="glyphicon glyphicon-trash"></span> 删除</a><?php }?>
 									<?php if($this->auth->is_user($v['uid']) || $this->auth->is_admin() || $this->auth->is_master($cate['node_id'])){?>
 									 <a href="<?php echo site_url('comment/edit/'.$content['node_id'].'/'.$v['topic_id'].'/'.$v['id']);?>"><span class="glyphicon glyphicon-align-left"></span> 编辑</a></p>
 									 <?php }?>

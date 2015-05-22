@@ -26,7 +26,7 @@ class topic extends SB_controller
 	{
 
 		$content = $this->topic_m->get_topic_by_topic_id($topic_id);
-		if(!$content){
+		if (!$content) {
 			show_message('贴子不存在',site_url('/'));
 		} elseif(!$this->auth->user_permit($content['node_id'])){//权限
 			show_message('您无权访问此节点中的贴子');
@@ -92,7 +92,7 @@ class topic extends SB_controller
 			// 判断是不是已被收藏
 			$data['in_favorites'] = '';
 			$uid = $this->session->userdata('uid');
-			if($uid){
+			if ($uid) {
 				$user_fav = $this->db->get_where('favorites',array('uid'=>$uid))->row_array();
 				if ($user_fav && $user_fav['content']) {
 					if (strpos(' ,'.$user_fav['content'].',', ','.$topic_id.',')) {

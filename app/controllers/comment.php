@@ -13,20 +13,25 @@ class Comment extends SB_Controller
 	function __construct ()
 	{
 		parent::__construct();
-		$this->load->library('myclass');
-		$this->load->library('session');
-		$this->uid = $this->session->userdata('uid');
 		$this->config->load('topicset');
+		$this->load->library('session');
+		$this->load->library('myclass');
 		$this->load->library('form_validation');
+
+		$models = array('topic_m', 'comment_m', 'user_m', 'stat_m');
+		$this->load->model($models);
+		$this->uid = $this->session->userdata('uid');
 	}
 
 	public function add_comment ()
 	{
-		if(empty($this->uid)) {
+		if (empty($this->uid)) {
 			show_message('请登录后再发表',site_url('user/login/'));
 		}
-		if($this->form_validation->run() === TRUE){
-			if(time()-$this->input->post('lastpost')<$this->config->item('timespan')){
+		if ($this->form_validation->run() === TRUE) {
+			header("Content-Type: application/json; charset=utf-8;");
+
+			if (time() - $this->input->post('lastpost') < $this->config->item('timespan')) {
 				$callback['error']='发帖最小间隔时间是'.$this->config->item('timespan').'秒!';
 				echo json_encode($callback);
 				exit;
@@ -42,7 +47,7 @@ class Comment extends SB_Controller
 			$this->load->helper('format_content');
 			$data['content'] = format_content($data['content']);
 			//数据返回
-			$query=$this->db->select('comments')->get_where('topics', array('topic_id'=>$data['topic_id']))->row_array();
+			$query = $this->topic_m->get_info_by_topic_id($data['topic_id'], 'comments');
 			$callback = array(
 				//'content' => stripslashes(format_content(filter_check($data['content']))),
 				'content' => $data['content'],
@@ -61,85 +66,86 @@ class Comment extends SB_Controller
 				//$data['content'] = format_content($data['content']);
 			//}
 			//@会员功能
-			$comment= $data['content'];
+			$comment = $data['content'];
 			$pattern = "/@([^@^\\s^:]{1,})([\\s\\:\\,\\;]{0,1})/";
 			preg_match_all ( $pattern, $comment, $matches );
 			$matches [1] = array_unique($matches [1]);
 			foreach ( $matches [1] as $u ) {
 				if ($u) {
-					//var_dump($u);
-					$res =$this->user_m->get_user_msg('',$u) ;
+					$res = $this->user_m->get_user_msg('', $u) ;
 					if ($res['uid']) {
-						$search [] = '@'.$u;
-						$replace [] = '<a target="_blank" href="'.site_url('user/profile/'.$res['uid']).'" >@' . $u . '</a>';
-						if($this->uid!=$res['uid']){
+						$search[] = '@'.$u;
+						$replace[] = '<a target="_blank" href="'.site_url('user/profile/'.$res['uid']).'" >@' . $u . '</a>';
+						if ($this->uid != $res['uid']) {
 							//@提醒someone
 							$this->load->model('notifications_m');
-							$this->notifications_m->notice_insert($data['topic_id'],$this->uid,$res['uid'],1);
+							$this->notifications_m->notice_insert($data['topic_id'], $this->uid, $res['uid'],1);
 							//更新接收人的提醒数
-							$this->db->set('notices','notices+1',FALSE)->where('uid', $res['uid'])->update('users');
+							$this->user_m->set_notices($res['uid']);
 						}
 					}
 				}
 			}
 			$data['content'] = str_replace( @$search, @$replace, $comment);
 
-			//入库
-			$this->load->model('comment_m');
 			$this->comment_m->add_comment($data);
-			//更新用户的回复数/最后发贴时间
-			$this->db->set('replies','replies+1',FALSE)->set('lastpost',time(),false)->where('uid',$this->uid)->update('users');
+			$this->user_m->set_reply_time($this->uid);
 			//返回callback
-			$user=$this->db->select('lastpost')->where('uid',$this->uid)->get('users')->row_array();
-			$callback['lastpost']=@$user['lastpost'];
+			$user = $this->user_m->get_user_by_uid($this->uid, 'lastpost');
+			$callback['lastpost'] = @$user['lastpost'];
 			echo json_encode($callback);
 
 			//更新回复数,最后回复用户,最后回复时间,更新时间,ord时间
-			$this->load->model('topic_m');
-			$this->topic_m->set_top($this->input->post('topic_id'),$this->input->post('is_top'),1);//已更新时间
-			$this->db->set('ruid',$this->session->userdata('uid'),FALSE)->set('comments','comments+1',FALSE)->set('lastreply',time(),FALSE)->where('topic_id',$this->input->post('topic_id'))->update('topics');
-			////回复提醒作者
-			$topic = $this->db->select('uid')->where('topic_id',$data['topic_id'])->get('topics')->row_array();
-			if($this->uid!=$topic['uid']){
+			$this->topic_m->set_top($this->input->post('topic_id'), $this->input->post('is_top'), 1);//已更新时间
+			$this->topic_m->set_reply($this->input->post('topic_id'), $this->session->userdata('uid'));
+
+			//回复提醒作者
+			$topic = $this->topic_m->get_info_by_topic_id($data['topic_id'], 'uid');
+			if ($this->uid != $topic['uid']){
 				$this->load->model('notifications_m');
-				$this->notifications_m->notice_insert($data['topic_id'],$this->uid,$topic['uid'],0);
+				$this->notifications_m->notice_insert($data['topic_id'], $this->uid,$topic['uid'], 0);
 				//更新作者的提醒数
-				$this->db->set('notices','notices+1',FALSE)->where('uid', $topic['uid'])->update('users');
+				$this->user_m->set_notices($topic['uid']);
 			}
 			//更新统计
-			$this->db->set('value','value+1',false)->where('item','total_comments')->update('site_stats');
-			$stats=$this->db->where('item','today_topics')->get('site_stats')->row_array();
-			if(!is_today(@$stats['update_time'])){
-				$this->db->set('value',@$stats['value'],false)->set('update_time',time(),false)->where('item','yesterday_topics')->update('site_stats');
-				$value=1;
-			} else{
+			$this->stat_m->set_item_val('total_comments');
+			$stats = $this->stat_m->get_item('today_topics');
+			if (!is_today(@$stats['update_time'])) {
+				$set_val = array(
+					'value' => array('set' => @$stats['value']),
+					'update_time' => array('set' => time())
+				);
+				$this->stat_m->set_item_val('yesterday_topics', $set_val);
+				$value = 1;
+			} else {
 				$value='value+1';
 			}
-			$this->db->set('value',$value,false)->set('update_time',time(),false)->where('item','today_topics')->update('site_stats');
+			$set_val2 = array(
+				'value' => array('set' => $value),
+				'update_time' => array('set' => time())
+			);
+			$this->stat_m->set_item_val('today_topics', $set_val2);
+
 			//更新会员积分
 			$this->config->load('userset');
-			$this->user_m->update_credit($this->uid,$this->config->item('credit_reply'));
-			$this->user_m->update_credit($topic['uid'],$this->config->item('credit_reply_by'));
+			$this->user_m->update_credit($this->uid, $this->config->item('credit_reply'));
+			$this->user_m->update_credit($topic['uid'], $this->config->item('credit_reply_by'));
 
 			//更新数据库缓存
 			$this->db->cache_delete('/default', 'index');
 		}
-		
-//		$this->load->library('myclass');
-//		$this->myclass->notice('window.history.go(-1);');
 	}
-	
-	//删除回复
-	public function del($node_id,$topic_id,$id)
+
+	/**
+	 * 删除评论
+	 * @param $node_id 版块id
+	 * @param $topic_id 帖子id
+	 * @param $id 评论id
+	 */
+	public function del($node_id, $topic_id, $id)
 	{
-		if($this->auth->is_admin() || $this->auth->is_master($node_id)){
-			if($this->db->where('id',$id)->delete('comments')){
-				//更新贴子回复数
-				$this->db->set('comments','comments-1',FALSE)->where('topic_id',$topic_id)->update('topics');
-				//更新用户的回复数
-				$this->db->set('replies','replies-1',FALSE)->where('uid',$this->uid)->update('users');
-				//更新统计
-				$this->db->set('value','value-1',false)->where('item','total_comments')->update('site_stats');
+		if ($this->auth->is_admin() || $this->auth->is_master($node_id)){
+			if ($this->comment_m->del_comment_by_id($id)){
 				redirect('topic/show/'.$topic_id);
 			}
 		} else {

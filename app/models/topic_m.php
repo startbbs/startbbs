@@ -109,7 +109,6 @@ $query=$this->db->query($sql);
 		$this->db->order_by('ord','desc');
 		$this->db->limit($limit);
 		$query = $this->db->get();
-		file_put_contents('t.txt', $this->db->last_query());
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		}
@@ -117,12 +116,23 @@ $query=$this->db->query($sql);
 
     public function get_topic_by_topic_id ($topic_id)
     {
-    	$query = $this->db->select(self::TB_TOPICS.'.*,u.username, u.avatar')
-                ->join(self::TB_USERS.' u', 'u.uid = '.self::TB_TOPICS.'.uid', 'left')
+    	$query = $this->db->select('t.*,u.username, u.avatar')
+				->from(self::TB_TOPICS.' t')
+                ->join(self::TB_USERS.' u', 'u.uid = t.uid', 'left')
                 ->where('topic_id',$topic_id)
-                ->from(self::TB_TOPICS)->get();
+                ->get();
     	return $query->row_array();
     }
+
+	/**
+	 * 通过topic_id获取单条文章信息
+	 * @param string $feild 获取字段名
+	 * @return mixed
+	 */
+	public function get_info_by_topic_id($tid, $feild='') {
+		$this->db->select($feild);
+		return $this->db->get_where(self::TB_TOPICS, array('topic_id' => $tid), 1)->row_array();
+	}
 
     public function add($data)
     {
@@ -187,22 +197,35 @@ $query=$this->db->query($sql);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 
-	//置顶及更新
-    public function set_top($topic_id,$is_top,$update=0)
+	/**
+	 * 更新文章信息
+	 * @param $tid
+	 * @return bool
+	 */
+	private function set_info_by_topic_id($tid) {
+		if ($this->db->where('topic_id', $tid)->update(self::TB_TOPICS)){
+			return TRUE;
+		}
+	}
+
+	/**
+	 * 置顶及更新
+	 * @param $tid
+	 * @param $is_top
+	 * @param int $update
+	 * @return bool
+	 */
+    public function set_top($tid, $is_top, $update=0)
     {
-		$arr=array();
-		if($update==0){
-	    	$arr['is_top']=($is_top==0)?1:0;
-			$arr['ord'] = (3-2*$is_top)*time();
+		if ($update == 0) {
+			$this->db->set('is_top', ($is_top == 0) ? 1 : 0);
+			$this->db->set('ord', (3 - 2 * $is_top) * time());
 		}
-		if($update==1){
-			$arr['ord'] = (2*$is_top+1)*time();
+		if ($update == 1) {
+			$this->db->set('ord', (2 * $is_top + 1) *time());
 		}
-		$arr['updatetime'] = time();
-		
-    	if($this->db->where('topic_id',$topic_id)->update(self::TB_TOPICS, $arr)){
-	    	return true;
-    	}
+		$this->db->set('updatetime', time());
+		$this->set_info_by_topic_id($tid);
     }
 
 	/**
@@ -210,7 +233,14 @@ $query=$this->db->query($sql);
 	 */
 	public function set_views($tid) {
 		$this->db->set('views', 'views+1', FALSE);
-		$this->db->where(array('topic_id' => $tid))->update(self::TB_TOPICS);
+		$this->set_info_by_topic_id($tid);
+	}
+
+	public function set_reply($tid, $ruid) {
+		$this->db->set('ruid',$ruid)
+					->set('comments', 'comments+1',FALSE)
+					->set('lastreply', time());
+		$this->set_info_by_topic_id($tid);
 	}
 
 	public function get_near_id($topic_id,$node_id,$position)

@@ -11,6 +11,11 @@
 class Comment_m extends SB_Model
 {
 
+	const TB_COMMENTS = "comments";
+	const TB_TOPICS = "topics";
+	const TB_USERS = "users";
+	const TB_STAT = "site_stats";
+
 	function __construct ()
 	{
 		parent::__construct();
@@ -18,7 +23,7 @@ class Comment_m extends SB_Model
 
 	public function add_comment ($data)
 	{
-		$this->db->insert('comments', $data);
+		$this->db->insert(self::TB_COMMENTS, $data);
 	}
 	
 	function get_comment($page,$limit,$topic_id,$order='desc'){
@@ -64,12 +69,31 @@ class Comment_m extends SB_Model
 		}
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
-	
+
+	/**
+	 * 通过评论id获取评论
+	 * @param $id
+	 * @return mixed
+	 */
 	function get_comment_by_id ($id)
 	{
 		$this->db->select('id,topic_id,content,uid')->where('id',$id);
-		$query = $this->db->get('comments');
+		$query = $this->db->get(self::TB_COMMENTS);
 		return $query->row_array();
+	}
+
+	public function del_comment_by_id($id, $tid, $uid) {
+		$this->db->where('id',$id)->delete(self::TB_COMMENTS);
+		if ($this->db->affected_rows() == 0) return FALSE;
+
+		//更新贴子回复数
+		$this->db->set('comments', 'comments-1', FALSE)->where('topic_id',$tid)->update(self::TB_TOPICS);
+		//更新用户的回复数
+		$this->db->set('replies', 'replies-1', FALSE)->where('uid', $uid)->update(self::TB_USERS);
+		//更新统计
+		$this->db->set('value', 'value-1', FALSE)->where('item','total_comments')->update(self::TB_STAT);
+
+		return TRUE;
 	}
 }
 

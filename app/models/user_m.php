@@ -37,22 +37,24 @@ class User_m extends SB_Model
 		}
     }
 	function check_register($email){
-		$query = $this->db->get_where('users',array('email'=>$email));
+		$query = $this->db->get_where(self::TB_USERS, array('email'=>$email));
         return $query->row_array();
 	}
 	function get_user_by_username($username){
 		$query = $this->db->select('a.*,b.*')->from('users a')->join('user_groups b','b.group_type=a.group_type','LEFT')->where('a.username',$username)->get();
         return $query->row_array();
 	}
-	public function get_user_by_uid($uid)
-	{
+
+	/**
+	 * 通过uid查找用户信息
+	 * @param $uid
+	 * @param $field 需要查找的字段
+	 * @return mixed
+	 */
+	public function get_user_by_uid($uid, $field) {
+		$this->db->select($field);
 		$query = $this->db->get_where(self::TB_USERS, array('uid'=>$uid), 1);
 		return $query->row_array();
-	}
-
-	public function get_username_by_uid($uid) {
-		$this->db->select('username');
-		return $this->get_user_by_uid($uid);
 	}
 
 	function update_user($uid, $data){
@@ -123,9 +125,17 @@ class User_m extends SB_Model
 		$query = $this->db->limit(1)->get_where('users', array('username'=>$username));
 		return $query->result_array();
 	}
+
+	/**
+	 * 更新积分
+	 * @param $uid
+	 * @param $credit
+	 * @return bool
+	 */
 	public function update_credit($uid,$credit)
 	{
-		$this->db->set('credit','credit+'.$credit,false)->where('uid',$uid)->update('users');
+		$this->db->set('credit', 'credit+'.$credit, FALSE);
+		$this->set_user_by_uid($uid);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 	function del($uid)
@@ -155,7 +165,33 @@ class User_m extends SB_Model
 			$this->db->where_in('topic_id',@$topic_ids)->delete('comments');
 			$this->db->where('uid',$uid)->delete('topics');
 		}
-
 	}
 
+	/**
+	 * 更新通知
+	 * @param $uid
+	 */
+	public function set_notices($uid) {
+		$this->db->set('notices','notices+1',FALSE);
+		$this->set_user_by_uid($uid);
+	}
+
+	/**
+	 * 更新用户的回复数/最后发贴时间
+	 * @param $uid
+	 */
+	public function set_reply_time($uid) {
+		$this->db->set('replies','replies+1',FALSE);
+		$this->db->set('lastpost',time(),FALSE);
+		$this->set_user_by_uid($uid);
+	}
+
+	/**
+	 * 更新用户信息
+	 * @param $uid
+	 */
+	private function set_user_by_uid($uid) {
+		$this->db->where('uid', $uid);
+		$this->db->update(self::TB_USERS);
+	}
 }
