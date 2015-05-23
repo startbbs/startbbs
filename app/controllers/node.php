@@ -7,6 +7,11 @@
 #	Copyright (c) 2013 http://www.startbbs.com All rights reserved.
 #/doc
 
+/**
+ * Class Node
+ * Author: Skiychan <developer@zzzzy.com>
+ * Website: www.skiy.net   QQ:1005043848
+ */
 class Node extends SB_Controller
 {
 	function __construct ()
@@ -17,6 +22,9 @@ class Node extends SB_Controller
 		$this->load->library('myclass');
 	}
 
+	/**
+	 * 版块列表
+	 */
 	public function index ()
 	{
 		$data['title'] = '版块列表';

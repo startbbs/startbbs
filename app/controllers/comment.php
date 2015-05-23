@@ -81,7 +81,7 @@ class Comment extends SB_Controller
 							$this->load->model('notifications_m');
 							$this->notifications_m->notice_insert($data['topic_id'], $this->uid, $res['uid'],1);
 							//更新接收人的提醒数
-							$this->user_m->set_notices($res['uid']);
+							$this->user_m->set_uid_val($res['uid'], array('notices' => 'notices+1'));
 						}
 					}
 				}
@@ -89,7 +89,11 @@ class Comment extends SB_Controller
 			$data['content'] = str_replace( @$search, @$replace, $comment);
 
 			$this->comment_m->add_comment($data);
-			$this->user_m->set_reply_time($this->uid);
+			$r_time = array(
+				'replies' => 'replies+1',
+				'lastpost' => time()
+			);
+			$this->user_m->set_uid_val($this->uid, $r_time);
 			//返回callback
 			$user = $this->user_m->get_user_by_uid($this->uid, 'lastpost');
 			$callback['lastpost'] = @$user['lastpost'];
@@ -105,15 +109,15 @@ class Comment extends SB_Controller
 				$this->load->model('notifications_m');
 				$this->notifications_m->notice_insert($data['topic_id'], $this->uid,$topic['uid'], 0);
 				//更新作者的提醒数
-				$this->user_m->set_notices($topic['uid']);
+				$this->user_m->set_uid_val($topic['uid'], array('notices' => 'notices+1'));
 			}
 			//更新统计
 			$this->stat_m->set_item_val('total_comments');
 			$stats = $this->stat_m->get_item('today_topics');
-			if (!is_today(@$stats['update_time'])) {
+			if (! is_today(@$stats['update_time'])) {
 				$set_val = array(
-					'value' => array('set' => @$stats['value']),
-					'update_time' => array('set' => time())
+					'value' => array(@$stats['value']),
+					'update_time' => array(time())
 				);
 				$this->stat_m->set_item_val('yesterday_topics', $set_val);
 				$value = 1;
@@ -121,15 +125,15 @@ class Comment extends SB_Controller
 				$value='value+1';
 			}
 			$set_val2 = array(
-				'value' => array('set' => $value),
-				'update_time' => array('set' => time())
+				'value' => array($value),
+				'update_time' => array(time())
 			);
 			$this->stat_m->set_item_val('today_topics', $set_val2);
 
 			//更新会员积分
 			$this->config->load('userset');
-			$this->user_m->update_credit($this->uid, $this->config->item('credit_reply'));
-			$this->user_m->update_credit($topic['uid'], $this->config->item('credit_reply_by'));
+			$this->user_m->set_uid_val($this->uid, array('credit' => 'credit+'.$this->config->item('credit_reply')));
+			$this->user_m->set_uid_val($topic['uid'], array('credit' => 'credit+'.$this->config->item('credit_reply_by')));
 
 			//更新数据库缓存
 			$this->db->cache_delete('/default', 'index');

@@ -20,10 +20,19 @@ class Nodes_m extends CI_Model {
 
     /**
      * 获取版块信息
-     * @param $nid nodeid 版块id
+     * @param $node_id 版块id
      * @return mixed
      */
-    public function get_cat($nid) {
-        return $this->db->get_where(self::TB_NODES, array('node_id' => $nid), 1)->row_array();
+    public function get_cat($node_id) {
+        return $this->db->get_where(self::TB_NODES, array('node_id' => $node_id), 1)->row_array();
+    }
+
+    /**
+     * 贴子数递增
+     * @param $node_id
+     * @param $field 递增的字段
+     */
+    public function set_increase($node_id, $field) {
+        $this->db->set($field, $field.'+1',FALSE)->where('node_id',$node_id)->update(self::TB_NODES);
     }
 }

@@ -7,6 +7,7 @@
 #	Copyright (c) 2013 http://www.startbbs.com All rights reserved.
 #/doc
 /**
+ * Class Home
  * Author: Skiychan <developer@zzzzy.com>
  * Website: www.skiy.net   QQ:1005043848
  */
@@ -94,5 +95,4 @@ class Home extends SB_Controller
 		//$data['category'] = $this->cate_m->get_category_by_node_id($node_id);
 		$this->load->view('getmore', $data);
 	}
-
 }

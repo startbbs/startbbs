@@ -47,7 +47,7 @@ class Login extends Admin_Controller
 				$uid=$this->session->userdata('uid');
 				//更新积分
 				$this->config->load('userset');
-				$this->user_m->update_credit($uid,$this->config->item('credit_login'));
+				$this->user_m->set_uid_val($uid, array('credit' => 'credit+'.$this->config->item('credit_login')));
 				//更新最后登录时间
 				$this->user_m->update_user($uid,array('lastlogin'=>time()));
 				redirect('admin/login/index');

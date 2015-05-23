@@ -126,18 +126,6 @@ class User_m extends SB_Model
 		return $query->result_array();
 	}
 
-	/**
-	 * 更新积分
-	 * @param $uid
-	 * @param $credit
-	 * @return bool
-	 */
-	public function update_credit($uid,$credit)
-	{
-		$this->db->set('credit', 'credit+'.$credit, FALSE);
-		$this->set_user_by_uid($uid);
-		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
-	}
 	function del($uid)
 	{
 		$this->db->where('uid',$uid)->delete('users');
@@ -168,30 +156,18 @@ class User_m extends SB_Model
 	}
 
 	/**
-	 * 更新通知
+	 * 根据uid添加字段值
 	 * @param $uid
+	 * @param $def
+	 * @return bool|void
 	 */
-	public function set_notices($uid) {
-		$this->db->set('notices','notices+1',FALSE);
-		$this->set_user_by_uid($uid);
-	}
+	public function set_uid_val($uid, $def) {
+		if (! is_array($def)) return;
 
-	/**
-	 * 更新用户的回复数/最后发贴时间
-	 * @param $uid
-	 */
-	public function set_reply_time($uid) {
-		$this->db->set('replies','replies+1',FALSE);
-		$this->db->set('lastpost',time(),FALSE);
-		$this->set_user_by_uid($uid);
-	}
-
-	/**
-	 * 更新用户信息
-	 * @param $uid
-	 */
-	private function set_user_by_uid($uid) {
-		$this->db->where('uid', $uid);
-		$this->db->update(self::TB_USERS);
+		foreach ($def as $k => $v) {
+			$this->db->set($k, $v, FALSE);
+		}
+		$this->db->where('uid', $uid)->update(self::TB_USERS);
+		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 }

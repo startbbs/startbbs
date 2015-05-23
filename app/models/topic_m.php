@@ -181,7 +181,14 @@ $query=$this->db->query($sql);
 		}
 	}
 
-	function del_topic($topic_id,$node_id,$uid)
+	/**
+	 * 删除主题
+	 * @param $topic_id
+	 * @param $node_id
+	 * @param $uid
+	 * @return bool
+	 */
+	public function del_topic($topic_id, $node_id, $uid)
 	{
 		$this->db->where('topic_id', $topic_id)->delete(self::TB_TOPICS);
 		//更新分类中的贴子数

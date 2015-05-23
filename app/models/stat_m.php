@@ -42,10 +42,9 @@ class Stat_m extends SB_Model {
         } else {
             if (! is_array($def)) return;
             foreach ($def as $k => $v) {
-                $this->db->set($k, $v['set'], isset($v['convert']) ? TRUE : FALSE);
+                $this->db->set($k, $v[0], isset($v[1]) ? TRUE : FALSE);
             }
         }
         $this->db->where('item', $item)->update(self::TB_STAT);
     }
-
 }
