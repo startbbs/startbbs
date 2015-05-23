@@ -1,4 +1,8 @@
 $(function () {        //DOM的onload事件处理函数
+
+    /* 初始化弹窗提示 */
+    $('[data-toggle="popover"]').popover();
+
     $("#comment-submit").click(function () {          //当按钮button被点击时的处理函数
         if (check_content()) {
             postdata();
@@ -17,15 +21,26 @@ $(function () {        //DOM的onload事件处理函数
     });
 
     $(".pull-right a").click(function() {
-        var val = $(this).data('comment');
+        var that = $(this);
+        var rowObj = $(that.parents(".row")[0]);
+        var val = that.data('comment');
         var token = $("#token").val();
         $.ajax({
-            url: baseurl + "index.php/comment/del/" + val + "&stb_csrf_token=" + token,
+            url: baseurl + "index.php/comment/del/" + val + "/?stb_csrf_token=" + token,
             dateType: 'json',
-            success: function (obj) {
-                console.log(obj);
+            success: function (rep) {
+                if (rep.code == 2001) {
+                    rowObj.next(".smallhr").remove();
+                    rowObj.remove();
+                    //评论数减
+                    var comVal = $("#comments").text() - 1;
+                    $("#comments").html(comVal);
+                }
+                that.attr('data-content', rep.msg);
+                that.popover('show');
             }
         });
+        return false;
     });
 });
 function postdata() {                             //提交数据函数

@@ -82,7 +82,7 @@ class Comment_m extends SB_Model
 		return $query->row_array();
 	}
 
-	public function del_comment_by_id($id, $tid, $uid) {
+	public function del_comment_by_id($tid, $id, $uid) {
 		$this->db->where('id',$id)->delete(self::TB_COMMENTS);
 		if ($this->db->affected_rows() == 0) return FALSE;
 

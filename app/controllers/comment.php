@@ -144,14 +144,19 @@ class Comment extends SB_Controller
 	 */
 	public function del($node_id, $topic_id, $id)
 	{
+		$result = array('code' => 4001, 'msg' => "权限不足");
 		if ($this->auth->is_admin() || $this->auth->is_master($node_id)){
-			if ($this->comment_m->del_comment_by_id($id)){
-				redirect('topic/show/'.$topic_id);
+			if ($this->comment_m->del_comment_by_id($topic_id, $id, $this->uid)){
+				//redirect('topic/show/'.$topic_id);
+				$result['code'] = 2001;
+				$result['msg'] = "删除评论成功";
+			} else {
+				$result['code'] = 4002;
+				$result['msg'] = "删除评论失败";
 			}
-		} else {
-			show_message('非管理员或非本版块版主不能操作',site_url('topic/show/'.$topic_id));
 		}
-
+		header('Content-Type: application/json; charset=utf-8;');
+		echo json_encode($result);
 	}
 
 
