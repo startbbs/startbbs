@@ -159,16 +159,21 @@ class Comment extends SB_Controller
 		echo json_encode($result);
 	}
 
-
-	//编辑回复
-	public function edit($node_id,$topic_id,$id)
+	/**
+	 * 编辑评论
+	 * @param $node_id 版块id
+	 * @param $topic_id  主题id
+	 * @param $id 评论id
+	 */
+	public function edit($node_id, $topic_id, $id)
 	{
 		if(empty($node_id) || empty($topic_id) || empty($id)){
 			show_message('缺少参数哟',site_url('topic/show/'.$topic_id));
 		}
-		$this->load->model('comment_m');
-		$data['comment']=$this->comment_m->get_comment_by_id ($id);
-		if($this->auth->is_admin() || $this->auth->is_master($node_id) || $this->auth->is_user($data['comment']['uid'])){
+
+		$data['comment'] = $this->comment_m->get_comment_by_id($id);
+		if ($this->auth->is_admin() || $this->auth->is_master($node_id) ||
+			$this->auth->is_user($data['comment']['uid'])) {
 			//无编辑器时的处理
 			//if($this->config->item('show_editor')=='off'){
 			//	$data['comment']['content'] = filter_check($data['comment']['content']);
@@ -176,23 +181,23 @@ class Comment extends SB_Controller
 			//	$data['comment']['content'] = format_content($data['comment']['content']);
 			//	$data['comment']['content'] =br2nl($data['comment']['content'] );
 			//}
-			$data['comment']['content'] =br2nl($data['comment']['content'] );
-			$data['comment']['content'] = $this->input->post ('content')?$this->input->post ('content'):$data['comment']['content'];
-			$data['comment']['node_id']=$node_id;
+			$data['comment']['content'] = br2nl($data['comment']['content'] );
+			$data['comment']['content'] = $this->input->post('content') ? $this->input->post ('content') : $data['comment']['content'];
+			$data['comment']['node_id'] = $node_id;
 			//加载form类，为调用错误函数,需view前加载
 			$this->load->helper('form');
-			if($this->form_validation->run('comment/edit') === TRUE){
+			if ($this->form_validation->run('comment/edit') === TRUE) {
+				$this->load->helper('format_content');
 				//数据处理
 				$comment=array(
 					'content'=>$this->input->post('content',true),
 					'replytime'=>time()
 				);
-				$this->load->helper('format_content');
-				$comment['content']=format_content($comment['content']);
-				if($this->db->where('id',$id)->update('comments',$comment)){
-					//更新贴子回复时间
-					$this->load->model('topic_m');
-					$this->db->set('lastreply',time(),FALSE)->where('topic_id',$topic_id)->update('topics');
+				$comment['content'] = format_content($comment['content']);
+				//更新评论
+				if ($this->comment_m->update_comment($id, $comment)) {
+					//更新最后评论时间
+					$this->topic_m->update_topic($topic_id, array('lastreply' => time()));
 					redirect('topic/show/'.$topic_id);
 					exit;
 				}	
@@ -204,9 +209,5 @@ class Comment extends SB_Controller
 		} else {
 			show_message('非本人或管理员或本版块版主不能操作',site_url('topic/show/'.$topic_id));
 		}
-
 	}
-
-
-	
 }

@@ -82,18 +82,32 @@ class Comment_m extends SB_Model
 		return $query->row_array();
 	}
 
+	/**
+	 * 更新主题评论数，用户评论数，统计
+	 * @param $tid 主题id
+	 * @param $id 评论id
+	 * @param $uid 用户id
+	 * @return bool
+	 */
 	public function del_comment_by_id($tid, $id, $uid) {
 		$this->db->where('id',$id)->delete(self::TB_COMMENTS);
 		if ($this->db->affected_rows() == 0) return FALSE;
 
-		//更新贴子回复数
 		$this->db->set('comments', 'comments-1', FALSE)->where('topic_id',$tid)->update(self::TB_TOPICS);
-		//更新用户的回复数
 		$this->db->set('replies', 'replies-1', FALSE)->where('uid', $uid)->update(self::TB_USERS);
-		//更新统计
 		$this->db->set('value', 'value-1', FALSE)->where('item','total_comments')->update(self::TB_STAT);
 
 		return TRUE;
+	}
+
+	/**
+	 * 更新评论
+	 * @param $id 评论id
+	 * @param $comment 评论内容
+	 * @return mixed
+	 */
+	public function update_comment($id, $comment) {
+		return $this->db->where('id',$id)->update(self::TB_COMMENTS, $comment);
 	}
 }
 

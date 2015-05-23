@@ -191,9 +191,14 @@ $query=$this->db->query($sql);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 
-
-	function update_topic($topic_id, $data){
-  		$this->db->where('topic_id',$topic_id)->update(self::TB_TOPICS, $data);
+	/**
+	 * 更新主题
+	 * @param $tid
+	 * @param $data 内容
+	 * @return bool
+	 */
+	function update_topic($tid, $data){
+  		$this->db->where('topic_id',$tid)->update(self::TB_TOPICS, $data);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
 

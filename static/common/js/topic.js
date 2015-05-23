@@ -20,7 +20,7 @@ $(function () {        //DOM的onload事件处理函数
         $("#post_content").insertAtCaret('');
     });
 
-    $(".pull-right a").click(function() {
+    $(".pull-right").find('a:first').click(function() {
         var that = $(this);
         var rowObj = $(that.parents(".row")[0]);
         var val = that.data('comment');
