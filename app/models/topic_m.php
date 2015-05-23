@@ -7,7 +7,11 @@
 #	author :doudou QQ:858292510 startbbs@126.com
 #	Copyright (c) 2013 http://www.startbbs.com All rights reserved.
 #/doc
-
+/**
+ * Class topic_m
+ * Author: Skiychan <developer@zzzzy.com>
+ * Website: www.skiy.net   QQ:1005043848
+ */
 class topic_m extends SB_Model
 {
 
@@ -84,20 +88,28 @@ $query=$this->db->query($sql);
 		}
     }
 
-	/*最新XX条贴子*/
-	public function get_latest_topics ($limit)
+	/**
+	 * 最新XX条贴子
+	 * @param $limit
+	 * @return mixed
+	 */
+	public function get_latest_topics($limit)
 	{
 		$query = $this->db->select('topic_id,title,updatetime')
             ->where(array('is_hidden' => 0))
             ->order_by('updatetime','desc')
             ->limit($limit)
             ->get(self::TB_TOPICS);
-		if($query->num_rows() > 0){
+		if ($query->num_rows() > 0) {
 			return $query->result_array();
 		}
     }
 
-	/*贴子列表，无分页*/
+	/**
+	 * 无分页主题列表
+	 * @param $limit
+	 * @return mixed
+	 */
 	public function get_topics_list_nopage($limit)
 	{
 		$this->db->select('t.*,b.username, b.avatar, c.username as rname, d.cname');
@@ -114,33 +126,51 @@ $query=$this->db->query($sql);
 		}
     }
 
+	/**
+	 * 通过主题id取主题相关的全部信息
+	 * @param $topic_id
+	 * @return mixed
+	 */
     public function get_topic_by_topic_id ($topic_id)
     {
     	$query = $this->db->select('t.*,u.username, u.avatar')
 				->from(self::TB_TOPICS.' t')
                 ->join(self::TB_USERS.' u', 'u.uid = t.uid', 'left')
                 ->where('topic_id',$topic_id)
+				->limit(1)
                 ->get();
     	return $query->row_array();
     }
 
 	/**
-	 * 通过topic_id获取单条文章信息
+	 * 通过topic_id获取主题
+	 * @param $topic_id
 	 * @param string $feild 获取字段名
 	 * @return mixed
 	 */
-	public function get_info_by_topic_id($tid, $feild='') {
+	public function get_info_by_topic_id($topic_id, $feild='') {
 		$this->db->select($feild);
-		return $this->db->get_where(self::TB_TOPICS, array('topic_id' => $tid), 1)->row_array();
+		return $this->db->get_where(self::TB_TOPICS, array('topic_id' => $topic_id), 1)->row_array();
 	}
 
+	/**
+	 * 添加主题
+	 * @param $data
+	 * @return bool
+	 */
     public function add($data)
     {
     	$this->db->insert(self::TB_TOPICS, $data);
     	return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
     }
 
-	public function get_topics_by_uid($uid,$num)
+	/**
+	 * 通过用户取主题
+	 * @param $uid 用户id
+	 * @param $num 数量
+	 * @return mixed
+	 */
+	public function get_topics_by_uid($uid, $num)
 	{
 		$this->db->select('t.*, b.username as rname,c.cname');
 		$this->db->from(self::TB_TOPICS.' t');
@@ -154,7 +184,13 @@ $query=$this->db->query($sql);
 		return $query->result_array();
 	}
 
-	public function get_topics_by_uids($uids,$num)
+	/**
+	 * 通过一组用户取主题
+	 * @param $uids 一组用户
+	 * @param $num 主题数量
+	 * @return mixed
+	 */
+	public function get_topics_by_uids($uids, $num)
 	{
 		$this->db->select('t.*, b.username, b.avatar, c.username as rname,d.cname');
 		$this->db->from(self::TB_TOPICS.' t');
@@ -210,7 +246,7 @@ $query=$this->db->query($sql);
 	}
 
 	/**
-	 * 更新文章信息
+	 * 更新主题
 	 * @param $tid
 	 * @return bool
 	 */
@@ -248,45 +284,61 @@ $query=$this->db->query($sql);
 		$this->set_info_by_topic_id($tid);
 	}
 
-	public function set_reply($tid, $ruid) {
+	/**
+	 * 添加评论信息
+	 * @param $topic_id
+	 * @param $ruid
+	 */
+	public function set_reply($topic_id, $ruid) {
 		$this->db->set('ruid',$ruid)
 					->set('comments', 'comments+1',FALSE)
 					->set('lastreply', time());
-		$this->set_info_by_topic_id($tid);
+		$this->set_info_by_topic_id($topic_id);
 	}
 
-	public function get_near_id($topic_id,$node_id,$position)
+	/**
+	 * 取相临的主题
+	 * @param $topic_id 主题id
+	 * @param $node_id 版块id
+	 * @param $position 相临 0小于,1大于
+	 * @return bool
+	 */
+	public function get_near_id($topic_id, $node_id, $position)
 	{
-		if($position==0){
-			$this->db->select_max('topic_id')
-			->where('topic_id <',$topic_id);
+		if ($position == 0) {
+			$this->db->select_max('topic_id')->where('topic_id <', $topic_id);
 		}
-		if($position==1){
-			$this->db->select_min('topic_id')
-			->where('topic_id >',$topic_id);
+		if ($position == 1) {
+			$this->db->select_min('topic_id')->where('topic_id >', $topic_id);
 		}
+		$this->db->limit(1);
 		$query = $this->db->get(self::TB_TOPICS);
-		if($query->num_rows() >0)
+		if ($query->num_rows() >0)
 		{
 			return $query->row_array();
-		}
-		else{
-			return false;
+		} else {
+			return FALSE;
 		}
 	}
 
-	public function get_search_list($page,$limit,$keyword)
+	/**
+	 * 搜索列表
+	 * @param $page
+	 * @param $limit
+	 * @param $keyword
+	 * @return mixed
+	 */
+	public function get_search_list($page, $limit, $keyword)
 	{
-		$this->db->select('topic_id, title,updatetime,comments');
-		if(preg_match('/[\x80-\xff]./',$keyword)){
-			$this->db->like('title',$keyword);
-		}else{
-			$keyword=mysql_real_escape_string($keyword);
-			$this->db->where('MATCH (title) AGAINST ("'.$keyword.'" IN BOOLEAN MODE)',null,FALSE);
+		$this->db->select('topic_id,title,updatetime,comments');
+		if (preg_match('/[\x80-\xff]./', $keyword)){
+			$this->db->like('title', $keyword);
+		} else {
+			$keyword = mysql_real_escape_string($keyword);
+			$this->db->where('MATCH (title) AGAINST ("'.$keyword.'" IN BOOLEAN MODE)', NULL, FALSE);
 		}
-		$this->db->limit($limit,$page);
+		$this->db->limit($limit, $page);
 		$query=$this->db->get(self::TB_TOPICS);
-		//$query=$this->db->query($sql);
 		return $query->result_array();
 	}
 

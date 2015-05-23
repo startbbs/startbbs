@@ -51,8 +51,10 @@ class User_m extends SB_Model
 	 * @param $field 需要查找的字段
 	 * @return mixed
 	 */
-	public function get_user_by_uid($uid, $field) {
-		$this->db->select($field);
+	public function get_user_by_uid($uid, $field='') {
+		if (! empty($field)) {
+			$this->db->select($field);
+		}
 		$query = $this->db->get_where(self::TB_USERS, array('uid'=>$uid), 1);
 		return $query->row_array();
 	}
