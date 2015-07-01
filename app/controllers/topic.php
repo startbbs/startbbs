@@ -9,15 +9,16 @@
 
 /**
  * Class topic
- * Author: Skiychan <developer@zzzzy.com>
- * Website: www.skiy.net   QQ:1005043848
+ * @author: Skiychan <dev@skiy.net>
+ * @website: www.skiy.net
+ * @QQ: 1005043848
  */
 class topic extends SB_controller
 {
 	public function __construct ()
 	{
 		parent::__construct();
-		$models = array('topic_m', 'cate_m', 'nodes_m', 'tag_m', 'user_m', 'comment_m');
+		$models = array('topic_m', 'cate_m', 'nodes_m', 'tag_m', 'user_m', 'comment_m', 'stat_m');
 		$this->load->model($models);
 		$this->load->library('myclass');
 		$this->load->library('form_validation');
@@ -339,9 +340,9 @@ class topic extends SB_controller
 				$this->comment_m->del_comments_by_topic_id($topic_id, $uid);
 				//更新统计
 				$this->stat_m->set_item_val('total_topics', array('value' => 'value-1'));
-				$stats = $this->get_item('today_topics');
+				$stats = $this->stat_m->get_item('today_topics');
 				$value = is_today(@$stats['update_time']) ? 'value-1' : 0;
-				$this->stat_m->set_item_val('today_topics', array('value' => $value, 'update_time' => time()));
+				$this->stat_m->set_item_val('today_topics', array('value' => array($value), 'update_time' => array(time())));
 				//更新会员积分
 				$this->config->load('userset');
 				$this->user_m->set_uid_val($uid, array('credit' => 'credit+'.$this->config->item('credit_del')));

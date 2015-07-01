@@ -64,7 +64,7 @@ class Comment_m extends SB_Model
 			$this->db->update_batch('users', $user, 'uid');
 			
 			$this->db->where('topic_id', $topic_id)->delete('comments');
-			$rnum = mysql_affected_rows();
+			$rnum = $this->db->affected_rows();
 			$this->db->set('value','value-'.$rnum,FALSE)->where('item','total_comments')->update('site_stats');
 		}
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
