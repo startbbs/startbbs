@@ -157,7 +157,7 @@ class User extends SB_Controller
 				$this->user_m->update_user($uid,array('lastlogin'=>time()));
                 redirect();
             } else {
-                show_message('用户名或密错误!');
+                show_message('用户名或密码错误!');
             }
 		} else {
             $data['csrf_name'] = $this->security->get_csrf_token_name();

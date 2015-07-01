@@ -6,10 +6,10 @@
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
 <title><?php echo $user['username']?> - <?php echo $settings['site_name']?></title>
-<?php echo $this->load->view('common/header-meta')?>
+<?php $this->load->view('common/header-meta'); ?>
 </head>
 <body id="startbbs">
-<?php echo $this->load->view('common/header')?>
+<?php $this->load->view('common/header'); ?>
     <div class="container">
         <div class="row">
             <div class="col-md-8">

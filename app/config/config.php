@@ -9,7 +9,7 @@ $config['charset'] = 'UTF-8';
 $config['enable_hooks'] = FALSE;
 $config['subclass_prefix'] = 'MY_';
 //$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
-$config['permitted_uri_chars'] = '|^[a-z 0-9~%\.\:_\+\- \x{4e00}-\x{9fa5}]+$|iu';
+//$config['permitted_uri_chars'] = '|^[a-z 0-9~%\.\:_\+\- \x{4e00}-\x{9fa5}]+$|iu';  //t12
 $config['allow_get_array']		= TRUE;
 $config['enable_query_strings'] = FALSE;
 $config['controller_trigger']	= 'c';
@@ -22,12 +22,12 @@ $config['cache_path'] = '';
 $config['encryption_key'] = '';
 $config['sess_cookie_name']		= 'stb_session';
 $config['sess_expiration']		= 86400;
-$config['sess_expire_on_close']	= FALSE;
-$config['sess_encrypt_cookie']	= TRUE;
+//$config['sess_expire_on_close']	= FALSE;
+//$config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'stb_sessions';
 $config['sess_match_ip']		= FALSE;
-$config['sess_match_useragent']	= FALSE;
+//$config['sess_match_useragent']	= FALSE;
 $config['sess_time_to_update']	= 300;
 
 $config['cookie_prefix']	= "";
@@ -35,7 +35,7 @@ $config['cookie_domain']	= "";
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = NULL; //2.2.2 FALSE
 
 $config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'stb_csrf_token';

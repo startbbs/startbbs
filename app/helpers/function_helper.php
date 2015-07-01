@@ -365,7 +365,7 @@ function password_dohash($password,$salt)
 /*返回信息*/
 function show_message($message='', $url='', $status = 2, $heading='提示信息', $time = 1800)
 {
-    include APPPATH.'errors/show_message.php';
+    include VIEWPATH.'errors/html/show_message.php';
     exit;
 }
 
