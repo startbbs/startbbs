@@ -1,1 +1,1 @@
-### StartBBS的二次开发BBS有些Bug,需要大家参与,我也想顺便提高自己的技能。### Contact* Skiychan <developer@zzzzy.com>   * http://www.skiy.net###> 根据GPLv2的相关规定：只要这种修改文本在整体上或者其某个部分来源于遵循GPL的程序，该修改文本的整体就必须按照GPL流通，不仅该修改文本的源码必须向社 会公开，而且对于这种修改文本的流通不准许附加修改者自己作出的限制。   看了作者的开源协议，使用了GPLv2，里面有这个条款。
+### StartBBS的二次开发BBS有些Bug,需要大家参与,我也想顺便提高自己的技能。### Contact* @ author: Skiychan <dev@skiy.net>   * @ website: [Skiy Studio](http://www.skiy.net) www.skiy.net###
