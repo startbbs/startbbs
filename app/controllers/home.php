@@ -17,6 +17,7 @@ class Home extends SB_Controller
 	public function __construct ()
 	{
 		parent::__construct();
+
 		$models = array('topic_m', 'cate_m', 'link_m', 'stat_m', 'user_m');
 		$this->load->model($models);
         $this->load->library('myclass');
