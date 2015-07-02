@@ -211,9 +211,9 @@ class Install extends Install_Controller
             $create_tag = true;
             create_database:
             if(function_exists(@mysqli_connect)){
-	            $con=mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$dbport);
+	            $con = @mysqli_connect($dbhost, $dbuser, $dbpsw, $dbname,$dbport);
             } else {
-				$con = mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
+				$con = @mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
             }
 
             //创建数据库
@@ -222,10 +222,10 @@ class Install extends Install_Controller
                 $create_tag = false;
                 $create_db = "CREATE DATABASE ".$dbname;
                 if (function_exists(@mysqli_connect)) {
-                    $create_con = @mysqli_connect($dbhost, $dbuser, $dbpsw);
+                    $create_con = @mysqli_connect($dbhost, $dbuser, $dbpsw) or die("Can't create database");
                     mysqli_query($create_con, $create_db);
                 } else {
-                    $create_con = @mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw);
+                    $create_con = @mysql_connect($dbhost.':'.$dbport,$dbuser,$dbpsw) or die("Can't create database");
                     mysql_query($create_db, $create_con);
                 }
                 goto create_database;
@@ -284,14 +284,14 @@ class Install extends Install_Controller
     {
         $config = "<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');".PHP_EOL.PHP_EOL;
         $config .= "\$active_group = 'default';".PHP_EOL;
-        $config .= "\$active_record = TRUE;".PHP_EOL.PHP_EOL;
+        $config .= "\$query_builder = TRUE;".PHP_EOL.PHP_EOL;
 
         $config .= "\$db['default']['hostname'] = '".$dbhost."';".PHP_EOL;
         $config .= "\$db['default']['port'] = '".$port."';".PHP_EOL;
         $config .= "\$db['default']['username'] = '".$dbuser."';".PHP_EOL;
         $config .= "\$db['default']['password'] = '".$dbpsw."';".PHP_EOL;
         $config .= "\$db['default']['database'] = '".$dbname."';".PHP_EOL;
-        $config .= "\$db['default']['dbdriver'] = 'mysql';".PHP_EOL;
+        $config .= "\$db['default']['dbdriver'] = 'mysqli';".PHP_EOL;
         $config .= "\$db['default']['dbprefix'] = '".$dbprefix."';".PHP_EOL;
         $config .= "\$db['default']['pconnect'] = TRUE;".PHP_EOL;
         $config .= "\$db['default']['db_debug'] = TRUE;".PHP_EOL;
