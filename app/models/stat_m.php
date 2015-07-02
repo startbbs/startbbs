@@ -23,7 +23,7 @@ class Stat_m extends SB_Model {
     }
 
     /**
-     * Í¨¹ýitemÃûÈ¡µÃitemµÄÖµ
+     * é€šè¿‡itemåå–å¾—itemçš„å€¼
      * @param $item
      * @return mixed
      */
@@ -32,9 +32,9 @@ class Stat_m extends SB_Model {
     }
 
     /**
-     * itemÖµµÝÔö
+     * itemå€¼é€’å¢ž
      * @param $item
-     * @param $def ×Ô¶¨ÒåµÄÖµ,Êý×éÐÎÊ½ array('key' => array('set', 'convert')
+     * @param $def è‡ªå®šä¹‰çš„å€¼,æ•°ç»„å½¢å¼ array('key' => array('set', 'convert')
      */
     public function set_item_val($item, $def=FALSE) {
         if (! $def) {

@@ -3,7 +3,7 @@
 <head>
 <meta charset='UTF-8'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?php echo $settings['site_name']?> - <?php echo $settings['short_intro']?></title>
+<title><?php echo $settings['site_name']; ?> - <?php echo $settings['short_intro']; ?></title>
 <meta name="keywords" content="<?php echo $settings['site_keywords']?>" />
 <meta name="description" content="<?php echo $settings['short_intro']?>" />
 <?php $this->load->view('common/header-meta');?>

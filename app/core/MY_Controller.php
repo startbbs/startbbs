@@ -19,7 +19,6 @@ class SB_Controller extends Base_Controller
 		if($this->config->item('site_close')=='off'){
 			show_error($this->config->item('site_close_msg'),500,'网站关闭');
 		}
-        var_dump("fdasfdsafs");
 		//载入前台模板
 		$this->load->set_front_theme($this->config->item('themes'));
 		//判断安装

@@ -16,16 +16,15 @@ class Group_m extends SB_Model
 		parent::__construct();
 	}
 
-	public function group_list()
-	{
+    /**
+     * 取得组列表
+     * @return bool
+     */
+	public function group_list() {
 		$query = $this->db->order_by('gid')->get('user_groups');
-		if($query->num_rows>0){
-			return $query->result_array();
-		} else
-		{
-			return false;
-		}
+		return $query->result_array();
 	}
+
 	public function get_group_info($gid)
 	{
 		$query = $this->db->get_where('user_groups',array('gid'=>$gid));
