@@ -23,6 +23,9 @@ class Comment extends SB_Controller
 		$this->uid = $this->session->userdata('uid');
 	}
 
+    /**
+     * 添加评论
+     */
 	public function add_comment ()
 	{
 		if (empty($this->uid)) {
@@ -50,7 +53,7 @@ class Comment extends SB_Controller
 			$query = $this->topic_m->get_info_by_topic_id($data['topic_id'], 'comments');
 			$callback = array(
 				//'content' => stripslashes(format_content(filter_check($data['content']))),
-				'content' => $data['content'],
+				'content' => $this->comment_m->member_call($data['content'], $this->input->post('topic_id')),
 				'topic_id' => $data['topic_id'],
 				'uid' => $data['uid'],
 				'replytime' => $this->myclass->friendly_date($data['replytime']),
@@ -65,28 +68,6 @@ class Comment extends SB_Controller
 				//$data['content'] = filter_check($data['content']);
 				//$data['content'] = format_content($data['content']);
 			//}
-			//@会员功能
-			$comment = $data['content'];
-			$pattern = "/@([^@^\\s^:]{1,})([\\s\\:\\,\\;]{0,1})/";
-			preg_match_all ( $pattern, $comment, $matches );
-			$matches [1] = array_unique($matches [1]);
-			foreach ( $matches [1] as $u ) {
-				if ($u) {
-					$res = $this->user_m->get_user_msg('', $u) ;
-					if ($res['uid']) {
-						$search[] = '@'.$u;
-						$replace[] = '<a target="_blank" href="'.site_url('user/profile/'.$res['uid']).'" >@' . $u . '</a>';
-						if ($this->uid != $res['uid']) {
-							//@提醒someone
-							$this->load->model('notifications_m');
-							$this->notifications_m->notice_insert($data['topic_id'], $this->uid, $res['uid'],1);
-							//更新接收人的提醒数
-							$this->user_m->set_uid_val($res['uid'], array('notices' => 'notices+1'));
-						}
-					}
-				}
-			}
-			$data['content'] = str_replace( @$search, @$replace, $comment);
 
 			$this->comment_m->add_comment($data);
 			$r_time = array(
@@ -186,7 +167,7 @@ class Comment extends SB_Controller
 			//	$data['comment']['content'] =br2nl($data['comment']['content'] );
 			//}
 			$data['comment']['content'] = br2nl($data['comment']['content'] );
-			$data['comment']['content'] = $this->input->post('content') ? $this->input->post ('content') : $data['comment']['content'];
+			$data['comment']['content'] = $this->input->post('content') ? $this->input->post('content') : $data['comment']['content'];
 			$data['comment']['node_id'] = $node_id;
 			//加载form类，为调用错误函数,需view前加载
 			$this->load->helper('form');

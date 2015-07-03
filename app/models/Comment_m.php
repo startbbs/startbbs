@@ -25,7 +25,15 @@ class Comment_m extends SB_Model
 	{
 		$this->db->insert(self::TB_COMMENTS, $data);
 	}
-	
+
+    /**
+     * 获取评论
+     * @param $page
+     * @param $limit
+     * @param $topic_id
+     * @param string $order
+     * @return mixed
+     */
 	function get_comment($page,$limit,$topic_id,$order='desc'){
 		$this->db->select('comments.*, u.uid, u.username, u.avatar, u.signature');
 		$query=$this->db->from('comments')
@@ -34,7 +42,18 @@ class Comment_m extends SB_Model
 		->order_by('comments.replytime',$order)
 		->limit($limit,$page)
 		->get();
-		return $query->result_array();
+		$comment_list = $query->result_array();
+
+        //@提醒功能
+        if (! empty($comment_list)) {
+            $tmp = $comment_list;
+            $comment_list = array();
+            foreach ($tmp as $comment) {
+                $comment['content'] = $this->comment_m->member_call($comment['content']);
+                $comment_list[] = $comment;
+            }
+        }
+        return $comment_list;
 	}
 	
 	public function get_comments_by_uid($uid,$num)
@@ -109,6 +128,40 @@ class Comment_m extends SB_Model
 	public function update_comment($id, $comment) {
 		return $this->db->where('id',$id)->update(self::TB_COMMENTS, $comment);
 	}
+
+    /**
+     * @会员功能
+     * @param $content 评论内容
+     * @param $topic_id 文章编号(带此参数则为添加并提醒)
+     * @return mixed|string
+     */
+    public function member_call($content, $topic_id = '') {
+        $content = stripslashes($content);
+        $pattern = "/@([^@^\\s^:]{1,})([\\s\\:\\,\\;]{0,1})/";
+        preg_match_all($pattern, $content, $matches);
+        $matches[1] = array_unique($matches[1]);
+        foreach ($matches [1] as $u) {
+            if ($u) {
+                $res = $this->user_m->get_user_msg('', $u) ;
+                if ($res['uid']) {
+                    $search[] = '@'.$u;
+                    $replace[] = '<a target="_blank" href="'.site_url('user/profile/'.$res['uid']).'" >@' . $u . '</a>';
+                    //私信提醒
+                    if (! empty($topic_id)) {
+                        if ($this->uid != $res['uid']) {
+                            //@提醒someone
+                            $this->load->model('notifications_m');
+                            $this->notifications_m->notice_insert($topic_id, $this->uid, $res['uid'],1);
+                            //更新接收人的提醒数
+                            $this->user_m->set_uid_val($res['uid'], array('notices' => 'notices+1'));
+                        }
+                    }
+                }
+            }
+        }
+        $content = str_replace(@$search, @$replace, $content);
+        return $content;
+    }
 }
 
 	

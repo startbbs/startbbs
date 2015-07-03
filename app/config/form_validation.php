@@ -82,7 +82,7 @@ $config = array(
         array(
             'field' => 'content',
             'label' => '内容',
-            'rules' => 'trim|required|min_length[6]||max_length['.$CI->config->item('words_limit').']|htmlspecialchars|xss_clean'
+            'rules' => 'trim|required|min_length[6]|max_length['.$CI->config->item('words_limit').']|htmlspecialchars|xss_clean'
         )
     ),
 		

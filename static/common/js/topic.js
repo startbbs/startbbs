@@ -46,10 +46,21 @@ $(function () {        //DOM的onload事件处理函数
 function postdata() {                             //提交数据函数
     var comment = $("#post_content").val();
     var token = $("#token").val();
+    var post_val = {
+            comment: comment,
+            topic_id: $("#topic_id").val(),
+            is_top: $("#is_top").val(),
+            username: $("#username").val(),
+            avatar: $("#avatar").val(),
+            lastpost: $("#lastpost").val(),
+            layer: $("#layer").val(),
+            stb_csrf_token: token
+    };
+
     $.ajax({                                                 //调用jquery的ajax方法
         type: "POST",                                     //设置ajax方法提交数据的形式
         url: baseurl + "index.php/comment/add_comment",     //把数据提交到ok.php
-        data: "comment=" + comment + "&topic_id=" + $("#topic_id").val() + "&is_top=" + $("#is_top").val() + "&username=" + $("#username").val() + "&avatar=" + $("#avatar").val() + "&lastpost=" + $("#lastpost").val() + "&layer=" + $("#layer").val() + "&stb_csrf_token=" + token,    //输入框writer中的值作为提交的数据
+        data: post_val,
         dataType: 'json',
         success: function (msg) {                 //提交成功后的回调，msg变量是ok.php输出的内容。
             if (msg.uid) {

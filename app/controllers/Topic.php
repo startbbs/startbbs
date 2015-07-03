@@ -48,9 +48,9 @@ class topic extends SB_controller
 			$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 			//取出处理
 			$content['content'] = stripslashes($content['content']);
-			$data['content'] = $content;
-			
-			//if(!$content){
+            $data['content'] = $content;
+
+                //if(!$content){
 			//	$this->myclass->notice('alert("贴子不存在");window.location.href="'.site_url('/').'";');
 			//	exit;
 			//}

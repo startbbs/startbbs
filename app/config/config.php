@@ -64,5 +64,7 @@ $config['admin_folder'] = 'admin';
 $config['time_zone'] = date_default_timezone_set('Asia/shanghai');
 //$config['time_zone'] = date_default_timezone_get();
 
+$config['words_limit'] = 9999;
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

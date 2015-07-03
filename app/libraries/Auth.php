@@ -101,10 +101,15 @@ class Auth
         return ($this->is_login() && in_array($username, $data) && $group_type==1)? TRUE : FALSE;
 	}
 
+    /**
+     * 判断指定的uid是否和登陆的uid相同
+     * @param $uid 指定的uid
+     * @return bool
+     */
 	public function is_user($uid)
 	{
-		$suid=$this->_CI->session->userdata('uid');
-		if($suid!='' && $uid==$suid){
+		$suid = $this->_CI->session->userdata('uid');
+		if ($suid != '' && $uid == $suid){
 			return TRUE;
 		} else {
 			return FALSE;
