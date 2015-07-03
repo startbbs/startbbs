@@ -24,9 +24,10 @@ class User_m extends SB_Model
 	/*login in*/
     function login($data){
 	    $user = $this->get_user_by_username($data['username']);
-	    if($user){
-			$password = password_dohash($data['password'],$user['salt']);
-			if($user['password']==$password){
+        Common::log($user, "user:");
+	    if ($user) {
+			$password = password_dohash($data['password'], $user['salt']);
+			if ($user['password'] == $password){
 				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid'], 'avatar' => $user['avatar'], 'group_name' => $user['group_name'], 'is_active' => $user['is_active'], 'favorites' => $user['favorites'], 'follows' => $user['follows'], 'notices' => $user['notices'], 'messages_unread' => $user['messages_unread'], 'credit' => $user['credit'], 'lastpost' => $user['lastpost']));
 				return TRUE;
 			} else {

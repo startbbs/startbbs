@@ -139,7 +139,8 @@ class User extends SB_Controller
 			redirect();
 		}
 		$data['title'] = '用户登录';
-		if($_POST && $this->form_validation->run() === TRUE){
+        $posts = $this->input->post();
+		if(! empty($posts) && $this->form_validation->run() === TRUE){
 
             $data = array(
                 'username' => $this->input->post('username', TRUE),
@@ -147,14 +148,14 @@ class User extends SB_Controller
             );
 
             if ($this->user_m->login($data)) {
-	            $uid=$this->session->userdata('uid');
+	            $uid = $this->session->userdata('uid');
 				//更新积分
-				if(time()-@$data['myinfo']['lastlogin']>86400){
+				if (time() - @$data['myinfo']['lastlogin'] > 86400){
 					$this->config->load('userset');
 					$this->user_m->set_uid_val($uid, array('credit' => 'credit+'.$this->config->item('credit_login')));
 				}
 				//更新最后登录时间
-				$this->user_m->update_user($uid,array('lastlogin'=>time()));
+				$this->user_m->update_user($uid, array('lastlogin'=>time()));
                 redirect();
             } else {
                 show_message('用户名或密码错误!');

@@ -85,9 +85,10 @@ class Auth
      */
 	public function is_admin()
 	{
-		$group_type=$this->_CI->session->userdata('group_type');
+		$group_type = $this->_CI->session->userdata('group_type');
+        Common::log($group_type, '$group_type');
 		/** 权限验证通过 */
-        return ($this->is_login() && $group_type!='' && $group_type==0)? TRUE : FALSE;
+        return ($this->is_login() && $group_type != '' && $group_type == 0)? TRUE : FALSE;
 	}
 
 	public function is_master($node_id)
