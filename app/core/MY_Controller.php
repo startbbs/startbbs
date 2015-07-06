@@ -11,24 +11,24 @@ class Base_Controller extends CI_Controller
 }
 class SB_Controller extends Base_Controller
 {
-	var $nodes	= '';
-	var $pages = '';
-	function __construct(){
+	public $nodes	= '';
+	public $pages = '';
+	public function __construct(){
 		parent::__construct();
 		//判断关闭
-		if($this->config->item('site_close')=='off'){
+		if ($this->config->item('site_close') == 'off') {
 			show_error($this->config->item('site_close_msg'),500,'网站关闭');
 		}
 		//载入前台模板
 		$this->load->set_front_theme($this->config->item('themes'));
 		//判断安装
-		$file=FCPATH.'install.lock';
-		if (!is_file($file)){
+		$file = FCPATH.'install.lock';
+		if (! is_file($file)) {
 			redirect(site_url('install'));
 		}
 		$this->load->database();
 	 	//网站设定
-		$data['items']=$this->db->get('settings')->result_array();
+		$data['items'] = $this->db->get('settings')->result_array();
 		$data['settings']=array(
 			'site_name'=>$data['items'][0]['value'],
 			'welcome_tip'=>$data['items'][1]['value'],
@@ -45,21 +45,21 @@ class SB_Controller extends Base_Controller
 
         //用户相关信息
         if ($this->session->userdata('uid')) {
-	        $userinfo= $this->db->select('notices,messages_unread')->where('uid',$this->session->userdata('uid'))->get('users')->row_array();
-	        $data['myinfo']=array(
-				'uid'=>$this->session->userdata('uid'),
-				'username'=>$this->session->userdata('username'),
-				'avatar'=>$this->session->userdata('avatar'),
+	        $userinfo = $this->db->select('notices,messages_unread')->where('uid', $this->session->userdata('uid'))->get('users')->row_array();
+	        $data['myinfo'] = array(
+				'uid' => $this->session->userdata('uid'),
+				'username' => $this->session->userdata('username'),
+				'avatar' => $this->session->userdata('avatar'),
 				'group_type'=>$this->session->userdata('group_type'),
 				'gid'=>$this->session->userdata('gid'),
 				'group_name'=>$this->session->userdata('group_name'),
 				'is_active'=>$this->session->userdata('is_active'),
-				'favorites'=>$this->session->userdata('favorites'),
-				'follows'=>$this->session->userdata('follows'),
-				'credit'=>$this->session->userdata('credit'),
-				'notices'=>@$userinfo['notices'],
-				'messages_unread'=>@$userinfo['messages_unread'],
-				'lastpost'=>$this->session->userdata('lastpost')
+				'favorites' => $this->session->userdata('favorites'),
+				'follows' => $this->session->userdata('follows'),
+				'credit' => $this->session->userdata('credit'),
+				'notices' => @$userinfo['notices'],
+				'messages_unread' => @$userinfo['messages_unread'],
+				'lastpost' => $this->session->userdata('lastpost')
 	        );
         }
 

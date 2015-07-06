@@ -21,14 +21,33 @@ class User_m extends SB_Model
 	function register($data){
 		return $this->db->insert('users',$data);
 	}
-	/*login in*/
-    function login($data){
+
+    /**
+     * 登陆
+     * @param $data
+     * @return bool
+     */
+    public function login($data){
 	    $user = $this->get_user_by_username($data['username']);
-        Common::log($user, "user:");
 	    if ($user) {
 			$password = password_dohash($data['password'], $user['salt']);
 			if ($user['password'] == $password){
-				$this->session->set_userdata(array ('uid' => $user['uid'], 'username' => $user['username'], 'group_type' => $user['group_type'], 'gid' => $user['gid'], 'avatar' => $user['avatar'], 'group_name' => $user['group_name'], 'is_active' => $user['is_active'], 'favorites' => $user['favorites'], 'follows' => $user['follows'], 'notices' => $user['notices'], 'messages_unread' => $user['messages_unread'], 'credit' => $user['credit'], 'lastpost' => $user['lastpost']));
+                $user_session = array (
+                    'uid' => $user['uid'],
+                    'username' => $user['username'],
+                    'group_type' => $user['group_type'],
+                    'gid' => $user['gid'],
+                    'avatar' => $user['avatar'],
+                    'group_name' => $user['group_name'],
+                    'is_active' => $user['is_active'],
+                    'favorites' => $user['favorites'],
+                    'follows' => $user['follows'],
+                    'notices' => $user['notices'],
+                    'messages_unread' => $user['messages_unread'],
+                    'credit' => $user['credit'],
+                    'lastpost' => $user['lastpost']
+                );
+				$this->session->set_userdata($user_session);
 				return TRUE;
 			} else {
 				return FALSE;
@@ -120,7 +139,7 @@ class User_m extends SB_Model
 
 	public function getpwd_by_username($username)
 	{
-		$query = $this->db->select('uid,email,password,group_type')->get_where('users', array('username'=>$username));
+		$query = $this->db->select('uid, email, password, group_type, avatar')->get_where('users', array('username'=>$username));
 		return $query->row_array();
 	}
 	public function search_user_by_username($username)

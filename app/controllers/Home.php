@@ -25,10 +25,6 @@ class Home extends SB_Controller
 		
 	}
 
-    public function log() {
-        Common::create_path();
-    }
-
     public function del_log() {
         Common::del_log();
     }

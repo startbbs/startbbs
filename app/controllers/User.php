@@ -135,7 +135,7 @@ class User extends SB_Controller
 	
 	public function login ()
 	{
-		if($this->auth->is_login()){
+		if ($this->auth->is_login()){
 			redirect();
 		}
 		$data['title'] = '用户登录';
@@ -184,7 +184,8 @@ class User extends SB_Controller
 
 	public function findpwd()
 	{
-		if($_POST){
+        $posts = $this->input->post();
+		if(! empty($posts)){
 			$username = $this->input->post('username');
 			$data = $this->user_m->getpwd_by_username($username);
 			if(@$data['email']==$this->input->post('email')){
@@ -192,7 +193,7 @@ class User extends SB_Controller
 				$string = base64_encode($username.".".$x);
 				$subject ='重置密码';
 				$message = '尊敬的用户'.$username.':<br/>你使用了本站提供的密码找回功能，如果你确认此密码找回功能是你启用的，请点击下面的链接，按流程进行密码重设。<br/><a href="'.site_url("user/resetpwd?p=").$string.'">'.site_url('user/reset_pwd?p=').$string.'</a><br/>如果不能打开链接，请复制链接到浏览器中。<br/>如果本次密码重设请求不是由你发起，你可以安全地忽略本邮件。';
-			if(send_mail($this->input->post('email'),$subject,$message)){
+			if (send_mail($this->input->post('email'), $subject, $message)) {
 				$data['msg'] = '密码重置链接已经发到您邮箱:'.$data['email'].',请注意查收！';
 				}else{
 					$data['msg'] = '没有发送成功';
@@ -220,12 +221,19 @@ class User extends SB_Controller
 		//$sql = "select passwords from member where username = '".trim($_array['0'])."'";
 		$checkCode = md5($array['0'].'+').@$data['password'];
 			
-		if(@$array['1'] === $checkCode ){
-			if($this->form_validation->run() === TRUE){
-				$salt =get_salt();
-				$password= password_dohash($this->input->post('password'),$salt);
-				if($this->user_m->update_user(@$data['uid'], array('password'=>$password,'salt'=>$salt))){
-					$this->session->set_userdata(array ('uid' => $data['uid'], 'username' => $array['0'], 'group_type' => $data['group_type'], 'gid' => $data['gid']));
+		if (@$array['1'] === $checkCode ) {
+			if ($this->form_validation->run() === TRUE) {
+				$salt = get_salt();
+				$password = password_dohash($this->input->post('password'), $salt);
+				if ($this->user_m->update_user(@$data['uid'], array('password'=>$password,'salt'=>$salt))) {
+                    $user_session = array (
+                        'uid' => $data['uid'],
+                        'username' => $array['0'],
+                        'group_type' => $data['group_type'],
+                        'gid' => $data['gid'],
+                        'avatar' => $data['avatar']
+                    );
+					$this->session->set_userdata($user_session);
 					redirect('/');
 				}
 			}

@@ -170,31 +170,30 @@ function filter_code($str)
 	
 //$str=stripslashes($str);
 /*发送邮件*/
-function send_mail($to,$subject,$message)
-{
-	$ci	= &get_instance();
-	$config['protocol']=$ci->config->item('protocol');
-	$config['smtp_host']=$ci->config->item('smtp_host');
-	$config['smtp_user']=$ci->config->item('smtp_user');
-	$config['smtp_pass']=$ci->config->item('smtp_pass');
-	$config['smtp_port']=$ci->config->item('smtp_port');
+function send_mail($to, $subject, $message) {
+	$CI	= &get_instance();
+	$config['protocol'] = $CI->config->item('protocol');
+	$config['smtp_host'] = $CI->config->item('smtp_host');
+	$config['smtp_user'] = $CI->config->item('smtp_user');
+	$config['smtp_pass'] = $CI->config->item('smtp_pass');
+	$config['smtp_port'] = $CI->config->item('smtp_port');
 	$config['charset'] = 'utf-8';
 	$config['wordwrap'] = TRUE;
 	$config['mailtype'] = 'html';
-	
-	$ci->load->library('email',$config);
-	$ci->email->from($config['smtp_user'],'');
-	$ci->email->to($to);
-	$ci->email->subject($subject.'-'.$ci->config->item('site_name'));
-	$ci->email->message($message);
-	if($ci->email->send()){
+
+    $CI->load->library('email', $config);
+
+    $CI->email->from($config['smtp_user'], '');
+    $CI->email->to($to);
+    $CI->email->subject($subject.'-'.$CI->config->item('site_name'));
+    $CI->email->message($message);
+
+	if ($CI->email->send()) {
 		return true;
-	} else
-	{
+	} else {
 		return false;
 	}
 }
-
 
 	function auto_link_pic($str, $type = 'both', $popup = FALSE)
 	{
