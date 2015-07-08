@@ -9,8 +9,8 @@
 #/doc
 /**
  * Class topic_m
- * Author: Skiychan <developer@zzzzy.com>
- * Website: www.skiy.net   QQ:1005043848
+ * @mender: Skiychan <dev@skiy.net>
+ * @website: www.skiy.net   QQ:1005043848
  */
 class topic_m extends SB_Model
 {
@@ -19,8 +19,7 @@ class topic_m extends SB_Model
     const TB_TOPICS = "topics";
     const TB_USERS = "users";
 
-	function __construct ()
-	{
+	public function __construct() {
 		parent::__construct();
 		$this->load->library('myclass');
 	}
@@ -43,10 +42,8 @@ class topic_m extends SB_Model
 		}
     }
 
-	
 	/*贴子列表页带分页*/
-	public function get_topics_list ($page, $limit, $node_id)
-	{
+	public function get_topics_list ($page, $limit, $node_id) {
 		$this->db->select('a.*,b.username, b.avatar, c.username as rname, d.cname');
 		$this->db->from(self::TB_TOPICS.' a');
 		$this->db->join(self::TB_USERS.' b','b.uid = a.uid','left');
@@ -68,7 +65,7 @@ class topic_m extends SB_Model
 	public function get_topics_list_by_node_ids ($limit, $node_ids)
 	{
 		$sql="SELECT * from ( SELECT `a`.`topic_id`, `a`.`title`, `a`.`node_id`, `a`.`updatetime`, `b`.`uid`, `b`.`username` FROM (`{$this->db->dbprefix}topics` a) LEFT JOIN `{$this->db->dbprefix}users` b ON `b`.`uid` = `a`.`uid` WHERE `node_id` IN ({$node_ids}) ORDER BY `a`.`updatetime` DESC LIMIT {$limit}) alias GROUP BY node_id";
-$query=$this->db->query($sql);
+        $query=$this->db->query($sql);
 		//备用
 		//$this->db->select('a.topic_id,a.title,a.node_id,a.updatetime,b.uid,b.username');
 		//$this->db->from('topics a');
@@ -110,8 +107,7 @@ $query=$this->db->query($sql);
 	 * @param $limit
 	 * @return mixed
 	 */
-	public function get_topics_list_nopage($limit)
-	{
+	public function get_topics_list_nopage($limit) {
 		$this->db->select('t.*,b.username, b.avatar, c.username as rname, d.cname');
 		$this->db->from(self::TB_TOPICS.' t');
 		$this->db->join(self::TB_USERS.' b','b.uid = t.uid','left');
@@ -121,9 +117,7 @@ $query=$this->db->query($sql);
 		$this->db->order_by('ord','desc');
 		$this->db->limit($limit);
 		$query = $this->db->get();
-		if($query->num_rows() > 0){
-			return $query->result_array();
-		}
+		return $query->result_array();
     }
 
 	/**
@@ -143,7 +137,7 @@ $query=$this->db->query($sql);
     }
 
 	/**
-	 * 通过topic_id获取主题
+	 * 通过topic_id获取主题信息
 	 * @param $topic_id
 	 * @param string $feild 获取字段名
 	 * @return mixed
@@ -224,8 +218,7 @@ $query=$this->db->query($sql);
 	 * @param $uid
 	 * @return bool
 	 */
-	public function del_topic($topic_id, $node_id, $uid)
-	{
+	public function del_topic($topic_id, $node_id, $uid) {
 		$this->db->where('topic_id', $topic_id)->delete(self::TB_TOPICS);
 		//更新分类中的贴子数
 		$this->db->set('listnum','listnum-1',FALSE)->where('node_id',$node_id)->update(self::TB_NODES);

@@ -123,11 +123,7 @@ class User_m extends SB_Model
 			return $query->result_array();
 		}
 	}
-	
-	public function is_user($uid)
-	{
-		return ($this->auth->is_login() && $uid==$this->session->userdata('uid')) ? TRUE : FALSE;
-	}
+
 	function get_user_msg($uid,$username){
 		if($uid){
 		   $query = $this->db->select('username')->get_where('users',array('uid'=>$uid));
@@ -192,4 +188,12 @@ class User_m extends SB_Model
 		$this->db->where('uid', $uid)->update(self::TB_USERS);
 		return ($this->db->affected_rows() > 0) ? TRUE : FALSE;
 	}
+
+    /**
+     * 获取用户总数
+     * @return mixed
+     */
+    public function get_count() {
+        return $this->db->count_all(self::TB_USERS);
+    }
 }

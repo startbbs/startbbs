@@ -106,16 +106,15 @@ class Auth
      * @param $uid 指定的uid
      * @return bool
      */
-	public function is_user($uid)
-	{
+	public function is_user($uid) {
 		$suid = $this->_CI->session->userdata('uid');
-		if ($suid != '' && $uid == $suid){
+		if (! empty($suid) && $uid == $suid) {
 			return TRUE;
 		} else {
 			return FALSE;
 		}
-		//return ($this->is_login() && $uid==$this->_CI->session->userdata('uid')) ? TRUE : FALSE;
 	}
+
 	public function permit_edit()
 	{
 		

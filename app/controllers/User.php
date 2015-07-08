@@ -200,7 +200,6 @@ class User extends SB_Controller
 				}
 				$data['title'] =  '信息提示';
 				$this->load->view('msg',$data);
-				//echo $this->email->print_debugger();
 			} else {
 				show_message('用户名或邮箱错误!!');
 			}

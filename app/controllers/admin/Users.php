@@ -1,20 +1,30 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Users extends Admin_Controller
-{
 
-	function __construct()
+/**
+ * Class Users
+ * 后台用户管理
+ * @mender: Skiychan <dev@skiy.net>
+ * @website: www.skiy.net
+ * @updated: 2015/07/08
+ */
+
+class Users extends Admin_Controller {
+
+	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('user_m');
-		/** 检查登陆 */
-		if(!$this->auth->is_admin())
-		{
+		/** 检查管理登陆 */
+		if (! $this->auth->is_admin()) {
 			show_message('非管理员或未登录',site_url('admin/login/do_login'));
 		}
 	}
 
-	public function index ($page=1)
-	{
+    /**
+     * 首页
+     * @param int $page 页码
+     */
+	public function index($page = 1) {
 		$data['title'] = '用户管理';
 		$data['act']=$this->uri->segment(3);
 		//分页
@@ -22,7 +32,7 @@ class Users extends Admin_Controller
 		$config['uri_segment'] = 4;
 		$config['use_page_numbers'] = TRUE;
 		$config['base_url'] = site_url('admin/users/index');
-		$config['total_rows'] = $this->db->count_all('users');
+		$config['total_rows'] = $this->user_m->get_count();
 		$config['per_page'] = $limit;
 		$config['prev_link'] = '&larr;';
 		$config['first_link'] ='首页';
@@ -77,13 +87,25 @@ class Users extends Admin_Controller
 		$this->load->view('users', $data);
 
 	}
-	public function edit($uid)
-	{
+
+    /**
+     * 修改用户信息
+     * @param $uid
+     */
+	public function edit($uid) {
+        //不能修改本人的管理权限
+        /*
+        if ($this->auth->is_user($uid)) {
+            show_message('不能修改自己的信息',site_url('admin/users/index'), 1);
+        } */
+
 		$data['title'] = '修改用户信息';
 		$data['user'] = $this->user_m->get_user_by_uid($uid);
 	
 		$this->load->model('group_m');
-		if($_POST){
+
+        $posts = $this->input->post();
+		if (! empty($posts)) {
 			$group_info = $this->group_m->get_group_info($this->input->post('gid'));
 			$str = array(
 				'username'=> $this->input->post('username'),
@@ -98,9 +120,17 @@ class Users extends Admin_Controller
 				'gid'=> $this->input->post('gid'),
 				'group_type'=> @$group_info['group_type']
 			);
-			$str['password'] = $this->input->post('password')!=''?md5($this->input->post('password')):$data['user']['password'];
+
+			$str['password'] = $this->input->post('password') != '' ?
+                md5($this->input->post('password')) : $data['user']['password'];
+
+            //如果更新的是本人的信息，则更新本人角色权限
+            if ($this->auth->is_user($uid)) {
+                $this->session->set_userdata('group_type', @$group_info['group_type']);
+            }
+
 			if($this->user_m->update_user($uid, $str)){
-				show_message('修改用户成功',site_url('admin/users/index'),1);
+				show_message('修改用户成功',site_url('admin/users/index'), 1);
 			}
 
 		}

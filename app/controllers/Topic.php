@@ -13,10 +13,8 @@
  * @website: www.skiy.net
  * @QQ: 1005043848
  */
-class topic extends SB_controller
-{
-	public function __construct ()
-	{
+class topic extends SB_controller {
+	public function __construct() {
 		parent::__construct();
 		$models = array('topic_m', 'cate_m', 'nodes_m', 'tag_m', 'user_m', 'comment_m', 'stat_m');
 		$this->load->model($models);
@@ -35,8 +33,7 @@ class topic extends SB_controller
 	 * @param int $topic_id 主题
 	 * @param int $page 页码
 	 */
-	public function show($topic_id=1 ,$page=1)
-	{
+	public function show($topic_id = 1 ,$page = 1) {
 
 		$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 		if (! $content) {
@@ -330,9 +327,19 @@ class topic extends SB_controller
 	 * @param $uid
 	 */
 	public function del($topic_id,$node_id,$uid) {
+        $this->config->load('userset');
 		$data['title'] = '删除主题';
+
+        $topic_info = $this->topic_m->get_info_by_topic_id($topic_id, 'uid');
+
+        //是否允许本人删帖的开关
+        $user_delete_topic = $this->config->item("delete_topic");
+        $can_del = $user_delete_topic ? $this->auth->is_user($topic_info['uid']) : false;
+
+        // || $this->auth->is_user($topic_info['uid'])
 		//权限修改判断
-		if ($this->auth->is_admin() || $this->auth->is_master($node_id)) {
+        //是否管理员 / 版主 / 楼主
+		if ($this->auth->is_admin() || $this->auth->is_master($node_id) || $can_del) {
 
 			//$this->myclass->notice('alert("确定要删除此话题吗！");');
 			//删除贴子及它的回复
@@ -344,12 +351,13 @@ class topic extends SB_controller
 				$value = is_today(@$stats['update_time']) ? 'value-1' : 0;
 				$this->stat_m->set_item_val('today_topics', array('value' => array($value), 'update_time' => array(time())));
 				//更新会员积分
-				$this->config->load('userset');
 				$this->user_m->set_uid_val($uid, array('credit' => 'credit+'.$this->config->item('credit_del')));
 				//更新数据库缓存
-				$this->db->cache_delete('/default', 'index');
+                $this->load->model("cache_m");
+				$this->cache_m->del('default', 'index');
 				show_message('删除主题成功', site_url('/node/show/' . $node_id));
 			}
+            show_message('删除主题失败', site_url('/topic/show/' . $topic_id));
 		} else {
 			show_message('您无权删除此主题', site_url('/topic/show/' . $topic_id));
 		}

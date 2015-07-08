@@ -8,8 +8,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 #	Copyright (c) 2013 http://www.startbbs.com All rights reserved.
 #/doc
 
-class Group_m extends SB_Model
-{
+class Group_m extends SB_Model {
+
+    const TB_GROUPS= "user_groups";
 
 	function __construct ()
 	{
@@ -21,19 +22,19 @@ class Group_m extends SB_Model
      * @return bool
      */
 	public function group_list() {
-		$query = $this->db->order_by('gid')->get('user_groups');
+		$query = $this->db->order_by('gid')->get(self::TB_GROUPS);
 		return $query->result_array();
 	}
 
+    /**
+     * 获取用户组信息
+     * @param $gid
+     * @return mixed
+     */
 	public function get_group_info($gid)
 	{
-		$query = $this->db->get_where('user_groups',array('gid'=>$gid));
-		if($query->num_rows>0){
-			return $query->row_array();
-		} else
-		{
-			return false;
-		}
+		$query = $this->db->get_where(self::TB_GROUPS, array('gid'=>$gid), 1)->row_array();
+		return $query;
 	}
 
 	public function check_group($group_name)

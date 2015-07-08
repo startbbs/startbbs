@@ -11,6 +11,7 @@ $config = array (
   'credit_del' => '-10',//被删除积分
   'credit_follow' => '5',//被关注积分
   'disabled_username' => '管理员,版主,admin,administrator,moderator',//禁止注册的用户名
+  'delete_topic' => true, //用户是否可以删除自己的帖子
 );
 
 /* End of file userset.php */
