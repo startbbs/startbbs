@@ -13,6 +13,7 @@
  * @website: www.skiy.net
  * @QQ: 1005043848
  */
+
 class topic extends SB_controller {
 	public function __construct() {
 		parent::__construct();
@@ -44,7 +45,22 @@ class topic extends SB_controller {
 			//$this->output->cache(1);
 			$content = $this->topic_m->get_topic_by_topic_id($topic_id);
 			//取出处理
-			$content['content'] = stripslashes($content['content']);
+			//$content['content'] = stripslashes($content['content']);
+            //$content['content'] = htmlspecialchars_decode($content['content']);
+            /*
+            $this->load->library("parsedown");
+            $parsedown = new Parsedown();
+            $content['content'] = $parsedown::instance()
+                                    //->setUrlsLinked(false)
+                                    ->setBreaksEnabled(true)
+                                    ->text($content['content']);
+            */
+
+            //$content['content'] = Markdown::defaultTransform($content['content']);
+           // $content['content'] = Markdown::transform($content['content']);
+
+            $this->load->library("michelf");
+            $content['content'] = $this->michelf->transform($content['content']);
             $data['content'] = $content;
 
                 //if(!$content){
@@ -153,8 +169,7 @@ class topic extends SB_controller {
 	/**
 	 * 添加
 	 */
-	public function add()
-	{
+	public function add() {
 		//加载form类，为调用错误函数,需view前加载
 		$this->load->helper('form');
 		//获取已选择过的分类名称
@@ -173,14 +188,17 @@ class topic extends SB_controller {
 			$this->session->set_flashdata('error', '您无权在此节点发表话题!请重新选择节点');
 			exit;
 		}
-		if ($_POST && $this->form_validation->run() === TRUE){
+
+        $posts = $this->input->post();
+		if (! empty($posts) && $this->form_validation->run() != false) {
 			if (time() - $user['lastpost'] < $this->config->item('timespan')){
 				$this->session->set_flashdata('error', '发帖最小间隔时间是'.$this->config->item('timespan').'秒!');
 				redirect('topic/add');
 			}
 			$data = array(
-				'title' => $this->input->post ('title'),
-				'content' => $this->input->post ('content'),
+				'title' => $this->input->post('title'),
+				//'content' => htmlspecialchars($this->input->post('content', true)),
+                'content' => $this->input->post('content', true),
 				'node_id' => $node_id,
 				'uid' => $uid,
 				'addtime' => time(),
@@ -189,8 +207,8 @@ class topic extends SB_controller {
 				'views' => 0,
 				'ord'=>time()
 			);
-			$this->load->helper('format_content');
-			$data['content'] = format_content($data['content']);
+			//$this->load->helper('format_content');
+			//$data['content'] = format_content($data['content']);
 			//开启审核时
 			if($this->config->item('is_approve')=='on'){
 				$data['is_hidden'] = 1;	
@@ -278,23 +296,24 @@ class topic extends SB_controller {
 			$this->auth->is_master($data['item']['node_id'])) {
 
 			//对内容进行br转换
-			$this->load->helper('br2nl');
-			$data['item']['content'] = br2nl($data['item']['content']);
+			//$this->load->helper('br2nl');
+			//$data['item']['content'] = br2nl($data['item']['content']);
 			//反转义
-			$data['item']['content'] = stripslashes($data['item']['content']);
+			//$data['item']['content'] = stripslashes($data['item']['content']);
+            //$data['item']['content'] = htmlspecialchars_decode($data['item']['content']);
 			//反format
-			$data['item']['content'] = decode_format($data['item']['content']);	
+			//$data['item']['content'] = decode_format($data['item']['content']);
+
 			//获取所有分类
 			$data['cates'] = $this->cate_m->get_all_cates();
 			//获取当前分类(包括已选择)
-			$node_id = $this->input->post('node_id') ? $this->input->post ('node_id') : $data['item']['node_id'];
+			$node_id = $this->input->post('node_id') ? $this->input->post('node_id', true) : $data['item']['node_id'];
 			//取分类
 			$data['cate'] = $this->nodes_m->get_cat($node_id);
 			//标题编辑(包括已输入)
-			$data['item']['title'] = $this->input->post ('title') ? $this->input->post ('title') : $data['item']['title'];
+			$data['item']['title'] = $this->input->post ('title', true) ? $this->input->post('title', true) : $data['item']['title'];
 			//内容编辑(包括已输入)
-			$data['item']['content'] = $this->input->post ('content') ? $this->input->post ('content') : $data['item']['content'];
-
+			$data['item']['content'] = $this->input->post('content') ? $this->input->post('content') : $data['item']['content'];
 			//表单验证
 			if ($this->form_validation->run('topic/add') === TRUE){
 				$str = array(
@@ -304,12 +323,13 @@ class topic extends SB_controller {
 					'updatetime' => time(),
 				);
 
-				$this->load->helper('format_content');
-				$str['content'] = format_content($str['content']);
+				//$this->load->helper('format_content');
+				//$str['content'] = format_content($str['content']);
 				if ($this->topic_m->update_topic($topic_id, $str)) {
 					show_message('修改成功',site_url('topic/show/'.$topic_id), 1);
 				}
 			}
+
 			//开启storage config
 			$this->load->config('qiniu');
 	        $data['csrf_name'] = $this->security->get_csrf_token_name();
@@ -331,6 +351,10 @@ class topic extends SB_controller {
 		$data['title'] = '删除主题';
 
         $topic_info = $this->topic_m->get_info_by_topic_id($topic_id, 'uid');
+        //没有主题
+        if (empty($topic_info)) {
+            show_message('主题不存在',site_url('/'));
+        }
 
         //是否允许本人删帖的开关
         $user_delete_topic = $this->config->item("delete_topic");
