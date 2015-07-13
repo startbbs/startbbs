@@ -426,28 +426,28 @@
 							<div class="form-group">
 							<label class="col-md-3 control-label" for="settings_default_controller">默认首页模块:</label>
 							<div class="col-md-5">
-							<input class="form-control" id="settings_default_controller" name="default_controller" type="text" value="<?php echo $this->router->routes['default_controller'];?>" />
+							<input class="form-control" id="settings_default_controller" name="default_controller" type="text" value="<?php echo $this->router->default_controller;?>" />
 							<small class="help-block">比如home,node,或任何一个页面</small>
 							</div>
 							</div>
 							<div class="form-group">
 							<label class="col-md-3 control-label" for="settings_node_show_url">列表页url:</label>
 							<div class="col-md-5">
-							<input class="form-control" id="settings_node_show_url" name="node_show_url" type="text" value="<?php echo $routes[6];?>" />
+							<input class="form-control" id="settings_node_show_url" name="node_show_url" type="text" value="<?php echo $routes[5];?>" />
 							<small class="help-block">贴子列表页地址</small>
 							</div>
 							</div>
 							<div class="form-group">
 							<label class="col-md-3 control-label" for="settings_view_url">内容页url:</label>
 							<div class="col-md-5">
-							<input class="form-control" id="settings_view_url" name="view_url" type="text" value="<?php echo $routes[7];?>" />
+							<input class="form-control" id="settings_view_url" name="view_url" type="text" value="<?php echo $routes[6];?>" />
 							<small class="help-block">贴子内容页地址</small>
 							</div>
 							</div>
 							<div class="form-group">
 							<label class="col-md-3 control-label" for="settings_tag_url">tag内容页url:</label>
 							<div class="col-md-5">
-							<input class="form-control" id="settings_tag_url" name="tag_url" type="text" value="<?php echo $routes[8];?>" />
+							<input class="form-control" id="settings_tag_url" name="tag_url" type="text" value="<?php echo $routes[7];?>" />
 							<small class="help-block">tag内容页地址</small>
 							</div>
 							</div>
