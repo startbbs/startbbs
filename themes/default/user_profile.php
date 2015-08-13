@@ -138,7 +138,7 @@
 </div><!-- /.modal -->
 <?php $this->load->view('common/footer');?>
 <script>
-	$(function(){
+	setTimeout(function(){
 		$('#send-message').on('submit',function(e) {
 			e.preventDefault();
 			var receiver_uid = $('#receiver_uid').val();
