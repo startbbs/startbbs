@@ -25,7 +25,7 @@
                     </div>
                     <div class="panel-body">
 <form accept-charset="UTF-8" action="<?php echo site_url('/topic/edit/'.$item['topic_id']);?>" class="simple_form form-vertical" id="new_topic" method="post">
-<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
+<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>" id="token">
 <input name="uid" type="hidden" value="1" />
 <input name="node_id" type="hidden" value="1" />
 <div class="form-group">
