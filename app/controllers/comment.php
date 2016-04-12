@@ -186,7 +186,11 @@ class Comment extends SB_Controller
 					exit;
 				}	
 			}
+			
 			$data['title'] = '编辑回贴';
+			//开启storage config
+			$this->load->config('qiniu');
+		
 	        $data['csrf_name'] = $this->security->get_csrf_token_name();
 	        $data['csrf_token'] = $this->security->get_csrf_hash();
 			$this->load->view('comment_edit',$data);
