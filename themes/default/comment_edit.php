@@ -28,7 +28,7 @@
                     </div>
                     <div class="panel-body">
 						<form accept-charset="UTF-8" action="<?php echo site_url('comment/edit/'.$comment['node_id'].'/'.$comment['topic_id'].'/'.$comment['id'])?>" id="new_topic" method="post" novalidate="novalidate" name="add_new">
-						<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>">
+						<input type="hidden" name="<?php echo $csrf_name;?>" value="<?php echo $csrf_token;?>" id="token">
 						<input name="uid" type="hidden" value="1" />
 						<input name="node_id" type="hidden" value="1" />
 						<div class="form-group">
