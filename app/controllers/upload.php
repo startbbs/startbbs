@@ -145,7 +145,7 @@ class upload extends SB_Controller {
 			mkdir($path_url,0777,true);
 		}
 		$config = array(
-			'allowed_types' => 'gif|jpg|jpeg|png|tiff|swf|flv|mp3|wav|wma|wmv|mid|avi|mpg|asf|rm|rmvb|doc|docx|xls|xlsx|ppt|txt|zip|rar|gz|bz2',
+			'allowed_types' => 'gif|jpg|jpeg|png|tiff|swf|flv|mp3|wav|wma|wmv|mid|avi|mpg|asf|rm|rmvb|doc|docx|xls|xlsx|ppt|txt|zip|rar|gz|bz2|pdf',
 			'upload_path' => $path,
 			//'encrypt_name' => false,
 			'file_name'=>@$file['new_file_name'],
