@@ -87,7 +87,7 @@
 							</thead>
 							<tbody>
 								<?php foreach($group_list as $v){?>
-								<tr class='highlight' id='user_<?php echo $v[' gid']?>'>
+								<tr class='highlight' id='user_<?php echo $v[' gid ']?>'>
 									<td>
 										<?php echo $v[ 'gid']?>
 									</td>
