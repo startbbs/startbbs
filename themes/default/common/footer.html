@@ -1,0 +1,14 @@
+<div class="fly-footer">
+  <p>
+    {volist name="nav" id="vo" }
+    {eq name="vo.pid" value="1"}
+    <a href="{$vo.link}" title="{$vo.alias}" target="{$vo.target}"><i class="fa fa-{$vo.icon}" ></i> {$vo.name}</a>
+     {if condition="count($nav) neq $key+1"}
+	 <label></label>
+	 {/if}
+    {/eq}
+    {/volist}
+  </p>
+    <p>Copyright © 2018 <a href="http://www.startbbs.com">startbbs.com</a> {$Think.CONFIG.site_title} {:config('base.site_icp')} {:htmlspecialchars_decode(config('base.site_statis'))}</p>
+    <p>{$Think.CONFIG.site_footer|html_entity_decode}</p>
+</div>

@@ -1,0 +1,26 @@
+{extend name="base:base" /}
+{block name="body"}
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>创建数据</legend>
+</fieldset>
+<blockquote class="layui-elem-quote layui-quote-nm">
+<div id="show-list" class=""></div>
+</blockquote>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    var list = document.getElementById('show-list');
+    function showmsg(msg, classname, jump) {
+        var li = document.createElement('p');
+        li.innerHTML = msg;
+        classname && li.setAttribute('class', classname);
+        list.appendChild(li);
+        document.scrollTop += 30;
+        if (jump !== '') {
+            setTimeout(function () {
+                location.href = jump;
+            }, 1500);
+        }
+    }
+</script>
+{/block}

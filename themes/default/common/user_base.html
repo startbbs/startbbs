@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+{block name="seo"}{/block}
+<link rel="shortcut icon" href="__PUBLIC__/images/favicon.ico">
+
+
+
+
+<link rel="shortcut icon" href="__PUBLIC__/images/favicon.ico">
+<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+  <link rel="stylesheet" type="text/css" href="__CSS__/common_extend.css" />
+  
+  <link rel="stylesheet" type="text/css" href="__CSS__/user.css" />
+
+  
+    <link rel="stylesheet" type="text/css" href="__CSS__/iconfont.css" />
+  <link rel="stylesheet" href="__PUBLIC__/font-awesome/css/font-awesome.min.css">
+    {block name="css"}{/block}
+
+		<script type="text/javascript" src="__PUBLIC__/js/jquery-1.9.1.min.js"></script>
+
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="__PUBLIC__/js/html5shiv.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/respond.min.js"></script>
+		<![endif]-->
+</head>
+<body>
+  {block name="extenddiv"} {/block}
+{include file="common/header"}
+<div class="container es-margin-b-20">
+{include file="User/base"}
+  {block name="body"}{/block}
+
+  {block name="extenddivend"}{/block}
+</div>
+{include file="common/footer"}
+
+{block name="js"}{/block}
+<!--页面JS脚本-->
+
+{block name="script"}{/block}
+
+<script type="text/javascript" src="__PUBLIC__/js/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

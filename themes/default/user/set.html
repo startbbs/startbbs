@@ -1,0 +1,147 @@
+{extend name="common:base" /}
+  {block name="css"}
+ <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/webuploader/webuploader.css">
+   <style>
+.webuploader-pick {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .2);
+    background-color: #18ab7a;
+    border-color: #18ab7a;
+    padding:10px 30px;
+}
+.webuploader-pick-hover,.webuploader-pick:hover {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .2);
+    background-color: #6ebda3;
+    border-color: #6ebda3;
+}
+  </style>
+  {/block}
+  {block name="body"}
+<div class="layui-container fly-marginTop fly-user-main">
+{include file="user:sidebar" /}
+  <div class="fly-panel fly-panel-user" pad20>
+    <div class="layui-tab layui-tab-brief" lay-filter="user">
+      <ul class="layui-tab-title">
+        <li class="layui-this" lay-id="info">我的资料</li>
+        <li lay-id="avatar">头像</li>
+        <li lay-id="pass">密码</li>
+      </ul>
+      <div class="layui-tab-content" style="padding: 20px 0;">
+        <div class="layui-form layui-form-pane layui-tab-item layui-show">
+          <form class="layui-form form-container" action="{:url('user/set')}" method="post">
+	       	<input type="hidden" name="id" value="{$user.id}" />
+	       	<input type="hidden" name="tag" value="set_info" /> 	
+            <div class="layui-form-item">
+              <label class="layui-form-label">邮箱</label>
+              <div class="layui-input-inline">
+                <input type="text" name="email" autocomplete="off" value="{$user['email']}" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">如果您在邮箱已激活的情况下，变更了邮箱，需<a href="activate.html" style="font-size: 12px; color: #4f99cf;">重新验证邮箱</a>。</div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">昵称</label>
+              <div class="layui-input-inline">
+                <input type="text" name="username" required lay-verify="required" autocomplete="off" value="{$user['username']}" class="layui-input">
+              </div>
+              <div class="layui-inline">
+                <div class="layui-input-inline">
+                  <input type="radio" name="sex" value="0" checked title="男">
+                  <input type="radio" name="sex" value="1" title="女">
+                </div>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">城市</label>
+              <div class="layui-input-inline">
+                <input type="text" name="hometown" autocomplete="off" value="{$user['hometown']}" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+              <label class="layui-form-label">签名</label>
+              <div class="layui-input-block">
+                <textarea placeholder="随便写些什么刷下存在感" name="signature" autocomplete="off" class="layui-textarea" style="height: 80px;">{$user['signature']}</textarea>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <button class="layui-btn" lay-submit lay-filter="*">确认修改</button>
+            </div>
+          </div>
+           <form id="useravatarform">
+          <div class="layui-form layui-form-pane layui-tab-item">
+            <div class="layui-form-item">
+              <div class="avatar-add">
+                <p>建议尺寸168*168，支持jpg、png、gif，最大不能超过50KB</p>
+                <button type="button" class="layui-btn upload-img" id="avatar">
+                  <i class="layui-icon">&#xe67c;</i>上传头像
+                </button>
+                <input type="hidden" name="avatar" value="{$user.avatar}" >
+                <img src="{$user['avatar']}_large.png" id="thumb">
+                <span class="loading"></span>
+              </div>
+            </div>
+          </div>
+          </form>
+          
+          <div class="layui-form layui-form-pane layui-tab-item">
+          <form class="layui-form form-container" action="{:url('user/set')}" method="post">
+	            <input type="hidden" name="tag" value="set_pass" /> 
+              <div class="layui-form-item">
+                <label class="layui-form-label">当前密码</label>
+                <div class="layui-input-inline">
+                  <input type="password" name="old_password" required lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">新密码</label>
+                <div class="layui-input-inline">
+                  <input type="password" name="password" required lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">6到16个字符</div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">确认密码</label>
+                <div class="layui-input-inline">
+                  <input type="password" name="confirm_password" required lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
+              </div>
+            </form>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{/block}
+{block name="script"}
+<script>
+/**
+ * 头像上传
+ */
+upload.render({
+    elem: '#avatar',
+    url: '/api.php/upload/avatar',
+    type: 'image',
+    ext: 'jpg|png|gif|bmp',
+    size:102400,
+    done: function(res){
+	    //如果上传失败
+        if(res.error == 1){
+	        layer.msg(res.message);
+            return false;
+        } else {
+            //上传成功
+	        layer.msg('上传成功！');
+	        parent.location.reload();
+	    	$("#thumb").attr('src',res.url);
+        }
+
+    }
+});
+</script>
+{/block}

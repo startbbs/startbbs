@@ -1,0 +1,106 @@
+{extend name="common:base" /}
+{block name="body"}
+<div class="fly-panel fly-column">
+  <div class="layui-container">
+    <ul class="layui-clear">
+      {volist name="category_list" id="vo"}
+      <li><a href="{:url('category/topic',['id'=>$vo.id])}">{$vo.name}</a></li>
+      {/volist}
+    </ul> 
+    
+    <div class="fly-column-right layui-hide-xs"> 
+      <span class="fly-search"><i class="layui-icon"></i></span> 
+      <a href="{:url('topic/add')}" class="layui-btn">发表新帖</a> 
+    </div> 
+    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;"> 
+      <a href="jie/add.html" class="layui-btn">发表新帖</a> 
+    </div> 
+  </div>
+</div>
+
+<div class="layui-container  fly-marginTop">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md8">
+      <div class="fly-panel" style="margin-bottom: 0;">
+        <div class="fly-panel-title fly-filter">
+          <a href="" class="layui-this">综合</a>
+          <span class="fly-mid"></span>
+          <a href="">精华</a>
+          <span class="fly-filter-right layui-hide-xs">
+            <a href="" class="layui-this">按最新</a>
+            <span class="fly-mid"></span>
+            <a href="">按热议</a>
+          </span>
+        </div>
+
+        <ul class="fly-list">          
+		{volist name="topiclist" id="vo"}
+          <li>
+            <a href="{:url('user/home',['id'=>$vo.uid])}" class="fly-avatar">
+              <img src="{:get_avatar($vo.uid,'middle')}" alt="{$vo.username}">
+            </a>
+            <h2>
+              <a href="{:url('topic/detail',array('id'=>$vo.id))}">{$vo.title}</a>
+            </h2>
+            <div class="fly-list-info">
+              <a href="{:url('user/home',['id'=>$vo.uid])}" link>
+                <cite>{$vo.username}</cite>
+              </a>
+              <span>{$vo.update_time|friendlyDate}</span>
+              <span class="fly-list-nums"> 
+                <i class="iconfont icon-pinglun1" title="回答"></i> {$vo.posts}
+              </span>
+            </div>
+            <div class="fly-list-badge">
+	            {if condition="$vo['is_top']==1"}
+	            <span class="layui-badge layui-bg-black">置顶</span>{/if}
+	            {if condition="$vo['is_recommend']==1"}
+              <span class="layui-badge layui-bg-red">精帖</span>{/if}
+            </div>
+          </li>
+		{/volist}
+        </ul>
+        
+        <!-- <div class="fly-none">没有相关数据</div> -->
+        {$page|raw}
+      </div>
+      
+    </div>
+    <div class="layui-col-md4">
+      <div class="fly-panel fly-link">
+        <h3 class="fly-panel-title">关于 {$category.name}</h3>
+        <dl class="fly-panel-main">
+	        <p><img style="width:100px;height:100px;" src="{$category.thumb}" alt="{$category.name}"></p>
+	        <p>{$category.description}</p>
+        </dl>
+      </div>
+      <dl class="fly-panel fly-list-one">
+        <dt class="fly-panel-title">本版热议</dt>
+        {volist name="hottopic" id="vo"}
+        <dd>
+          <a href="{:url('topic/detail',['id'=>$vo.id])}">{$vo.title}</a>
+          <span><i class="iconfont icon-pinglun1"></i> {$vo.views}</span>
+        </dd>
+		{/volist}
+
+        <!-- 无数据时 -->
+        <!--
+        <div class="fly-none">没有相关数据</div>
+        -->
+      </dl>
+
+      <div class="fly-panel">
+        <div class="fly-panel-title">
+          这里可作为广告区域
+        </div>
+        <div class="fly-panel-main">
+          <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
+        </div>
+      </div>
+     
+
+    </div>
+  </div>
+</div>
+
+{/block}

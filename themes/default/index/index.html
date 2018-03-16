@@ -1,0 +1,163 @@
+{extend name="common:base" /}
+{block name="seo"}
+  <meta name="keywords" content="{$Think.CONFIG.WEB_SITE_KEYWORD}">
+  <meta name="description" content="{$Think.CONFIG.WEB_SITE_DESCRIPTION}">
+{/block}
+{block name="body"}
+<div class="fly-panel fly-column">
+  <div class="layui-container">
+    <ul class="layui-clear">
+      {volist name="category_list" id="vo"}
+      <li><a href="{:url('category/topic',['id'=>$vo.id])}">{$vo.name}</a></li>
+      {/volist}
+    </ul> 
+    
+    <div class="fly-column-right layui-hide-xs"> 
+      <span class="fly-search"><i class="layui-icon"></i></span> 
+      <a href="{:url('topic/add')}" class="layui-btn">发表新帖</a> 
+    </div> 
+    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;"> 
+      <a href="jie/add.html" class="layui-btn">发表新帖</a> 
+    </div> 
+  </div>
+</div>
+
+<div class="layui-container">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md8">
+      <div class="fly-panel">
+        <div class="fly-panel-title fly-filter">
+          <a>置顶</a>
+          <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin" style="color: #FF5722;">去签到</a>
+        </div>
+        <ul class="fly-list">
+	        {volist name="newtopiclist" id="vo"}
+	        {eq name="vo.is_top" value="1"}
+          <li>
+            <a href="{:url('user/home',['id'=>$vo.uid])}" class="fly-avatar">
+              <img src="{:get_avatar($vo.uid,'middle')}" alt="{$vo.username}">
+            </a>
+            <h2>
+              <a class="layui-badge">{$vo.cid|get_category_name}</a>
+              <a href="{:url('topic/detail',array('id'=>$vo.id))}">{$vo.title}</a>
+            </h2>
+            <div class="fly-list-info">
+              <a href="{:url('user/home',['id'=>$vo.uid])}" link>
+                <cite>{$vo.username}</cite>
+              </a>
+              <span>{$vo.create_time|friendlyDate}</span>
+              <span class="fly-list-nums"> 
+                <i class="iconfont icon-pinglun1" title="回答"></i> {$vo.posts}
+              </span>
+            </div>
+            <div class="fly-list-badge">
+	            {if condition="$vo['is_top']==1"}
+	            <span class="layui-badge layui-bg-black">置顶</span>{/if}
+	            {if condition="$vo['is_recommend']==1"}
+              <span class="layui-badge layui-bg-red">精帖</span>{/if}
+            </div>
+          </li>
+          {/eq}
+ {/volist}
+        </ul>
+      </div>
+
+      <div class="fly-panel" style="margin-bottom: 0;">
+        
+        <div class="fly-panel-title fly-filter">
+          <a href="" class="layui-this">综合</a>
+          <span class="fly-mid"></span>
+          <a href="">精华</a>
+          <span class="fly-filter-right layui-hide-xs">
+            <a href="" class="layui-this">按最新</a>
+            <span class="fly-mid"></span>
+            <a href="">按热议</a>
+          </span>
+        </div>
+
+        <ul class="fly-list">          
+			{volist name="newtopiclist" id="vo"}
+			{eq name="vo.is_top" value="0"}
+          <li>
+            <a href="{:url('user/home',['id'=>$vo.uid])}" class="fly-avatar">
+              <img src="{:get_avatar($vo.uid,'middle')}" alt="{$vo.username}">
+            </a>
+            <h2>
+              <a class="layui-badge">{$vo.cid|get_category_name}</a>
+              <a href="{:url('topic/detail',array('id'=>$vo.id))}">{$vo.title}</a>
+            </h2>
+            <div class="fly-list-info">
+              <a href="{:url('user/home',['id'=>$vo.uid])}" link>
+                <cite>{$vo.username}</cite>
+              </a>
+              <span>{$vo.create_time|friendlyDate}</span>
+              <span class="fly-list-nums"> 
+                <i class="iconfont icon-pinglun1" title="回答"></i> {$vo.posts}
+              </span>
+            </div>
+            <div class="fly-list-badge">
+	            {if condition="$vo['is_top']==1"}
+	            <span class="layui-badge layui-bg-black">置顶</span>{/if}
+	            {if condition="$vo['is_recommend']==1"}
+              <span class="layui-badge layui-bg-red">精帖</span>{/if}
+            </div>
+          </li>
+          {/eq}
+ {/volist}
+        </ul>
+
+      </div>
+    </div>
+    <div class="layui-col-md4">
+      <div class="fly-panel">
+        <div class="fly-panel-title">
+          广告区域
+        </div>
+        <div class="fly-panel-main">
+          <a href="http://www.startbbs.com" target="_blank" class="fly-zanzhu" style="background-color: #5FB878;">StartBBS 2.0 - 匠心之作</a>
+        </div>
+      </div>
+      
+      <div class="fly-panel fly-rank fly-rank-reply" id="LAY_replyRank">
+        <h3 class="fly-panel-title">回贴周榜</h3>
+        <dl>
+          <!--<i class="layui-icon fly-loading">&#xe63d;</i>-->
+        	{foreach $user_list as $vo}
+	        <dd>
+	            <a href="{:url('user/home',['id'=>$vo.id])}">
+	            <img src="{$vo.avatar}_middle.png"><cite>{$vo.username}</cite><i>贴子数{$vo.posts}</i>
+	            </a>
+	        </dd>
+			{/foreach}
+        </dl>
+      </div>
+
+      <dl class="fly-panel fly-list-one">
+        <dt class="fly-panel-title">本周热议</dt>
+        {volist name="hottopiclist" id="vo"}
+        <dd>
+          <a href="{:url('topic/detail',array('id'=>$vo.id))}">{$vo.title}</a>
+          <span><i class="iconfont icon-pinglun1"></i> {$vo.views}</span>
+        </dd>
+		{/volist}
+        <!-- 无数据时 -->
+        <!--
+        <div class="fly-none">没有相关数据</div>
+        -->
+      </dl>
+
+
+      <div class="fly-panel fly-link">
+        <h3 class="fly-panel-title">友情链接</h3>
+        <dl class="fly-panel-main">
+	        {foreach $link as $vo} 
+			<dd><a href="{$vo.link}" target="_blank">{$vo.name}</a><dd>
+			{/foreach}
+          <!--<dd><a href="" class="fly-link">申请友链</a><dd>-->
+        </dl>
+      </div>
+
+    </div>
+  </div>
+</div>
+ {/block}	

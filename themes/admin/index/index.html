@@ -1,0 +1,95 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+	    <!--tab标签-->
+	    <div class="layui-tab layui-tab-brief">
+	        <ul class="layui-tab-title">
+	            <li class="layui-this">网站概览</li>
+	        </ul>
+	        <div class="layui-tab-content layui-row layui-col-space20">
+	            <div class="layui-tab-item layui-show layui-col-md6">
+	                <table class="layui-table">
+		                <thead>
+			                <tr>
+						      <th colspan="2">系统信息</th>
+						    </tr> 
+			            </thead>
+	                    <tr>
+	                        <td>网站域名</td>
+	                        <td>{$config.url}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>网站目录</td>
+	                        <td>{$config.document_root}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>服务器操作系统</td>
+	                        <td>{$config.server_os}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>服务器端口</td>
+	                        <td>{$config.server_port}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>服务器环境</td>
+	                        <td>{$config.server_soft}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>PHP版本</td>
+	                        <td>{$config.php_version}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>MySQL版本</td>
+	                        <td>{$config.mysql_version}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>最大上传限制</td>
+	                        <td>{$config.max_upload_size}</td>
+	                    </tr>
+	                </table>
+	            </div>
+	            <div class="layui-tab-item layui-show layui-col-md6">
+	                <table class="layui-table">
+		                <thead>
+			                <tr>
+						      <th colspan="2">产品信息</th>
+						    </tr> 
+			            </thead>
+	                    <tr>
+	                        <td>产品名称</td>
+	                        <td>StartBBS轻量社区系统</td>
+	                    </tr>
+	                    <tr>
+	                        <td>系统版本</td>
+	                        <td>{:config('version')}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>更新时间</td>
+	                        <td>{:config('publish_time')}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>官方网站</td>
+	                        <td><a href="http://www.startbbs.com">http://www.startbbs.com</a></td>
+	                    </tr>
+	                    <tr>
+	                        <td>官方QQ群</td>
+	                        <td>超级群：645590178</td>
+	                    </tr>
+	                    <tr>
+	                        <td>联系我们</td>
+	                        <td>startbbs@126.com</td>
+	                    </tr>
+	                    <tr>
+	                        <td>开发团队</td>
+	                        <td>烧饼shaobing.me</td>
+	                    </tr>
+	                    <tr>
+	                        <td></td>
+	                        <td></td>
+	                    </tr>
+	                </table>
+	            </div>
+	        </div>
+	    </div>
+</div>
+{/block}

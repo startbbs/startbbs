@@ -1,0 +1,74 @@
+{extend name="common:base" /}
+{block name="body"}
+<div class="layui-container  fly-marginTop">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md8">
+      <div class="fly-panel" style="margin-bottom: 0;">
+        <div class="fly-panel-title fly-filter"><h2>文章</h2>
+        </div>
+
+        <ul class="article-list">          
+		{volist name="articlelist" id="vo"}
+          <li>
+            <h3>
+              <a href="{:url('article/detail',array('id'=>$vo.id))}">{$vo.title}</a>
+            </h3>
+            <p>{$vo.introduction}</p>
+            <div class="fly-list-info">
+              <span>{$vo.publish_time}</span>
+              <span class="fly-list-nums"> 
+                <i class="iconfont icon-pinglun1" title="回答"></i> {$vo.reading}
+              </span>
+            </div>
+            <div class="fly-list-badge">
+	            {if condition="$vo['is_top']==1"}
+	            <span class="layui-badge layui-bg-black">置顶</span>{/if}
+	            {if condition="$vo['is_recommend']==1"}
+              <span class="layui-badge layui-bg-red">精帖</span>{/if}
+            </div>
+          </li>
+		{/volist}
+        </ul>
+        {$page|raw}
+      </div>
+      
+    </div>
+    <div class="layui-col-md4">
+      <div class="fly-panel fly-link">
+        <h3 class="fly-panel-title">栏目索引</h3>
+        <dl class="fly-panel-main">
+      {volist name="category_list" id="vo"}
+      <dd><a href="{:url('article/category',['cid'=>$vo.id])}">{$vo.name}</a></dd>
+      {/volist}
+        </dl>
+      </div>
+      <dl class="fly-panel fly-list-one">
+        <dt class="fly-panel-title">本版热议</dt>
+        {volist name="hotarticle" id="vo"}
+        <dd>
+          <a href="{:url('article/detail',['id'=>$vo.id])}">{$vo.title}</a>
+          <span><i class="iconfont icon-pinglun1"></i> {$vo.reading}</span>
+        </dd>
+		{/volist}
+
+        <!-- 无数据时 -->
+        <!--
+        <div class="fly-none">没有相关数据</div>
+        -->
+      </dl>
+
+      <div class="fly-panel">
+        <div class="fly-panel-title">
+          这里可作为广告区域
+        </div>
+        <div class="fly-panel-main">
+          <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
+        </div>
+      </div>
+     
+
+    </div>
+  </div>
+</div>
+
+{/block}

@@ -1,0 +1,196 @@
+{extend name="common:base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__JS__/editor/css/simditor.css" />
+{/block}
+{block name="body"}
+<div class="layui-container fly-marginTop">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md8 content detail">
+      <div class="fly-panel detail-box">
+        <h1>{$topic['title']}</h1>
+        <div class="fly-detail-info">
+            <div class="fly-admin-box">
+          {if condition="$topic['is_top'] eq 1"}
+          <span class="layui-badge layui-bg-black">置顶</span>
+          {/if}
+          {if condition="$topic['is_recommend'] eq 1"}
+          <span class="layui-badge">精帖</span>
+          {/if}
+                <!--<span class="layui-btn layui-btn-xs layui-btn-warm jie-admin " type="collect" data-type="add">收藏</span>-->
+
+             </div>
+
+          <span class="fly-list-nums"> 
+            <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> {$topic.posts}</a>
+            <i class="iconfont" title="人气">&#xe60b;</i> {$topic.views}
+          </span>
+        </div>
+        <div class="detail-about">
+          <a class="fly-avatar" href="{:url('user/home',['id'=>$topic.uid])}">
+            <img src="{:get_avatar($topic.uid,'middle')}" alt="{$topic.username}">
+          </a>
+          <div class="fly-detail-user">
+            <a href="{:url('user/home',['id'=>$topic.uid])}" class="fly-link">
+              <cite>{$topic.username}</cite>
+<!--              <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>-->
+            </a>
+            <span>{$topic.create_time|friendlyDate}</span>
+          </div>
+          <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
+            <span style="padding-right: 10px; color: #FF7200"></span>
+          </div>
+        </div>
+        <div class="detail-body photos">
+          {$content|raw}
+        </div>
+        {if condition="has_permission($topic['uid'],1)"}
+        <hr>
+        <span type="edit"><a href="{:url('topic/edit',['id'=>$topic['id']])}" class="layui-btn layui-btn-primary layui-btn-sm">编辑</a></span>
+        <span type="del"><a href="{:url('topic/delete',['id'=>$topic['id']])}" class="layui-btn layui-btn-danger layui-btn-sm ajax-delete">删除</a></span>
+         {/if}
+        {if condition="has_permission($topic.uid,2)"}
+        {eq name="topic.is_top" value="0"}
+    	<span type="edit" data-url="{:url('topic/settop',['id'=>$topic['id'],'top'=>1])}" class="layui-btn layui-btn-primary layui-btn-sm action">置顶</span>
+	    {else/}
+	    <span data-url="{:url('topic/settop',['id'=>$topic['id'],'top'=>0])}" class="layui-btn layui-btn-primary layui-btn-sm action">取消置顶</span>
+	    {/eq}
+        {eq name="topic.is_recommend" value="0"}
+    	<span type="edit" data-url="{:url('topic/setRecommend',['id'=>$topic['id'],'recommend'=>1])}" class="layui-btn layui-btn-primary layui-btn-sm action">精华</span>
+	    {else/}
+	    <span data-url="{:url('topic/setRecommend',['id'=>$topic['id'],'recommend'=>0])}" class="layui-btn layui-btn-primary layui-btn-sm action">取消精华</span>
+	    {/eq}
+        {/if}
+
+      </div>
+
+      <div class="fly-panel detail-box" id="flyReply">
+        <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+          <legend>回帖</legend>
+        </fieldset>
+
+        <ul class="jieda" id="jieda">
+	        {volist name="post_list" id="vo" key="k"}
+          <li data-id="111" class="jieda-daan">
+            <a name="item-1111111111"></a>
+            <div class="detail-about detail-about-reply">
+              <a class="fly-avatar" href="{:url('user/home',array('id'=>$vo.uid))}">
+                <img src="{:get_avatar($vo.uid,'middle')}" alt="{$vo.username}">
+              </a>
+              <div class="fly-detail-user">
+                <a href="{:url('user/home',array('id'=>$vo.uid))}" class="fly-link">
+                  <cite>{$vo.username}</cite>          
+                </a>
+                {eq name="$k" value="1"}
+                <span>(楼主)</span>
+                {/eq}
+                <!--
+                <span style="color:#5FB878">(管理员)</span>
+                <span style="color:#FF9E3F">（社区之光）</span>
+                <span style="color:#999">（该号已被封）</span>
+                -->
+              </div>
+
+              <div class="detail-hits">
+                <span>{$vo.create_time|friendlyDate}</span>
+              </div>
+
+<!--              <i class="iconfont icon-caina" title="最佳答案"></i>-->
+            </div>
+            <div class="detail-body jieda-body photos">
+              {$vo.content|raw}
+            </div>
+            <div class="jieda-reply">
+              <!--<span class="jieda-zan zanok" type="zan">
+                <i class="iconfont icon-zan"></i>
+                <em>66</em>
+              </span>
+              <span type="reply">
+                <i class="iconfont icon-svgmoban53"></i>
+                回复
+              </span>-->
+              {if condition="has_permission($vo.uid,1)"}
+              <div class="jieda-admin">
+                <span type="edit"><a href="{:url('post/edit',['id'=>$vo['id']])}">编辑</a></span>
+                <span type="del"><a href="{:url('post/delete',['id'=>$vo['id']])}" class="ajax-delete">删除</a></span>
+                <!-- <span class="jieda-accept" type="accept">采纳</span> -->
+              </div>
+              {/if}
+            </div>
+          </li>
+      {/volist} 
+          <!-- 无数据时 -->
+          <!-- <li class="fly-none">消灭零回复</li> -->
+        </ul>
+         {$page|raw}
+        <div class="layui-form layui-form-pane">
+          <form action="{:url('post/add')}" method="post">
+	          	<input type="hidden" name="attach" value="{$attach}" />
+            <div class="layui-form-item layui-form-text">
+              <a name="comment"></a>
+              <div class="layui-input-block">
+                <textarea id="editor" name="content" required lay-verify="content" placeholder="请输入内容"  class="layui-textarea fly-editor"></textarea>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <input type="hidden" name="topic_id" value="{$topic.id}">
+              <input type="hidden" name="cid" value="{$topic.cid}">
+              <button class="layui-btn" lay-filter="*" lay-submit>提交回复</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-md4">
+      <dl class="fly-panel fly-list-one">
+        <dt class="fly-panel-title">热门回复</dt>
+        {volist name="hottopic" id="vo"}
+        <dd>
+          <a href="{:url('topic/detail',['id'=>$vo.id])}">{$vo.title}</a>
+          <span><i class="iconfont icon-pinglun1"></i> {$vo.posts}</span>
+        </dd>
+		{/volist}
+
+        <!-- 无数据时 -->
+        <!--
+        <div class="fly-none">没有相关数据</div>
+        -->
+      </dl>
+
+      <div class="fly-panel">
+        <div class="fly-panel-title">
+          这里可作为广告区域
+        </div>
+        <div class="fly-panel-main">
+          <a href="http://www.startbbs.com" target="_blank" class="fly-zanzhu" style="background-color: #5FB878;">StartBBS 2.0 - 匠心之作</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__JS__/editor/js/module.js"></script>
+<script type="text/javascript" src="__JS__/editor/js/hotkeys.js"></script>
+<script type="text/javascript" src="__JS__/editor/js/uploader.js">
+</script>
+<script type="text/javascript" src="__JS__/editor/js/simditor.js"></script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	$(function(){
+	var editor = new Simditor({
+	textarea: $('#editor'),
+    toolbar: ['title', 'bold', 'italic', 'underline', 'strikethrough', 'color', '|', 'ol', 'ul', 'code', 'indent', 'outdent', '|', 'link', 'image', 'hr'],
+    upload: {
+        url: '/api.php/upload/attach.html',
+        params:{attach:$("input[name='attach']").val()}, 
+        fileKey: 'file', 
+        connectionCount: 3,
+        leaveConfirm: '正在上传文件',
+    }
+});
+})
+</script>
+{/block}

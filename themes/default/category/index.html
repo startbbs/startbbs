@@ -1,0 +1,38 @@
+{extend name="common:base" /}
+{block name="body"}
+<div class="layui-container fly-marginTop">
+      <div class="fly-panel" pad20>
+        	<h2 style="margin-bottom:15px;">版块分类导航</h2>
+        {volist name="category_list" id="vo"}
+	        <div class="layui-row" style="padding:10px 0;border-bottom: 1px dotted #999;">
+	    		<div class="layui-col-md6">
+	        <div class="layui-row">
+	    		<div class="layui-col-md2">
+					<a href="{:url('category/topic',['id'=>$vo.id])}">
+	              <img style="width:80px;height:80px;" src="{$vo.thumb}" alt="{$vo.name}">
+	            	</a>
+		    	</div>
+	    		<div class="layui-col-md10">
+					<h2><a href="{:url('category/topic',['id'=>$vo.id])}">{$vo.name}</a></h2>
+					<p>{$vo.description}</p>
+					<p>
+						<span>{$vo.name}</span>
+						<!--<span><i class="layui-badge fly-badge-vip">VIP3</i></span>
+						<span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 60</span>
+	            		<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
+	            	</p>
+	            	{if condition="isset($vo.children)"}
+	            	<p>子版块：{foreach $vo.children as $v}<span><a href="{:url('category/topic',['id'=>$v.id])}">{$v.name}</a></span>{/foreach}</p>
+	            	{/if}
+		    	</div>
+
+		    </div>
+		    </div>
+		    <div class="layui-col-md6">
+		    	<span class="fly-list-nums"><i class="iconfont icon-pinglun1" title="回答"></i> {$vo.topics}</span>
+		    </div>
+		    </div>
+	     {/volist}	
+      </div>
+  </div>
+ {/block}	

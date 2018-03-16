@@ -1,0 +1,125 @@
+{extend name="base:base" /}
+{block name="body"}
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>创建数据库</legend>
+</fieldset>
+<form class="layui-form" action="{:Url::build('Index/step2')}" method="post" target="_self">
+    数据库信息
+    <hr class="layui-bg-green">
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据库类型</label>
+        <div class="layui-input-inline">
+            <select name="db[0]" lay-verify="required">
+                <option>mysql</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">服务器地址</label>
+        <div class="layui-input-inline">
+            <input type="text" name="db[1]" lay-verify="required" value="127.0.0.1" placeholder="请输入IP"
+                   class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">数据库服务器,默认为127.0.0.1</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据库名字</label>
+        <div class="layui-input-inline">
+            <input type="text" name="db[2]" lay-verify="required" placeholder="请输入数据库名字" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">数据库名字</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据库帐号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="db[3]" lay-verify="required" value="root" placeholder="请输入数据库用户名" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">数据库用户名</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据库密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="db[4]" lay-verify="required" placeholder="请输入数据库密码" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">数据库密码</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据库端口</label>
+        <div class="layui-input-inline">
+            <input type="text" name="db[5]" lay-verify="number" value="3306" placeholder="请输入端口" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">数据库服务连接端口</div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据表前缀</label>
+        <div class="layui-input-inline">
+            <input type="text" name="db[6]" lay-verify="required" value="stb_" placeholder="请输入数据表前缀"
+                   class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">同一个数据库运行多个系统时请修改为不同的前缀</div>
+    </div>
+    创始人帐号信息
+    <hr class="layui-bg-green">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="admin[0]" lay-verify="required" value="admin" placeholder="请输入用户名"
+                   class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">默认为超级管理员</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="admin[1]" lay-verify="required|length" placeholder="请输入密码"
+                   class="layui-input pass">
+        </div>
+        <div class="layui-form-mid layui-word-aux">密码,至少6位字符以上</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">确认密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="admin[2]" lay-verify="required|repassword" placeholder="请输入确认密码" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">确认密码</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="text" name="admin[3]" lay-verify="required|email" placeholder="请输入邮箱" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">请填写正确的邮箱便于收取提醒邮件</div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="install">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    layui.use(['jquery','form'], function () {
+        layui.form.verify({
+            length: function (value) {
+                if (value.length < 6) {
+                    return "密码必须6个字符以上";
+                }
+            },
+            repassword: function (value) {
+                if (value !== layui.$('.pass').val()) {
+                    return '两次密码不一致';
+                }
+            }
+        });
+        //监听提交
+        layui.form.on('submit(install)', function () {
+            layui.$('form').submit();
+            return false;
+        });
+    });
+</script>
+{/block}

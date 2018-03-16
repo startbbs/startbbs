@@ -1,0 +1,66 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+    <!--tab标签-->
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class=""><a href="{:url('admin/auth_group/index')}">权限组</a></li>
+            <li class=""><a href="{:url('admin/auth_group/add')}">添加权限组</a></li>
+            <li class="layui-this">编辑权限组</li>
+        </ul>
+	    <div class="layui-tab-content">
+	        <div class="layui-tab-item layui-show">
+	            <form action="{:Url::build('AuthGroup/updateAuthGroupRule')}" method="post" class="">
+	                {volist name="auth_rule_list" id="node1" }
+	                    <fieldset class="layui-elem-field all">
+	                        <legend><label><input type="checkbox" class="auth_rules rules_all" name="rules[]" value="{$node1.id}"{$node1.checked}>{$node1.title}</label></legend>
+						{notempty name="$node1['children']"}
+	                            {volist name="node1.children" id="node2" }
+	                            <div class="layui-field-box">
+	                                <fieldset class="layui-elem-field rule_check">
+	                                    <legend><label><input type="checkbox" class="auth_rules rules_row " name="rules[]" value="{$node2.id}"{$node2.checked}>{$node2.title}</label></legend>
+	                                        {notempty name="$node2['children']"}
+	                                            <div class="layui-field-box child_row">
+	                                                {volist name="node2['children']" id="node3"}
+	                                                <label><input type="checkbox" class="auth_rules" name="rules[]" value="{$node3.id}"{$node3.checked}>{$node3.title}</label>
+	                                                {/volist}
+	                                            </div>
+	                                        {else /}
+	                                            <legend>&nbsp;</legend>
+	                                        {/notempty}
+	                                </fieldset>
+	                            </div>
+	                            {/volist}
+{/notempty}
+	                    </fieldset>
+
+	                {/volist}
+	                <div class="layui-inline">
+	                    <input type="hidden" name="id" value="{$id}" />
+	                    <button class="layui-btn" type="submit" id="access">授权</button>
+	                    <button class="layui-btn layui-btn-primary retreat">取消</button>
+	                </div>
+	            </form>
+	        </div>
+	    </div>
+
+    </div>
+</div>
+{/block}
+{block name="js"}
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    layui.use(['jquery', 'form', 'layer'], function () {
+        //全选节点
+        layui.$('.rules_all').on('change', function () {
+            layui.$(this).closest('.all').find('.rule_check').find('input').prop('checked', this.checked);
+        });
+        layui.$('.rules_row').on('change', function () {
+            layui.$(this).closest('.rule_check').find('.child_row').find('input').prop('checked', this.checked);
+        });
+
+    })
+</script>
+{/block}

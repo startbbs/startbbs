@@ -1,0 +1,59 @@
+<div class="fly-header layui-bg-black">
+  <div class="layui-container">
+    <a class="fly-logo" href="{:url('index/index')}">
+      <img src="__SKIN__/images/logo.png" alt="layui">
+    </a>
+    <ul class="layui-nav fly-nav layui-hide-xs">
+        {volist name="nav" id="vo"}
+		{eq name="vo.pid" value="0"}
+      <li class="layui-nav-item">
+        <a href="{$vo.link}" target="{$vo.target}" title="{$vo.alias}">{$vo.name}</a>
+      </li>
+        {/eq}
+		{/volist}
+    </ul>
+    
+    <ul class="layui-nav fly-nav-user">
+	    {if condition="session('user_id') neq null"}
+      <!-- 登入后的状态 -->
+      <li class="layui-nav-item">
+        <a class="fly-nav-avatar" href="javascript:;">
+          <cite class="layui-hide-xs">{:session('user_name')}</cite>
+<!--          <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>-->
+          <i class="layui-badge fly-badge-vip layui-hide-xs">{:session('group_name')}</i>
+          <img src="{:session('avatar')}">
+        </a>
+        <dl class="layui-nav-child">
+	        <dd><a href="{:url('user/index')}"><i class="layui-icon">&#xe612;</i>用户中心</a></dd>
+          <dd><a href="{:url('user/set')}"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+          <dd><a href="user/message.html"><i class="iconfont icon-tongzhi"></i>我的消息</a></dd>
+          <dd><a href="{:url('user/home',['id'=>session('user_id')])}"><i class="layui-icon">&#xe68e;</i>我的主页</a></dd>
+          <hr style="margin: 5px 0;">
+	      {eq name=":session('group_id')" value="1"}
+          <dd><a href="/admin.php" style="text-align: center;"><i class="layui-icon">&#xe632;</i>后台管理</a></dd>
+          {/eq}
+          <dd><a href="javascript:;" data-url="{:url('user/logout')}" style="text-align: center;" class="action">退出</a></dd>
+        </dl>
+      </li>
+      {else/}
+      <!-- 未登入的状态 -->
+      <li class="layui-nav-item">
+        <a class="iconfont icon-touxiang layui-hide-xs" href="{:url('user/login')}"></a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="{:url('user/login')}">登入</a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="{:url('user/register')}">注册</a>
+      </li>
+      <!--<li class="layui-nav-item layui-hide-xs">
+        <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+      </li>
+      <li class="layui-nav-item layui-hide-xs">
+        <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+      </li>-->
+     
+      {/if}
+    </ul>
+  </div>
+</div>

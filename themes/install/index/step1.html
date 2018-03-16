@@ -1,0 +1,90 @@
+{extend name="base:base" /}
+{block name="body"}
+<div class="layui-form">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>环境检测</legend>
+    </fieldset>
+    运行环境
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>项目</th>
+            <th>所需配置</th>
+            <th>当前配置</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="env" id="item"}
+        <tr>
+            <td>{$item[0] ?? ''}</td>
+            <td>{$item[1] ?? ''}</td>
+            <td><i class="ico-{$item[4] ?? ''}">&nbsp;</i>{$item[3] ?? ''}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    依赖性
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>类型</th>
+            <th>检查结果</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="func" id="item"}
+        <tr>
+            <td>{$item[0] ?? ''}</td>
+            <td>{$item[3] ?? ''}</td>
+            <td><span style="color:{$item[2] ?? 'inherit'};">{$item[1] ?? ''}</span></td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {present name="dirfile"}
+    目录/文件权限
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>目录/文件</th>
+            <th>所需状态</th>
+            <th>当前状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="dirfile" id="item"}
+        <tr>
+            <td>{$item[3] ?? ''}</td>
+            <td><i class="ico-success">&nbsp;</i>可写</td>
+            <td><i class="ico-{$item[2] ?? ''}">&nbsp;</i>{$item[1] ?? ''}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+{/present}
+<a class="layui-btn layui-btn-primary layui-btn-big" href="{:Url::build('Index/index')}">上一步</a>
+<a class="layui-btn layui-btn-big" href="{:Url::build('Index/step2')}">下一步</a>
+{/block}
+{block name="script"}
+
+{/block}

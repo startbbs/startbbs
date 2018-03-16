@@ -1,0 +1,93 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+    <!--tab标签-->
+    <div class="layui-tab layui-tab-brief">
+	    {present name="group_list"}
+	    <ul class="layui-tab-title">
+	        {volist name='group_list' id='v'}
+	        <li class="{eq name='group' value='$key'}layui-this{/eq}">
+	            <a href="{:Url('system/siteconfig',['group'=>$key])}">{$v}配置</a>
+	        </li>
+	        {/volist}
+	    </ul>
+	    {/present}
+        <div class="layui-tab-content" style="background-color: #fff;">
+            <div class="layui-tab-item layui-show">
+	            <div class="layui-row">
+                	<div class="layui-col-xs12 layui-col-md5">
+		                <form class="layui-form form-container" action="{:url('admin/system/updateSiteConfig')}" method="post">
+		                    {volist name="site_config" id="v"}
+		                    <div class="layui-form-item">
+		                        <label class="layui-form-label">{$v.title}</label>
+		                            <div class="layui-input-block">
+		                            {switch name="v['type']"}
+		                                {case value="1"}
+		                                <input type="text" name="config[{$v.name}]" value="{$v.value ?? ''}" class="layui-input">
+		                                {/case}
+		                                {case value="2"}
+		                                <textarea name="config[{$v.name}]" class="layui-textarea" rows="4">{$v.value ?? ''}</textarea>
+		                                {/case}
+		                                {case value="3"}
+		                                <textarea name="config[{$v.name}]" class="layui-textarea" rows="4">{$v.value ?? ''}</textarea>
+		                                {/case}
+		                                {case value="4"}
+		                                <!--开关-->
+		                                {php}$text=parse_config_attr($v['options']){/php}
+										<input type="checkbox" name="config[{$v['name']}]" value="1" lay-skin="switch" lay-text="{$text[1]}|{$text[0]}"{if condition="$v['value'] eq 1"} checked=""{/if}>
+		                                {/case}
+		                                {case value="5"}
+		                                <select name="config[{$v.name}]">
+		                                {notempty name='v.options'}
+		                                {volist name=":parse_config_attr($v['options'])" id="vo"}
+		                                <option value="{$key}" {eq name='v.value' value='$key'}selected{/eq} >{$vo}</option>
+		                                {/volist}
+		                                {/notempty}
+		                                </select>
+		                                {/case}
+		                                {case value="6"}
+					                    {volist name=":parse_config_attr($v['options'])" id="vo"}
+					                    <input type="radio" name="config[{$v['name']}]" value="{$key}" title="{$vo}" {if condition="$key eq $v['value']"}checked{/if}>
+					                    {/volist}
+		                                {/case}
+		                                {case value="7"}
+					                    {volist name=":parse_config_attr($v['options'])" id="vo"}
+					                    <input type="checkbox" name="config[{$v['name']}][]" value="{$key}" title="{$vo}" lay-skin="primary" {if condition="in_array($key, $value)"}checked{/if}>
+					                    {/volist}
+		                                {/case}
+		                                {case value="8"}
+					                    <button type="button" name="upload" class="layui-btn layui-btn-primary layui-upload" lay-type="image" lay-data="{ {if condition="!empty($v['url'])"}url: '{:url($v['url'])}', {/if}exts:'{:str_replace(',', '|', config('upload.upload_image_ext'))}', accept:'image'}">请上传{$v['title']}</button>
+					                    <input type="hidden" class="upload-input" name="config[{$v['name']}]" value="{$v['value']}">
+					                    {if condition="$v['value']"}
+					                        <img src="{$v['value']}" style="display:inline-block;border-radius:5px;border:1px solid #ccc" width="36" height="36">
+					                    {else /}
+					                        <img src="" style="display:none;border-radius:5px;border:1px solid #ccc" width="36" height="36">
+					                    {/if}
+		                                {/case}
+		                                {case value="9"}
+					                    <button type="button" name="upload" class="layui-btn layui-btn-primary layui-upload" lay-data="{ {if condition="!empty($v['url'])"}url: '{:url($v['url'])}', {/if}exts:'{:str_replace(',', '|', config('upload.upload_file_ext'))}', accept:'file'}">请上传{$v['title']}</button>
+					                    <input type="hidden" class="upload-input" name="config[{$v['name']}]" value="{$v['value']}">
+		                                {/case}
+		                                {case value="10"}
+		                                    <input type="number" name="config[{$v.name}]" value="{$v.value ?? ''}" class="layui-input">
+		                                {/case}
+		                            {/switch}
+		                            <div class="layui-form-mid layui-word-aux">{$v.tips}, 调用方式：<code style="color:#5FB878;">config('{$v['group']}.{$v['name']}')</code></div>
+		                        </div>
+
+		                    </div>
+		                    {/volist}
+		                    <div class="layui-form-item">
+		                        <div class="layui-input-block">
+		                            <button class="layui-btn" lay-submit lay-filter="*">提交</button>
+		                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		                        </div>
+		                    </div>
+		                </form>
+            		</div>
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$metaTitle ?? 'startbbs'}-安装</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__STATIC__/js/layui/css/layui.css">
+    <link rel="stylesheet" href="__CSS__/main.css" media="all">
+    {block name="css"}{/block}
+</head>
+<body class="layui-layout-body layui-layout">
+<header class="layui-header header">
+    <div class="layui-main">
+        <a class="logo" href="#"><img src="/public/static/default/images/logo.png" alt="startbbs"></a>
+        <ul class="layui-nav ml200 pl0" >
+            <li class="layui-nav-item {$step ?? ''}">
+                <a href="javascript:void(0);">安装系统</a>
+            </li>
+            <li class="layui-nav-item {$step1 ?? ''}">
+                <a href="javascript:void(0);">环境检测</a>
+            </li>
+            <li class="layui-nav-item {$step2 ?? ''}">
+                <a href="javascript:void(0);">创建数据库</a>
+            </li>
+            <li class="layui-nav-item {$step3 ?? ''}">
+                <a href="javascript:void(0);">{eq name=":Session::get('update','install')" value="1"}升级{else/}安装{/eq}</a>
+            </li>
+            <li class="layui-nav-item {$step4 ?? ''}">
+                <a href="javascript:void(0);">完成</a>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="http://www.startbbs.com/">StartBBS官网</a>
+            </li>
+        </ul>
+    </div>
+</header>
+<div class="layui-main">
+    {block name="body"}这是主体{/block}
+</div>
+{block name="footer"}
+<div class="layui-footer footer">
+    <div class="layui-main">
+        <p>Copyright <strong><a href="https://www.startbbs.com">Startbbs.com</a></strong> &copy; 2018</p>
+    </div>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__STATIC__/layui.js" charset="utf-8"></script>
+<script src="__JS__/layui/layui.all.js"></script>
+<script src="__JS__/global.js"></script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    layui.use('element', function () {
+    });
+</script>
+{/block}
+</body>
+</html>

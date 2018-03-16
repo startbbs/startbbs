@@ -1,0 +1,31 @@
+.ml200{
+    margin-left: 200px;
+}
+.mt60{
+    margin-top: 65px;
+}
+.pl0{
+    padding-left: 0px;
+}
+
+.header {
+    height: 59px;
+    border-bottom: 1px solid #404553;
+    background-color: #393D49;
+}
+.logo {
+	padding: 6px 0;
+    position: absolute;
+}
+.logo img{
+    width: 135px;
+    height: 37px;
+}
+
+.footer {
+    padding: 30px 0;
+    line-height: 30px;
+    text-align: center;
+    color: #666;
+    font-weight: 300;
+}

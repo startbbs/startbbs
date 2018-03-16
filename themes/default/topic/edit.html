@@ -1,0 +1,92 @@
+{extend name="common:base" /}
+{block name="css"}
+<link rel="stylesheet" type="text/css" href="__JS__/editor/css/simditor.css" />
+{/block}
+{block name="body"}
+<div class="layui-container fly-marginTop">
+  <div class="fly-panel" pad20 style="padding-top: 5px;">
+    <!--<div class="fly-none">没有权限</div>-->
+    <div class="layui-form layui-form-pane">
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">编辑话题</li>
+        </ul>
+        <div class="layui-tab-content" style="padding: 20px 0;">
+            <div class="layui-tab-item layui-show">
+                <form class="layui-form form-container" action="{:url('topic/edit')}" method="post">
+	            <input type="hidden" name="attach" value="{$attach}" />
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所属板块</label>
+                        <div class="layui-input-block">
+                            <select name="cid" lay-verify="required">
+                                {foreach name="category_level_list" item="vo"}
+                                <option value="{$vo.id}" {if condition="$topic.cid==$vo.id"} selected="selected"{/if}>{neq name="vo.level" value="1"}|{php}for($i=1;$i<$vo['level'];$i++){echo ' ----';}{/php}{/neq} {$vo.name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" value="{$topic.title}" required  lay-verify="required" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item  layui-form-text">
+                        <div class="layui-input-block">
+                            <textarea name="content" lay-verify="content" placeholder="" class="layui-textarea" id="editor">{$topic.content}</textarea>
+                        </div>
+                    </div>
+                    {if condition="has_permission($topic.uid,2)"}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">置顶</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="is_top" value="1" title="置顶" {if condition="$topic.is_top==1"} checked="checked"{/if}>
+                            <input type="radio" name="is_top" value="0" title="未置顶" {if condition="$topic.is_top==0"} checked="checked"{/if}>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">推荐</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="is_recommend" value="1" title="推荐" {if condition="$topic.is_recommend==1"} checked="checked"{/if}>
+                            <input type="radio" name="is_recommend" value="0" title="未推荐" {if condition="$topic.is_recommend==0"} checked="checked"{/if}>
+                        </div>
+                    </div>
+                    {/if}
+                    <div class="layui-form-item">
+                            <input type="hidden" name="id" value="{$topic.id}">
+                            <button class="layui-btn" lay-submit lay-filter="*">更新</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__JS__/editor/js/module.js"></script>
+<script type="text/javascript" src="__JS__/editor/js/hotkeys.js"></script>
+<script type="text/javascript" src="__JS__/editor/js/uploader.js">
+</script>
+<script type="text/javascript" src="__JS__/editor/js/simditor.js"></script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	$(function(){
+	var editor = new Simditor({
+	textarea: $('#editor'),
+    toolbar: ['title', 'bold', 'italic', 'underline', 'strikethrough', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'image', 'hr', '|', 'indent', 'outdent'],
+    upload: {
+        url: '/api.php/upload/attach.html',
+        params:{attach:$("input[name='attach']").val()}, 
+        fileKey: 'file', 
+        connectionCount: 3,
+        leaveConfirm: '正在上传文件',
+    }
+});
+})
+</script>
+{/block}

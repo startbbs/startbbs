@@ -1,0 +1,35 @@
+/*前台公用样式*/
+
+/*分页*/
+.pagination {
+ display: inline-block;
+ padding: 0 auto;
+ margin: 20px 0;
+ border-radius: 4px;
+}
+.pagination li {
+  display: inline;
+}
+.pagination li a,
+.pagination li span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  line-height: 1.42857143;
+  color: #393D49;
+  background: #fff;
+  margin: 0 0 0 8px;
+  border: 1px solid #eee;
+}
+
+.pagination li a:hover {
+	color: #fff;
+	background: #009688;
+}
+.pagination .active span{
+background: #009688;
+color: #fff;
+}
+.pagination .disabled{
+display: none;
+}
