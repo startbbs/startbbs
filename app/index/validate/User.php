@@ -17,10 +17,10 @@ class User extends Validate
 		
     ];
     protected $message  =   [
-        'name.require' => '请输入用户名',
-        'name.min' => '用户名最小长度3',
-        'name.unique' => '用户名已存在',
-        'name.chsAlphaNum' => '用户名只能为字母、数字、中文',
+        'username.require' => '请输入用户名',
+        'username.min' => '用户名最小长度3',
+        'username.unique' => '用户名已存在',
+        'username.chsAlphaNum' => '用户名只能为字母、数字、中文',
         'password.require'     => '请输入密码',
         'password.length'     => '密码长度6-20位',
         'confirm_password.confirm'   => '两次输入密码不一致',
@@ -39,7 +39,7 @@ class User extends Validate
     public function sceneLogin()
     {
     	return $this->only(['username','password','verify'])
-    			->remove('username', 'unique');
+    			->remove('username', 'min|unique');
     }
     public function sceneSet_info()
     {
