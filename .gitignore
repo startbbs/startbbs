@@ -1,0 +1,4 @@
+config/database.php
+runtime
+public/static/install/install.lock
+public/uploads
