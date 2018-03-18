@@ -64,7 +64,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">用户名</label>
         <div class="layui-input-inline">
-            <input type="text" name="admin[0]" lay-verify="required" value="admin" placeholder="请输入用户名"
+            <input type="text" name="admin[0]" lay-verify="required|username" value="admin" placeholder="请输入用户名"
                    class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux">默认为超级管理员</div>
@@ -72,7 +72,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-inline">
-            <input type="password" name="admin[1]" lay-verify="required|length" placeholder="请输入密码"
+            <input type="password" name="admin[1]" lay-verify="required|password" placeholder="请输入密码"
                    class="layui-input pass">
         </div>
         <div class="layui-form-mid layui-word-aux">密码,至少6位字符以上</div>
@@ -104,7 +104,15 @@
 <script type="text/javascript">
     layui.use(['jquery','form'], function () {
         layui.form.verify({
-            length: function (value) {
+            username: function (value) {
+                if (value.length < 3) {
+                    return "用户名必须3个字符以上";
+                }
+                if (value.length < 15) {
+                    return "用户名必须小于15个字符";
+                }
+            },
+            password: function (value) {
                 if (value.length < 6) {
                     return "密码必须6个字符以上";
                 }

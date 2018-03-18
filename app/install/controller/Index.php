@@ -40,7 +40,7 @@ class Index extends Controller{
     //安装第二步，创建数据库
     public function step2(){
 	    if(session('step')!=1){
-		    $this->error('环境检测没有通过，请调整环境后重试！','step');
+		    $this->error('环境检测没有通过，请调整环境后重试！','step1');
 	    }
         if($this->request->isPost()){
 	        $admin = $this->request->param('admin/a');
@@ -90,6 +90,8 @@ class Index extends Controller{
         //连接数据库
         $dbconfig = session('db_config');
         $db = Db::connect($dbconfig);
+        //创建数据库
+        $db->query("Create Database If Not Exists {$dbconfig['database']} Character Set UTF8");
         //创建数据表
         create_tables($db, $dbconfig['prefix']);
         //注册创始人帐号
