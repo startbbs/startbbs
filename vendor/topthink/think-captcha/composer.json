@@ -8,9 +8,7 @@
         }
     ],
     "license": "Apache-2.0",
-    "require": {
-    	"topthink/framework": "5.1.*"
-    },
+    "require": {},
     "autoload": {
         "psr-4": {
             "think\\captcha\\": "src/"
