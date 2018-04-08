@@ -28,7 +28,7 @@
                 <div class="layui-input-inline">
                   <input type="text" name="verify" required lay-verify="required" placeholder="4位验证码" class="layui-input">
                 </div>
-                <img src="{:captcha_src()}" alt="点击更换" title="点击更换" onclick="this.src='{:captcha_src()}?time='+Math.random()" class="captcha">
+                <img src="{:captcha_src()}" alt="点击更换" title="点击更换" onclick="this.src='{:captcha_src()}'" class="captcha">
               </div>
               <div class="layui-form-item">
                 <button class="layui-btn" lay-filter="*" lay-submit>登 录</button>

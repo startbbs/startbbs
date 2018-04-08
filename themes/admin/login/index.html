@@ -33,7 +33,7 @@
         <label class="layui-form-label">验证码</label>
         <div class="layui-input-block">
             <input type="text" name="verify" required lay-verify="required" class="layui-input layui-input-inline">
-            <img src="{:captcha_src()}" alt="点击更换" title="点击更换" onclick="this.src='{:captcha_src()}?time='+Math.random()" class="captcha">
+            <img src="{:captcha_src()}" alt="点击更换" title="点击更换" onclick="this.src='{:captcha_src()}'" class="captcha">
         </div>
     </div>
     <div class="layui-form-item">
