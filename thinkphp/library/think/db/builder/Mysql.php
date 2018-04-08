@@ -116,9 +116,9 @@ class Mysql extends Builder
 
         if (strpos($key, '->') && false === strpos($key, '(')) {
             // JSON字段支持
-            list($field, $name) = explode('->', $key);
+            list($field, $name) = explode('->', $key, 2);
 
-            $key = 'json_extract(' . $this->parseKey($query, $field) . ', \'$.' . $name . '\')';
+            $key = 'json_extract(' . $this->parseKey($query, $field) . ', \'$.' . str_replace('->', '.', $name) . '\')';
         } elseif (strpos($key, '.') && !preg_match('/[,\'\"\(\)`\s]/', $key)) {
             list($table, $key) = explode('.', $key, 2);
 
@@ -171,35 +171,6 @@ class Mysql extends Builder
         }
 
         return $fieldsStr;
-    }
-
-    /**
-     * 数组数据解析
-     * @access protected
-     * @param  array  $data
-     * @return mixed
-     */
-    protected function parseArrayData($data)
-    {
-        list($type, $value) = $data;
-
-        switch (strtolower($type)) {
-            case 'exp':
-                $result = $value;
-                break;
-            case 'point':
-                $fun   = isset($data[2]) ? $data[2] : 'GeomFromText';
-                $point = isset($data[3]) ? $data[3] : 'POINT';
-                if (is_array($value)) {
-                    $value = implode(' ', $value);
-                }
-                $result = $fun . '(\'' . $point . '(' . $value . ')\')';
-                break;
-            default:
-                $result = false;
-        }
-
-        return $result;
     }
 
     /**

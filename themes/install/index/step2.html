@@ -108,7 +108,7 @@
                 if (value.length < 3) {
                     return "用户名必须3个字符以上";
                 }
-                if (value.length < 15) {
+                if (value.length > 15) {
                     return "用户名必须小于15个字符";
                 }
             },

@@ -17,7 +17,7 @@ class Loader
      * 类名映射信息
      * @var array
      */
-    protected static $map = [];
+    protected static $classMap = [];
 
     /**
      * 类库别名
@@ -58,29 +58,45 @@ class Loader
         // 注册系统自动加载
         spl_autoload_register($autoload ?: 'think\\Loader::autoload', true, true);
 
-        // 注册命名空间定义
-        self::addNamespace([
-            'think'  => __DIR__ . '/',
-            'traits' => __DIR__ . '/../traits/',
-        ]);
+        $scriptName = 'cli' == PHP_SAPI ? getcwd() . DIRECTORY_SEPARATOR . $_SERVER['argv'][0] : $_SERVER['SCRIPT_FILENAME'];
 
-        $path = dirname($_SERVER['SCRIPT_FILENAME']);
-        if (is_file('./think')) {
-            $rootPath = realpath($path) . '/';
+        $path = realpath(dirname($scriptName));
+
+        if ('cli-server' == PHP_SAPI || !is_file('./think')) {
+            $rootPath = dirname($path) . DIRECTORY_SEPARATOR;
         } else {
-            $rootPath = realpath($path . '/../') . '/';
+            $rootPath = $path . DIRECTORY_SEPARATOR;
         }
 
-        // 加载类库映射文件
-        if (is_file($rootPath . 'runtime/classmap.php')) {
-            self::addClassMap(__include_file($rootPath . 'runtime/classmap.php'));
-        }
-
-        self::$composerPath = $rootPath . 'vendor/composer/';
+        self::$composerPath = $rootPath . 'vendor' . DIRECTORY_SEPARATOR . 'composer' . DIRECTORY_SEPARATOR;
 
         // Composer自动加载支持
         if (is_dir(self::$composerPath)) {
-            self::registerComposerLoader(self::$composerPath);
+            if (is_file(self::$composerPath . 'autoload_static.php')) {
+                require self::$composerPath . 'autoload_static.php';
+
+                $declaredClass = get_declared_classes();
+                $composerClass = array_pop($declaredClass);
+
+                foreach (['prefixLengthsPsr4', 'prefixDirsPsr4', 'prefixesPsr0', 'classMap'] as $attr) {
+                    if (property_exists($composerClass, $attr)) {
+                        self::${$attr} = $composerClass::${$attr};
+                    }
+                }
+            } else {
+                self::registerComposerLoader(self::$composerPath);
+            }
+        }
+
+        // 注册命名空间定义
+        self::addNamespace([
+            'think'  => __DIR__,
+            'traits' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'traits',
+        ]);
+
+        // 加载类库映射文件
+        if (is_file($rootPath . 'runtime' . DIRECTORY_SEPARATOR . 'classmap.php')) {
+            self::addClassMap(__include_file($rootPath . 'runtime' . DIRECTORY_SEPARATOR . 'classmap.php'));
         }
 
         // 自动加载extend目录
@@ -114,9 +130,9 @@ class Loader
      */
     private static function findFile($class)
     {
-        if (!empty(self::$map[$class])) {
+        if (!empty(self::$classMap[$class])) {
             // 类库映射
-            return self::$map[$class];
+            return self::$classMap[$class];
         }
 
         // 查找 PSR-4
@@ -171,16 +187,16 @@ class Loader
             }
         }
 
-        return self::$map[$class] = false;
+        return self::$classMap[$class] = false;
     }
 
     // 注册classmap
     public static function addClassMap($class, $map = '')
     {
         if (is_array($class)) {
-            self::$map = array_merge(self::$map, $class);
+            self::$classMap = array_merge(self::$classMap, $class);
         } else {
-            self::$map[$class] = $map;
+            self::$classMap[$class] = $map;
         }
     }
 
@@ -346,9 +362,9 @@ class Loader
                 return strtoupper($match[1]);
             }, $name);
             return $ucfirst ? ucfirst($name) : lcfirst($name);
-        } else {
-            return strtolower(trim(preg_replace("/[A-Z]/", "_\\0", $name), "_"));
         }
+
+        return strtolower(trim(preg_replace("/[A-Z]/", "_\\0", $name), "_"));
     }
 }
 
