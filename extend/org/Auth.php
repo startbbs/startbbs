@@ -13,7 +13,7 @@ namespace org;
 use think\Db;
 use Config;
 use Session;
-use Request;
+//use Request;
 use think\Loader;
 
 /**
@@ -105,7 +105,7 @@ class Auth
             $this->config = array_merge($this->config, $auth);
         }
         // 初始化request
-        $this->request = Request::instance();
+        $this->request = request();
     }
 
     /**

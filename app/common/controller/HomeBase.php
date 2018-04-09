@@ -17,9 +17,7 @@ class HomeBase extends Controller
         if (config('base.site_status') != 1) {
            exit('站点已关闭');
         }
-		if(!is_file('./public/static/install/install.lock')){
-            $this->redirect('/install.php');
-        }
+
         $this->getNav();
         //$this->getSlide();
         print_r($this->getCategory());
