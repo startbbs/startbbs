@@ -741,4 +741,8 @@
 .simditor .simditor-body img, .editor-style img {
   margin: 0 5px;
   vertical-align: middle;
+    width: auto;  
+    height: auto;  
+    max-width: 100%;  
+    max-height: 100%;   
 }

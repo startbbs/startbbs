@@ -346,7 +346,7 @@ body .layui-edit-face  .layui-layer-content{padding:0; background-color:#fff; co
 .detail-body{margin: 20px 0 0;line-height: 26px; font-size: 16px; color: #333; word-wrap: break-word;}
 .detail-body p{margin-bottom:15px;}
 .detail-body a{color:#4f99cf;}
-.detail-body img{max-width: 100%; cursor: crosshair;}
+.detail-body img{max-width: 100%; cursor: crosshair; width: auto;  height: auto; max-width: 100%;  max-height: 100%; }
 .detail-body table{margin: 10px 0 15px;}
 .detail-body table thead{background-color:#f2f2f2;}
 .detail-body table th, 
