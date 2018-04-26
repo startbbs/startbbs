@@ -588,6 +588,7 @@
   color: #333;
   outline: none;
   word-wrap: break-word;
+  min-height:200px;
 }
 .simditor .simditor-body > :first-child, .editor-style > :first-child {
   margin-top: 0 !important;

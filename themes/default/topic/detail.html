@@ -99,7 +99,9 @@
             <div class="detail-body jieda-body photos">
               {$vo.content|raw}
             </div>
-            <div class="jieda-reply">
+              {if condition="has_permission($vo.uid,1)"}
+              <div class="layui-row">
+				  <div class="layui-col-md1 layui-col-md-offset11">
               <!--<span class="jieda-zan zanok" type="zan">
                 <i class="iconfont icon-zan"></i>
                 <em>66</em>
@@ -108,14 +110,12 @@
                 <i class="iconfont icon-svgmoban53"></i>
                 回复
               </span>-->
-              {if condition="has_permission($vo.uid,1)"}
-              <div class="jieda-admin">
                 <span type="edit"><a href="{:url('post/edit',['id'=>$vo['id']])}">编辑</a></span>
                 <span type="del"><a href="{:url('post/delete',['id'=>$vo['id']])}" class="ajax-delete">删除</a></span>
                 <!-- <span class="jieda-accept" type="accept">采纳</span> -->
-              </div>
+				  </div>
+				</div>
               {/if}
-            </div>
           </li>
       {/volist} 
           <!-- 无数据时 -->

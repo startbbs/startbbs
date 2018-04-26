@@ -50,6 +50,15 @@ class User extends Validate
     {
     	return $this->only(['old_password','password','confirm_password']);
     }
+    public function sceneForget()
+    {
+    	return $this->only(['email'])
+    	->remove('email', 'unique');
+    }
+    public function sceneResetpwd()
+    {
+    	return $this->only(['password','confirm_password']);
+    }
 
 	protected function check_password($value, $rule){
 		$user_id=Session::get('user_id');

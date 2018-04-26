@@ -7,6 +7,7 @@ return [
 	    //'upload' =>'上传',
 	    //'develop' =>'开发',
 	    //'databases' =>'数据库',
+	    'mail' =>'邮件',
 	],
 	'group_type' => ['input','textarea','array','switch','select','radio','checkbox','image','file'],
 ];

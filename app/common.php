@@ -366,3 +366,23 @@ function get_group_name($id)
     }
     return $result[$id];
 }
+
+function send_mail($email, $title, $content)
+{
+	//$issmtp=config('mail.smtp_is');
+	$email_set = array(
+		'host' => config('mail.smtp_host'),
+		'port' => config('mail.smtp_port'),
+		'user' => config('mail.smtp_user'),
+		'pswd' => config('mail.smtp_pswd'),
+	);
+	$mail = array(
+		'from' => config('mail.smtp_user'),
+		'to' => $email,
+		'title' => $title,
+		'content' => $content,
+	);
+	$res = new \mail\Smtp($email_set);
+	$result= $res->sendmail($mail);
+	return $result;
+}

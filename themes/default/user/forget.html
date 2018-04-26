@@ -1,0 +1,29 @@
+{extend name="common:base" /}
+{block name="body"}
+<div class="layui-container fly-marginTop">
+  <div class="fly-panel fly-panel-user" pad20>
+    <div class="layui-tab layui-tab-brief">
+      <ul class="layui-tab-title">
+        <li class="layui-this">找回密码</li>
+      </ul>
+      <div class="layui-form layui-tab-content" style="padding: 20px 0;">
+        <div class="layui-tab-item layui-show">
+          <div class="layui-form layui-form-pane">
+            <form class="layui-form login-form" action="{:url('user/forget')}" method="post">
+              <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="email" required lay-verify="required|email" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <button class="layui-btn" lay-filter="*" lay-submit>发送</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
