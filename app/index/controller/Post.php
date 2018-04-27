@@ -129,7 +129,9 @@ class Post extends HomeBase
     {
 	    !is_login() && $this->error('没有登录', 'user/login');
         $post = $this->post_model->find($id);
-
+	    if(!has_permission($post['uid'],1)){
+		    $this->error('请确认有权限或未登录');
+	    }
         if ($this->request->isPost()) {
             $data            = $this->request->param();
             $validate_result = $this->validate($data, 'Post');
@@ -197,7 +199,7 @@ class Post extends HomeBase
     public function delete($id = 0)
     {
 	    $data = $this->post_model->get($id);
-	    if(!has_permission($data['uid'])){
+	    if(!has_permission($data['uid'],2)){
 		    $this->error('请确认有权限或未登录');
 	    }
         if ($id) {

@@ -209,7 +209,7 @@ class Topic extends HomeBase
                 $this->error($validate_result);
             } else {
 	            $data['uid'] = session('user_id'); 
-	            $data['ord'] = ($data['is_top'])?2*time():time();
+	            $data['ord'] = isset($data['is_top'])?2*time():time();
 	            
 	            $files=Cache::get($data['attach']);
 	            //附件地址替换
