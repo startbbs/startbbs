@@ -1588,9 +1588,18 @@ class Request
             $ip = $_SERVER['REMOTE_ADDR'];
         }
 
+        // IP地址类型
+        $ip_mode = (strpos($ip, ':') === false) ? 'ipv4' : 'ipv6';
+
         // IP地址合法验证
-        $long = sprintf("%u", ip2long($ip));
-        $ip   = $long ? [$ip, $long] : ['0.0.0.0', 0];
+        if (filter_var($ip, FILTER_VALIDATE_IP) !== $ip) {
+            $ip = ('ipv4' === $ip_mode) ? '0.0.0.0' : '::';
+        }
+
+        // 如果是ipv4地址，则直接使用ip2long返回int类型ip；如果是ipv6地址，暂时不支持，直接返回0
+        $long_ip = ('ipv4' === $ip_mode) ? sprintf("%u", ip2long($ip)) : 0;
+
+        $ip = [$ip, $long_ip];
 
         return $ip[$type];
     }
@@ -1944,9 +1953,20 @@ class Request
     }
 
     /**
+     * 设置请求数据
+     * @access public
+     * @param  string    $name  参数名
+     * @param  mixed     $value 值
+     */
+    public function __set($name, $value)
+    {
+        return $this->param[$name] = $value;
+    }
+
+    /**
      * 获取请求数据的值
      * @access public
-     * @param  string $name 名称
+     * @param  string $name 参数名
      * @return mixed
      */
     public function __get($name)
