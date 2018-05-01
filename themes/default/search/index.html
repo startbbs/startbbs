@@ -1,0 +1,40 @@
+{extend name="common:base" /}
+{block name="body"}
+<div class="layui-container">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md8">
+            <div class="fly-panel">
+                <div class="fly-panel-title fly-filter">
+                    <a>关键词：<span style='color:red'>{$keyword}</span> 的搜索结果</a>
+                </div>
+                {volist name="topic_list" id="vo"}
+                <div style="padding:10px 15px 0 15px">
+                    <p class="title"><a href="{:url('topic/detail',array('id'=>$vo.id))}">{$vo.title|raw|str_replace=$keyword,"<span style='color:red'>$keyword</span>",###} 
+              </a></p>
+                    <!-- <div class="div-a"></div> -->
+                    <div class="div-b">
+                        <p class="content">
+                            {$vo.description|substr=0,120}
+                        </p>
+                        <p class="link">
+                            <span class="fly-list-hint"> 
+                <i class="iconfont" title="回答">&#xe60c;</i> {$vo.posts}
+                <i class="iconfont" title="人气">&#xe60b;</i> {$vo.views}
+         </span> <span class="quick"><a href="{:url('topic/detail',array('id'=>$vo.id))}">阅读详情</a></span>
+                        </p>
+                    </div>
+                    <div style="clear:both"></div>
+
+                </div>
+                {/volist}
+                <div style="border-top: 1px dotted #e2e2e2; text-align: center;">
+                    {$topic_list->render()}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{/block}

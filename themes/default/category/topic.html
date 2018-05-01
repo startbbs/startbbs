@@ -1,23 +1,5 @@
 {extend name="common:base" /}
 {block name="body"}
-<div class="fly-panel fly-column">
-  <div class="layui-container">
-    <ul class="layui-clear">
-      {volist name="category_list" id="vo"}
-      <li><a href="{:url('category/topic',['id'=>$vo.id])}">{$vo.name}</a></li>
-      {/volist}
-    </ul> 
-    
-    <div class="fly-column-right layui-hide-xs"> 
-      <span class="fly-search"><i class="layui-icon"></i></span> 
-      <a href="{:url('topic/add')}" class="layui-btn">发表新帖</a> 
-    </div> 
-    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;"> 
-      <a href="jie/add.html" class="layui-btn">发表新帖</a> 
-    </div> 
-  </div>
-</div>
-
 <div class="layui-container  fly-marginTop">
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md8">
