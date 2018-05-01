@@ -51,6 +51,7 @@ class Post extends HomeBase
 	            if($files){
 		            $data['content'] = str_replace('tmp/'.$data['attach'],'attachment/'.date('Ym'),$data['content']);
 	            }
+	            $data['description'] =strcut(clearhtml($data['content']),0,200);
                 if ($this->post_model->allowField(true)->save($data)) {
 	                //更新统计
 					$this->category_model->where('id',$data['cid'])->setInc('posts');
@@ -145,7 +146,7 @@ class Post extends HomeBase
 	            if($files){
 		            $data['content'] = str_replace('tmp/'.$data['attach'],'attachment/'.date('Ym'),$data['content']);
 	            }
-	            
+	            $data['description'] =strcut(clearhtml($data['content']),0,200);
                 if ($this->post_model->allowField(true)->save($data, $id) !== false) {
 		            //移动附件
 		            if($files){

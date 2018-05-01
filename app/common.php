@@ -366,7 +366,11 @@ function get_group_name($id)
     }
     return $result[$id];
 }
-
+/**
+ * 发送邮件
+ * @param string $
+ * @return
+ */
 function send_mail($email, $title, $content)
 {
 	//$issmtp=config('mail.smtp_is');
@@ -385,4 +389,33 @@ function send_mail($email, $title, $content)
 	$res = new \mail\Smtp($email_set);
 	$result= $res->sendmail($mail);
 	return $result;
+}
+/**
+ * 字符截取
+ * @param string $
+ * @return
+ */
+function strcut($str, $start, $len) {
+	return mb_substr($str, $start, $len, 'UTF-8');
+}
+
+/**
+ * 清除HTML标记
+ *
+ * @param	string	$str
+ * @return  string
+ */
+function clearhtml($str) {
+
+    $str = str_replace(
+        array('&nbsp;', '&amp;', '&quot;', '&#039;', '&ldquo;', '&rdquo;', '&mdash;', '&lt;', '&gt;', '&middot;', '&hellip;'), array(' ', '&', '"', "'", '“', '”', '—', '<', '>', '·', '…'), $str
+    );
+
+    $str = preg_replace("/\<[a-z]+(.*)\>/iU", "", $str);
+    $str = preg_replace("/\<\/[a-z]+\>/iU", "", $str);
+    $str = preg_replace("/{.+}/U", "", $str);
+    $str = str_replace(array(chr(13), chr(10), '&nbsp;'), '', $str);
+    $str = strip_tags($str);
+
+    return trim($str);
 }

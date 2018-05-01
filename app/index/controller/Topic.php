@@ -90,10 +90,11 @@ class Topic extends HomeBase
 	            if($files){
 		            $data['content'] = str_replace('tmp/'.$data['attach'],'attachment/'.date('Ym'),$data['content']);
 	            }
-	            
+	            $data['description'] =strcut(clearhtml($data['content']),0,200);
                 if ($this->topic_model->allowField(true)->save($data)) {
 	                $data['topic_id']=$this->topic_model->id;
 	            	$data['is_first'] = 1;
+
 	                $this->post_model->allowField(true)->save($data);
 	                $this->topic_model->isUpdate(true)->save(['id' => $data['topic_id'], 'first_post_id' => $this->post_model->id]);
 	                //更新统计
@@ -216,9 +217,9 @@ class Topic extends HomeBase
 	            if($files){
 		            $data['content'] = str_replace('tmp/'.$data['attach'],'attachment/'.date('Ym'),$data['content']);
 	            }
-	            
+	            $data['description'] =strcut(clearhtml($data['content']),0,200);
                 if ($this->topic_model->allowField(true)->save($data, $id) !== false) {
-	                $this->post_model->update(['id'=>$topic['first_post_id'],'content'=>$data['content']]);
+	                $this->post_model->update(['id'=>$topic['first_post_id'],'content'=>$data['content'],'description'=>$data['description']]);
 		            //移动附件
 		            if($files){
 			            $upload_path = ROOT_PATH . 'public' . DS . 'uploads';
