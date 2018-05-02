@@ -17,7 +17,10 @@ class HomeBase extends Controller
         if (config('base.site_status') != 1) {
            exit('站点已关闭');
         }
-
+		View::share([
+			'keywords'=>config('base.site_keywords'),
+			'description'=>config('base.site_description'),
+		]);
         $this->getNav();
         //$this->getSlide();
         print_r($this->getCategory());

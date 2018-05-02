@@ -182,6 +182,8 @@ class Topic extends HomeBase
 	 	$this->assign('post_list',$post_list['data']);
 	 	$this->assign('page', $page);
 	 	$this->assign('title',$topic['title']);
+	 	$this->assign('keywords',isset($topic['keywords'])?:$topic['title']);
+	 	$this->assign('description',$topic['description']);
 	 	$this->assign('attach',time());
 	 	$this->assign('hottopic',$hottopic);
 	 	
