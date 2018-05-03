@@ -49,6 +49,9 @@ class User extends HomeBase
      */
     public function register()
     {
+	    if(config('user.allow_reg')==0){
+		    $this->error('注册功能已关闭','/');
+	    }
         if ($this->request->isPost()) {
             $data            = $this->request->post();
             $validate_result = $this->validate($data, 'User.register');

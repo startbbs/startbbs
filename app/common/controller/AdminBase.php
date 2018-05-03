@@ -46,7 +46,7 @@ class AdminBase extends Controller
     {
 
         if (Session::get('group_id')!=1) {
-            $this->redirect('admin/login/index');
+            $this->error('管理员未登录或权限不足','admin/login/index');
         }
 
         $module     = $this->request->module();
