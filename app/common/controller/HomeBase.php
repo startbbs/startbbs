@@ -24,7 +24,6 @@ class HomeBase extends Controller
         $this->getNav();
         //$this->getSlide();
         print_r($this->getCategory());
-		define('ROOT_PATH',Env::get('root_path'));
 		define('DS',DIRECTORY_SEPARATOR); 
     }
 

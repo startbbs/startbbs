@@ -439,3 +439,22 @@ function parse_config_attr($string) {
     }
     return $value;
 }
+/**
+ * 获取插件类名
+ * @param  string $name 插件名
+ * @return string
+ */
+function get_plugin_class($name)
+{
+	$class = "plugin\\{$name}\\" . ucfirst($name);
+    return $class;
+}
+
+/**
+ * 监听钩子
+ * @param string $name 钩子名称
+ * @param array $params 参数
+ */
+function hook($name = '', $params = []) {
+    \think\facade\Hook::listen($name, $params);
+}

@@ -8,6 +8,7 @@ use app\common\controller\HomeBase;
 use Db;
 use Cache;
 use Session;
+use Hook;
 
 
 use app\common\model\Attach as AttachModel;
