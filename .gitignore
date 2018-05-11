@@ -4,3 +4,4 @@ public/static/install/install.lock
 public/uploads
 plugin
 extend/thirdlogin
+plugin.php

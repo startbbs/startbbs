@@ -9,6 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+//Route::get(':controller/:action', 'index/:controller/:action');
 Route::get('think', function () {
     return 'hello,ThinkPHP5!';
 });

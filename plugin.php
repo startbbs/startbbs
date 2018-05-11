@@ -12,11 +12,11 @@
 // [ 应用入口文件 ]
 namespace think;
 // 定义应用目录
-define('APP_PATH', __DIR__ . '/app/');
+define('APP_PATH', __DIR__ . '/plugin/');
 // 加载基础文件
 require __DIR__ . '/thinkphp/base.php';
 
 // 支持事先使用静态方法设置Request对象和Config对象
 
 // 执行应用并响应
-Container::get('app')->bind('plugin')->path('APP_PATH')->run()->send();
+Container::get('/')->bind('plugin')->path('APP_PATH')->run()->send();
