@@ -1,0 +1,54 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+    <!--tab标签-->
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class=""><a href="{:url('admin/hook/index')}">钩子管理</a></li>
+            <li class=""><a href="{:url('admin/hook/add')}">添加钩子</a></li>
+            <li class="layui-this">编辑钩子</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <form class="layui-form form-container" action="{:url('admin/hook/edit')}" method="post">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">钩子名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" value="{$hook.name}" required  lay-verify="required" placeholder="请输入名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">钩子描述</label>
+                        <div class="layui-input-block">
+                            <textarea  class="layui-textarea" name="description" lay-verify="required" autocomplete="off" placeholder="请填写钩子描述">{$hook.description}</textarea>
+                        </div>
+                    </div>
+				{if condition="$hook_plugin"}
+				<fieldset class="layui-elem-field layui-field-title">
+					<legend>关联插件排序</legend>
+				</fieldset>
+				<div class="layui-form-item">
+					<div class="layui-input-inline">
+						<ul class="hook-plugins-sort">
+							<li><span>插件挂载</span><span>排序</span>
+							</li>
+							{volist name="hook_plugin" id="vo"}
+							<li><span>{$vo['plugin']}</span>
+								<input type="text" class="layui-input" style="width:50px;height:25px;" value="{$vo['sort']}" name="plugin[{$vo['plugin']}]">
+							</li>{/volist}
+							</ul>
+					</div>
+				</div>{/if}
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="hidden" name="id" value="{$hook.id}">
+                            <button class="layui-btn" lay-submit2 lay-filter="*">更新</button>
+                            <button class="layui-btn layui-btn-primary" onclick="javascript:history.back(-1);return false;">返回</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
