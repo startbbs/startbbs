@@ -45,8 +45,8 @@
                         <td>{$vo.mobile}</td>
                         <td>{$vo.email}</td>
                         <td>{php}echo $vo['status']==1 ? '启用' : '禁用';{/php}</td>
-                        <td>{$vo.create_time}</td>
-                        <td>{$vo.last_login_time}</td>
+                        <td>{$vo.create_time|date='Y-m-d'}</td>
+                        <td>{$vo.last_login_time|date='Y-m-d'}</td>
                         <td>{$vo.last_login_ip}</td>
                         <td>
                             <a href="{:url('admin/user/edit',['id'=>$vo['id']])}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>

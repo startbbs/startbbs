@@ -99,11 +99,11 @@ class Topic extends HomeBase
 	                $this->topic_model->isUpdate(true)->save(['id' => $data['topic_id'], 'first_post_id' => $this->post_model->id]);
 	                //更新统计
 	                $count = array(
-					  'topics'=>array('exp','topics+1'),
-					  'posts'=>array('exp','posts+1'),
+					  'topics'=>array('topics','exp','topics+1'),
+					  'posts'=>array('posts','exp','posts+1'),
 					);
-					$this->category_model->where('id',$data['cid'])->setField($count);
-					$this->user_model->where('id',$data['uid'])->setField($count);
+					$this->category_model->where('id',$data['cid'])->inc('topics')->setInc('posts');
+					$this->user_model->where('id',$data['uid'])->inc('topics')->setInc('posts');
 					
 		            //移动附件
 		            if($files){

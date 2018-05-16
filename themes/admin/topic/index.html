@@ -59,12 +59,12 @@
                             <td><input type="checkbox" name="ids[]" value="{$vo.id}"></td>
                             <td>{$vo.id}</td>
                             <td>{$vo.sort}</td>
-                            <td>{$vo.title}</td>
+                            <td>{$vo.title|mb_substr=0,22}</td>
                             <td>{$category_list[$vo['cid']]}</td>
                             <td>{$vo.username}</td>
                             <td>{$vo.views}</td>
                             <td>{php}echo $vo['status']==1 ? '已审核' : '未审核';{/php}</td>
-                            <td>{$vo.update_time}</td>
+                            <td>{$vo.update_time|date='Y-m-d'}</td>
                             <td>
                                 <a href="{:url('admin/topic/edit',['id'=>$vo['id']])}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
                                 <a href="{:url('admin/topic/delete',['id'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
