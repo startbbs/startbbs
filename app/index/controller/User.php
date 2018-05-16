@@ -139,9 +139,9 @@ class User extends HomeBase
 		    $this->error('用户不存在','index/index');
 	    }
 	    $topic_model=new TopicModel();
-	    $user_topic = $topic_model->where('uid',$id)->limit(10)->select();
+	    $user_topic = $topic_model->where(['uid'=>$id,'status'=>1])->limit(10)->select();
 	    $post_model=new PostModel();
-	    $user_post = $post_model->alias('p')->field('p.content,p.update_time,p.topic_id,t.title')->where('p.is_first!=1 AND p.uid='.$id)->join('topic t','p.topic_id = t.id')->limit(5)->order('update_time','desc')->select();
+	    $user_post = $post_model->alias('p')->field('p.content,p.update_time,p.topic_id,t.title')->where('p.is_first!=1 AND P.status=1 AND p.uid='.$id)->join('topic t','p.topic_id = t.id')->limit(5)->order('update_time','desc')->select();
 
 	    $this->assign('title', '用户主页');
 	    $this->assign('user', $user);

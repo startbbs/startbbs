@@ -32,7 +32,7 @@ class Search extends HomeBase
 	    if(!$k){
 		    $this->error('关键词不得为空');
 	    }
-	    $data = $this->topic_model->whereLike('title','%'.$k_code.'%')->order('update_time','DESC')->paginate(15, false, ['query' => array('k' => $k)]);
+	    $data = $this->topic_model->where('status',1)->whereLike('title','%'.$k_code.'%')->order('update_time','DESC')->paginate(15, false, ['query' => array('k' => $k)]);
 	    $this->assign([
 	    	'title'=>$k.'的搜索结果',
 	    	'keyword' => $k,

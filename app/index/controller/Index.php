@@ -22,14 +22,14 @@ class Index extends HomeBase
         $toptopiclist = array();
         $this->assign('toptopiclist', $toptopiclist);
         
-        $newtopiclist = $this->topic_model->limit(15)->order('ord','desc')->select();
+        $newtopiclist = $this->topic_model->where('status',1)->limit(15)->order('ord','desc')->select();
         
         
         $hottopiclist=array();
         $this->user_model = new UserModel();
         $user_list = $this->user_model->limit(12)->order('posts desc')->select();
         $this->assign('newtopiclist', $newtopiclist);
-        $hottopiclist = $this->topic_model->limit(10)->order('views','desc')->select();
+        $hottopiclist = $this->topic_model->where('status',1)->limit(10)->order('views','desc')->select();
         $this->assign('hottopiclist', $hottopiclist);
         $this->assign('user_list', $user_list);
 

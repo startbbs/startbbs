@@ -157,7 +157,7 @@ class Topic extends HomeBase
 	 	if(!$topic){
 		 	$this->error('话题不存在');
 	 	}
-	 	$post_list = $this->post_model->where('topic_id',$id)->order('is_first desc,update_time')->paginate(10);
+	 	$post_list = $this->post_model->where(['topic_id'=>$id,'status'=>1])->order('is_first desc,update_time')->paginate(10);
 	 	$page = $post_list->render();
 	 	$post_list=$post_list->toArray();
 	 	
