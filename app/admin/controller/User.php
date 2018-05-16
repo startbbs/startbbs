@@ -2,6 +2,8 @@
 namespace app\admin\controller;
 
 use app\common\model\User as UserModel;
+use app\common\model\Topic;
+use app\common\model\Post;
 use app\common\controller\AdminBase;
 use Config;
 use Db;
@@ -119,6 +121,9 @@ class User extends AdminBase
     public function delete($id)
     {
         if ($this->user_model->destroy($id)) {
+	        Topic::where('uid',$id)->delete();
+	        Post::where('uid',$id)->delete();
+	        //将来需要更新栏目统计和话题统计
             $this->success('删除成功');
         } else {
             $this->error('删除失败');

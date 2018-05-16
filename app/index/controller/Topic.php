@@ -98,10 +98,6 @@ class Topic extends HomeBase
 	                $this->post_model->allowField(true)->save($data);
 	                $this->topic_model->isUpdate(true)->save(['id' => $data['topic_id'], 'first_post_id' => $this->post_model->id]);
 	                //更新统计
-	                $count = array(
-					  'topics'=>array('topics','exp','topics+1'),
-					  'posts'=>array('posts','exp','posts+1'),
-					);
 					$this->category_model->where('id',$data['cid'])->inc('topics')->setInc('posts');
 					$this->user_model->where('id',$data['uid'])->inc('topics')->setInc('posts');
 					
@@ -281,12 +277,8 @@ class Topic extends HomeBase
 	            $posts = $this->post_model->where('topic_id',$id)->delete();
 	            if($posts){
 	                //更新统计
-	                $count = array(
-					  'topics'=>array('exp','topics-1'),
-					  'posts'=>array('exp','posts-'.$posts),
-					);
-					$this->category_model->where('id',$data['cid'])->setField($count);
-					$this->user_model->where('id',$data['uid'])->setField($count);
+					$this->category_model->where('id',$data['cid'])->dec('topics')->setDec('posts');
+					$this->user_model->where('id',$data['uid'])->dec('topics')->setDec('posts');
 	            }
 	            //删除附件
 	            //需要判断是否有附件，再增加
