@@ -49,29 +49,6 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">缩略图</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="thumb" value="{$topic.thumb}" class="layui-input layui-input-inline" id="thumb">
-                            <input type="file" name="file" class="layui-upload-file">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">图集</label>
-                        <div class="layui-input-block">
-                            <button type="button" id="upload-photo-btn" class="layui-btn">上传图集</button>
-                            <div id="photo-container">
-                                {if condition="!empty($topic['photo'])"}
-                                {foreach name="$topic['photo']" item="vo"}
-                                <div class="photo-list">
-                                    <input type="text" name="photo[]" value="{$vo}" class="layui-input layui-input-inline">
-                                    <button type="button" class="layui-btn layui-btn-danger remove-photo-btn">移除</button>
-                                </div>
-                                {/foreach}
-                                {/if}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
                         <label class="layui-form-label">状态</label>
                         <div class="layui-input-block">
                             <input type="radio" name="status" value="1" title="已审核" {if condition="$topic.status==1"} checked="checked"{/if}>

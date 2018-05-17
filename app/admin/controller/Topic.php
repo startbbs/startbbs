@@ -34,21 +34,23 @@ class Topic extends AdminBase
      * @param int    $page
      * @return mixed
      */
-    public function index($cid = 0, $keyword = '', $page = 1)
+    public function index($cid = 0, $keyword = '', $uid='',$page = 1)
     {
         $map   = [];
-        $field = 'id,title,cid,username,views,status,update_time,sort';
+        $field = 'id,title,cid,uid,username,views,status,update_time,sort';
 
         if ($cid > 0) {
-            $category_children_ids = $this->category_model->where(['path' => ['like', "%,{$cid},%"]])->column('id');
+            $category_children_ids = $this->category_model->where(['path' => ['path','like', "%,{$cid},%"]])->column('id');
             $category_children_ids = (!empty($category_children_ids) && is_array($category_children_ids)) ? implode(',', $category_children_ids) . ',' . $cid : $cid;
-            $map['cid']            = ['IN', $category_children_ids];
+            $map[]            = ['cid','IN', $category_children_ids];
         }
 
         if (!empty($keyword)) {
-            $map['title'] = ['like', "%{$keyword}%"];
+            $map[] = ['title','like', "%{$keyword}%"];
         }
-
+		if($uid){
+			$map[] =['uid','=',$uid];
+		}
         $topic_list  = $this->topic_model->field($field)->where($map)->order(['update_time' => 'DESC'])->paginate(15);
         $category_list = $this->category_model->column('name', 'id');
 
@@ -76,7 +78,13 @@ class Topic extends AdminBase
             if ($validate_result !== true) {
                 $this->error($validate_result);
             } else {
+	            $data['uid'] = session('user_id');
+	            $data['username']=session('user_name');
+	            $data['ord'] = ($data['is_top'])?2*time():time(); 
                 if ($this->topic_model->allowField(true)->save($data)) {
+	                $data['topic_id']=$this->topic_model->id;
+	            	$data['is_first'] = 1;
+	                $this->post_model->allowField(true)->save($data);
                     $this->success('保存成功');
                 } else {
                     $this->error('保存失败');

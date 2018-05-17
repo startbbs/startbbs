@@ -11,7 +11,7 @@ use think\Validate;
 class AdminUser extends Validate
 {
     protected $rule = [
-        'username'         => 'require|unique:admin_user',
+        'username'         => 'require|unique:user',
         'password'         => 'confirm:confirm_password',
         'confirm_password' => 'confirm:password',
         'status'           => 'require',

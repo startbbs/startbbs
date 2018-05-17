@@ -58,7 +58,7 @@ class Topic extends HomeBase
             $map['title'] = ['like', "%{$keyword}%"];
         }
 
-        $topic_list  = $this->topic_model->field($field)->where($map)->order(['update_time' => 'DESC'])->paginate(15, false, ['page' => $page]);
+        $topic_list  = $this->topic_model->field($field)->where($map)->order('ord','desc')->paginate(15, false, ['page' => $page]);
         $category_list = $this->category_model->column('name', 'id');
 
         return $this->fetch('index', ['topic_list' => $topic_list, 'category_list' => $category_list, 'cid' => $cid, 'keyword' => $keyword]);
