@@ -73,7 +73,7 @@ class User extends Validate
 	}
 	protected function user_banned($value)
 	{
-		return in_array($value,parse_config_attr(config('user.user_banned')))?false:true;
+		return in_array($value,parse_config_attr(config('user_banned')))?false:true;
 	}
 	//protected function check_username($value, $rule){
 	//	if(preg_match('/^(?!_)(?!.*?_$)[A-Za-z0-9]+$/',$value)){

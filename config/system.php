@@ -3,6 +3,7 @@
 return [
     'group_list' => [
 	    'base'=>'基础',
+	    'content'=>'内容',
 	    'user'=>'用户',
 	    //'sys'=>'系统',
 	    //'upload' =>'上传',

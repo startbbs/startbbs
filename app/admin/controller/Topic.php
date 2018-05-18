@@ -37,7 +37,7 @@ class Topic extends AdminBase
     public function index($cid = 0, $keyword = '', $uid='',$page = 1)
     {
         $map   = [];
-        $field = 'id,title,cid,uid,username,views,status,update_time,sort';
+        $field = 'id,title,cid,uid,username,is_top,is_recommend,views,status,update_time,sort';
 
         if ($cid > 0) {
             $category_children_ids = $this->category_model->where(['path' => ['path','like', "%,{$cid},%"]])->column('id');

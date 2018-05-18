@@ -59,7 +59,7 @@
                             <td><input type="checkbox" name="ids[]" value="{$vo.id}"></td>
                             <td>{$vo.id}</td>
                             <td>{$vo.sort}</td>
-                            <td><a href="/topic/detail/id/{$vo.id}.html" target=_blank>{$vo.title|mb_substr=0,22}</a></td>
+                            <td><a href="/topic/detail/id/{$vo.id}.html" target=_blank>{$vo.title|mb_substr=0,22}</a>{eq name="vo.is_top" value="1"} <span class="layui-badge layui-bg-black">顶</span>{/eq}{eq name="vo.is_recommend" value="1"} <span class="layui-badge orange">精</span>{/eq}</td>
                             <td><a href="{:url('admin/topic/index',['cid'=>$vo['cid']])}">{$category_list[$vo['cid']]}</a></td>
                             <td><a href="{:url('admin/topic/index',['uid'=>$vo['uid']])}">{$vo.username}</a></td>
                             <td>{$vo.views}</td>

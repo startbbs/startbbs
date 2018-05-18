@@ -38,9 +38,9 @@ class System extends Model
             Cache::tag('system_config')->set('front_config', $data);
         }
         foreach($data as $v){
-        	$config[$v['group']][$v['name']]=$v['value'];
+        	$config[$v['name']]=$v['value'];
         }
-        return Config::set($config);
+        return Config::set($config,'app');
         //Log::record("[ 系统配置 ]：初始化成功");
 	}
     /**

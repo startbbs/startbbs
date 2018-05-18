@@ -49,7 +49,7 @@ class User extends HomeBase
      */
     public function register()
     {
-	    if(config('user.allow_reg')==0){
+	    if(config('allow_reg')==0){
 		    $this->error('注册功能已关闭','/');
 	    }
         if ($this->request->isPost()) {

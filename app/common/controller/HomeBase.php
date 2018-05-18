@@ -14,12 +14,12 @@ class HomeBase extends Controller
     protected function initialize()
     {
         parent::initialize();
-        if (config('base.site_status') != 1) {
+        if (config('site_status') != 1) {
            exit('站点已关闭');
         }
 		View::share([
-			'keywords'=>config('base.site_keywords'),
-			'description'=>config('base.site_description'),
+			'keywords'=>config('site_keywords'),
+			'description'=>config('site_description'),
 		]);
         $this->getNav();
         //$this->getSlide();

@@ -373,15 +373,15 @@ function get_group_name($id)
  */
 function send_mail($email, $title, $content)
 {
-	//$issmtp=config('mail.smtp_is');
+	//$issmtp=config('smtp_is');
 	$email_set = array(
-		'host' => config('mail.smtp_host'),
-		'port' => config('mail.smtp_port'),
-		'user' => config('mail.smtp_user'),
-		'pswd' => config('mail.smtp_pswd'),
+		'host' => config('smtp_host'),
+		'port' => config('smtp_port'),
+		'user' => config('smtp_user'),
+		'pswd' => config('smtp_pswd'),
 	);
 	$mail = array(
-		'from' => config('mail.smtp_user'),
+		'from' => config('smtp_user'),
 		'to' => $email,
 		'title' => $title,
 		'content' => $content,
