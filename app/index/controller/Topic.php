@@ -72,6 +72,10 @@ class Topic extends HomeBase
     {
 	    !is_login() && $this->error('没有登录', 'user/login');
         if ($this->request->isPost()) {
+	        //防灌水
+	        if(anti_rubbish()){
+		        $this->error('发贴时间间隔小于'.config('post_space').'秒');
+	        }
             $data            = $this->request->param();
             $validate_result = $this->validate($data, 'Topic');
 
@@ -132,7 +136,8 @@ class Topic extends HomeBase
 			            $this->attachment_model->saveAll($file_data,false);
 			            rmdir($tmp_path);
 		            }
-		            
+		            //记录发贴时间
+		            \Cookie::set('last_add_time',time());
                     $this->success('发表成功','/topic/detail/id/'.$data['topic_id']);
                 } else {
                     $this->error('保存失败');

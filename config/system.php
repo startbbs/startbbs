@@ -3,9 +3,9 @@
 return [
     'group_list' => [
 	    'base'=>'基础',
+	    //'sys'=>'系统',
 	    'content'=>'内容',
 	    'user'=>'用户',
-	    //'sys'=>'系统',
 	    //'upload' =>'上传',
 	    //'develop' =>'开发',
 	    //'databases' =>'数据库',

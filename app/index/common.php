@@ -34,3 +34,12 @@ function get_category_name($cid)
 		}
 	}
 }
+/**
+ * 防灌水
+ * @param string $
+ * @return boole true/false
+ */
+ function anti_rubbish()
+ {
+	return (time()-cookie('last_add_time'))<config('post_space')?true:false;
+ }
