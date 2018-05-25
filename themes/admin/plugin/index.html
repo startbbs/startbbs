@@ -1,0 +1,75 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+    <!--tab标签-->
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+	        {volist name="tab_data['menu']" id="vo"}
+            <li{if condition="url($vo['url']) eq $tab_data['current']"} class="layui-this"{/if}><a href="{:url($vo['url'])}">{$vo['title']}</a></li>
+            {/volist}
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th>插件信息</th>
+                        <th>标识</th>
+                        <th>版本</th>
+                        <th>系统插件</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach name="data_list" item="vo"}
+                    <tr>
+                        <td width="450px">
+	                        <div class="layui-row layui-col-space10">
+								<div class="layui-col-md2">
+		                        {if $vo['icon']}
+		                            <img src="{$vo['icon']}" width="60" height="60">
+		                        {else /}
+		                            <img src="/public/static/common/images/app.png" width="60" height="60">
+		                        {/if}
+								</div>
+								<div class="layui-col-md10">
+		                        名称:{$vo.title}</br>
+		                        简介:{$vo.description}</br>
+		                        作者:{$vo.author}</br>
+								</div>
+							</div>
+	                    </td>
+                        <td>{$vo.name}</td>
+                        <td>{$vo.version}</td>
+                        <td>{if $vo.system}是{else /}否{/if}</td>
+                        <td>{if $vo.status==0}未安装{elseif $vo.status==1 /}禁用{else /}已安装{/if}</td>
+                        <td>
+	                        {if $vo['status'] eq 1}
+							<a data-url="{:url('status?val=2&id='.$vo['id'])}" class="layui-btn layui-btn-small ajax-notice">启用</a>
+	                        {/if}
+	                        {if $vo['status'] eq 2}
+							<a title="禁用后将无法使用此插件，您确定要禁用吗？" data-url="{:url('status?val=1&id='.$vo['id'])}" class="layui-btn layui-btn-warm layui-btn-small ajax-notice">禁用</a>
+	                        {/if}
+	                        {if $vo['status'] eq 0}
+	                        <a data-url="{:url('install?id='.$vo['id'])}" class="layui-btn layui-btn-primary layui-btn-small ajax-confirm">安装</a>
+	                        <a data-url="{:url('del?id='.$vo['id'])}" class="layui-btn layui-btn-danger layui-btn-mini ajax-confirm">删除</a>
+	                        {/if}
+	                        {if ($vo['status'] eq 1) or ($vo['status'] eq 2)}
+	                        {if $vo.config}
+	                        <a href="{:url('setting?id='.$vo['id'])}" class="layui-btn layui-btn-normal layui-btn-small">配置</a>
+	                        {/if}
+	                        <a data-url="{:url('uninstall?id='.$vo['id'])}" class="layui-btn layui-btn-danger layui-btn-small ajax-confirm">卸载</a>
+	                        {/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!--分页-->
+                {$pages|raw}
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

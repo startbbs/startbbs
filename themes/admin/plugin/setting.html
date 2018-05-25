@@ -1,0 +1,160 @@
+{extend name="base" /}
+{block name="body"}
+<div class="layui-body">
+    <!--tab标签-->
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">插件配置</li>
+        </ul>
+        <fieldset class="layui-elem-field layui-field-title">
+          <legend>【{$data_info['title']}】配置</legend>
+        </fieldset>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <form class="layui-form form-container" action="{:url()}" method="post">
+	        {volist name="data_info['config']" id="v"}
+	        {switch name="v['type']"}
+	            {case value="textarea"}
+	                <!--多行文本-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        <textarea rows="6"  class="layui-textarea" name="{$v['name']}" autocomplete="off" placeholder="请填写{$v['title']}">{:htmlspecialchars_decode($v['value'])}</textarea>
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="array"}
+	                <!--文本域-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        <textarea rows="6" class="layui-textarea" name="{$v['name']}" autocomplete="off" placeholder="请填写{$v['title']}">{$v['value']}</textarea>
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="switch"}
+	                <!--开关-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        <input type="checkbox" name="{$v['name']}" value="1" lay-skin="switch" lay-text="{$v['options'][1]}|{$v['options'][0]}" {if condition="$v['value'] eq 1"}checked=""{/if}>
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="select"}
+	                <!--下拉框-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        <select name="{$v['name']}">
+	                            {volist name="v['options']" id="vv"}
+	                                <option value="{$key}" {if condition="$key eq $v['value']"}selected{/if}>{$vv}</option>
+	                            {/volist}
+	                        </select>
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="radio"}
+	                <!--单选-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        {volist name="v['options']" id="vv"}
+	                            <input type="radio" name="{$v['name']}" value="{$key}" title="{$vv}" {if condition="$key eq $v['value']"}checked{/if}>
+	                        {/volist}
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="checkbox"}
+	                <!--多选-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        {php}$value = json_decode($v['value']);{/php}
+	                        {volist name="v['options']" id="vv"}
+	                            <input type="checkbox" name="{$v['name']}[]" value="{$key}" title="{$vv}" lay-skin="primary" {if condition="in_array($key, $value)"}checked{/if}>
+	                        {/volist}
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="date"}
+	                <!--日期-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        <input type="text" class="layui-input layui-date" name="{$v['name']}" value="{$v['value']}" autocomplete="off" placeholder="请填写{$v['title']}" onclick="layui.laydate({elem: this,format:'YYYY-MM-DD'})">
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="datetime"}
+	                <!--日期+时间-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        <input type="text" class="layui-input layui-date" name="{$v['name']}" value="{$v['value']}" autocomplete="off" placeholder="请填写{$v['title']}" onclick="layui.laydate({elem: this,format:'YYYY-MM-DD hh:mm:ss'})">
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="image"}
+	                <!--图片-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline upload">
+	                        <button type="button" name="upload" class="layui-btn layui-btn-primary layui-upload" lay-data="{accept:'image'}" lay-type="image">请上传{$v['title']}</button>
+	                        <input type="hidden" class="upload-input" name="{$v['name']}" value="{$v['value']}">
+	                        {if condition="$v['value']"}
+	                            <img src="{$v['value']}" style="display:inline-block;border-radius:5px;border:1px solid #ccc" width="36" height="36">
+	                        {else /}
+	                            <img src="" style="display:none;border-radius:5px;border:1px solid #ccc" width="36" height="36">
+	                        {/if}
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="file"}
+	                <!--文件-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline upload">
+	                        <button type="button" name="upload" class="layui-btn layui-btn-primary layui-upload" lay-data="{accept:'file'}">请上传{$v['title']}</button>
+	                        <input type="hidden" class="upload-input" name="{$v['name']}" value="{$v['value']}">
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	            {/case}
+	            {case value="hidden"}
+	                <input type="hidden" name="{$v['name']}" value="{$v['value']}">
+	            {/case}
+	            {default /}
+	                <!--单行文本-->
+	                <div class="layui-form-item">
+	                    <label class="layui-form-label">{$v['title']}</label>
+	                    <div class="layui-input-inline">
+	                        <input type="text" class="layui-input" name="{$v['name']}" value="{$v['value']}" autocomplete="off" placeholder="请填写{$v['title']}">
+	                    </div>
+	                    <div class="layui-form-mid layui-word-aux">{:htmlspecialchars_decode($v['tips'])}</div>
+	                </div>
+	        {/switch}
+	        {/volist}
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+	                        <input type="hidden" name="id" value="{$data_info['id']}">
+                            <button class="layui-btn" lay-submit1 lay-filter="*">保存</button>
+                            <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+                            <a href="{:url('index')}" class="layui-btn layui-btn-primary ml10"><i class="aicon ai-fanhui"></i>返回</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
