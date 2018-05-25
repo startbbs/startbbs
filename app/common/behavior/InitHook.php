@@ -21,21 +21,20 @@ class InitHook
         $plugin      = cache('plugin');
 
         if (!$hook_plugin) {
-            $hooks = HookModel::where('status', 1)->column('status', 'name');
-            //var_dump($hooks);
-            $plugin = PluginModel::where('status', 1)->column('status', 'name');
+            $hook = HookModel::where('status', 1)->column('status', 'name');
+            $plugin = PluginModel::where('status', 2)->column('status', 'name');
             $hook_plugin = HookPluginModel::where('status', 1)->field('hook,plugin')->order('sort')->select();
             // 非开发模式，缓存数据
-            if (config('app_debug') === 1) {
+            //if (config('app_debug') === 1) {
                 cache('hook_plugin', $hook_plugin);
-                cache('hooks', $hook);
+                cache('hook', $hook);
                 cache('plugin', $plugin);
-            }
+            //}
         }
         // 全局插件
         if ($hook_plugin) {
             foreach ($hook_plugin as $value) {
-                if (isset($hooks[$value->hook]) && isset($plugin[$value->plugin])) {
+                if (isset($hook[$value->hook]) && isset($plugin[$value->plugin])) {
                     Hook::add($value->hook, get_plugin_class($value->plugin));
                 }
             }

@@ -190,3 +190,50 @@ $('.ajax-delete').on('click', function () {
       }
     })
   });
+/**
+ * ajax-get请求操作
+ */
+$('.ajax-confirm').on('click', function () {
+	var _text=$(this).text();
+    var _href = $(this).data("url");
+    layer.open({
+        shade: false,
+        content: '你确定'+_text+'？',
+        btn: ['确定', '取消'],
+        yes: function (index) {
+            $.ajax({
+                url: _href,
+                type: "get",
+                success: function (info) {
+                    if (info.code === 1) {
+                        setTimeout(function () {
+                            location.href = info.url;
+                        }, 1000);
+                    }
+                    layer.msg(info.msg,{icon: 1});
+                }
+            });
+            layer.close(index);
+        }
+    });
+	return false;
+});
+
+/**
+ * 通知弹出消息
+ */
+ $('.ajax-notice').on('click', function () {
+	var _href = $(this).data("url");
+    $.ajax({
+	    url: _href,
+        type: "get",
+		success: function (info) {
+            if (info.code === 1) {
+                setTimeout(function () {
+                    location.href = info.url;
+                }, 1000);
+            }
+			layer.msg(info.msg);
+		}
+    });
+});

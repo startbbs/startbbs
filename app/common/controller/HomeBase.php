@@ -23,8 +23,8 @@ class HomeBase extends Controller
 		]);
         $this->getNav();
         //$this->getSlide();
-        print_r($this->getCategory());
-		define('DS',DIRECTORY_SEPARATOR); 
+        $this->getCategory();
+		//define('DS',DIRECTORY_SEPARATOR); 
     }
 
     /**

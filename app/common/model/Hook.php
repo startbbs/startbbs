@@ -8,7 +8,53 @@ class Hook extends Model
 {
 	protected $autoWriteTimestamp = true;
     //protected $insert = ['create_time'];
+    /**
+     * 添加钩子
+     * @param array $hooks 钩子
+     * @param string $addon_name 插件名称
+     * @return bool
+     */
+    public static function addHooks($hooks = [])
+    {
+        if ($hooks && is_array($hooks)) {
+            $data = [];
+            foreach ($hooks as $name => $description) {
+                if (is_numeric($name)) {
+                    $name = $description;
+                    $description = '';
+                }
+                if (self::where('name', $name)->find()) {
+                    continue;
+                }
+                $data[] = [
+                    'name'        => $name,
+                    'description' => $description,
+                    'create_time' => request()->time(),
+                    'update_time' => request()->time(),
+                ];
+            }
+            if ($data && false === self::insertAll($data)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
+     * 删除钩子
+     * @param string $name 标识
+     * @return bool
+     */    
+    public static function delHook($name = '')
+    {
+        if (empty($name)) {
+            return false;
+        }
 
+        if (self::where('name', $name)->delete() === false) {
+            return false;
+        }
+        return true;
+    }
     /**
      * 话题作者
      * @param $value

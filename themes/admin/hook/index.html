@@ -31,8 +31,8 @@
                         <td>{if $vo.system}是{else /}否{/if}</td>
                         <td>{php}echo $vo['status'] ? '显示' : '隐藏';{/php}</td>
                         <td>
+	                    {eq name="vo.system" value="0"}
                             <a href="{:url('admin/hook/edit',['id'=>$vo['id']])}" class="layui-btn layui-btn-normal layui-btn-mini">编辑</a>
-                            {eq name="vo.system" value="0"}
                             <a href="{:url('admin/hook/delete',['id'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete">删除</a>
                             {/eq}
                         </td>
