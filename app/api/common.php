@@ -8,7 +8,7 @@
 
 function set_savename()
 {
-	return date('Ym') . DS . md5(microtime(true));
+	return date('Ym') . '/' . md5(microtime(true));
 }
 
 /**

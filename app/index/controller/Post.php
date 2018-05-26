@@ -63,19 +63,19 @@ class Post extends HomeBase
 					$this->topic_model->where('id',$data['topic_id'])->setInc('posts');
 		            //移动附件
 		            if($files){
-			            $upload_path = ROOT_PATH . 'public' . DS . 'uploads';
-			            $tmp_path = $upload_path.DS.'tmp'.DS.$data['attach'];
-			            $new_file_path = $upload_path.DS.'attachment'.DS.date('Ym');
-			            $new_save_path = '/public/uploads/attachment'.DS.date('Ym');
+			            $upload_path = ROOT_PATH.'uploads';
+			            $tmp_path = $upload_path.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.$data['attach'];
+			            $new_file_path = $upload_path.DIRECTORY_SEPARATOR.'attachment'.DIRECTORY_SEPARATOR.date('Ym');
+			            $new_save_path = '/uploads/attachment/'.date('Ym').'/';
 			            if (!file_exists($new_file_path)) {
 				        	mkdir ($new_file_path, 0777, true );
 						}
 			            foreach($files as $k=>$file){
-				        	$tmp_file=$tmp_path.DS.$file['savename'];
-				        	$new_file=$new_file_path.DS.$file['savename'];
+				        	$tmp_file=$tmp_path.DIRECTORY_SEPARATOR.$file['savename'];
+				        	$new_file=$new_file_path.DIRECTORY_SEPARATOR.$file['savename'];
 				        	rename($tmp_file,$new_file);
 				        	
-				        	$url=$new_save_path.DS.$file['savename'];
+				        	$url=$new_save_path.$file['savename'];
 				        	$attachs[]=$url;//备用
 			                //附件入库
 			                $file_data = array (
@@ -156,19 +156,19 @@ class Post extends HomeBase
                 if ($this->post_model->allowField(true)->save($data, $id) !== false) {
 		            //移动附件
 		            if($files){
-			            $upload_path = ROOT_PATH . 'public' . DS . 'uploads';
-			            $tmp_path = $upload_path.DS.'tmp'.DS.$data['attach'];
-			            $new_file_path = $upload_path.DS.'attachment'.DS.date('Ym');
-			            $new_save_path = '/public/uploads/attachment'.DS.date('Ym');
+			            $upload_path = ROOT_PATH. 'uploads';
+			            $tmp_path = $upload_path.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.$data['attach'];
+			            $new_file_path = $upload_path.DIRECTORY_SEPARATOR.'attachment'.DIRECTORY_SEPARATOR.date('Ym');
+			            $new_save_path = '/uploads/attachment'.DIRECTORY_SEPARATOR.date('Ym');
 			            if (!file_exists($new_file_path)) {
 				        	mkdir ($new_file_path, 0777, true );
 						}
 			            foreach($files as $file){
-				        	$tmp_file=$tmp_path.DS.$file['savename'];
-				        	$new_file=$new_file_path.DS.$file['savename'];
+				        	$tmp_file=$tmp_path.DIRECTORY_SEPARATOR.$file['savename'];
+				        	$new_file=$new_file_path.DIRECTORY_SEPARATOR.$file['savename'];
 				        	rename($tmp_file,$new_file);
 				        	
-				        	$url=$new_save_path.DS.$file['savename'];
+				        	$url=$new_save_path.DIRECTORY_SEPARATOR.$file['savename'];
 				        	$attachs[]=$url;//备用
 			                //附件入库
 			                $file_data[] = array (

@@ -23,6 +23,9 @@ upload.render({
     elem: '#test1',
     url: '/api.php/upload/upload',
     size:100,
+    before: function(input) {
+        layer.msg('文件上传中...', {time:300000});
+    },
     done: function(res){
         //如果上传失败
         if(res.code > 0){
@@ -30,9 +33,39 @@ upload.render({
         }
         //上传成功
         layer.msg("上传成功");
-        $("#thumb").val(res.data);
+        layer.closeAll();
+        $("#thumb").attr('src','/public'+res.url).show();
     }
 });
+
+/**
+ * 单图上传
+ */
+
+upload.render({
+    elem: '.layui-upload',
+    url: '/api.php/upload/upload',
+    size:100,
+    before: function(input) {
+        layer.msg('文件上传中...', {time:300000});
+    },
+    done: function(res){
+	    var obj = this.item;
+        //如果上传失败
+        if(res.code > 0){
+            return layer.msg('上传失败');
+        }
+        //上传成功
+        layer.msg("上传成功");
+        layer.closeAll();
+        var input = $(obj).parents('.upload').find('.upload-input');
+        if ($(obj).attr('lay-type') == 'image') {
+            input.siblings('img').attr('src', '/public'+res.url).show();
+        }
+        input.val(res.url);
+    }
+});
+
 
 /*layui.upload({
     url: "/index.php/api/upload/upload",

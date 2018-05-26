@@ -1,6 +1,6 @@
 /config/database.php
 /runtime
 /public/static/install/install.lock
-/public/uploads
 /plugin
 /extend/thirdlogin
+/home.php

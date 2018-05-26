@@ -56,13 +56,15 @@
 					                    {/volist}
 		                                {/case}
 		                                {case value="8"}
+		                                <div class="upload">
 					                    <button type="button" name="upload" class="layui-btn layui-btn-primary layui-upload" lay-type="image" lay-data="{ {if condition="!empty($v['url'])"}url: '{:url($v['url'])}', {/if}exts:'{:str_replace(',', '|', config('upload.upload_image_ext'))}', accept:'image'}">请上传{$v['title']}</button>
 					                    <input type="hidden" class="upload-input" name="config[{$v['name']}]" value="{$v['value']}">
 					                    {if condition="$v['value']"}
-					                        <img src="{$v['value']}" style="display:inline-block;border-radius:5px;border:1px solid #ccc" width="36" height="36">
+					                        <img src="{$v['value']}" style="display:inline-block;border-radius:5px;border:1px solid #ccc" width="36" height="36" id="thumb">
 					                    {else /}
-					                        <img src="" style="display:none;border-radius:5px;border:1px solid #ccc" width="36" height="36">
+					                        <img src="" style="display:none;border-radius:5px;border:1px solid #ccc" width="36" height="36" id="thumb">
 					                    {/if}
+					                    </div>
 		                                {/case}
 		                                {case value="9"}
 					                    <button type="button" name="upload" class="layui-btn layui-btn-primary layui-upload" lay-data="{ {if condition="!empty($v['url'])"}url: '{:url($v['url'])}', {/if}exts:'{:str_replace(',', '|', config('upload.upload_file_ext'))}', accept:'file'}">请上传{$v['title']}</button>

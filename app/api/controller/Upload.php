@@ -6,7 +6,6 @@ use Session;
 use Db;
 use image\Image;
 use Cache;
-use Env;
 
 /**
  * 通用上传接口
@@ -18,7 +17,6 @@ class Upload extends Controller
     protected function initialize()
     {
         parent::initialize();
-        define('ROOT_PATH',Env::get('root_path'));
         //if (!Session::has('admin_id')) {
         //    $result = [
         //        'error'   => 1,
@@ -42,7 +40,7 @@ class Upload extends Controller
 
         $file = $this->request->file('file');
 
-        $upload_path = str_replace('\\', '/', ROOT_PATH . 'public/uploads');
+        $upload_path = str_replace('\\', '/', ROOT_PATH . 'uploads');
         $save_path   = '/uploads/';
         $info        = $file->validate($config)->move($upload_path);
 
@@ -74,8 +72,8 @@ class Upload extends Controller
         $file = $this->request->file('file');
         $user_id=Session::get('user_id');
 		$folder=substr($user_id, -1);
-        $upload_path = str_replace('\\', '/', ROOT_PATH . 'public/uploads/avatar/'.$folder.'/');
-        $save_path   = '/public/uploads/avatar/'.$folder.'/';
+        $upload_path = str_replace('\\', '/', ROOT_PATH . 'uploads/avatar/'.$folder.'/');
+        $save_path   = '/uploads/avatar/'.$folder.'/';
 		if (! file_exists ($upload_path)) {
 		        mkdir ($upload_path, 0777, true );
 		}
@@ -114,8 +112,8 @@ class Upload extends Controller
         $file = $this->request->file('file');
         $attach = $this->request->post('attach');
 
-        $upload_path = str_replace('\\', '/', ROOT_PATH . 'public/uploads/tmp/'.$attach);
-        $save_path   = '/public/uploads/tmp/'.$attach.'/';
+        $upload_path = str_replace('\\', '/', ROOT_PATH . 'uploads/tmp/'.$attach);
+        $save_path   = '/uploads/tmp/'.$attach.'/';
         $info        = $file->validate($config)->rule('uniqid')->move($upload_path);
        
         if ($info) {
@@ -160,8 +158,8 @@ class Upload extends Controller
         ];
         $uploadfiles = $this->request->file('files');
         $atoken=$this->request->post('atoken');
-        $upload_path = str_replace('\\', '/', ROOT_PATH . 'public/uploads/attachment/');
-        $save_path   = '/public/uploads/attachment/';
+        $upload_path = str_replace('\\', '/', ROOT_PATH . 'uploads/attachment/');
+        $save_path   = '/uploads/attachment/';
 		foreach($uploadfiles as $k=>$file){
 	        $info=$file->validate($config)->rule('set_savename')->move($upload_path);
 	        if ($info) {
@@ -205,8 +203,8 @@ class Upload extends Controller
 
         $file = $this->request->file('file');
         $cid=$this->request->post('cid');
-        $upload_path = str_replace('\\', '/', ROOT_PATH . 'public/uploads/category/');
-        $save_path   = '/public/uploads/category/';
+        $upload_path = str_replace('\\', '/', ROOT_PATH . 'uploads/category/');
+        $save_path   = '/uploads/category/';
 		if (! file_exists ($upload_path)) {
 		        mkdir ($upload_path, 0777, true );
 		}

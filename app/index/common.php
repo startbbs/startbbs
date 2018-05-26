@@ -8,14 +8,14 @@ use Think\facade\Cache;
  */
 function get_avatar($id,$size='middle')
 {
-	$savepath = '/public/uploads/avatar/';
+	$savepath = '/uploads/avatar/';
 	$folder = substr($id, -1);
 	$avatar=$savepath.$folder.'/'.$id.'_'.$size.'.png';
 	$file = str_replace('\\', '/', ROOT_PATH . $avatar);
 	if(is_file($file)){
 		return $avatar;
 	}else{
-		return '/public/uploads/avatar/default_'.$size.'.png';
+		return '/uploads/avatar/default_'.$size.'.png';
 	}
 }
 /**
