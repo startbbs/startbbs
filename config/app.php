@@ -13,7 +13,7 @@
 // | 应用设置
 // +----------------------------------------------------------------------
 
-return [
+$configs= [
 
     // 应用调试模式
     'app_debug'              => true,
@@ -115,8 +115,9 @@ return [
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
-    //版本
-    'version' => 'v2.0.1',
-    //发布时间
-    'publish_time' => '20180408',
 ];
+//动态设置
+if (file_exists($file = Env::get('root_path').'config/site.php')) {
+    $configs = array_merge($configs, include ($file));
+}
+return  $configs;
